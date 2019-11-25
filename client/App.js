@@ -6,22 +6,16 @@ import Login from './screens/Login';
 import AR from './screens/AR';
 import CustomerLanding from './screens/CustomerLanding';
 import { Navigator, Route } from './navigation/Navigator';
+import BusinessLanding from './screens/BusinessLanding';
 
 // ScannAR navigator
-
-const Screen3 = ({ navigator }) => (
-  <View style={[styles.screen, { backgroundColor: "#B9E3C6" }]}>
-    <Button title="Logout" onPress={() => navigator.pop()} />
-  </View>
-);
-
 export default class App extends React.Component {
   render() {
     return (
       <Navigator>
         <Route name="Login" component={Login} />
         <Route name="CustomerLanding" component={CustomerLanding} />
-        <Route name="Business" component={Screen3} />
+        <Route name="Business" component={BusinessLanding} />
         <Route name="AR" component={AR} />
       </Navigator>
     );
