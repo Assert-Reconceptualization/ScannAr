@@ -9,7 +9,7 @@ const CustomerLanding = ({ navigator }) => (
         <View style={styles.links}>
             <Text>Saved items will go here</Text>
         </View>
-        <CustomerNavBar />
+        <CustomerNavBar navigator={navigator}/>
     </View>
 );
 

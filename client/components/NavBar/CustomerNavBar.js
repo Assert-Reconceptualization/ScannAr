@@ -1,11 +1,15 @@
 import React from "react";
-import { Text, View, StyleSheet, Button } from "react-native";
+import { Text, View, StyleSheet, Button, TouchableHighlight, TouchableOpacity } from "react-native";
 
-const CustomerNavBar = () => {
+const CustomerNavBar = ({ navigator }) => {
 return (
     <View style={styles.bar}>
-        <Button title="AR" onPress={() => navigator.push("AR")} />
-        <Button title="Logout" onPress={() => navigator.pop()} />
+        <TouchableOpacity onPress={() => navigator.push("AR")}>
+                <Text style={styles.buttonText}>AR</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigator.pop()}>
+                <Text style={styles.buttonText}>Logout</Text>
+        </TouchableOpacity>
     </View>
     )
 };
@@ -14,9 +18,22 @@ const styles = StyleSheet.create({
     bar: {
         // flex:1,
         flexDirection: "row",
-        height: 50,
+        justifyContent: "space-around",
+        height: "8%",
         width: "100%",
         backgroundColor: 'lightblue'
+    },
+    button: {
+        borderRadius: 10,
+        marginBottom: 1,
+        width: 260,
+        alignItems: 'center',
+        backgroundColor: '#2196F3'
+    },
+    buttonText: {
+        textAlign: 'center',
+        padding: 20,
+        color: 'white'
     }
 });
 
