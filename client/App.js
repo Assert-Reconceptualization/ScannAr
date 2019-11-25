@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyleSheet, View, Button } from "react-native";
 
 // import screens
 import Login from './screens/Login';
@@ -11,8 +10,7 @@ import BusinessLanding from './screens/BusinessLanding';
 import { Navigator, Route } from './navigation/Navigator';
 
 // ScannAR navigator
-export default class App extends React.Component {
-  render() {
+const App = () => {
     return (
       <Navigator>
         <Route name="Login" component={Login} />
@@ -21,13 +19,6 @@ export default class App extends React.Component {
         <Route name="AR" component={AR} />
       </Navigator>
     );
-  }
 }
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
+export default App;
