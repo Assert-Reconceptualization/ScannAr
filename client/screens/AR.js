@@ -6,15 +6,17 @@ import { StyleSheet, Button, View } from "react-native";
 
 import { ViroARScene, ViroText, ViroConstants, ViroARSceneNavigator } from "react-viro";
 
+import ARNavBar from "../components/NavBar/ARNavBar";
+
 const ARScreen = ({ navigator }) => {
   return (
     <View style={styles.screen}>
+      <ARNavBar navigator={navigator} />
       <ViroARSceneNavigator
         initialScene={{
           scene: ARscene
         }}
       />
-      <Button title="Go Back" onPress={() => navigator.pop()} />
     </View>
   );
 };
