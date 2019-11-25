@@ -8,25 +8,29 @@ import {
 } from "react-native";
 
 // import components
-import LoginHeader from '../components/headers/LoginHeader';
 
 // ScannAR navigator
 const Login = ({ navigator }) => {
   return (
     <View style={styles.screen}>
-      <LoginHeader />
+      <Text style={styles.header}>ScannAR</Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={styles.button}
+          style={styles.button1}
           onPress={() => navigator.push("CustomerLanding")}
         >
-          <Text style={styles.text}>Customer</Text>
+          <Text style={styles.customerTitle}>I am a customer</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.button}
+          style={styles.button2}
           onPress={() => navigator.push("Business")}
         >
-          <Text style={styles.text}>Business</Text>
+          <Text style={styles.businessTitle}>I am a business</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.loginContainer}>
+        <TouchableOpacity style={styles.button3}>
+          <Text style={styles.businessTitle}>Sign up with Google</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -36,27 +40,66 @@ const Login = ({ navigator }) => {
 // styles
 const styles = StyleSheet.create({
   buttonContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: 50
+    marginTop: "10%",
+    padding: 2,
+    flexDirection: "row",
+    width: "85%",
+    justifyContent: "space-around",
+    backgroundColor: "#86A4AF",
+    borderRadius: 5
+  },
+  loginContainer: {
+    marginTop: "10%",
+    padding: 2,
+    flexDirection: "row",
+    width: "60%",
+    justifyContent: "space-around",
+    backgroundColor: "#86A4AF",
+    borderRadius: 5
   },
   screen: {
     flex: 1,
-    backgroundColor: "#59C9A5"
+    alignItems: "center",
+    paddingTop: "30%",
+    backgroundColor: "#082C39"
   },
-  button: {
-    height: "10%",
-    width: "40%",
-    backgroundColor: "lightblue",
+  button1: {
+    flex: 1,
+    backgroundColor: "#86A4AF",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 5,
-    marginBottom: 10
+    minHeight: 30,
+    borderTopStartRadius: 5,
+    borderBottomStartRadius: 5
   },
-  text: {
-    fontWeight: 'bold',
-    fontSize: 30
+  button2: {
+    flex: 1,
+    backgroundColor: "#01161D",
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: 30,
+    borderTopEndRadius: 5,
+    borderBottomEndRadius: 5
+  },
+  button3: {
+    flex: 1,
+    backgroundColor: "#01161D",
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: 50,
+    borderRadius: 5
+  },
+  customerTitle: {
+    fontSize: 15
+  },
+  businessTitle: {
+    fontSize: 15,
+    color: "white"
+  },
+  header: {
+    fontSize: 55,
+    fontWeight: "bold",
+    color: "white"
   }
 });
 
