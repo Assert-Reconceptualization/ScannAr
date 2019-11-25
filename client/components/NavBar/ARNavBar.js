@@ -5,9 +5,7 @@ const ARNavBar = ({ navigator }) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity onPress={() => navigator.pop()}>
-                <View style={styles.button}>
                 <Text style={styles.buttonText}>Back</Text>
-                </View>
             </TouchableOpacity>
         </View>
     )
@@ -20,9 +18,6 @@ const styles = StyleSheet.create({
         width: "100%",
         opacity: 50,
         backgroundColor: 'lightblue'
-    },
-    button: {
-        width: "100%",
     },
     buttonText: {
         textAlign: 'left',
