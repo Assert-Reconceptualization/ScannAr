@@ -2,17 +2,20 @@
 
 import React, { Component } from "react";
 
-import { StyleSheet } from "react-native";
+import { StyleSheet, Button, View } from "react-native";
 
 import { ViroARScene, ViroText, ViroConstants, ViroARSceneNavigator } from "react-viro";
 
-const ARScreen = () => {
+const ARScreen = ({ navigator }) => {
   return (
-    <ViroARSceneNavigator
-      initialScene={{
-        scene: ARscene
-      }}
-    />
+    <View style={styles.screen}>
+      <ViroARSceneNavigator
+        initialScene={{
+          scene: ARscene
+        }}
+      />
+      <Button title="Go Back" onPress={() => navigator.pop()} />
+    </View>
   );
 };
 
@@ -27,9 +30,12 @@ const ARscene = () => {
       />
     </ViroARScene>
   );
-}
+};
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1
+  },
   helloWorldTextStyle: {
     fontFamily: "Arial",
     fontSize: 30,
