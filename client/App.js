@@ -5,8 +5,10 @@ import { StyleSheet, View, Button } from "react-native";
 import Login from './screens/Login';
 import AR from './screens/AR';
 import CustomerLanding from './screens/CustomerLanding';
-import { Navigator, Route } from './navigation/Navigator';
 import BusinessLanding from './screens/BusinessLanding';
+
+// import components
+import { Navigator, Route } from './navigation/Navigator';
 
 // ScannAR navigator
 export default class App extends React.Component {
