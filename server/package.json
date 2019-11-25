@@ -9,6 +9,8 @@
   "author": "Abel Terefe",
   "license": "ISC",
   "dependencies": {
+    "@feathersjs/cli": "github:feathersjs/cli",
+    "@feathersjs/feathers": "^4.3.11",
     "pg": "^7.14.0"
   },
   "devDependencies": {
