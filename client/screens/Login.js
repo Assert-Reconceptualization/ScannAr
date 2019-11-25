@@ -7,7 +7,7 @@ import { Text, View, StyleSheet, Button } from "react-native";
 const Login = ({ navigator }) => {
   return (
     <View style={[styles.screen, { backgroundColor: "#59C9A5" }]}>
-      <Button title="Customer" onPress={() => navigator.push("Customer")} />
+      <Button title="Customer" onPress={() => navigator.push("CustomerLanding")} />
       <Button title="Business" onPress={() => navigator.push("Business")} />
     </View>
   );
