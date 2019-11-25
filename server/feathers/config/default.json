@@ -28,5 +28,5 @@
       "passwordField": "password"
     }
   },
-  "postgres": "postgres://postgres:@localhost:5432/scann_ar"
+  "postgres": "postgres://postgres:@localhost:5432/scannar"
 }

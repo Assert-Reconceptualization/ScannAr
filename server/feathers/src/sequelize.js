@@ -1,13 +1,14 @@
 const Sequelize = require('sequelize');
 
-module.exports = function (app) {
+module.exports = (app) => {
   const connectionString = app.get('postgres');
   const sequelize = new Sequelize(connectionString, {
     dialect: 'postgres',
+    database: 'ScannAr',
     logging: false,
     define: {
-      freezeTableName: true
-    }
+      freezeTableName: true, // Model tableName will be the same as the model name
+    },
   });
   const oldSetup = app.setup;
 
@@ -17,15 +18,19 @@ module.exports = function (app) {
     const result = oldSetup.apply(this, args);
 
     // Set up data relationships
-    const models = sequelize.models;
-    Object.keys(models).forEach(name => {
+    const { models } = sequelize;
+    Object.keys(models).forEach((name) => {
       if ('associate' in models[name]) {
         models[name].associate(models);
       }
     });
 
     // Sync to the database
-    app.set('sequelizeSync', sequelize.sync());
+    app.set('sequelizeSync', sequelize.sync({force: true}).then(() => {
+      console.log('connected to database');
+    }).error((err) =>{
+      console.log(`Error: ${err}`);
+    }));
 
     return result;
   };

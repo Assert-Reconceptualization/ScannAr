@@ -20,6 +20,7 @@ const authentication = require('./authentication');
 
 const sequelize = require('./sequelize');
 
+// Create an Express compatible Feathers application instance.
 const app = express(feathers());
 
 // Load app configuration
@@ -28,14 +29,17 @@ app.configure(configuration());
 app.use(helmet());
 app.use(cors());
 app.use(compress());
+// Turn on JSON parser for REST services
 app.use(express.json());
+// Turn on URL-encoded parser for REST services
 app.use(express.urlencoded({ extended: true }));
 app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
 app.use('/', express.static(app.get('public')));
 
-// Set up Plugins and providers
+// Set up Plugins and providers & Enable REST services
 app.configure(express.rest());
+// Enable Socket.io services
 app.configure(socketio());
 
 app.configure(sequelize);
