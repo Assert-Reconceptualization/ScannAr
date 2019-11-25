@@ -4,14 +4,14 @@ import React, { Component } from "react";
 
 import { StyleSheet, Button, View } from "react-native";
 
-import { ViroARScene, ViroText, ViroConstants, ViroARSceneNavigator } from "react-viro";
+import { ViroARScene, ViroText, ViroConstants, ViroARSceneNavigator, ViroFlexView } from "react-viro";
 
 import ARNavBar from "../components/NavBar/ARNavBar";
 
 const ARScreen = ({ navigator }) => {
   return (
     <View style={styles.screen}>
-      <ARNavBar navigator={navigator} />
+    <ARNavBar navigator={navigator} />
       <ViroARSceneNavigator
         initialScene={{
           scene: ARscene

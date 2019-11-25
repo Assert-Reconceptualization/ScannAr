@@ -15,15 +15,13 @@ const ARNavBar = ({ navigator }) => {
 
 const styles = StyleSheet.create({
     container: {
-        borderRadius: 8,
         justifyContent: "space-around",
         height: "7%",
         width: "100%",
+        opacity: 50,
         backgroundColor: 'lightblue'
     },
     button: {
-        // flexDirection: "row",
-
         width: "100%",
     },
     buttonText: {
