@@ -1,27 +1,19 @@
 "use strict";
 
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 
-import { StyleSheet, Button, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import {
   ViroARScene,
   ViroText,
-  ViroConstants,
   ViroARSceneNavigator,
-  ViroFlexView,
-  ViroARTrackingTargets,
-  ViroARImageMarker,
   ViroNode,
-  ViroAnimations,
-  ViroAnimatedImage,
 } from "react-viro";
 
 import ARNavBar from "../components/NavBar/ARNavBar";
 import ARImageMarkerItem from "../components/AR/ARImageMarkerItem";
 import products from '../mock-data/products';
-// this will be targets given in props or from state
-// let targets = [];
 
 const ARScreen = ({ navigator }) => {
   return (
@@ -37,12 +29,11 @@ const ARScreen = ({ navigator }) => {
 };
 
 const ARscene = () => {
-  var [text, setText] = useState('cool')
-  var [runAnimation, setAnimation] = useState(false);
+  const [text, setText] = useState('Initializing...')
   return (
-    <ViroARScene>
+    <ViroARScene onTrackingUpdated={() => setText('Look around to get started')}>
       <ViroText
-        text={`${runAnimation}`}
+        text={text}
         scale={[0.5, 0.5, 0.5]}
         position={[0, 0, -1]}
         style={styles.helloWorldTextStyle}
@@ -64,26 +55,6 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     textAlignVertical: "center",
     textAlign: "center"
-  },
-  card: {
-    flexDirection: 'column',
-    backgroundColor: 'white',
-    opacity: 0.5
-  },
-  cardWrapper: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    padding: 0.001,
-    flex: .5,
-  },
-  textStyle: {
-    flex: .5,
-    fontFamily: 'Roboto',
-    fontSize: 30,
-    color: 'black',
-    textAlignVertical: 'top',
-    textAlign: 'left',
-    fontWeight: 'bold',
   },
 });
 

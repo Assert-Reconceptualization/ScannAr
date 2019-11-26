@@ -20,15 +20,7 @@ import {
  * @param {string} object
  */
 
-// let target; // This allows dynamic creation of targets
-
 const ARImageMarkerItem = ({ item }) => {
-//   target = {
-//   [item.name]: {
-//     source: { url: (`${item.url}`) },
-//     orientation: "Up",
-//     physicalWidth: 1 // real world width in meters
-//   }};
 
   ViroARTrackingTargets.createTargets({
     [item.name]: {
@@ -39,13 +31,10 @@ const ARImageMarkerItem = ({ item }) => {
   });
 
 return (
-    <ViroARImageMarker target={item.name}
-        // onAnchorFound={
-        //     () => setAnimation(true)}
-    >
+    <ViroARImageMarker target={item.name}>
         <ViroNode key="card">
             <ViroNode
-                opacity={0} position={[0, -0.02, 0]}
+                style={{opacity: 0}}position={[0, -0.02, 0]}
                 dragType="FixedToWorld"
                 animation={{
                     name: 'animateImage',
@@ -62,12 +51,6 @@ return (
                     <ViroFlexView
                         style={styles.cardWrapper}
                     >
-                        {/* <ViroImage
-                        height={0.015}
-                        width={0.015}
-                        style={styles.image}
-                        source={{ url: (`https://i.ibb.co/qWf8pm0/Cabinet.jpg`) }}
-                    /> */}
                         <ViroText
                             textClipMode="None"
                             text={item.name}
@@ -94,8 +77,6 @@ return (
     </ViroARImageMarker>
   );
 }
-
-// ViroARTrackingTargets.createTargets(target);
 
 ViroAnimations.registerAnimations({
     animateImage: {
@@ -130,7 +111,8 @@ const styles = StyleSheet.create({
     card: {
         flexDirection: 'column',
         backgroundColor: 'white',
-        opacity: 0.5
+        // opacity: 0.5 
+        /* Viro doesnt like opacity here */
     },
     cardWrapper: {
         flexDirection: 'row',
