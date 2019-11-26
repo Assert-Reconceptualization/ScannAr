@@ -1,9 +1,9 @@
 export default products = [
     {
         url: '"https://i.ibb.co/yXVGX37/American-Flag.jpg',
-        name: 'blender-bottle',
+        name: 'Flag',
         price: 10,
-        description: 'Wow, a nice bottle'
+        description: 'Wow, so American'
     },
     {
         url: 'https://i.ibb.co/qWf8pm0/Cabinet.jpg',
