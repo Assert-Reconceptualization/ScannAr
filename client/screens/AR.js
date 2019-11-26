@@ -14,9 +14,13 @@ import {
   ViroARImageMarker,
   ViroNode,
   ViroAnimations,
+  ViroAnimatedImage,
 } from "react-viro";
 
 import ARNavBar from "../components/NavBar/ARNavBar";
+
+// this will be targets given in props or from state
+// let targets = [];
 
 const ARScreen = ({ navigator }) => {
   return (
@@ -93,10 +97,15 @@ const ARscene = () => {
                     style={styles.textStyle}
                   />
                   {/* <ViroAnimatedImage
-                    height={0.01}
-                    width={0.01}
+                    height={0.11}
+                    width={0.1}
                     loop={true}
-                    source={require('./res/tweet.gif')}
+                    source={{ url: (`https://i.ibb.co/qWf8pm0/Cabinet.jpg`) }}
+                    animation={{
+                      name: 'animateImage',
+                      run: runAnimation,
+                      // loop: false
+                    }}
                   /> */}
                 </ViroFlexView>
               </ViroFlexView>
@@ -110,8 +119,7 @@ const ARscene = () => {
 
 ViroARTrackingTargets.createTargets({
   "targetOne": {
-    source: { url: (`https://i.ibb.co/yXVGX37/American-Flag.jpg`)},
-    // source: require('../mock-data/Cabinet.jpg'),
+    source: { url: (`https://i.ibb.co/qWf8pm0/Cabinet.jpg`)},
     orientation: "Up",
     physicalWidth: 1 // real world width in meters
   },
