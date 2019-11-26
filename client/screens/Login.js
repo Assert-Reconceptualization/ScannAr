@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -11,25 +11,47 @@ import {
 
 // ScannAR navigator
 const Login = ({ navigator }) => {
+  const [mode, setMode] = useState("CustomerLanding");
+  const [customerColor, setCustomerColor] = useState("#01161D");
+  const [businessColor, setBusinessColor] = useState("#86A4AF");
+
+  const handlePress = (chosenMode) => {
+    setMode(chosenMode);
+    if (chosenMode === "CustomerLanding") {
+      setCustomerColor("#01161D");
+      setBusinessColor("#86A4AF");
+    } else {
+      setCustomerColor("#86A4AF");
+      setBusinessColor("#01161D");
+    }
+  }
+  
+  const handleLogin = () => {
+    navigator.push(mode);
+  }
+
   return (
     <View style={styles.screen}>
       <Text style={styles.header}>ScannAR</Text>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          style={styles.button1}
-          onPress={() => navigator.push("CustomerLanding")}
+          style={[styles.button1, { backgroundColor: customerColor }]}
+          onPress={handlePress.bind(null, "CustomerLanding")}
         >
           <Text style={styles.customerTitle}>I am a customer</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.button2}
-          onPress={() => navigator.push("Business")}
+          style={[styles.button2, { backgroundColor: businessColor }]}
+          onPress={handlePress.bind(null, "Business")}
         >
           <Text style={styles.businessTitle}>I am a business</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.loginContainer}>
-        <TouchableOpacity style={styles.button3}>
+        <TouchableOpacity
+          style={styles.button3}
+          onPress={handleLogin}
+        >
           <Text style={styles.businessTitle}>Sign up with Google</Text>
         </TouchableOpacity>
       </View>
@@ -65,7 +87,6 @@ const styles = StyleSheet.create({
   },
   button1: {
     flex: 1,
-    backgroundColor: "#86A4AF",
     justifyContent: "center",
     alignItems: "center",
     minHeight: 30,
@@ -74,7 +95,6 @@ const styles = StyleSheet.create({
   },
   button2: {
     flex: 1,
-    backgroundColor: "#01161D",
     justifyContent: "center",
     alignItems: "center",
     minHeight: 30,
@@ -90,7 +110,8 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   customerTitle: {
-    fontSize: 15
+    fontSize: 15,
+    color: "white"
   },
   businessTitle: {
     fontSize: 15,
