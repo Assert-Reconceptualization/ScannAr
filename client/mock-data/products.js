@@ -1,6 +1,6 @@
 export default products = [
     {
-        url: 'https://files.slack.com/files-pri/T02P3HQD6-FQR2FLSUR/image_from_ios.jpg',
+        url: '"https://i.ibb.co/yXVGX37/American-Flag.jpg',
         name: 'blender-bottle',
         price: 10,
         description: 'Wow, a nice bottle'
