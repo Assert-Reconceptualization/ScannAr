@@ -50,15 +50,17 @@ const ARscene = () => {
           <ViroNode key="card">
             <ViroNode
               opacity={0} position={[0, -0.02, 0]}
+              dragType="FixedToWorld"
               animation={{
                 name: 'animateImage',
-                run: runAnimation
+                run: runAnimation,
+                loop: false
               }}
             >
               <ViroFlexView
                 rotation={[-90, 0, 0]}
-                height={0.03}
-                width={0.05}
+                height={1}
+                width={1}
                 style={styles.card}
               >
                 <ViroFlexView
@@ -73,7 +75,7 @@ const ARscene = () => {
                   <ViroText
                     textClipMode="None"
                     text="This worked!"
-                    scale={[.015, .015, .015]}
+                    scale={[.25, .25, .25]}
                     style={styles.textStyle}
                   />
                 </ViroFlexView>
@@ -87,7 +89,7 @@ const ARscene = () => {
                     textAlign="left"
                     textClipMode="None"
                     text="THIS WORKEDDD"
-                    scale={[.01, .01, .01]}
+                    scale={[.1, .1, .1]}
                     style={styles.textStyle}
                   />
                   {/* <ViroAnimatedImage
@@ -99,18 +101,6 @@ const ARscene = () => {
                 </ViroFlexView>
               </ViroFlexView>
             </ViroNode>
-            <ViroNode opacity={0} position={[0, 0, 0]}
-              animation={{
-                name: 'animateViro',
-                run: runAnimation
-              }}
-            >
-              <ViroText text="www.viromedia.com"
-                rotation={[-90, 0, 0]}
-                scale={[.01, .01, .01]}
-                style={styles.textStyle}
-              />
-            </ViroNode>
           </ViroNode>
         </ViroARImageMarker>
       </ViroNode>
@@ -120,10 +110,10 @@ const ARscene = () => {
 
 ViroARTrackingTargets.createTargets({
   "targetOne": {
-    source: { url: (`https://i.ibb.co/qWf8pm0/Cabinet.jpg`)},
+    source: { url: (`https://i.ibb.co/yXVGX37/American-Flag.jpg`)},
     // source: require('../mock-data/Cabinet.jpg'),
     orientation: "Up",
-    physicalWidth: 0.1 // real world width in meters
+    physicalWidth: 1 // real world width in meters
   },
 });
 
@@ -139,19 +129,21 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   card: {
-    flexDirection: 'column'
+    flexDirection: 'column',
+    backgroundColor: 'white',
+    opacity: 0.5
   },
   cardWrapper: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     padding: 0.001,
-    flex: .5
+    flex: .5,
   },
   textStyle: {
     flex: .5,
     fontFamily: 'Roboto',
     fontSize: 30,
-    color: '#ffffff',
+    color: 'black',
     textAlignVertical: 'top',
     textAlign: 'left',
     fontWeight: 'bold',
