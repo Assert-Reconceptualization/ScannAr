@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -6,10 +6,16 @@ import {
   TouchableOpacity,
   Button
 } from 'react-native';
+import RegisterModal from '../components/RegisterModal';
+import SignUp from '../components/buttons/SignUp';
 
 export default function SignInScreen(props) {
-  const handleSignUp = () => {
-    props.navigation.navigate('Main')
+  const [register, setRegister] = useState(false);
+  const isRegistering = () => {
+    setRegister(true);
+  }
+  const cancelRegistration = () => {
+    setRegister(false);
   }
 
   const {
@@ -25,6 +31,11 @@ export default function SignInScreen(props) {
   } = styles;
   return (
     <View style={container}>
+      <RegisterModal
+        visible={register}
+        navigation={props.navigation}
+        cancelRegistration={cancelRegistration}
+      />
       <View style={titleContainer}>
         <Text style={titleLeftText}>Scann</Text>
         <Text style={titleRightText}>AR</Text>
@@ -35,11 +46,8 @@ export default function SignInScreen(props) {
         </Text>
       </View>
       <View style={buttonContainer}>
-        <TouchableOpacity style={signInButton}>
-          <Text style={signInText}>Sign In</Text>
-          <Text>Google Icon</Text>
-        </TouchableOpacity>
-        <Button title="Register" onPress={handleSignUp} />
+        <SignUp navigation={props.navigation}/>
+        <Button title="Register" onPress={isRegistering} />
       </View>
     </View>
   );
@@ -80,18 +88,4 @@ const styles = StyleSheet.create({
     flex: 3,
     alignItems: 'center'
   },
-  signInButton: {
-    borderRadius: 5,
-    borderWidth: 2,
-    borderColor: '#AEC3B0',
-    width: 300,
-    height: 60,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center'
-  },
-  signInText: {
-    fontSize: 30,
-    color: '#AEC3B0'
-  }
 });
