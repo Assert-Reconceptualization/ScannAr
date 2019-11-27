@@ -12,6 +12,11 @@ module.exports = function(app) {
   const business = sequelizeClient.define(
     "business",
     {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -29,7 +34,7 @@ module.exports = function(app) {
       description: {
         type: DataTypes.STRING,
         allowNull: false
-      },
+      }
       // will create a relationship for businessID fields in product and user
     },
     {
@@ -46,7 +51,9 @@ module.exports = function(app) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
     // will create a relationship for bussinessID field
-    business.hasMany(models.users, { foreginKey: 'idBussiness' });
+
+    //model you're in   model to send to                 
+      // business.hasMany(models.users, { foreignKey: 'idBussiness' }); //! In progress
   };
 
   return business;
