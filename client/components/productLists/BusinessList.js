@@ -4,19 +4,21 @@ import {
 } from 'react-native';
 import BusinessListItem from '../productProfiles/businessListItem';
 
+// import mock data
+import mockData from '../../mock-data/products';
+
 const BusinessList = () => {
   return (
     <View>
       <FlatList
-        data={[
-          { name: 'item1' },
-          { name: 'item2' },
-          { name: 'item3' },
-          { name: 'item4' },
-          { name: 'item5' },
-        ]}
+        data={mockData}
         renderItem={({ item }) => (
-          <BusinessListItem name={item.name} />
+          <BusinessListItem
+            name={item.name}
+            uri={item.url}
+            description={item.description}
+            price={item.price}
+          />
         )}
         keyExtractor={(item) => item.name}
       />

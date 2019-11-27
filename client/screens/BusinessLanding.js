@@ -29,21 +29,9 @@ const BusinessLanding = ({ navigator }) => {
         <BusinessList />
       </View>
       <TouchableOpacity
-        style={{
-          borderWidth: 1,
-          borderColor: 'rgba(0,0,0,0.2)',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: 70,
-          position: 'absolute',
-          bottom: '12%',
-          right: 10,
-          height: 70,
-          backgroundColor: '#fff',
-          borderRadius: 100,
-        }}
+        style={addButton}
       >
-        <Text>Add ME</Text>
+        <Text>Add</Text>
       </TouchableOpacity>
       <View style={navbar}>
         <BusinessNavbar navigator={navigator} />
@@ -70,13 +58,22 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   addButton: {
-    marginLeft: '50%',
-    backgroundColor: '#00000000',
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 70,
+    position: 'absolute',
+    bottom: '12%',
+    right: 10,
+    height: 70,
+    backgroundColor: '#fff',
+    borderRadius: 100,
   },
   businessName: {
     marginTop: '5%',
     fontSize: 30,
-    color: 'white',
+    color: '#A2B5A3',
     fontWeight: 'bold',
     marginBottom: 10,
   },
