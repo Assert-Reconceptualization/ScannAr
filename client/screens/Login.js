@@ -42,6 +42,7 @@ const Login = ({ navigator }) => {
     }
   };
   const handleLogin = () => {
+    // eslint-disable-next-line react/prop-types
     navigator.push(mode);
   };
 
@@ -112,7 +113,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingTop: '30%',
-    // backgroundColor: `${background}`,
   },
   button1: {
     flex: 1,
