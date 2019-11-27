@@ -23,7 +23,7 @@ module.exports = function(app) {
         unique: true
       },
       phone: {
-        type: DataTypes.FLOAT(10),
+        type: DataTypes.STRING,
         allowNull: false
       },
       email: {

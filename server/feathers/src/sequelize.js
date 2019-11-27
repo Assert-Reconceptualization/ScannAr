@@ -76,7 +76,7 @@ module.exports = (app) => {
         business
           .create({
             name: "Big Baller Brand",
-            phone: 3127735041,
+            phone: "3127735041",
             email: "BBB01@gmail.com",
             description: "Top players to ever play in the NBA"
           })
