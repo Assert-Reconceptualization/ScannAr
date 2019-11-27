@@ -1,5 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 
 import BusinessHeader from '../components/headers/BusinessHeader';
 import BusinessList from '../components/productLists/BusinessList';
@@ -9,21 +14,37 @@ import BusinessNavbar from '../components/NavBar/BusinessNavbar';
 const BusinessLanding = ({ navigator }) => {
   const {
     screen,
-    title,
+    businessList,
     addButton,
     navbar,
+    businessName,
   // eslint-disable-next-line no-use-before-define
   } = styles;
 
   return (
     <View style={screen}>
       <BusinessHeader navigator={navigator} />
-      <View style={title}>
+      <Text style={businessName}>Our Products</Text>
+      <View style={businessList}>
         <BusinessList />
       </View>
-      <View style={addButton}>
-        <Button title="BIG ADD BUTTON" />
-      </View>
+      <TouchableOpacity
+        style={{
+          borderWidth: 1,
+          borderColor: 'rgba(0,0,0,0.2)',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: 70,
+          position: 'absolute',
+          bottom: '12%',
+          right: 10,
+          height: 70,
+          backgroundColor: '#fff',
+          borderRadius: 100,
+        }}
+      >
+        <Text>Add ME</Text>
+      </TouchableOpacity>
       <View style={navbar}>
         <BusinessNavbar navigator={navigator} />
       </View>
@@ -36,10 +57,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#383F38',
   },
-  title: {
+  businessList: {
     flex: 1,
     marginTop: '5%',
     marginLeft: '5%',
+    marginRight: '5%',
+    marginBottom: -25,
   },
   navbar: {
     height: '8%',
@@ -47,8 +70,15 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   addButton: {
-    marginBottom: 20,
     marginLeft: '50%',
+    backgroundColor: '#00000000',
+  },
+  businessName: {
+    marginTop: '5%',
+    fontSize: 30,
+    color: 'white',
+    fontWeight: 'bold',
+    marginBottom: 10,
   },
 });
 
