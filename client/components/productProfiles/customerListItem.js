@@ -44,7 +44,7 @@ const CustomerListItem = ({
 const styles = StyleSheet.create({
   productTitle: {
     fontSize: 28,
-    color: '#EFF6E0',
+    color: '#B3C6CD',
     fontWeight: 'bold',
     marginBottom: 10,
   },
@@ -55,19 +55,19 @@ const styles = StyleSheet.create({
   },
   productDescription: {
     fontSize: 12,
-    color: '#A2B5A3',
+    color: '#B3C6CD',
     marginBottom: 10,
   },
   productPrice: {
     marginTop: 15,
     fontSize: 30,
-    color: '#C4D2C5',
+    color: '#B3C6CD',
   },
   listItemContainer: {
     height: 160,
     marginBottom: 10,
     borderRadius: 5,
-    borderColor: '#AEC3B0',
+    borderColor: '#B3C6CD',
     borderWidth: 3,
     flexDirection: 'row',
     alignItems: 'center',

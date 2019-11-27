@@ -3,15 +3,17 @@ import { Text, View, StyleSheet } from 'react-native';
 
 // import components
 import CustomerNavBar from '../components/NavBar/CustomerNavBar';
+import CustomerHeader from '../components/headers/CustomerHeader';
 import CustomerList from '../components/productLists/CustomerList';
 
 // eslint-disable-next-line react/prop-types
 const CustomerLanding = ({ navigator }) => {
   // eslint-disable-next-line no-use-before-define
-  const { screen, customerList } = styles;
+  const { screen, customerList, productsTitle } = styles;
   return (
     <View style={screen}>
-      <Text>Saved items will go here</Text>
+      <CustomerHeader navigator={navigator} />
+      <Text style={productsTitle}>Saved Products</Text>
       <View style={customerList}>
         <CustomerList />
       </View>
@@ -28,7 +30,7 @@ const styles = StyleSheet.create({
   },
   screen: {
     flex: 1,
-    backgroundColor: '#23395B',
+    backgroundColor: '#082A36',
   },
   customerList: {
     flex: 1,
@@ -36,6 +38,13 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
     marginRight: '5%',
     marginBottom: -25,
+  },
+  productsTitle: {
+    marginTop: '2%',
+    fontSize: 25,
+    color: '#B3C6CD',
+    fontWeight: 'bold',
+    marginBottom: 8,
   },
 });
 

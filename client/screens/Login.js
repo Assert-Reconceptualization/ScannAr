@@ -113,7 +113,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingTop: '30%',
-    // backgroundColor: `${background}`,
   },
   button1: {
     flex: 1,
