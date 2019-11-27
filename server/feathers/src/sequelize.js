@@ -35,7 +35,7 @@ module.exports = (app) => {
 
 
     // Sync to the database
-    app.set('sequelizeSync', sequelize.sync()
+    app.set('sequelizeSync', sequelize.sync({force: true})
     .then(() => {
       console.log('connected to database');
     })
