@@ -27,6 +27,7 @@ const Login = ({ navigator }) => {
     }
   };
   const handleLogin = () => {
+    // eslint-disable-next-line react/prop-types
     navigator.push(mode);
   };
 
