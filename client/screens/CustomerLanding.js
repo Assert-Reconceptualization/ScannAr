@@ -8,7 +8,7 @@ import CustomerList from '../components/productLists/CustomerList';
 // eslint-disable-next-line react/prop-types
 const CustomerLanding = ({ navigator }) => {
   // eslint-disable-next-line no-use-before-define
-  const { screen, links, customerList } = styles;
+  const { screen, customerList } = styles;
   return (
     <View style={screen}>
       <Text>Saved items will go here</Text>

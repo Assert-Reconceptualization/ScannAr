@@ -7,6 +7,7 @@ import CustomerLanding from './screens/CustomerLanding';
 import BusinessLanding from './screens/BusinessLanding';
 
 // import components
+// eslint-disable-next-line import/named
 import { Navigator, Route } from './navigation/Navigator';
 
 // ScannAR navigator
