@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -10,9 +10,25 @@ import {
 const CustomerNavBar = ({ navigator }) => {
   // eslint-disable-next-line no-use-before-define
   const { bar, buttonText } = styles;
+  const [throttle, setThrottle] = useState(false);
+
+  const handleThrottle = () => {
+    setThrottle(true);
+    setTimeout(() => {
+      setThrottle(false);
+    }, 400);
+  };
+
+  const handlePress = () => {
+    if (!throttle) { // only do something if throttle is false
+      handleThrottle();
+      navigator.push('AR');
+    }
+  };
+
   return (
     <View style={bar}>
-      <TouchableOpacity onPress={() => navigator.push('AR')}>
+      <TouchableOpacity onPress={() => handlePress()}>
         <Text style={buttonText}>AR</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigator.pop()}>
