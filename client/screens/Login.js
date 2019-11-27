@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 // import components
+import BusinessRegister from './BusinessRegister';
 
 // ScannAR navigator
 // eslint-disable-next-line react/prop-types
@@ -15,15 +16,29 @@ const Login = ({ navigator }) => {
   const [mode, setMode] = useState('CustomerLanding');
   const [customerColor, setCustomerColor] = useState('#01161D');
   const [businessColor, setBusinessColor] = useState('#86A4AF');
+  const [background, setBackground] = useState('#082C39');
+  const [register, setRegister] = useState(false);
+
+  const handleRegisterView = (chosenMode) => {
+    if (chosenMode === 'Business') {
+      // render BusinessRegister view
+      setBackground('#505950');
+      setRegister(true);
+    } else {
+      setBackground('#082C39');
+      setRegister(false);
+    }
+  };
 
   const handlePress = (chosenMode) => {
     setMode(chosenMode);
+    handleRegisterView(chosenMode);
     if (chosenMode === 'CustomerLanding') {
-      setCustomerColor('#01161D');
-      setBusinessColor('#86A4AF');
-    } else {
       setCustomerColor('#86A4AF');
       setBusinessColor('#01161D');
+    } else {
+      setCustomerColor('#01161D');
+      setBusinessColor('#86A4AF');
     }
   };
   const handleLogin = () => {
@@ -44,7 +59,7 @@ const Login = ({ navigator }) => {
   } = styles;
 
   return (
-    <View style={screen}>
+    <View style={[screen, { backgroundColor: background }]}>
       <Text style={header}>ScannAR</Text>
       <View style={buttonContainer}>
         <TouchableOpacity
@@ -60,6 +75,7 @@ const Login = ({ navigator }) => {
           <Text style={businessTitle}>I am a business</Text>
         </TouchableOpacity>
       </View>
+      {register ? <BusinessRegister /> : null}
       <View style={loginContainer}>
         <TouchableOpacity
           style={button3}
@@ -96,7 +112,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingTop: '30%',
-    backgroundColor: '#082C39',
+    // backgroundColor: `${background}`,
   },
   button1: {
     flex: 1,

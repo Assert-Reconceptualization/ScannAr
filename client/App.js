@@ -11,14 +11,14 @@ import { Navigator, Route } from './navigation/Navigator';
 
 // ScannAR navigator
 const App = () => {
-    return (
-      <Navigator>
-        <Route name="Login" component={Login} />
-        <Route name="CustomerLanding" component={CustomerLanding} />
-        <Route name="Business" component={BusinessLanding} />
-        <Route name="AR" component={AR} />
-      </Navigator>
-    );
-}
+  return (
+    <Navigator>
+      <Route name="Login" component={Login} />
+      <Route name="CustomerLanding" component={CustomerLanding} />
+      <Route name="Business" component={BusinessLanding} />
+      <Route name="AR" component={AR} />
+    </Navigator>
+  );
+};
 
 export default App;
