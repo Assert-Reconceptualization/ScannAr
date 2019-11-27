@@ -1,12 +1,19 @@
 // Initializes the `users` service on path `/users`
-const { Users } = require('./users.class');
+//if we want to create a custom behavior
+const { Users } = require('./users.class'); //? possible a helper function for db
+
 const createModel = require('../../models/users');
 const hooks = require('./users.hooks');
 
 module.exports = (app) => {
+  // creating the model
+  let Model = createModel(app);
+
+  let paginate = app.get('paginate')
+
   const options = {
-    Model: createModel(app),
-    paginate: app.get('paginate'),
+    Model, 
+    paginate,
   };
 
   // Initialize our service with any options it requires
