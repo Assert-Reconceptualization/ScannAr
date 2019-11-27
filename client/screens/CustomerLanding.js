@@ -1,21 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
 // import components
 import CustomerNavBar from '../components/NavBar/CustomerNavBar';
 import CustomerHeader from '../components/headers/CustomerHeader';
 import CustomerList from '../components/productLists/CustomerList';
+import ProductProfileModal from '../components/productProfiles/ProductProfileModal';
 
 // eslint-disable-next-line react/prop-types
 const CustomerLanding = ({ navigator }) => {
   // eslint-disable-next-line no-use-before-define
   const { screen, customerList, productsTitle } = styles;
+  const [visible, setVisibility] = useState(false);
+  const [product, setProduct] = useState('');
+  // sets prop to be passed to modal
+  const setModalProp = (item) => {
+    setProduct(item);
+    setVisibility(true);
+  };
+
   return (
     <View style={screen}>
+      <ProductProfileModal visible={visible} setVisibility={setVisibility} product={product} />
       <CustomerHeader navigator={navigator} />
       <Text style={productsTitle}>Saved Products</Text>
       <View style={customerList}>
-        <CustomerList />
+        <CustomerList setModalProp={setModalProp} setVisibility={setVisibility} />
       </View>
       <CustomerNavBar navigator={navigator} />
     </View>
