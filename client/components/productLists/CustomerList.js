@@ -2,17 +2,17 @@ import React from 'react';
 import {
   View, FlatList,
 } from 'react-native';
-import BusinessListItem from '../productProfiles/businessListItem';
+import CustomerListItem from '../productProfiles/customerListItem';
 
 // import mock data
 import mockData from '../../mock-data/products';
 
-const BusinessList = () => (
+const CustomerList = () => (
   <View>
     <FlatList
       data={mockData}
       renderItem={({ item }) => (
-        <BusinessListItem
+        <CustomerListItem
           name={item.name}
           uri={item.url}
           description={item.description}
@@ -24,4 +24,4 @@ const BusinessList = () => (
   </View>
 );
 
-export default BusinessList;
+export default CustomerList;
