@@ -2,28 +2,31 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 const LoginHeader = () => {
-    return (
-        <View style={styles.titleContainer}>
-            <Text style={styles.text}>
+  // eslint-disable-next-line no-use-before-define
+  const { titleContainer, text } = styles;
+
+  return (
+    <View style={titleContainer}>
+      <Text style={text}>
                 ScannAR
-            </Text>
-        </View>
-    );
-}
+      </Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   titleContainer: {
-    height: "8%",
-    backgroundColor: "#114559",
-    justifyContent: "flex-end",
-    alignItems: "center"
+    height: '8%',
+    backgroundColor: '#114559',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
   text: {
-    color: "white",
-    fontWeight: "bold",
+    color: 'white',
+    fontWeight: 'bold',
     fontSize: 30,
-    marginBottom: 5
-  }
+    marginBottom: 5,
+  },
 });
 
 export default LoginHeader;

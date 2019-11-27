@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -7,16 +7,28 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const CustomerNavBar = ({ navigator }) => {
+const BusinessNavbar = ({ navigator }) => {
+  const [onLanding, setOnLanding] = useState(true);
+
+  const handleProductsButton = () => {
+    if (!onLanding) {
+      navigator.push('Business');
+    }
+  };
+
   // eslint-disable-next-line no-use-before-define
   const { bar, buttonText } = styles;
+
   return (
     <View style={bar}>
-      <TouchableOpacity onPress={() => navigator.push('AR')}>
-        <Text style={buttonText}>AR</Text>
+      <TouchableOpacity onPress={handleProductsButton}>
+        <Text style={buttonText}>Prod</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigator.pop()}>
-        <Text style={buttonText}>Logout</Text>
+      <TouchableOpacity>
+        <Text style={buttonText}>Add</Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Text style={buttonText}>Prof.</Text>
       </TouchableOpacity>
     </View>
   );
@@ -24,12 +36,11 @@ const CustomerNavBar = ({ navigator }) => {
 
 const styles = StyleSheet.create({
   bar: {
-    // flex:1,
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    height: '8%',
-    width: '100%',
-    backgroundColor: 'lightblue',
+    alignItems: 'center',
+    backgroundColor: '#505950',
   },
   button: {
     borderRadius: 10,
@@ -40,9 +51,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: 'center',
-    padding: 20,
     color: 'white',
   },
 });
 
-export default CustomerNavBar;
+export default BusinessNavbar;

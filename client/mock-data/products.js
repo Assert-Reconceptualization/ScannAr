@@ -1,6 +1,6 @@
 export default products = [
     {
-        url: '"https://i.ibb.co/yXVGX37/American-Flag.jpg',
+        url: 'https://i.ibb.co/yXVGX37/American-Flag.jpg',
         name: 'Flag',
         price: 10,
         description: 'Wow, so American'
