@@ -28,6 +28,7 @@
       "passwordField": "password"
     },
     "oauth": {
+      "redirect": "http://localhost:3030/",
       "google": {
         "key": "GOOGLE_OAUTH_KEY",
         "secret": "GOOGLE_OAUTH_SERECT",

@@ -7,7 +7,7 @@ class GoogleStrategy extends OAuthStrategy {
     // this will set 'googleId'
     const baseData = await super.getEntityData(profile);
 
-    // this will grab the picture and email address of the Google profile
+    // this will grab the first and last name and email address of the Google profile
     return {
       ...baseData,
       email: profile.email,
@@ -24,7 +24,7 @@ module.exports = app => {
 
   authentication.register('jwt', new JWTStrategy());
   authentication.register('local', new LocalStrategy());
-  authentication.register("google", new GoogleStrategy());
+  authentication.register('google', new GoogleStrategy());
 
   app.use('/authentication', authentication);
   app.configure(expressOauth());
