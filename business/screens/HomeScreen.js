@@ -17,6 +17,14 @@ import NoProductMessage from "../components/NoProductMessage";
 export default function HomeScreen() {
   const context = useContext(BusinessContext);
   console.log(context);
+
+  // grab user data from database
+  useEffect(() => {
+    // grab products
+    
+  }, []);
+
+
   const {
     container,
     titleContainer,
