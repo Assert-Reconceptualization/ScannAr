@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Modal } from 'react-native';
 
 import {
   ViroARScene,
@@ -12,12 +12,16 @@ import {
 import ARNavBar from '../components/NavBar/ARNavBar';
 import ARImageMarkerItem from '../components/AR/ARImageMarkerItem';
 import products from '../mock-data/products';
+import ProductProfileModal from '../components/productProfiles/ProductProfileModal';
 
 const ARScreen = ({ navigator }) => {
   // eslint-disable-next-line no-use-before-define
+  const [visible, setVisibility] = useState(false);
+  const [product, setProduct] = useState('');
   const { screen } = styles;
   return (
     <View style={screen}>
+      <ProductProfileModal visible={visible} setVisibility={setVisibility} product={product}/>
       <ARNavBar navigator={navigator} />
       <ViroARSceneNavigator
         initialScene={{
