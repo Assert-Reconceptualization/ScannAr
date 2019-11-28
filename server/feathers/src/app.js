@@ -3,7 +3,14 @@ const favicon = require('serve-favicon');
 const compress = require('compression');
 const helmet = require('helmet');
 const cors = require('cors');
+const dotenv = require("dotenv");
+
+
+// read the dotenv file, apply every value from the env file then the default config have access to the values in the dot env file 
+dotenv.config();
+
 const logger = require('./logger');
+
 
 const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');

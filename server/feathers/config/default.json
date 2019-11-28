@@ -26,6 +26,17 @@
     "local": {
       "usernameField": "email",
       "passwordField": "password"
+    },
+    "oauth": {
+      "google": {
+        "key": "GOOGLE_OAUTH_KEY",
+        "secret": "GOOGLE_OAUTH_SERECT",
+        "scope": [
+          "email",
+          "profile",
+          "openid"
+        ]
+      }
     }
   },
   "postgres": "postgres://postgres:@localhost:5432/scannar"
