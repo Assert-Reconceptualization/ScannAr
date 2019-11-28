@@ -1,5 +1,5 @@
 import * as WebBrowser from "expo-web-browser";
-import React from "react";
+import React, {useContext} from "react";
 import {
   Image,
   Platform,
@@ -11,20 +11,36 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ProductCard from "../components/productCard";
+import BusinessContext from "../applicationState/BusinessContext";
+import NoProductMessage from "../components/NoProductMessage";
 
 export default function HomeScreen() {
-  const { container, titleContainer, inventoryContainer, titleText } = styles;
+  const context = useContext(BusinessContext);
+  console.log(context);
+  const {
+    container,
+    titleContainer,
+    inventoryContainer,
+    titleText,
+    noInventoryContainer
+  } = styles;
   return (
     <View style={container}>
       <View style={titleContainer}>
         <Text style={titleText}>Our Products</Text>
-        <Ionicons name="ios-options" size={26} />
+        <Ionicons name="ios-options" size={40} color="#AEC3B0"/>
       </View>
-      <View style={inventoryContainer}>
-        <ScrollView>
-          {[1, 2, 3, 4].map(product => <ProductCard />)}
-        </ScrollView>
-      </View>
+      {context.currentInventory.length ? (
+        <View style={inventoryContainer}>
+          <ScrollView>
+            {[1, 2, 3, 4].map(product => <ProductCard />)}
+          </ScrollView>
+        </View>
+      ) : (
+        <View style={noInventoryContainer}>
+          <NoProductMessage />
+        </View>
+      )}
     </View>
   );
 }
@@ -66,9 +82,12 @@ const styles = StyleSheet.create({
   inventoryContainer: {
     flex: 5,
   },
+  noInventoryContainer: {
+    flex: 5,
+  },
   titleText: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: 'white'
+    color: '#EFF6E0'
   }
 });
