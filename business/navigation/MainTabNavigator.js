@@ -16,17 +16,17 @@ const HomeStack = createStackNavigator(
   {
     Home: HomeScreen,
   },
-  config
+  config,
 );
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+  tabBarLabel: 'Inventory',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
+          ? `ios-list`
           : 'md-information-circle'
       }
     />
@@ -43,9 +43,9 @@ const LinksStack = createStackNavigator(
 );
 
 LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+  tabBarLabel: 'Add',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-add' : 'md-link'} />
   ),
 };
 
@@ -59,19 +59,29 @@ const SettingsStack = createStackNavigator(
 );
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+  tabBarLabel: 'Profile',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-person' : 'md-options'} />
   ),
 };
 
 SettingsStack.path = '';
 
-const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
-});
+const tabNavigator = createBottomTabNavigator(
+  {
+    HomeStack,
+    LinksStack,
+    SettingsStack,
+  },
+  {
+    tabBarOptions: {
+      style: {
+        backgroundColor: '#505950'
+      }
+    }
+  }
+);
+
 
 tabNavigator.path = '';
 
