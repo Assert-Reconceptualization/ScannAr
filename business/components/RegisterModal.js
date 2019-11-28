@@ -75,6 +75,7 @@ export default function RegisterModal(props) {
               onChangeText={text => setBusinessName(text)}
               value={businessName}
               placeholder="Business Name"
+              autoCapitalize="sentences"
             />
             <Text style={inputHeader}>Email</Text>
             <TextInput
@@ -82,6 +83,7 @@ export default function RegisterModal(props) {
               onChangeText={text => setBusinessEmail(text)}
               value={businessEmail}
               placeholder="Email"
+              keyboardType="email-address"
             />
             <Text style={inputHeader}>Phone Number</Text>
             <TextInput
@@ -89,6 +91,7 @@ export default function RegisterModal(props) {
               onChangeText={num => setBusinessNumber(num)}
               value={businessNumber}
               placeholder="Phone Number"
+              keyboardType="phone-pad"
             />
             <Text style={inputHeader}>Description</Text>
             <TextInput
