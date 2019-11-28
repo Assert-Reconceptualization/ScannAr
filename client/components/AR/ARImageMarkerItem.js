@@ -47,11 +47,12 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
             name: 'animateImage',
             run: true,
           }}
+          scale={[1, 1, 1]}
         >
           <ViroFlexView
             onClick={() => { setVisibility(); setProduct(item); }}
             rotation={[-90, 0, 0]}
-            height={1}
+            height={0.5}
             width={1}
             style={card}
           >
@@ -72,7 +73,7 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
             </ViroFlexView>
             <ViroFlexView style={subText}>
               <ViroText
-                text={item.description}
+                text="Click for info"
                 scale={[0.15, 0.15, 0.15]}
                 style={textStyle}
               />
@@ -112,6 +113,7 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    flexDirection: 'column',
   },
   textStyle: {
     fontFamily: 'Roboto',
@@ -128,8 +130,8 @@ const styles = StyleSheet.create({
     margin: 0.07,
   },
   subText: {
-    height: 1,
-    width: 2,
+    height: 0.5,
+    width: 0.3,
   },
 });
 
