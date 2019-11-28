@@ -18,6 +18,10 @@ export default function SignInScreen(props) {
     setRegister(false);
   }
 
+  const handleSignUp = () => {
+    props.navigation.navigate({routeName: 'Home'});
+  }
+
   const {
     container,
     titleContainer,
@@ -46,7 +50,11 @@ export default function SignInScreen(props) {
         </Text>
       </View>
       <View style={buttonContainer}>
-        <SignUp navigation={props.navigation}/>
+        <TouchableOpacity
+          onPress={handleSignUp}
+        >
+          <SignUp />
+        </TouchableOpacity>
         <Button title="Register" onPress={isRegistering} />
       </View>
     </View>

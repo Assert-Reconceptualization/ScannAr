@@ -1,22 +1,17 @@
 import React from 'react';
-import {TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {Text, StyleSheet, View} from 'react-native';
 
-export default function SignUp(props){
-
-  const handleSignIn = () => {
-    props.navigation.navigate('Main')
-  }
+export default function SignUp(){
 
   const { signInButton, signInText } = styles;
 
   return (
-    <TouchableOpacity
+    <View
       style={signInButton}
-      onPress={handleSignIn}
     >
       <Text style={signInText}>Sign In</Text>
       <Text>Google Icon</Text>
-    </TouchableOpacity>
+    </View>
   );
 }
 

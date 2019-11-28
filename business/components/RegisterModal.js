@@ -1,5 +1,16 @@
 import React, { useState } from "react";
-import { Modal, View, Text, Button, StyleSheet, TextInput, TouchableWithoutFeedback, Keyboard } from "react-native";
+import {
+  Modal,
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  TextInput,
+  TouchableWithoutFeedback,
+  Keyboard,
+  TouchableOpacity
+} from "react-native";
+
 import SignUp from "./buttons/SignUp";
 
 export default function RegisterModal(props) {
@@ -12,6 +23,33 @@ export default function RegisterModal(props) {
     props.cancelRegistration(false);
   };
 
+  const handleRegister = () => {
+    fetch("http://localhost:3030/business", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: businessName,
+        phone: businessNumber,
+        email: businessEmail,
+        description: businessDescription
+      })
+    })
+      .then(response => {
+        // update user state will all relevent info
+        // token
+        // business data
+        console.log("created");
+        props.navigation.navigate({routeName: 'Home'});
+
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  };
+
   const {
     modalContainer,
     inputContainer,
@@ -20,7 +58,7 @@ export default function RegisterModal(props) {
     descriptionInput,
     inputHeader,
     buttonContainer,
-    title,
+    title
   } = styles;
 
   return (
@@ -28,48 +66,31 @@ export default function RegisterModal(props) {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={modalContainer}>
           <View style={titleContainer}>
-            <Text
-              style={title}
-            >
-              Register Your Business
-            </Text>
+            <Text style={title}>Register Your Business</Text>
           </View>
           <View style={inputContainer}>
-            <Text
-              style={inputHeader}
-            >Business Name</Text>
+            <Text style={inputHeader}>Business Name</Text>
             <TextInput
               style={textInput}
               onChangeText={text => setBusinessName(text)}
               value={businessName}
               placeholder="Business Name"
             />
-            <Text
-              style={inputHeader}
-            >
-              Email
-            </Text>
+            <Text style={inputHeader}>Email</Text>
             <TextInput
               style={textInput}
               onChangeText={text => setBusinessEmail(text)}
               value={businessEmail}
               placeholder="Email"
             />
-            <Text
-              style={inputHeader}
-            >
-              Phone Number
-            </Text>
+            <Text style={inputHeader}>Phone Number</Text>
             <TextInput
               style={textInput}
               onChangeText={num => setBusinessNumber(num)}
               value={businessNumber}
               placeholder="Phone Number"
             />
-            <Text
-              style={inputHeader}
-            >
-              Description</Text>
+            <Text style={inputHeader}>Description</Text>
             <TextInput
               style={descriptionInput}
               multiline={true}
@@ -79,11 +100,10 @@ export default function RegisterModal(props) {
             />
           </View>
           <View style={buttonContainer}>
-            <SignUp navigation={props.navigation} />
-            <Button
-              title="cancel"
-              onPress={handleCancel}
-            />
+            <TouchableOpacity onPress={handleRegister}>
+              <SignUp />
+            </TouchableOpacity>
+            <Button title="cancel" onPress={handleCancel} />
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -94,25 +114,25 @@ export default function RegisterModal(props) {
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    paddingTop: '20%'
+    paddingTop: "20%"
   },
   titleContainer: {
     flex: 1,
-    padding: '5%',
-    alignItems: 'center'
+    padding: "5%",
+    alignItems: "center"
   },
   inputContainer: {
     flex: 5,
-    alignItems: 'center',
+    alignItems: "center"
   },
   buttonContainer: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center"
   },
   textInput: {
-    width: '70%',
+    width: "70%",
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: "black",
     borderRadius: 5,
     fontSize: 25,
     marginBottom: 20,
@@ -122,18 +142,18 @@ const styles = StyleSheet.create({
     fontSize: 30
   },
   inputHeader: {
-    width: '70%',
+    width: "70%",
     paddingLeft: 5,
     fontSize: 15
   },
   descriptionInput: {
-    width: '70%',
+    width: "70%",
     borderWidth: 2,
     height: 200,
-    borderColor: 'black',
+    borderColor: "black",
     borderRadius: 5,
     fontSize: 25,
     marginBottom: 20,
     paddingLeft: 5
-  },
+  }
 });
