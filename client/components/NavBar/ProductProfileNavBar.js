@@ -4,11 +4,11 @@ import {
   Text, View, StyleSheet, TouchableOpacity,
 } from 'react-native';
 
-const ARNavBar = ({ navigator }) => {
+const ProductProfileNavBar = ({ setVisibility }) => {
   const { container, buttonText } = styles;
   return (
     <View style={container}>
-      <TouchableOpacity onPress={() => navigator.pop()}>
+      <TouchableOpacity onPress={() => setVisibility(false)}>
         <Text style={buttonText}>{'<'}</Text>
       </TouchableOpacity>
     </View>
@@ -33,4 +33,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ARNavBar;
+export default ProductProfileNavBar;
