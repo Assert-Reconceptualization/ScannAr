@@ -1,14 +1,14 @@
 export default products = [
     {
-        url: 'https://i.ibb.co/yXVGX37/American-Flag.jpg',
+        url: 'https://i.ibb.co/cXjBZM0/American-Flag.jpg',
         name: 'Flag',
         price: 10,
-        description: 'Wow, so American'
+        description: 'Wow, so American',
     },
     {
-        url: 'https://i.ibb.co/qWf8pm0/Cabinet.jpg',
+        url: 'https://i.ibb.co/wyhGXwF/Cabinet.jpg',
         name: 'Cabinet',
         price: 1000,
-        description: 'This is a big blue cabinet'
+        description: 'This is a big blue cabinet',
     },
 ];
