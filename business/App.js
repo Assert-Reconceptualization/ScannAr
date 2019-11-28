@@ -15,13 +15,18 @@ export default function App(props) {
   // Application state for holding current user and business data
   const [currentUser, setCurrentUser] = useState({});
   const [currentBusiness, setCurrentBusiness] = useState({});
+  const [currentInventory, setCurrentInventory] = useState([]);
 
   const updateUser = (user) => {
     setCurrentUser(user);
   }
 
   const updateBusiness = (business) => {
-    setCurrentBusiness({});
+    setCurrentBusiness(business);
+  }
+
+  const updateCurrentInventory = (inventory) => {
+    setCurrentInventory(inventory)
   }
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
@@ -40,8 +45,10 @@ export default function App(props) {
           value={{
             currentBusiness,
             currentUser,
+            currentInventory,
             setCurrentBusiness,
-            setCurrentUser
+            setCurrentUser,
+            setCurrentInventory,
           }}
         >
           <AppNavigator />
