@@ -17,7 +17,7 @@ import {
  * @param {string} object
  */
 
-const ARImageMarkerItem = ({ item }) => {
+const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
   ViroARTrackingTargets.createTargets({
     [item.name]: {
       source: { url: `${item.url}` },
@@ -36,7 +36,9 @@ const ARImageMarkerItem = ({ item }) => {
 
   return (
     <ViroARImageMarker target={item.name}>
-      <ViroNode key="card">
+      <ViroNode
+        key="card"
+      >
         <ViroNode
           style={{ opacity: 0 }}
           position={[0, -0.02, 0]}
@@ -48,12 +50,15 @@ const ARImageMarkerItem = ({ item }) => {
           }}
         >
           <ViroFlexView
+            onClick={() => { setVisibility(); setProduct(item); }}
             rotation={[-90, 0, 0]}
             height={1}
             width={1}
             style={card}
           >
-            <ViroFlexView style={cardWrapper}>
+            <ViroFlexView
+              style={cardWrapper}
+            >
               <ViroText
                 textClipMode="None"
                 text={item.name}

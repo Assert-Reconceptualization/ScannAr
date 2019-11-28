@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { Component, useState } from 'react';
 
-import { StyleSheet, View, Modal } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import {
   ViroARScene,
@@ -14,26 +14,53 @@ import ARImageMarkerItem from '../components/AR/ARImageMarkerItem';
 import products from '../mock-data/products';
 import ProductProfileModal from '../components/productProfiles/ProductProfileModal';
 
-const ARScreen = ({ navigator }) => {
-  // eslint-disable-next-line no-use-before-define
-  const [visible, setVisibility] = useState(false);
-  const [product, setProduct] = useState('');
-  const { screen } = styles;
-  return (
-    <View style={screen}>
-      <ProductProfileModal visible={visible} setVisibility={setVisibility} product={product}/>
-      <ARNavBar navigator={navigator} />
-      <ViroARSceneNavigator
-        initialScene={{
-          // eslint-disable-next-line no-use-before-define
-          scene: ARscene,
-        }}
-      />
-    </View>
-  );
-};
 
-const ARscene = () => {
+class ARScreen extends Component {
+  // eslint-disable-next-line no-use-before-define
+  // const [visible, setVisibility] = useState(false);
+  // const [product, setProduct] = useState('');
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false,
+      product: {},
+      // viroAppProps: { setVisibility: this.setVisibility, setProduct: this.setProduct },
+    };
+    this.setVisibility = this.setVisibility.bind(this);
+    this.setProduct = this.setProduct.bind(this);
+  }
+
+  setVisibility() {
+    const { visible } = this.state;
+    this.setState({ visible: !visible });
+  }
+
+  setProduct(item) {
+    this.setState({ product: item });
+  }
+
+  render() {
+    const { navigator } = this.props;
+    const { visible, product } = this.state;
+    const { setProduct, setVisibility } = this;
+    return (
+      <View style={{ flex: 1 }}>
+        <ProductProfileModal visible={visible} setVisibility={this.setVisibility} product={product} />
+        <ARNavBar navigator={navigator} />
+        <ViroARSceneNavigator
+          initialScene={{
+            // eslint-disable-next-line no-use-before-define
+            scene: ARscene,
+            passProps: { setVisibility, setProduct }
+          }}
+          // viroAppProps={viroAppProps}
+        />
+      </View>
+    );
+  }
+}
+
+const ARscene = ({ setVisibility, setProduct }) => {
   const [text, setText] = useState('Initializing...');
   // eslint-disable-next-line no-use-before-define
   const { initialText } = styles;
@@ -46,7 +73,7 @@ const ARscene = () => {
         style={initialText}
       />
       <ViroNode>
-        {products.map((item) => <ARImageMarkerItem item={item} key={item.name} />)}
+        {products.map((item) => <ARImageMarkerItem setVisibility={setVisibility} setProduct={setProduct} item={item} key={item.name} />)}
       </ViroNode>
     </ViroARScene>
   );
