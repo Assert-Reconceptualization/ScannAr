@@ -9,7 +9,7 @@ import ProductProfileNavBar from '../NavBar/ProductProfileNavBar';
 
 const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const {
-    listItemContainer, image, productPrice, productTitle, productDescription,
+    listItemContainer, image, productPrice, productTitle, productDescription, nameAndPrice,
   } = styles;
 
   return (
@@ -22,14 +22,17 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         style={listItemContainer}
       >
         <ProductProfileNavBar setVisibility={setVisibility} />
+        <Text style={productTitle}>{product.name}</Text>
         <Image
           source={{ uri: (product.url) }}
           style={image}
         />
         <View>
-          <Text style={productTitle}>{product.name}</Text>
+          <View style={nameAndPrice}>
+            <Text style={productDescription}>By {'Some Business'}</Text>
+            <Text style={productPrice}>{`$${product.price}.00`}</Text>
+          </View>
           <Text style={productDescription}>{product.description}</Text>
-          <Text style={productPrice}>{`$${product.price}.00`}</Text>
         </View>
       </View>
     </Modal>
@@ -38,10 +41,11 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
 
 const styles = StyleSheet.create({
   productTitle: {
-    fontSize: 25,
+    fontSize: 30,
     color: '#B3C6CD',
     fontWeight: 'bold',
-    marginBottom: 7,
+    marginBottom: 2,
+    marginTop: 5,
   },
   productMenu: {
     position: 'absolute',
@@ -54,20 +58,24 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   productPrice: {
-    marginTop: 5,
     fontSize: 20,
-    color: '#B3C6CD',
+    color: 'white',
   },
   listItemContainer: {
     flex: 1,
     backgroundColor: '#082A36',
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   image: {
     height: 350,
     width: 300,
     borderRadius: 5,
     margin: 10,
+    // marginLeft: 25,
+  },
+  nameAndPrice: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
   },
 });
 

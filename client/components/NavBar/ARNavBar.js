@@ -9,7 +9,7 @@ const ARNavBar = ({ navigator }) => {
   return (
     <View style={container}>
       <TouchableOpacity onPress={() => navigator.pop()}>
-        <Text style={buttonText}>Back</Text>
+        <Text style={buttonText}>{'<'}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -27,6 +27,9 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     padding: 10,
     color: 'white',
+    fontWeight: 'bold',
+    fontSize: 30,
+    marginBottom: 5,
   },
 });
 
