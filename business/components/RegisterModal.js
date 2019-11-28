@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Modal,
   View,
@@ -12,12 +12,15 @@ import {
 } from "react-native";
 
 import SignUp from "./buttons/SignUp";
+import State from "../applicationState/BusinessContext";
 
 export default function RegisterModal(props) {
   const [businessName, setBusinessName] = useState("");
   const [businessEmail, setBusinessEmail] = useState("");
   const [businessNumber, setBusinessNumber] = useState("");
   const [businessDescription, setBusinessDescription] = useState("");
+
+  const context = useContext(State)
 
   const handleCancel = () => {
     props.cancelRegistration(false);
@@ -38,16 +41,21 @@ export default function RegisterModal(props) {
       })
     })
       .then(response => {
-        // update user state will all relevent info
+        // update the currentBusiness State
+        context.setCurrentBusiness({
+          name: businessName,
+          phone: businessNumber,
+          email: businessEmail,
+          description: businessDescription
+        });
+        // update the user state
         // token
         // business data
-        console.log("created");
-        props.navigation.navigate({routeName: 'Home'});
-
+        props.navigation.navigate({ routeName: "Home" });
       })
       .catch(error => {
         console.log(error);
-      })
+      });
   };
 
   const {

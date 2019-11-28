@@ -1,5 +1,5 @@
 import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   Image,
   Platform,
@@ -11,8 +11,13 @@ import {
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
+import State from '../applicationState/BusinessContext';
 
 export default function HomeScreen() {
+
+  // grab current state
+  const context = useContext(State);
+  // grab current state values
   return (
     <View style={styles.container}>
       <ScrollView
@@ -32,7 +37,7 @@ export default function HomeScreen() {
         <View style={styles.getStartedContainer}>
           <DevelopmentModeNotice />
 
-          <Text style={styles.getStartedText}>Get</Text>
+          <Text style={styles.getStartedText}>{`Welcome, ${context.currentBusiness.name}`}</Text>
 
           <View
             style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
