@@ -16,15 +16,11 @@ import ProductProfileModal from '../components/productProfiles/ProductProfileMod
 
 
 class ARScreen extends Component {
-  // eslint-disable-next-line no-use-before-define
-  // const [visible, setVisibility] = useState(false);
-  // const [product, setProduct] = useState('');
   constructor(props) {
     super(props);
     this.state = {
       visible: false,
       product: {},
-      // viroAppProps: { setVisibility: this.setVisibility, setProduct: this.setProduct },
     };
     this.setVisibility = this.setVisibility.bind(this);
     this.setProduct = this.setProduct.bind(this);
@@ -40,6 +36,7 @@ class ARScreen extends Component {
   }
 
   render() {
+    // eslint-disable-next-line react/prop-types
     const { navigator } = this.props;
     const { visible, product } = this.state;
     const { setProduct, setVisibility } = this;
@@ -51,15 +48,15 @@ class ARScreen extends Component {
           initialScene={{
             // eslint-disable-next-line no-use-before-define
             scene: ARscene,
-            passProps: { setVisibility, setProduct }
+            passProps: { setVisibility, setProduct },
           }}
-          // viroAppProps={viroAppProps}
         />
       </View>
     );
   }
 }
 
+// eslint-disable-next-line react/prop-types
 const ARscene = ({ setVisibility, setProduct }) => {
   const [text, setText] = useState('Initializing...');
   // eslint-disable-next-line no-use-before-define
