@@ -13,6 +13,7 @@ const CustomerLanding = ({ navigator }) => {
   const { screen, customerList, productsTitle } = styles;
   const [visible, setVisibility] = useState(false);
   const [product, setProduct] = useState('');
+
   // sets prop to be passed to modal
   const setModalProp = (item) => {
     setProduct(item);
