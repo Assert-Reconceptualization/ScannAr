@@ -13,6 +13,8 @@ const CustomerListItem = ({
   uri,
   description,
   price,
+  setModalProp,
+  item,
 }) => {
   const {
     productTitle,
@@ -23,8 +25,11 @@ const CustomerListItem = ({
     productMenu,
     // eslint-disable-next-line no-use-before-define
   } = styles;
+
   return (
-    <View style={listItemContainer}>
+    <View
+      style={listItemContainer}
+    >
       <Image
         source={{ uri }}
         style={image}
@@ -34,7 +39,10 @@ const CustomerListItem = ({
         <Text style={productDescription}>{description}</Text>
         <Text style={productPrice}>{`$${price}.00`}</Text>
       </View>
-      <TouchableOpacity style={productMenu}>
+      <TouchableOpacity
+        style={productMenu}
+        onPress={() => setModalProp(item)}
+      >
         <Text style={productTitle}>...</Text>
       </TouchableOpacity>
     </View>
@@ -43,10 +51,10 @@ const CustomerListItem = ({
 
 const styles = StyleSheet.create({
   productTitle: {
-    fontSize: 28,
+    fontSize: 25,
     color: '#B3C6CD',
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 7,
   },
   productMenu: {
     position: 'absolute',
@@ -56,15 +64,15 @@ const styles = StyleSheet.create({
   productDescription: {
     fontSize: 12,
     color: '#B3C6CD',
-    marginBottom: 10,
+    marginBottom: 6,
   },
   productPrice: {
-    marginTop: 15,
-    fontSize: 30,
+    marginTop: 5,
+    fontSize: 20,
     color: '#B3C6CD',
   },
   listItemContainer: {
-    height: 160,
+    height: 100,
     marginBottom: 10,
     borderRadius: 5,
     borderColor: '#B3C6CD',
@@ -73,8 +81,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    height: 140,
-    width: 100,
+    height: 90,
+    width: 90,
     borderRadius: 5,
     marginLeft: 10,
     marginRight: 10,

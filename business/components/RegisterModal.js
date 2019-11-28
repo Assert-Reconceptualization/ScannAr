@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   Modal,
   View,
@@ -12,12 +12,15 @@ import {
 } from "react-native";
 
 import SignUp from "./buttons/SignUp";
+import State from "../applicationState/BusinessContext";
 
 export default function RegisterModal(props) {
   const [businessName, setBusinessName] = useState("");
   const [businessEmail, setBusinessEmail] = useState("");
   const [businessNumber, setBusinessNumber] = useState("");
   const [businessDescription, setBusinessDescription] = useState("");
+
+  const context = useContext(State)
 
   const handleCancel = () => {
     props.cancelRegistration(false);
@@ -38,16 +41,21 @@ export default function RegisterModal(props) {
       })
     })
       .then(response => {
-        // update user state will all relevent info
+        // update the currentBusiness State
+        context.setCurrentBusiness({
+          name: businessName,
+          phone: businessNumber,
+          email: businessEmail,
+          description: businessDescription
+        });
+        // update the user state
         // token
         // business data
-        console.log("created");
-        props.navigation.navigate({routeName: 'Home'});
-
+        props.navigation.navigate({ routeName: "Home" });
       })
       .catch(error => {
         console.log(error);
-      })
+      });
   };
 
   const {
@@ -75,6 +83,7 @@ export default function RegisterModal(props) {
               onChangeText={text => setBusinessName(text)}
               value={businessName}
               placeholder="Business Name"
+              autoCapitalize="sentences"
             />
             <Text style={inputHeader}>Email</Text>
             <TextInput
@@ -82,6 +91,7 @@ export default function RegisterModal(props) {
               onChangeText={text => setBusinessEmail(text)}
               value={businessEmail}
               placeholder="Email"
+              keyboardType="email-address"
             />
             <Text style={inputHeader}>Phone Number</Text>
             <TextInput
@@ -89,6 +99,7 @@ export default function RegisterModal(props) {
               onChangeText={num => setBusinessNumber(num)}
               value={businessNumber}
               placeholder="Phone Number"
+              keyboardType="phone-pad"
             />
             <Text style={inputHeader}>Description</Text>
             <TextInput
