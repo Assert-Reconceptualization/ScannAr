@@ -32,7 +32,7 @@
   "dependencies": {
     "@feathersjs/authentication": "^4.3.11",
     "@feathersjs/authentication-local": "^4.3.11",
-    "@feathersjs/authentication-oauth": "^4.3.11",
+    "@feathersjs/authentication-oauth": "^4.4.1",
     "@feathersjs/configuration": "^4.3.11",
     "@feathersjs/errors": "^4.3.11",
     "@feathersjs/express": "^4.3.11",
@@ -41,6 +41,7 @@
     "@feathersjs/transport-commons": "^4.3.11",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "feathers-sequelize": "^6.1.0",
     "helmet": "^3.21.2",
     "pg": "^7.14.0",

@@ -3,7 +3,14 @@ const favicon = require('serve-favicon');
 const compress = require('compression');
 const helmet = require('helmet');
 const cors = require('cors');
+const dotenv = require("dotenv");
+
+
+// read the dotenv file, apply every value from the env file then the default config have access to the values in the dot env file 
+dotenv.config();
+
 const logger = require('./logger');
+
 
 const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
@@ -21,6 +28,7 @@ const authentication = require('./authentication');
 const sequelize = require('./sequelize');
 
 // Create an Express compatible Feathers application instance.
+// we can do feathers thing and express things at the same time
 const app = express(feathers());
 
 // Load app configuration
@@ -35,9 +43,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
+// a static serve on the slash path
 app.use('/', express.static(app.get('public')));
 
-// Set up Plugins and providers & Enable REST services
+
+
+
+// Set up Plugins and providers & Enable express REST services
 app.configure(express.rest());
 // Enable Socket.io services
 app.configure(socketio());

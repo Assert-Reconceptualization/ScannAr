@@ -14,3 +14,5 @@ const logger = createLogger({
 });
 
 module.exports = logger;
+
+// all of our incoming and outgoing request will be logged in console for debugging
