@@ -3,7 +3,7 @@ export default products = [
     url: 'https://i.ibb.co/cXjBZM0/American-Flag.jpg',
     name: 'Flag',
     price: 10,
-    description: 'Wow, so American',
+    description: 'Wow, so American. This is a very American flag. ',
   },
   {
     url: 'https://i.ibb.co/wyhGXwF/Cabinet.jpg',

@@ -9,7 +9,7 @@ import ProductProfileNavBar from '../NavBar/ProductProfileNavBar';
 
 const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const {
-    listItemContainer, image, productPrice, productTitle, productDescription, nameAndPrice,
+    listItemContainer, image, productPrice, productTitle, productDescription, nameAndPrice, description, businessName,
   } = styles;
 
   return (
@@ -29,10 +29,15 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         />
         <View>
           <View style={nameAndPrice}>
-            <Text style={productDescription}>By {'Some Business'}</Text>
+            <View style={{ flexDirection: 'row' }}>
+              <Text style={productDescription}>By </Text>
+              <Text style={businessName}>{'Some Business'}</Text>
+            </View>
             <Text style={productPrice}>{`$${product.price}.00`}</Text>
           </View>
-          <Text style={productDescription}>{product.description}</Text>
+          <View style={description}>
+            <Text style={productDescription}>{product.description}</Text>
+          </View>
         </View>
       </View>
     </Modal>
@@ -44,8 +49,8 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: '#B3C6CD',
     fontWeight: 'bold',
-    marginBottom: 2,
     marginTop: 5,
+    marginLeft: 10,
   },
   productMenu: {
     position: 'absolute',
@@ -53,29 +58,41 @@ const styles = StyleSheet.create({
     right: 10,
   },
   productDescription: {
-    fontSize: 12,
+    fontSize: 16,
     color: '#B3C6CD',
     marginBottom: 6,
   },
+  businessName: {
+    fontSize: 15,
+    color: '#B3C6CD',
+    marginBottom: 6,
+    textDecorationLine: 'underline',
+  },
   productPrice: {
-    fontSize: 20,
+    fontSize: 30,
     color: 'white',
   },
   listItemContainer: {
     flex: 1,
     backgroundColor: '#082A36',
-    // alignItems: 'center',
   },
   image: {
     height: 350,
     width: 300,
     borderRadius: 5,
     margin: 10,
-    // marginLeft: 25,
+    alignSelf: 'center',
   },
   nameAndPrice: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  description: {
+    marginTop: 20,
+    marginLeft: 15,
+    justifyContent: 'flex-start',
   },
 });
 
