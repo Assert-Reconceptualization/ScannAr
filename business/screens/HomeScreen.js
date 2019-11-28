@@ -1,5 +1,5 @@
 import * as WebBrowser from "expo-web-browser";
-import React, {useContext} from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Image,
   Platform,
