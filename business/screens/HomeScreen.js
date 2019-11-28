@@ -28,7 +28,9 @@ export default function HomeScreen() {
     <View style={container}>
       <View style={titleContainer}>
         <Text style={titleText}>Our Products</Text>
-        <Ionicons name="ios-options" size={40} color="#AEC3B0"/>
+        <TouchableOpacity>
+          <Ionicons name="ios-options" size={40} color="#AEC3B0"/>
+        </TouchableOpacity>
       </View>
       {context.currentInventory.length ? (
         <View style={inventoryContainer}>
