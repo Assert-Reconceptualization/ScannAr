@@ -17,6 +17,7 @@ import State from "../applicationState/BusinessContext";
 export default function RegisterModal(props) {
   const [businessName, setBusinessName] = useState("");
   const [businessEmail, setBusinessEmail] = useState("");
+  const [businessPassword, setBusinessPassword] = useState("");
   const [businessNumber, setBusinessNumber] = useState("");
   const [businessDescription, setBusinessDescription] = useState("");
 
@@ -37,10 +38,12 @@ export default function RegisterModal(props) {
         name: businessName,
         phone: businessNumber,
         email: businessEmail,
+        password: businessPassword,
         description: businessDescription
       })
     })
       .then(response => {
+        console.log(response);
         // update the currentBusiness State
         context.setCurrentBusiness({
           name: businessName,
@@ -93,6 +96,14 @@ export default function RegisterModal(props) {
               placeholder="Email"
               keyboardType="email-address"
             />
+            <Text style={inputHeader}>Password</Text>
+            <TextInput
+              style={textInput}
+              onChangeText={text => setBusinessPassword(text)}
+              value={businessPassword}
+              placeholder="Password"
+              secureTextEntry
+            />
             <Text style={inputHeader}>Phone Number</Text>
             <TextInput
               style={textInput}
@@ -112,7 +123,7 @@ export default function RegisterModal(props) {
           </View>
           <View style={buttonContainer}>
             <TouchableOpacity onPress={handleRegister}>
-              <SignUp />
+              <Text>Register</Text>
             </TouchableOpacity>
             <Button title="cancel" onPress={handleCancel} />
           </View>
@@ -133,7 +144,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   inputContainer: {
-    flex: 5,
+    flex: 6,
     alignItems: "center"
   },
   buttonContainer: {

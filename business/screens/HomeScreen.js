@@ -30,10 +30,15 @@ export default function HomeScreen() {
     titleContainer,
     inventoryContainer,
     titleText,
-    noInventoryContainer
+    noInventoryContainer,
+    businessInfoContainer,
+    businessName
   } = styles;
   return (
     <View style={container}>
+      <View style={businessInfoContainer}>
+        <Text style={businessName}>{context.currentBusiness.name}</Text>
+      </View>
       <View style={titleContainer}>
         <Text style={titleText}>Our Products</Text>
         <TouchableOpacity>
@@ -81,6 +86,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#39403A"
   },
+  businessInfoContainer: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   titleContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -90,10 +99,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   inventoryContainer: {
-    flex: 5,
+    flex: 7,
   },
   noInventoryContainer: {
-    flex: 5,
+    flex: 7,
+  },
+  businessName: {
+    color: '#EFF6E0',
+    fontSize: 20
   },
   titleText: {
     fontSize: 30,
