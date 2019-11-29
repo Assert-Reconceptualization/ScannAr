@@ -35,11 +35,7 @@ module.exports = function (app) {
       },
       idBusiness: {
         type: DataTypes.INTEGER,
-        references: {
-          model: "business",
-          key: "id"
-        },
-      }
+      },
       // will create a relationship for bussinessID field
     },
     {
@@ -51,11 +47,8 @@ module.exports = function (app) {
     }
   );
 
-  // eslint-disable-next-line no-unused-vars
-  users.associate = function (models) {
-    // Define associations here
-    // See http://docs.sequelizejs.com/en/latest/docs/associations/
-    // will create a relationship for bussinessID field
-  };
+  // // eslint-disable-next-line no-unused-vars
+  // users.associate = function (models) {
+  // };
   return users;
 };
