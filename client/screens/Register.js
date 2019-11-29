@@ -4,12 +4,8 @@ import {
 } from 'react-native';
 
 // eslint-disable-next-line react/prop-types
-const Register = ({ navigator, handleUserInfo }) => {
-  const [name, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Register = ({ handleRegister, setUserName, setEmail, setPassword, name, email, password }) => {
 
-  const userInfo = { name, email, password };
   // eslint-disable-next-line no-use-before-define
   const {
     inputField,
@@ -48,13 +44,12 @@ const Register = ({ navigator, handleUserInfo }) => {
         style={inputField}
         onChangeText={(text) => setPassword(text)}
         value={password}
-        autoCompleteType="password"
         secureTextEntry
         placeholder="password123"
       />
       <TouchableOpacity
         style={button3}
-        onPress={() => handleUserInfo(userInfo)}
+        onPress={handleRegister}
       >
         <Text style={customerTitle}>Sign in</Text>
       </TouchableOpacity>

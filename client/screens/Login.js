@@ -13,11 +13,13 @@ import Register from './Register';
 // ScannAR navigator
 // eslint-disable-next-line react/prop-types
 const Login = ({ navigator }) => {
-  const [mode, setMode] = useState('CustomerLanding');
   const [customerColor, setCustomerColor] = useState('#01161D');
   const [background, setBackground] = useState('#082C39');
   const [register, setRegister] = useState(false);
-  const [user, setUser] = useState({});
+  const [name, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  // const [user, setUser] = useState({});
 
   const handleRegisterView = () => {
     // render registration page
@@ -29,18 +31,27 @@ const Login = ({ navigator }) => {
   };
   const handleLogin = () => {
     // eslint-disable-next-line react/prop-types
-    navigator.push(mode);
+    navigator.push('CustomerLanding');
   };
 
   const handleRegister = () => {
-  // send axios request with user info
-  // then
-    handleLogin();
-  };
-
-  const handleUserInfo = (userObject) => {
-    setUser(userObject);
-    handleRegister();
+  // send user from state to server
+    fetch('http://2c926474.ngrok.io/users', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        role: 'customer',
+        email,
+        nameFirst: `${name.split(' ')[0]}`,
+        nameLast: `${name.split(' ')[1]}`,
+      }),
+    })
+      .then(() => handleLogin());
+    //   .catch(() => );
+    // handleLogin();
   };
 
   const {
@@ -56,7 +67,17 @@ const Login = ({ navigator }) => {
   return (
     <View style={[screen, { backgroundColor: background }]}>
       <Text style={header}>ScannAR</Text>
-      {register ? <Register handleUserInfo={handleUserInfo} /> : null}
+      {register ? (
+        <Register
+          handleRegister={handleRegister}
+          setUserName={setUserName}
+          setEmail={setEmail}
+          setPassword={setPassword}
+          name={name}
+          password={password}
+          email={email}
+        />
+      ) : null}
       {!register ? (
         <View style={buttonContainer}>
           <TouchableOpacity
