@@ -8,53 +8,46 @@ import {
 } from 'react-native';
 
 // import components
-import BusinessRegister from './BusinessRegister';
+import Register from './Register';
 
 // ScannAR navigator
 // eslint-disable-next-line react/prop-types
 const Login = ({ navigator }) => {
   const [mode, setMode] = useState('CustomerLanding');
   const [customerColor, setCustomerColor] = useState('#01161D');
-  const [businessColor, setBusinessColor] = useState('#86A4AF');
   const [background, setBackground] = useState('#082C39');
   const [register, setRegister] = useState(false);
+  const [user, setUser] = useState({});
 
-  const handleRegisterView = (chosenMode) => {
-    if (chosenMode === 'Business') {
-      // render BusinessRegister view
-      setBackground('#505950');
-      setRegister(true);
-    } else {
-      setBackground('#082C39');
-      setRegister(false);
-    }
+  const handleRegisterView = () => {
+    // render registration page
+    setRegister(true);
   };
 
-  const handlePress = (chosenMode) => {
-    setMode(chosenMode);
-    handleRegisterView(chosenMode);
-    if (chosenMode === 'CustomerLanding') {
-      setCustomerColor('#86A4AF');
-      setBusinessColor('#01161D');
-    } else {
-      setCustomerColor('#01161D');
-      setBusinessColor('#86A4AF');
-    }
+  const handlePress = () => {
+    handleRegisterView();
   };
   const handleLogin = () => {
     // eslint-disable-next-line react/prop-types
     navigator.push(mode);
   };
 
+  const handleRegister = () => {
+
+  };
+
+  const handleUserInfo = (userObject) => {
+    setUser(userObject);
+  };
+
   const {
     screen,
     header,
     buttonContainer,
+    buttonContainer2,
     button1,
     customerTitle,
     button2,
-    businessTitle,
-    loginContainer,
     button3,
   // eslint-disable-next-line no-use-before-define
   } = styles;
@@ -62,29 +55,32 @@ const Login = ({ navigator }) => {
   return (
     <View style={[screen, { backgroundColor: background }]}>
       <Text style={header}>ScannAR</Text>
-      <View style={buttonContainer}>
-        <TouchableOpacity
-          style={[button1, { backgroundColor: customerColor }]}
-          onPress={handlePress.bind(null, 'CustomerLanding')}
-        >
-          <Text style={customerTitle}>I am a customer</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[button2, { backgroundColor: businessColor }]}
-          onPress={handlePress.bind(null, 'Business')}
-        >
-          <Text style={businessTitle}>I am a business</Text>
-        </TouchableOpacity>
-      </View>
-      {register ? <BusinessRegister /> : null}
-      <View style={loginContainer}>
-        <TouchableOpacity
-          style={button3}
-          onPress={handleLogin}
-        >
-          <Text style={businessTitle}>Sign up with Google</Text>
-        </TouchableOpacity>
-      </View>
+      {register ? <Register handleUserInfo={handleUserInfo} /> : null}
+      {register ? (
+        <View style={buttonContainer2}>
+          <TouchableOpacity
+            style={[button3, { backgroundColor: customerColor }]}
+            onPress={handleLogin}
+          >
+            <Text style={customerTitle}>Sign in</Text>
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <View style={buttonContainer}>
+          <TouchableOpacity
+            style={[button1, { backgroundColor: customerColor }]}
+            onPress={handleLogin}
+          >
+            <Text style={customerTitle}>Sign in</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[button2, { backgroundColor: customerColor }]}
+            onPress={handlePress}
+          >
+            <Text style={customerTitle}>Register</Text>
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };
@@ -92,18 +88,25 @@ const Login = ({ navigator }) => {
 // styles
 const styles = StyleSheet.create({
   buttonContainer: {
-    marginTop: '10%',
     padding: 2,
-    flexDirection: 'row',
+    flexDirection: 'column',
     width: '85%',
-    justifyContent: 'space-around',
+    height: '25%',
+    backgroundColor: '#86A4AF',
+    borderRadius: 5,
+  },
+  buttonContainer2: {
+    padding: 2,
+    marginTop: 5,
+    flexDirection: 'column',
+    width: '85%',
+    height: '10%',
     backgroundColor: '#86A4AF',
     borderRadius: 5,
   },
   loginContainer: {
     marginTop: '10%',
     padding: 2,
-    flexDirection: 'row',
     width: '60%',
     justifyContent: 'space-around',
     backgroundColor: '#86A4AF',
@@ -118,21 +121,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: 30,
-    borderTopStartRadius: 5,
-    borderBottomStartRadius: 5,
+    minHeight: 50,
+    borderRadius: 5,
   },
   button2: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: 30,
-    borderTopEndRadius: 5,
-    borderBottomEndRadius: 5,
+    minHeight: 50,
+    marginTop: 5,
+    borderRadius: 5,
   },
   button3: {
     flex: 1,
-    backgroundColor: '#01161D',
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: 50,
