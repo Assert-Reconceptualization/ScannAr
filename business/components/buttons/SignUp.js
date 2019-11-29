@@ -10,7 +10,6 @@ export default function SignUp(){
       style={signInButton}
     >
       <Text style={signInText}>Sign In</Text>
-      <Text>Google Icon</Text>
     </View>
   );
 }
