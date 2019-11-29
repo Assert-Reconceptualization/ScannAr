@@ -1,7 +1,7 @@
 // Initializes the `business` service on path `/business`
-const { Product } = require('./products.class');
-const createModel = require('../../models/products');
-const hooks = require('./products.hooks.js');
+const { Savedproduct } = require('./savedProducts.class.js');
+const createModel = require('../../models/savedProducts');
+const hooks = require('./savedProducts.hooks.js');
 
 module.exports = (app) => {
   const options = {
@@ -10,10 +10,10 @@ module.exports = (app) => {
   };
 
   // Initialize our service with any options it requires
-  app.use('/products', new Product(options, app));
+  app.use('/savedProducts', new Savedproduct(options, app));
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('products');
+  const service = app.service('savedProducts');
 
   service.hooks(hooks);
 };
