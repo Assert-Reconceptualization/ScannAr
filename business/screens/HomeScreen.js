@@ -21,6 +21,23 @@ export default function HomeScreen() {
   // grab user data from database
   useEffect(() => {
     // grab products
+    fetch(`http://localhost:3030/products?idBusiness=${context.currentBusiness.id}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+    })
+      .then(response => response.json())
+      .then(products => {
+        //update current inventory if there are products
+        if(products.data){
+          context.setCurrentInventory(products.data)
+        }
+      })
+      .catch(() => {
+        console.log('Something Went Wrong');
+      });
     
   }, []);
 
@@ -32,7 +49,8 @@ export default function HomeScreen() {
     titleText,
     noInventoryContainer,
     businessInfoContainer,
-    businessName
+    businessName,
+    addButton
   } = styles;
   return (
     <View style={container}>
@@ -48,7 +66,7 @@ export default function HomeScreen() {
       {context.currentInventory.length ? (
         <View style={inventoryContainer}>
           <ScrollView>
-            {[1, 2, 3, 4].map(product => <ProductCard />)}
+            {context.currentInventory.map(product => <ProductCard key={product.id} product={product}/>)}
           </ScrollView>
         </View>
       ) : (
@@ -56,6 +74,9 @@ export default function HomeScreen() {
           <NoProductMessage />
         </View>
       )}
+      <TouchableOpacity style={addButton}>
+        <Ionicons name="ios-add-circle" size={70} color="#AEC3B0"/>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -112,5 +133,10 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     color: '#EFF6E0'
+  },
+  addButton: {
+    position: 'absolute',
+    bottom: '10%',
+    right: '10%'
   }
 });
