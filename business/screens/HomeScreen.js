@@ -1,8 +1,5 @@
-import * as WebBrowser from "expo-web-browser";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
-  Image,
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,11 +10,11 @@ import { Ionicons } from "@expo/vector-icons";
 import ProductCard from "../components/productCard";
 import BusinessContext from "../applicationState/BusinessContext";
 import NoProductMessage from "../components/NoProductMessage";
+import NewProductModal from "../components/NewProductModal";
 
-export default function HomeScreen() {
+export default function HomeScreen(props) {
   const context = useContext(BusinessContext);
-  console.log(context);
-
+  const [creating, setCreating] = useState(false);
   // grab user data from database
   useEffect(() => {
     // grab products
@@ -41,6 +38,9 @@ export default function HomeScreen() {
     
   }, []);
 
+  const handleModalVisibility = () => {
+    setCreating(true);
+  }
 
   const {
     container,
@@ -74,9 +74,10 @@ export default function HomeScreen() {
           <NoProductMessage />
         </View>
       )}
-      <TouchableOpacity style={addButton}>
+      <TouchableOpacity style={addButton} onPress={handleModalVisibility}>
         <Ionicons name="ios-add-circle" size={70} color="#AEC3B0"/>
       </TouchableOpacity>
+      <NewProductModal navigation={props.navigation} visible={creating} setCreating={setCreating}/>
     </View>
   );
 }
@@ -89,18 +90,6 @@ HomeScreen.navigationOptions = {
   },
   headerTintColor: "white"
 };
-
-function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync(
-    "https://docs.expo.io/versions/latest/workflow/development-mode/"
-  );
-}
-
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    "https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes"
-  );
-}
 
 const styles = StyleSheet.create({
   container: {
