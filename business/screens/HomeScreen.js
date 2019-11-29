@@ -1,5 +1,5 @@
 import * as WebBrowser from "expo-web-browser";
-import React, {useContext} from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Image,
   Platform,
@@ -17,6 +17,14 @@ import NoProductMessage from "../components/NoProductMessage";
 export default function HomeScreen() {
   const context = useContext(BusinessContext);
   console.log(context);
+
+  // grab user data from database
+  useEffect(() => {
+    // grab products
+    
+  }, []);
+
+
   const {
     container,
     titleContainer,
