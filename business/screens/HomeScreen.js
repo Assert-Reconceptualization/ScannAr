@@ -31,7 +31,9 @@ export default function HomeScreen() {
       .then(response => response.json())
       .then(products => {
         //update current inventory if there are products
-        context.setCurrentInventory(products.data)
+        if(products.data){
+          context.setCurrentInventory(products.data)
+        }
       })
       .catch(() => {
         console.log('Something Went Wrong');
