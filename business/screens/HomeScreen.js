@@ -21,6 +21,21 @@ export default function HomeScreen() {
   // grab user data from database
   useEffect(() => {
     // grab products
+    fetch(`http://localhost:3030/products?idBusiness=${context.currentBusiness.id}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+    })
+      .then(response => response.json())
+      .then(products => {
+        //update current inventory if there are products
+        context.setCurrentInventory(products.data)
+      })
+      .catch(() => {
+        console.log('Something Went Wrong');
+      });
     
   }, []);
 
