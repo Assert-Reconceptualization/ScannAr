@@ -1,25 +1,53 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
-  Button
+  Button,
+  Modal,
+  TextInput,
 } from 'react-native';
 import RegisterModal from '../components/RegisterModal';
 import SignUp from '../components/buttons/SignUp';
+import BusinessContext from '../applicationState/BusinessContext'
 
 export default function SignInScreen(props) {
+  const context = useContext(BusinessContext)
   const [register, setRegister] = useState(false);
+  const [signIn, setSignIn] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const isRegistering = () => {
     setRegister(true);
+  }
+  const isSigningIn = () => {
+    setSignIn(true);
+  }
+  const cancelSigningIn = () => {
+    setSignIn(false);
   }
   const cancelRegistration = () => {
     setRegister(false);
   }
 
-  const handleSignUp = () => {
-    props.navigation.navigate({routeName: 'Home'});
+  const handleSignIn = () => {
+    // fetch business info
+    fetch(`http://localhost:3030/business?email=${email}&password=${password}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+    }).then(business => business.json())
+      .then(businessInfo => {
+        return context.setCurrentBusiness(businessInfo.data[0])
+      })
+      .then(() => {
+        props.navigation.navigate({routeName: 'Home'});
+      })
+    // get business info
+    // 
   }
 
   const {
@@ -30,8 +58,8 @@ export default function SignInScreen(props) {
     titleLeftText,
     titleRightText,
     subTitle,
-    signInButton,
-    signInText,
+    loginModal,
+    textInput,
   } = styles;
   return (
     <View style={container}>
@@ -51,12 +79,32 @@ export default function SignInScreen(props) {
       </View>
       <View style={buttonContainer}>
         <TouchableOpacity
-          onPress={handleSignUp}
+          onPress={isSigningIn}
         >
           <SignUp />
         </TouchableOpacity>
         <Button title="Register" onPress={isRegistering} />
       </View>
+      <Modal visible={signIn} animationType="slide">
+        <View style={loginModal}>
+          <Text>Sign In</Text>
+          <TextInput
+            style={textInput}
+            onChangeText={text => setEmail(text)}
+            value={email}
+            placeholder="Email"
+          />
+          <TextInput
+            style={textInput}
+            onChangeText={text => setPassword(text)}
+            value={password}
+            placeholder="Password"
+            secureTextEntry
+          />
+          <Button onPress={handleSignIn} title="Submit" />
+          <Button onPress={cancelSigningIn} title="Cancel" />
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -95,5 +143,19 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 3,
     alignItems: 'center'
+  },
+  loginModal: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },  
+  textInput: {
+    width: "70%",
+    borderWidth: 2,
+    borderColor: "black",
+    borderRadius: 5,
+    fontSize: 25,
+    marginBottom: 20,
+    paddingLeft: 5
   },
 });
