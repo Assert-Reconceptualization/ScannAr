@@ -1,5 +1,5 @@
 import * as WebBrowser from "expo-web-browser";
-import React, {useContext} from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Image,
   Platform,
@@ -17,15 +17,46 @@ import NoProductMessage from "../components/NoProductMessage";
 export default function HomeScreen() {
   const context = useContext(BusinessContext);
   console.log(context);
+
+  // grab user data from database
+  useEffect(() => {
+    // grab products
+    fetch(`http://localhost:3030/products?idBusiness=${context.currentBusiness.id}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+    })
+      .then(response => response.json())
+      .then(products => {
+        //update current inventory if there are products
+        if(products.data){
+          context.setCurrentInventory(products.data)
+        }
+      })
+      .catch(() => {
+        console.log('Something Went Wrong');
+      });
+    
+  }, []);
+
+
   const {
     container,
     titleContainer,
     inventoryContainer,
     titleText,
-    noInventoryContainer
+    noInventoryContainer,
+    businessInfoContainer,
+    businessName,
+    addButton
   } = styles;
   return (
     <View style={container}>
+      <View style={businessInfoContainer}>
+        <Text style={businessName}>{context.currentBusiness.name}</Text>
+      </View>
       <View style={titleContainer}>
         <Text style={titleText}>Our Products</Text>
         <TouchableOpacity>
@@ -35,7 +66,7 @@ export default function HomeScreen() {
       {context.currentInventory.length ? (
         <View style={inventoryContainer}>
           <ScrollView>
-            {[1, 2, 3, 4].map(product => <ProductCard />)}
+            {context.currentInventory.map(product => <ProductCard key={product.id} product={product}/>)}
           </ScrollView>
         </View>
       ) : (
@@ -43,6 +74,9 @@ export default function HomeScreen() {
           <NoProductMessage />
         </View>
       )}
+      <TouchableOpacity style={addButton}>
+        <Ionicons name="ios-add-circle" size={70} color="#AEC3B0"/>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -73,6 +107,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#39403A"
   },
+  businessInfoContainer: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   titleContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -82,14 +120,23 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   inventoryContainer: {
-    flex: 5,
+    flex: 7,
   },
   noInventoryContainer: {
-    flex: 5,
+    flex: 7,
+  },
+  businessName: {
+    color: '#EFF6E0',
+    fontSize: 20
   },
   titleText: {
     fontSize: 30,
     fontWeight: 'bold',
     color: '#EFF6E0'
+  },
+  addButton: {
+    position: 'absolute',
+    bottom: '10%',
+    right: '10%'
   }
 });
