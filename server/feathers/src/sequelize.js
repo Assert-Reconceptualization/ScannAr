@@ -42,6 +42,7 @@ module.exports = app => {
             phone: '3127735041',
             email: 'BBB01@gmail.com',
             description: 'Top players to ever play in the NBA',
+            password: 'lavar',
           }).then(business => {
             business.createProduct({
               name: 'Flag',
