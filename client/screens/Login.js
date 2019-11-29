@@ -33,22 +33,23 @@ const Login = ({ navigator }) => {
   };
 
   const handleRegister = () => {
-
+  // send axios request with user info
+  // then
+    handleLogin();
   };
 
   const handleUserInfo = (userObject) => {
     setUser(userObject);
+    handleRegister();
   };
 
   const {
     screen,
     header,
     buttonContainer,
-    buttonContainer2,
     button1,
     customerTitle,
     button2,
-    button3,
   // eslint-disable-next-line no-use-before-define
   } = styles;
 
@@ -56,16 +57,7 @@ const Login = ({ navigator }) => {
     <View style={[screen, { backgroundColor: background }]}>
       <Text style={header}>ScannAR</Text>
       {register ? <Register handleUserInfo={handleUserInfo} /> : null}
-      {register ? (
-        <View style={buttonContainer2}>
-          <TouchableOpacity
-            style={[button3, { backgroundColor: customerColor }]}
-            onPress={handleLogin}
-          >
-            <Text style={customerTitle}>Sign in</Text>
-          </TouchableOpacity>
-        </View>
-      ) : (
+      {!register ? (
         <View style={buttonContainer}>
           <TouchableOpacity
             style={[button1, { backgroundColor: customerColor }]}
@@ -80,7 +72,7 @@ const Login = ({ navigator }) => {
             <Text style={customerTitle}>Register</Text>
           </TouchableOpacity>
         </View>
-      )}
+      ) : null}
     </View>
   );
 };
