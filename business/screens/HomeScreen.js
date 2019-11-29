@@ -47,7 +47,8 @@ export default function HomeScreen() {
     titleText,
     noInventoryContainer,
     businessInfoContainer,
-    businessName
+    businessName,
+    addButton
   } = styles;
   return (
     <View style={container}>
@@ -71,6 +72,9 @@ export default function HomeScreen() {
           <NoProductMessage />
         </View>
       )}
+      <TouchableOpacity style={addButton}>
+        <Ionicons name="ios-add-circle" size={70} color="#AEC3B0"/>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -127,5 +131,10 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     color: '#EFF6E0'
+  },
+  addButton: {
+    position: 'absolute',
+    bottom: '10%',
+    right: '10%'
   }
 });
