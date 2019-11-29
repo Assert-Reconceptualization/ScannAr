@@ -41,11 +41,15 @@ export default function SignInScreen(props) {
       },
     }).then(business => business.json())
       .then(businessInfo => {
+        if(businessInfo.data[0] === undefined) throw Error
         return context.setCurrentBusiness(businessInfo.data[0])
       })
       .then(() => {
         props.navigation.navigate({routeName: 'Home'});
       })
+      .catch(() => {
+        console.log("Wrong email or password")
+      });
     // get business info
     // 
   }
