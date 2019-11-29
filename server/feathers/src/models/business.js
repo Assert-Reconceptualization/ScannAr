@@ -2,7 +2,6 @@
 // See http://docs.sequelizejs.com/en/latest/docs/models-definition/
 // for more of what you can do here.
 const Sequelize = require("sequelize");
-const user = require("./users");
 
 const { DataTypes } = Sequelize;
 
@@ -35,7 +34,6 @@ module.exports = function(app) {
         type: DataTypes.STRING,
         allowNull: false
       }
-      // will create a relationship for businessID fields in product and user
     },
     {
       hooks: {
@@ -45,14 +43,9 @@ module.exports = function(app) {
       }
     }
   );
-
   // eslint-disable-next-line no-unused-vars
   business.associate = function(models) {
-    // Define associations here
-    // See http://docs.sequelizejs.com/en/latest/docs/associations/
-    // will create a relationship for bussinessID field
-    //model you're in   model to send to
-    // business.hasMany(models.users, { foreignKey: 'idBussiness' }); //! In progress
+    business.hasMany(models.products, { foreignKey: 'idBusiness' });
   };
 
   return business;

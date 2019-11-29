@@ -17,58 +17,64 @@ import {
  * @param {string} object
  */
 
-const ARImageMarkerItem = ({ item }) => {
+const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
+  // dynamically create targets
   ViroARTrackingTargets.createTargets({
     [item.name]: {
       source: { url: `${item.url}` },
       orientation: 'Up',
-      physicalWidth: 1, // real world width in meters
+      physicalWidth: 1.5, // real world width in meters
     },
   });
 
   const {
     card,
-    cardWrapper,
+    nameAndPrice,
     subText,
     textStyle,
+    priceStyle,
   // eslint-disable-next-line no-use-before-define
   } = styles;
 
   return (
     <ViroARImageMarker target={item.name}>
-      <ViroNode key="card">
+      <ViroNode
+        key="card"
+      >
         <ViroNode
-          style={{ opacity: 0 }}
           position={[0, -0.02, 0]}
-          dragType="FixedToWorld"
           animation={{
             name: 'animateImage',
             run: true,
-            loop: false,
           }}
+          scale={[1, 1, 1]}
         >
           <ViroFlexView
+            onClick={() => { setVisibility(); setProduct(item); }}
             rotation={[-90, 0, 0]}
-            height={1}
+            height={0.5}
             width={1}
             style={card}
           >
-            <ViroFlexView style={cardWrapper}>
+            <ViroFlexView
+              style={nameAndPrice}
+            >
               <ViroText
                 textClipMode="None"
                 text={item.name}
                 scale={[0.25, 0.25, 0.25]}
                 style={textStyle}
               />
+              <ViroText
+                text={`$${item.price}.00`}
+                scale={[0.25, 0.25, 0.25]}
+                style={priceStyle}
+              />
             </ViroFlexView>
             <ViroFlexView style={subText}>
               <ViroText
-                width={0.01}
-                height={0.01}
-                textAlign="left"
-                textClipMode="None"
-                text={item.description}
-                scale={[0.1, 0.1, 0.1]}
+                text="Click for info"
+                scale={[0.15, 0.15, 0.15]}
                 style={textStyle}
               />
             </ViroFlexView>
@@ -99,36 +105,33 @@ ViroAnimations.registerAnimations({
 });
 
 const styles = StyleSheet.create({
-  screen: {
+  nameAndPrice: {
     flex: 1,
-  },
-  helloWorldTextStyle: {
-    fontFamily: 'Arial',
-    fontSize: 30,
-    color: '#ffffff',
-    textAlignVertical: 'center',
-    textAlign: 'center',
+    alignItems: 'flex-start',
+    flexDirection: 'row',
   },
   card: {
+    flex: 1,
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
     flexDirection: 'column',
-    backgroundColor: 'white',
-    // opacity: 0.5
-    /* Viro doesnt like opacity here */
-  },
-  cardWrapper: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    padding: 0.001,
-    flex: 0.5,
   },
   textStyle: {
-    flex: 0.5,
     fontFamily: 'Roboto',
     fontSize: 30,
     color: 'black',
-    textAlignVertical: 'top',
-    textAlign: 'left',
     fontWeight: 'bold',
+  },
+  priceStyle: {
+    fontFamily: 'Roboto',
+    fontSize: 30,
+    color: 'black',
+    fontStyle: 'italic',
+    fontWeight: 'bold',
+    margin: 0.07,
+  },
+  subText: {
+    height: 0.5,
+    width: 0.3,
   },
 });
 
