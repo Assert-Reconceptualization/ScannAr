@@ -42,23 +42,14 @@ export default function RegisterModal(props) {
         description: businessDescription
       })
     })
-      .then(response => {
-        console.log(response);
-        // update the currentBusiness State
-        context.setCurrentBusiness({
-          name: businessName,
-          phone: businessNumber,
-          email: businessEmail,
-          description: businessDescription
-        });
-        // update the user state
-        // token
-        // business data
+      .then((response) => response.json())
+      .then(business => {
+        context.setCurrentBusiness(business);
         props.navigation.navigate({ routeName: "Home" });
       })
-      .catch(error => {
-        console.log(error);
-      });
+      .catch(() => {
+        console.log("Unable to register")
+      })
   };
 
   const {
