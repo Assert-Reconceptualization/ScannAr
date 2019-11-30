@@ -24,11 +24,7 @@ HomeStack.navigationOptions = {
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-list`
-          : 'md-information-circle'
-      }
+      name="ios-list"
     />
   ),
 };
@@ -45,7 +41,7 @@ const AddStack = createStackNavigator(
 AddStack.navigationOptions = {
   tabBarLabel: 'Add',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-add' : 'md-link'} />
+    <TabBarIcon focused={focused} name="ios-add-circle" />
   ),
 };
 
@@ -61,7 +57,7 @@ const SettingsStack = createStackNavigator(
 SettingsStack.navigationOptions = {
   tabBarLabel: 'Profile',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-person' : 'md-options'} />
+    <TabBarIcon focused={focused} name='ios-person' />
   ),
 };
 
