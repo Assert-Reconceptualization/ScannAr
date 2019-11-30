@@ -1,4 +1,4 @@
-# ScannAR
+# ScannAR ![no-text](https://avatars2.githubusercontent.com/u/58004750?s=200&v=4)
 
 ## Table of Contents
 1. [Team](#team)
