@@ -11,6 +11,11 @@ export default function NewProductModal(props){
   const [price, setPrice] = useState("");
   const context = useContext(BusinessContext);
 
+  const handleCancel = () => {
+    // close modal
+    props.setCreating(false);
+  }
+
   const handleSubmit = () => {
 
     // make request to server POST
@@ -132,6 +137,11 @@ export default function NewProductModal(props){
         <Button
           title="Submit"
           onPress={handleSubmit} 
+        />
+        <Button 
+          title="Cancel"
+          onPress={handleCancel}
+          color="red"
         />
       </View>
     </Modal>
