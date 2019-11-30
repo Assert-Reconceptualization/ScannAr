@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+/* eslint-disable react/prop-types */
+import React from 'react';
 import {
   Text, View, StyleSheet, TextInput, TouchableOpacity,
 } from 'react-native';
 
-// eslint-disable-next-line react/prop-types
-const Register = ({ handleRegister, setUserName, setEmail, setPassword, name, email, password }) => {
-
-  // eslint-disable-next-line no-use-before-define
+const Register = ({
+  handleRegister,
+  setUserName,
+  setEmail,
+  setPassword,
+  name,
+  email,
+  password,
+  setRegister,
+}) => {
   const {
     inputField,
     inputFields,
@@ -51,20 +58,19 @@ const Register = ({ handleRegister, setUserName, setEmail, setPassword, name, em
         style={button3}
         onPress={handleRegister}
       >
-        <Text style={customerTitle}>Sign in</Text>
+        <Text style={customerTitle}>Register</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={button3}
+        onPress={() => setRegister(false)}
+      >
+        <Text style={customerTitle}>Back</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  descriptionInputField: {
-    height: 120,
-    borderColor: 'gray',
-    borderWidth: 2,
-    width: '100%',
-    borderRadius: 5,
-  },
   customerTitle: {
     fontSize: 15,
     color: 'white',

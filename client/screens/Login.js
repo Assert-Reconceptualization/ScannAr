@@ -5,6 +5,7 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
+  TextInput,
 } from 'react-native';
 
 // import components
@@ -19,19 +20,38 @@ const Login = ({ navigator }) => {
   const [name, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  // const [user, setUser] = useState({});
+  const [idUser, setIdUser] = useState('');
 
+  // Renders Register fields onto login
   const handleRegisterView = () => {
-    // render registration page
     setRegister(true);
   };
 
-  const handlePress = () => {
-    handleRegisterView();
-  };
-  const handleLogin = () => {
-    // eslint-disable-next-line react/prop-types
+  // Gets user id / info
+  const getUserInfo = () => {
     navigator.push('CustomerLanding');
+    // fetch(`http://whatever.ngrok.io/users?email=${email}`, {
+    //   method: 'GET',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    // })
+    //   .then(({ idUser }) => {
+    //     // add idUser to context
+    //     setIdUser(idUser);
+    //     handleLogin();
+    //   })
+    //   .catch((err) => console.error(err));
+  };
+
+  // Handles login redirecting
+  const handleLogin = () => {
+    if (idUser && idUser !== '') {
+      navigator.push('CustomerLanding');
+    } else {
+      setRegister(true);
+    }
   };
 
   const handleRegister = () => {
@@ -49,9 +69,11 @@ const Login = ({ navigator }) => {
         nameLast: `${name.split(' ')[1]}`,
       }),
     })
-      .then(() => handleLogin());
-    //   .catch(() => );
-    // handleLogin();
+      .then(({ idUSer }) => {
+        setIdUser(idUSer);
+        handleLogin();
+      })
+      .catch((err) => console.error(err));
   };
 
   const {
@@ -61,6 +83,8 @@ const Login = ({ navigator }) => {
     button1,
     customerTitle,
     button2,
+    textStyle,
+    inputField,
   // eslint-disable-next-line no-use-before-define
   } = styles;
 
@@ -76,24 +100,46 @@ const Login = ({ navigator }) => {
           name={name}
           password={password}
           email={email}
+          setRegister={setRegister}
         />
-      ) : null}
-      {!register ? (
-        <View style={buttonContainer}>
-          <TouchableOpacity
-            style={[button1, { backgroundColor: customerColor }]}
-            onPress={handleLogin}
-          >
-            <Text style={customerTitle}>Sign in</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[button2, { backgroundColor: customerColor }]}
-            onPress={handlePress}
-          >
-            <Text style={customerTitle}>Register</Text>
-          </TouchableOpacity>
+      ) : (
+        <View style={{ flex: 1, marginTop: 20 }}>
+          <Text style={textStyle}>
+            Email
+          </Text>
+          <TextInput
+            style={inputField}
+            onChangeText={(text) => setEmail(text)}
+            value={email}
+            autoCompleteType="email"
+            placeholder="email@example.com"
+          />
+          <Text style={textStyle}>
+            Password
+          </Text>
+          <TextInput
+            style={inputField}
+            onChangeText={(text) => setPassword(text)}
+            value={password}
+            secureTextEntry
+            placeholder="password123"
+          />
+          <View style={buttonContainer}>
+            <TouchableOpacity
+              style={[button1, { backgroundColor: customerColor }]}
+              onPress={getUserInfo}
+            >
+              <Text style={customerTitle}>Login</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[button2, { backgroundColor: customerColor }]}
+              onPress={handleRegisterView}
+            >
+              <Text style={customerTitle}>Register</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      ) : null}
+      )}
     </View>
   );
 };
@@ -103,27 +149,12 @@ const styles = StyleSheet.create({
   buttonContainer: {
     padding: 2,
     flexDirection: 'column',
-    width: '85%',
+    width: '100%',
     height: '25%',
     backgroundColor: '#86A4AF',
     borderRadius: 5,
-  },
-  buttonContainer2: {
-    padding: 2,
-    marginTop: 5,
-    flexDirection: 'column',
-    width: '85%',
-    height: '10%',
-    backgroundColor: '#86A4AF',
-    borderRadius: 5,
-  },
-  loginContainer: {
-    marginTop: '10%',
-    padding: 2,
-    width: '60%',
-    justifyContent: 'space-around',
-    backgroundColor: '#86A4AF',
-    borderRadius: 5,
+    minWidth: 300,
+    marginTop: 10,
   },
   screen: {
     flex: 1,
@@ -142,27 +173,28 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: 50,
-    marginTop: 5,
-    borderRadius: 5,
-  },
-  button3: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: 50,
+    marginTop: 3,
     borderRadius: 5,
   },
   customerTitle: {
     fontSize: 15,
     color: 'white',
   },
-  businessTitle: {
-    fontSize: 15,
-    color: 'white',
-  },
   header: {
     fontSize: 55,
     fontWeight: 'bold',
+    color: 'white',
+  },
+  textStyle: {
+    padding: 1,
+    color: 'white',
+  },
+  inputField: {
+    height: 40,
+    borderColor: '#86A4AF',
+    borderWidth: 2,
+    minWidth: 275,
+    borderRadius: 5,
     color: 'white',
   },
 });
