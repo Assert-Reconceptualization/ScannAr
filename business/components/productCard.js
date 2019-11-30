@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View,
   Text,
@@ -8,10 +8,12 @@ import {
 } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import BusinessContext from "../applicationState/BusinessContext";
+import EditProductModal from './EditProductModal';
 
 export default function ProductCard(props){
 
   const context = useContext(BusinessContext);
+  const [editing, setEditing] = useState(false);
 
   const handleDelete = () => {
     // delete request to API
@@ -36,7 +38,7 @@ export default function ProductCard(props){
   }
 
   const showEditModal = () => {
-
+    setEditing(true);
   }
 
   const {
@@ -56,6 +58,11 @@ export default function ProductCard(props){
   } = props.product;
   return (
     <View style={container}>
+      <EditProductModal
+        product={props.product}
+        visible={editing}
+        closeModal={setEditing}
+      />
       <Image style={image} source={{ uri: imageUrl }}/>
       <View>
         <Text style={productTitle}>{name}</Text>
