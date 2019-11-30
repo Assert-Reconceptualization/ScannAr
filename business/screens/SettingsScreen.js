@@ -1,14 +1,17 @@
-import React from 'react';
-import { ExpoConfigView } from '@expo/samples';
+import React, { useContext } from 'react';
+import { View, Text } from 'react-native';
+import BusinessContext from '../applicationState/BusinessContext';
 
 export default function SettingsScreen() {
-  /**
-   * Go ahead and delete ExpoConfigView and replace it with your content;
-   * we just wanted to give you a quick view of your config.
-   */
-  return <ExpoConfigView />;
+  const context = useContext(BusinessContext);
+
+  return (
+    <View>
+      <Text>{`Business Name: ${context.currentBusiness.name}`}</Text>
+    </View>
+  );
 }
 
 SettingsScreen.navigationOptions = {
-  title: 'app.json',
+  title: 'Edit Business Profile',
 };
