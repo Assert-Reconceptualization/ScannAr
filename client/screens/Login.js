@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-bind */
 import React, { useState } from 'react';
 import {
@@ -12,7 +13,6 @@ import {
 import Register from './Register';
 
 // ScannAR navigator
-// eslint-disable-next-line react/prop-types
 const Login = ({ navigator }) => {
   const [register, setRegister] = useState(false);
   const [name, setUserName] = useState('');
@@ -70,8 +70,8 @@ const Login = ({ navigator }) => {
       .then(({ idUSer }) => {
         setIdUser(idUSer);
         handleLogin();
-      })
-      .catch((err) => console.error(err));
+      });
+    // .catch((err) => console.error(err));
   };
 
   const {
