@@ -51,8 +51,22 @@ app.get('/savedProducts', (req, res) => {
   // get item from savedProduct where idUser
   app.get('sequelizeClient').models.savedProducts.findAll({ where: idUser })
     .then((savedList) => {
-      res.send(savedList);
-    });
+      async function asyncForEach(array, callback) {
+        for (let index = 0; index < array.length; index++) {
+          await callback(array[index], index, array);
+        }
+      }
+      return async () => {
+        const products = [];
+        await asyncForEach(savedList, (element) => {
+          products.push(app.get("sequelizeClient").models.products.findAll({ where: {id: element.idProduct} }));
+        });
+        return products;
+      };
+    })
+      .then((products) => {
+        res.send(products);
+      });
 });
 
 app.post('/savedProducts', (req, res) => {
