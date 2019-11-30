@@ -8,38 +8,44 @@ module.exports = function(app) {
   // getting the config for sequelize
   const sequelizeClient = app.get('sequelizeClient');
   const products = sequelizeClient.define(
-    'products',
+    "products",
     {
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
+      },
       name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
       },
       price: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: false
       },
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING
       },
       imageUrl: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
-      },
+        unique: true
+      }
     },
     {
       hooks: {
         beforeCount(options) {
           options.raw = true;
-        }
-      }
-    }
+        },
+      },
+    },
   );
 
   // // eslint-disable-next-line no-unused-vars
-  // products.associate = function(models) {
-  //   products.belongsTo(models.business);
-  // };
+  products.associate = function (models) {
+    // many to many relationship
+    products.belongsToMany(models.users, { through: "savedProducts", foreignKey: "idProduct" });
+  };
 
   return products;
 };

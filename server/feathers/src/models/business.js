@@ -40,7 +40,7 @@ module.exports = function(app) {
       }
     },
     {
-      hooks: {
+      hooks: { 
         beforeCount(options) {
           options.raw = true;
         }

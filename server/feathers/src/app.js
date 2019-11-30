@@ -45,9 +45,40 @@ app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
 // a static serve on the slash path
 app.use('/', express.static(app.get('public')));
+app.get('/savedProducts', (req, res) => {
+  const { idUser } = req.params;
 
+  // get item from savedProduct where idUser
+  app.get('sequelizeClient').models.savedProducts.findAll({ where: idUser })
+    .then((savedList) => {
+      async function asyncForEach(array, callback) {
+        for (let index = 0; index < array.length; index++) {
+          await callback(array[index], index, array);
+        }
+      }
+      return async () => {
+        const products = [];
+        await asyncForEach(savedList, (element) => {
+          products.push(app.get("sequelizeClient").models.products.findAll({ where: {id: element.idProduct} }));
+        });
+        return products;
+      };
+    })
+      .then((products) => {
+        res.send(products);
+      });
+});
 
-
+app.post('/savedProducts', (req, res) => {
+  const { idUser, idProduct } = req.query;
+  app.get('sequelizeClient').models.savedProducts.create({ idUser, idProduct })
+    .then((saved) => {
+      res.send(saved);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 // Set up Plugins and providers & Enable express REST services
 app.configure(express.rest());
