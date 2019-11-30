@@ -27,34 +27,35 @@ const Login = ({ navigator }) => {
 
   // Gets user id / info
   const getUserInfo = () => {
-    navigator.push('CustomerLanding');
-    // fetch(`http://whatever.ngrok.io/users?email=${email}`, {
-    //   method: 'GET',
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    // })
-    //   .then(({ idUser }) => {
-    //     // add idUser to context
-    //     setIdUser(idUser);
-    //     handleLogin();
-    //   })
-    //   .catch((err) => console.error(err));
+    fetch(`http://38d7345e.ngrok.io/users?email=${email}&password=${password}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(response => response.json())
+      .then((userInfo) => {
+        // add idUser to context
+        const { id } = userInfo.data[0];
+        if (id) {
+          setIdUser(id);
+          handleLogin();
+        } else {
+          setRegister(true);
+        }
+      })
+      .catch((err) => setRegister(true));
   };
 
   // Handles login redirecting
   const handleLogin = () => {
-    if (idUser && idUser !== '') {
       navigator.push('CustomerLanding');
-    } else {
-      setRegister(true);
-    }
   };
 
   const handleRegister = () => {
   // send user from state to server
-    fetch('http://2c926474.ngrok.io/users', {
+    fetch('http://38d7345e.ngrok.io/users', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -65,13 +66,16 @@ const Login = ({ navigator }) => {
         email,
         nameFirst: `${name.split(' ')[0]}`,
         nameLast: `${name.split(' ')[1]}`,
+        password,
       }),
     })
-      .then(({ idUSer }) => {
-        setIdUser(idUSer);
+      .then((response) => response.json())
+      .then((userInfo) => {
+        const { id } = userInfo;
+        setIdUser(id);
         handleLogin();
-      });
-    // .catch((err) => console.error(err));
+      })
+      .catch((err) => console.error(err));
   };
 
   const {
