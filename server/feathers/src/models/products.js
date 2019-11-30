@@ -44,7 +44,7 @@ module.exports = function(app) {
   // // eslint-disable-next-line no-unused-vars
   products.associate = function (models) {
     // many to many relationship
-    products.belongsToMany(models.users, {through: "savedProducts", foreignKey: "idProducts"});
+    products.belongsToMany(models.users, { through: "savedProducts", foreignKey: "idProduct" });
   };
 
   return products;

@@ -10,8 +10,8 @@ module.exports = app => {
     database: 'ScannAr',
     logging: false,
     define: {
-      freezeTableName: true // Model tableName will be the same as the model name
-    }
+      freezeTableName: true, // Model tableName will be the same as the model name
+    },
   });
   const oldSetup = app.setup;
 
@@ -25,7 +25,6 @@ module.exports = app => {
     Object.keys(models).forEach(name => {
       if ('associate' in models[name]) {
         models[name].associate(models);
-        console.log(name);
       }
     });
     // Sync to the database
@@ -58,6 +57,14 @@ module.exports = app => {
             });
           });
         })
+        .then(() => {
+          models.users.create({
+            password: '231321',
+            email: 'abel@scannar',
+            nameFirst: 'abel',
+            nameLast: 'jade'
+          });
+        })
         .catch((err) => {
           console.log(`Error: ${err}`);
         }),
@@ -65,29 +72,3 @@ module.exports = app => {
     return result;
   };
 };
-
-
-// mock data
-// products.create({
-// });
-// products.create({
-//   name: 'Cabinet',
-//   price: 1000,
-//   description: 'This is a big blue cabinet',
-//   imageUrl: 'https://i.ibb.co/qWf8pm0/Cabinet.jpg',
-//   idBusiness: 1,
-// });
-// users.create({
-//   idGoogle: 54643,
-//   role: 'customer',
-//   email: 'abel.terefe@gmail.com',
-//   nameFirst: 'Abel',
-//   nameLast: 'Terefe'
-// });
-// users.create({
-//   idGoogle: 5675443,
-//   role: 'business',
-//   email: 'Samsonterefe96@gmail.com',
-//   nameFirst: 'Samson',
-//   nameLast: 'Terefe',
-// });

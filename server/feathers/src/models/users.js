@@ -47,7 +47,7 @@ module.exports = function (app) {
   );
 
   users.associate = function (models) {
-    users.belongsToMany(models.products, { through: "savedProducts", foreignKey: "idUsers"});
+    users.belongsToMany(models.products, { through: "savedProducts", foreignKey: "idUser"});
   };
   return users;
 };
