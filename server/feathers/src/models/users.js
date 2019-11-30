@@ -11,13 +11,13 @@ module.exports = function (app) {
   const users = sequelizeClient.define(
     "users",
     {
-      googleId: {
-        type: DataTypes.STRING,
-        // allowNull: false,
-        unique: true
+      id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
       },
-      role: {
-        type: DataTypes.STRING,
+      password: {
+        type: DataTypes.STRING
         // allowNull: false
       },
       email: {
@@ -34,9 +34,8 @@ module.exports = function (app) {
         allowNull: false
       },
       idBusiness: {
-        type: DataTypes.INTEGER,
-      },
-      // will create a relationship for bussinessID field
+        type: DataTypes.INTEGER
+      }
     },
     {
       hooks: {
@@ -47,8 +46,8 @@ module.exports = function (app) {
     }
   );
 
-  // // eslint-disable-next-line no-unused-vars
-  // users.associate = function (models) {
-  // };
+  users.associate = function (models) {
+    users.belongsToMany(models.products, { through: "savedProducts", foreignKey: "idUser"});
+  };
   return users;
 };

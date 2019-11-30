@@ -9,7 +9,7 @@
   ],
   "author": {
     "name": "",
-    "email": "abelterefe98@gmail.com"
+    "email": ""
   },
   "contributors": [],
   "bugs": {},
@@ -34,7 +34,6 @@
     "@feathersjs/authentication-local": "^4.3.11",
     "@feathersjs/authentication-oauth": "^4.4.1",
     "@feathersjs/configuration": "^4.3.11",
-    "@feathersjs/errors": "^4.3.11",
     "@feathersjs/express": "^4.3.11",
     "@feathersjs/feathers": "^4.3.11",
     "@feathersjs/socketio": "^4.3.11",
