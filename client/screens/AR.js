@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useContext } from 'react';
 
 import { StyleSheet, View } from 'react-native';
 
@@ -11,8 +11,9 @@ import {
 
 import ARNavBar from '../components/NavBar/ARNavBar';
 import ARImageMarkerItem from '../components/AR/ARImageMarkerItem';
-import products from '../mock-data/products';
+// import products from '../mock-data/products';
 import ProductProfileModal from '../components/productProfiles/ProductProfileModal';
+import CustomerContext from '../applicationState/customerContext';
 
 
 class ARScreen extends Component {
@@ -62,6 +63,7 @@ class ARScreen extends Component {
 
 // eslint-disable-next-line react/prop-types
 const ARscene = ({ setVisibility, setProduct }) => {
+  const context = useContext(CustomerContext);
   const [text, setText] = useState('Initializing...');
   // eslint-disable-next-line no-use-before-define
   const { initialText } = styles;
@@ -74,12 +76,12 @@ const ARscene = ({ setVisibility, setProduct }) => {
         style={initialText}
       />
       <ViroNode>
-        {products.map((item) => (
+        {context.allMarkers.map((item) => (
           <ARImageMarkerItem
             setVisibility={setVisibility}
             setProduct={setProduct}
             item={item}
-            key={item.name}
+            key={item.id}
           />
         ))}
       </ViroNode>
