@@ -14,8 +14,6 @@ import Register from './Register';
 // ScannAR navigator
 // eslint-disable-next-line react/prop-types
 const Login = ({ navigator }) => {
-  const [customerColor, setCustomerColor] = useState('#01161D');
-  const [background, setBackground] = useState('#082C39');
   const [register, setRegister] = useState(false);
   const [name, setUserName] = useState('');
   const [email, setEmail] = useState('');
@@ -89,7 +87,7 @@ const Login = ({ navigator }) => {
   } = styles;
 
   return (
-    <View style={[screen, { backgroundColor: background }]}>
+    <View style={screen}>
       <Text style={header}>ScannAR</Text>
       {register ? (
         <Register
@@ -126,13 +124,13 @@ const Login = ({ navigator }) => {
           />
           <View style={buttonContainer}>
             <TouchableOpacity
-              style={[button1, { backgroundColor: customerColor }]}
+              style={button1}
               onPress={getUserInfo}
             >
               <Text style={customerTitle}>Login</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[button2, { backgroundColor: customerColor }]}
+              style={button2}
               onPress={handleRegisterView}
             >
               <Text style={customerTitle}>Register</Text>
@@ -160,6 +158,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingTop: '30%',
+    backgroundColor: '#082C39',
   },
   button1: {
     flex: 1,
@@ -167,6 +166,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     minHeight: 50,
     borderRadius: 5,
+    backgroundColor: '#01161D',
   },
   button2: {
     flex: 1,
@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
     minHeight: 50,
     marginTop: 3,
     borderRadius: 5,
+    backgroundColor: '#01161D',
   },
   customerTitle: {
     fontSize: 15,
