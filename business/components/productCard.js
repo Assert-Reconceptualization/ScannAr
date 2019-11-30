@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View,
   Text,
@@ -8,10 +8,12 @@ import {
 } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import BusinessContext from "../applicationState/BusinessContext";
+import EditProductModal from './EditProductModal';
 
 export default function ProductCard(props){
 
   const context = useContext(BusinessContext);
+  const [editing, setEditing] = useState(false);
 
   const handleDelete = () => {
     // delete request to API
@@ -35,6 +37,10 @@ export default function ProductCard(props){
       })
   }
 
+  const showEditModal = () => {
+    setEditing(true);
+  }
+
   const {
     container,
     image,
@@ -42,6 +48,7 @@ export default function ProductCard(props){
     productPrice,
     productTitle,
     deleteContainer,
+    editContainer,
   } = styles;
   const {
     name,
@@ -51,22 +58,40 @@ export default function ProductCard(props){
   } = props.product;
   return (
     <View style={container}>
+      <EditProductModal
+        navigation={props.navigation}
+        product={props.product}
+        visible={editing}
+        closeModal={setEditing}
+      />
       <Image style={image} source={{ uri: imageUrl }}/>
       <View>
         <Text style={productTitle}>{name}</Text>
         <Text style={productDescription}>{description}</Text>
         <Text style={productPrice}>{`$${price}.00`}</Text>
       </View>
-      <TouchableOpacity
-        style={deleteContainer}
-        onPress={handleDelete}
-      >
-        <Ionicons
-          name="ios-close"
-          size={40}
-          style={{color: '#EFF6E0' }}
-        />
-      </TouchableOpacity>
+      <View style={deleteContainer}>
+        <TouchableOpacity
+          onPress={handleDelete}
+        >
+          <Ionicons
+            name="ios-close"
+            size={40}
+            style={{color: '#EFF6E0' }}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={editContainer}>
+        <TouchableOpacity
+          onPress={showEditModal}
+        >
+          <Ionicons
+            name="ios-more"
+            size={25}
+            style={{color: '#EFF6E0' }}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -107,6 +132,11 @@ const styles = StyleSheet.create({
     marginBottom: 7,
   },
   deleteContainer: {
+    position: 'absolute',
+    bottom: 0,
+    right: 10
+  },
+  editContainer: {
     position: 'absolute',
     top: 0,
     right: 10
