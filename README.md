@@ -1,12 +1,11 @@
 # ScannAR
 
 ## Table of Contents
-[Team](#team)
-[Usage](#Usage)
-[Requirements](#requirements)
-[Development](#development)
-[Installing Dependencies](#installing-dependencies)
-[Contributing](#contributing)
+1. [Team](#team)
+2. [Usage](#Usage)
+3. [Requirements](#requirements)
+4. [Development](#development)
+5. [Contributing](#contributing)
 
 ## Team
 
