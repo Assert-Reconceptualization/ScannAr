@@ -66,7 +66,7 @@ export default function HomeScreen(props) {
       {context.currentInventory.length ? (
         <View style={inventoryContainer}>
           <ScrollView>
-            {context.currentInventory.map(product => <ProductCard key={product.id} product={product}/>)}
+            {context.currentInventory.map(product => <ProductCard navigation={props.navigation} key={product.id} product={product}/>)}
           </ScrollView>
         </View>
       ) : (

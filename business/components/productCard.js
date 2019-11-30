@@ -59,6 +59,7 @@ export default function ProductCard(props){
   return (
     <View style={container}>
       <EditProductModal
+        navigation={props.navigation}
         product={props.product}
         visible={editing}
         closeModal={setEditing}
