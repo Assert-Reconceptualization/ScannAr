@@ -42,7 +42,11 @@ class ARScreen extends Component {
     const { setProduct, setVisibility } = this;
     return (
       <View style={{ flex: 1 }}>
-        <ProductProfileModal visible={visible} setVisibility={this.setVisibility} product={product} />
+        <ProductProfileModal
+          visible={visible}
+          setVisibility={this.setVisibility}
+          product={product}
+        />
         <ARNavBar navigator={navigator} />
         <ViroARSceneNavigator
           initialScene={{
@@ -70,7 +74,14 @@ const ARscene = ({ setVisibility, setProduct }) => {
         style={initialText}
       />
       <ViroNode>
-        {products.map((item) => <ARImageMarkerItem setVisibility={setVisibility} setProduct={setProduct} item={item} key={item.name} />)}
+        {products.map((item) => (
+          <ARImageMarkerItem
+            setVisibility={setVisibility}
+            setProduct={setProduct}
+            item={item}
+            key={item.name}
+          />
+        ))}
       </ViroNode>
     </ViroARScene>
   );
