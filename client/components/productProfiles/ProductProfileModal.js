@@ -1,7 +1,8 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import {
-  View, Modal, Text, Button, Image, StyleSheet,
+  View, Modal, Text, Image, StyleSheet,
 } from 'react-native';
 
 // import components
@@ -9,7 +10,14 @@ import ProductProfileNavBar from '../NavBar/ProductProfileNavBar';
 
 const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const {
-    listItemContainer, image, productPrice, productTitle, productDescription, nameAndPrice, description, businessName,
+    listItemContainer,
+    image,
+    productPrice,
+    productTitle,
+    productDescription,
+    nameAndPrice,
+    description,
+    businessName,
   } = styles;
 
   return (
