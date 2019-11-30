@@ -20,6 +20,11 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     businessName,
   } = styles;
 
+  // const SaveOrDelete = () => {
+  //   // productList.includes product ?
+  //   return (<Button > </Button>)
+  // };
+
   return (
     <Modal
       animationType="slide"
@@ -32,7 +37,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         <ProductProfileNavBar setVisibility={setVisibility} />
         <Text style={productTitle}>{product.name}</Text>
         <Image
-          source={{ uri: (product.url) }}
+          source={{ uri: (product.imageUrl) }}
           style={image}
         />
         <View>

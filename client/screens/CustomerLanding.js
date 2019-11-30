@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
 // import components
@@ -6,6 +6,7 @@ import CustomerNavBar from '../components/NavBar/CustomerNavBar';
 import CustomerHeader from '../components/headers/CustomerHeader';
 import CustomerList from '../components/productLists/CustomerList';
 import ProductProfileModal from '../components/productProfiles/ProductProfileModal';
+import CustomerContext from '../applicationState/customerContext';
 
 // eslint-disable-next-line react/prop-types
 const CustomerLanding = ({ navigator }) => {
@@ -13,12 +14,28 @@ const CustomerLanding = ({ navigator }) => {
   const { screen, customerList, productsTitle } = styles;
   const [visible, setVisibility] = useState(false);
   const [product, setProduct] = useState('');
+  const context = useContext(CustomerContext);
 
   // sets prop to be passed to modal
   const setModalProp = (item) => {
     setProduct(item);
     setVisibility(true);
   };
+
+  useEffect(() => {
+    fetch(`http://38d7345e.ngrok.io/products`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((parsedResponse) => {
+        context.setAllMarkers(parsedResponse.data);
+      })
+      .catch(() => console.log('something went wrong'));
+  }, []);
 
   return (
     <View style={screen}>

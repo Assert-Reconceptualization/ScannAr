@@ -21,7 +21,7 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
   // dynamically create targets
   ViroARTrackingTargets.createTargets({
     [item.name]: {
-      source: { url: `${item.url}` },
+      source: { url: `${item.imageUrl}` },
       orientation: 'Up',
       physicalWidth: 1.5, // real world width in meters
     },

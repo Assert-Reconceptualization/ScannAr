@@ -1,6 +1,7 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-bind */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Text,
   View,
@@ -11,14 +12,15 @@ import {
 
 // import components
 import Register from './Register';
+import CustomerContext from '../applicationState/customerContext';
 
 // ScannAR navigator
 const Login = ({ navigator }) => {
+  const context = useContext(CustomerContext);
   const [register, setRegister] = useState(false);
   const [name, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [idUser, setIdUser] = useState('');
 
   // Renders Register fields onto login
   const handleRegisterView = () => {
@@ -27,35 +29,35 @@ const Login = ({ navigator }) => {
 
   // Gets user id / info
   const getUserInfo = () => {
-    fetch(`http://NGROKADDRESSHERE.ngrok.io/users?email=${email}&password=${password}`, {
+    fetch(`http://38d7345e.ngrok.io/users?email=${email}&password=${password}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
     })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((userInfo) => {
         // add idUser to context
         const { id } = userInfo.data[0];
         if (id) {
-          setIdUser(id);
+          context.setCurrentUser(userInfo.data[0]);
           handleLogin();
         } else {
           setRegister(true);
         }
       })
-      .catch((err) => setRegister(true));
+      .catch(() => setRegister(true));
   };
 
   // Handles login redirecting
   const handleLogin = () => {
-      navigator.push('CustomerLanding');
+    navigator.push('CustomerLanding');
   };
 
   const handleRegister = () => {
   // send user from state to server
-    fetch('http://NGROKADDRESSHERE.ngrok.io/users', {
+    fetch('http://38d7345e.ngrok.io/users', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -71,13 +73,17 @@ const Login = ({ navigator }) => {
     })
       .then((response) => response.json())
       .then((userInfo) => {
-        const { id } = userInfo;
-        setIdUser(id);
+        context.setCurrentUser(userInfo);
         handleLogin();
       })
-      .catch((err) => console.error(err));
+      .catch(() => {
+        error = (<Text> Please try again</Text>);
+        setTimeout(() => {
+          error = null;
+        }, 500);
+      });
   };
-
+  let error = null;
   const {
     screen,
     header,
@@ -92,6 +98,7 @@ const Login = ({ navigator }) => {
 
   return (
     <View style={screen}>
+      {error}
       <Text style={header}>ScannAR</Text>
       {register ? (
         <Register
