@@ -1,9 +1,54 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React, { useContext } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import { Ionicons } from "@expo/vector-icons";
+import BusinessContext from "../applicationState/BusinessContext";
 
 export default function ProductCard(props){
-  const { container, image, productDescription, productPrice, productTitle } = styles;
-  const { name, imageUrl, description, price } = props.product;
+
+  const context = useContext(BusinessContext);
+
+  const handleDelete = () => {
+    // delete request to API
+    fetch(`http://localhost:3030/products/${props.product.id}`, {
+      method: 'DELETE',
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+    })
+      .then((response) => response.json())
+      .then(parsedResponse => {
+        console.log(parsedResponse)
+        // delete item from current inventory
+        const currentInventory = context.currentInventory.filter((product) => product.id !== props.product.id);
+        // update state
+        context.setCurrentInventory(currentInventory);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  }
+
+  const {
+    container,
+    image,
+    productDescription,
+    productPrice,
+    productTitle,
+    deleteContainer,
+  } = styles;
+  const {
+    name,
+    imageUrl,
+    description,
+    price
+  } = props.product;
   return (
     <View style={container}>
       <Image style={image} source={{ uri: imageUrl }}/>
@@ -12,6 +57,16 @@ export default function ProductCard(props){
         <Text style={productDescription}>{description}</Text>
         <Text style={productPrice}>{`$${price}.00`}</Text>
       </View>
+      <TouchableOpacity
+        style={deleteContainer}
+        onPress={handleDelete}
+      >
+        <Ionicons
+          name="ios-close"
+          size={40}
+          style={{color: '#EFF6E0' }}
+        />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -51,4 +106,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 7,
   },
+  deleteContainer: {
+    position: 'absolute',
+    top: 0,
+    right: 10
+  }
 });
