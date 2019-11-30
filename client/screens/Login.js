@@ -27,7 +27,7 @@ const Login = ({ navigator }) => {
 
   // Gets user id / info
   const getUserInfo = () => {
-    fetch(`http://38d7345e.ngrok.io/users?email=${email}&password=${password}`, {
+    fetch(`http://NGROKADDRESSHERE.ngrok.io/users?email=${email}&password=${password}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -55,7 +55,7 @@ const Login = ({ navigator }) => {
 
   const handleRegister = () => {
   // send user from state to server
-    fetch('http://38d7345e.ngrok.io/users', {
+    fetch('http://NGROKADDRESSHERE.ngrok.io/users', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
