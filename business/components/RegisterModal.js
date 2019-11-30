@@ -42,8 +42,8 @@ export default function RegisterModal(props) {
         description: businessDescription
       })
     })
-      .then(response => {
-        console.log(response);
+      .then((response) => {
+        console.log(response.json());
         // update the currentBusiness State
         context.setCurrentBusiness({
           name: businessName,

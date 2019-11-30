@@ -29,7 +29,7 @@ exports.storeImage = functions.https.onRequest((request, response) => {
       "/tmp/uploaded-image.jpg",
       {
         uploadType: "media",
-        destination: "places/" + uuid + ".jpg",
+        destination: "products/" + uuid + ".jpg",
         metadata: {
           metadata: {
             contentType: "image/jpeg",
