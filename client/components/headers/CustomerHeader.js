@@ -5,10 +5,6 @@ import {
 } from 'react-native';
 
 const CustomerHeader = () => {
-  // const handleLogout = () => {
-  //   navigator.pop();
-  // };
-
   // eslint-disable-next-line no-use-before-define
   const { titleContainer, text } = styles;
 
