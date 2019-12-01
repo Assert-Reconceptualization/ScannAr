@@ -21,6 +21,7 @@ const Login = ({ navigator }) => {
   const [name, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const ngrokIP = 'b7a415db';
 
   // Renders Register fields onto login
   const handleRegisterView = () => {
@@ -29,7 +30,7 @@ const Login = ({ navigator }) => {
 
   // Gets user id / info
   const getUserInfo = () => {
-    fetch(`http://38d7345e.ngrok.io/users?email=${email}&password=${password}`, {
+    fetch(`http://${ngrokIP}.ngrok.io/users?email=${email}&password=${password}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -42,12 +43,28 @@ const Login = ({ navigator }) => {
         const { id } = userInfo.data[0];
         if (id) {
           context.setCurrentUser(userInfo.data[0]);
-          handleLogin();
+          getSavedProducts(id);
         } else {
           setRegister(true);
         }
       })
       .catch(() => setRegister(true));
+  };
+
+  const getSavedProducts = (idUser) => {
+    fetch(`http://${ngrokIP}.ngrok.io/savedProducts?idUser=${idUser}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((savedList) => {
+        context.setCurrentSavedList(savedList);
+      })
+      .then(() => handleLogin())
+      .catch(() => console.log('something happend'));
   };
 
   // Handles login redirecting
@@ -57,7 +74,7 @@ const Login = ({ navigator }) => {
 
   const handleRegister = () => {
   // send user from state to server
-    fetch('http://38d7345e.ngrok.io/users', {
+    fetch(`http://${ngrokIP}.ngrok.io/users`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

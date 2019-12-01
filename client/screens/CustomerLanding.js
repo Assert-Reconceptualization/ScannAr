@@ -23,7 +23,7 @@ const CustomerLanding = ({ navigator }) => {
   };
 
   useEffect(() => {
-    fetch(`http://38d7345e.ngrok.io/products`, {
+    fetch(`http://b7a415db.ngrok.io/products`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
