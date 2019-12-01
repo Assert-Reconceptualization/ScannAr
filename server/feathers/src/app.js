@@ -45,28 +45,27 @@ app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // Host the public folder
 // a static serve on the slash path
 app.use('/', express.static(app.get('public')));
-app.get('/savedProducts', (req, res) => {
-  const { idUser } = req.params;
 
-  // get item from savedProduct where idUser
-  app.get('sequelizeClient').models.savedProducts.findAll({ where: idUser })
-    .then((savedList) => {
-      async function asyncForEach(array, callback) {
-        for (let index = 0; index < array.length; index++) {
-          await callback(array[index], index, array);
-        }
-      }
-      return async () => {
-        const products = [];
-        await asyncForEach(savedList, (element) => {
-          products.push(app.get("sequelizeClient").models.products.findAll({ where: {id: element.idProduct} }));
-        });
-        return products;
-      };
+app.get("/savedProducts", (req, res) => {
+  const products = app.get("sequelizeClient").models.products;
+  const { idUser } = req.query;
+  app
+    .get("sequelizeClient")
+    .models.users.findAll({
+      where: { id: idUser },
+      include: [
+        {
+          model: products,
+          required: true,
+        },
+      ],
     })
-      .then((products) => {
-        res.send(products);
-      });
+    .then(user => {
+      res.send(user[0].products);
+    })
+    .catch(error => {
+      res.send(error);
+    });
 });
 
 app.post('/savedProducts', (req, res) => {
