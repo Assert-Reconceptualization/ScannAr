@@ -61,9 +61,11 @@ app.get("/savedProducts", (req, res) => {
       ],
     })
     .then(user => {
+      res.send(200);
       res.send(user[0].products);
     })
     .catch(error => {
+      res.send(500);
       res.send(error);
     });
 });
@@ -76,6 +78,7 @@ app.post('/savedProducts', (req, res) => {
       res.send(saved);
     })
     .catch((err) => {
+      res.send(500);
       console.log(err);
     });
 });
@@ -89,8 +92,10 @@ app.delete('/savedProducts', (req, res) => {
     where: { idProduct },
   }).then(() => {
     res.send("Deleted");
+    res.sendStatus(200);
   }).catch((err) => {
     console.log(err);
+    res.send(500);
   });
 });
 
