@@ -11,10 +11,11 @@ import CustomerContext from '../../applicationState/customerContext';
 // eslint-disable-next-line react/prop-types
 const CustomerList = ({ setModalProp, setVisibility }) => {
   const context = useContext(CustomerContext);
+
   return (
     <View onPress={() => setVisibility(true)}>
       <FlatList
-        data={context.allMarkers}
+        data={context.currentSavedList}
         renderItem={({ item }) => (
           <CustomerListItem
             name={item.name}

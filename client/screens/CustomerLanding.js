@@ -22,21 +22,6 @@ const CustomerLanding = ({ navigator }) => {
     setVisibility(true);
   };
 
-  useEffect(() => {
-    fetch(`http://38d7345e.ngrok.io/products`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((parsedResponse) => {
-        context.setAllMarkers(parsedResponse.data);
-      })
-      .catch(() => console.log('something went wrong'));
-  }, []);
-
   return (
     <View style={screen}>
       <ProductProfileModal visible={visible} setVisibility={setVisibility} product={product} />
