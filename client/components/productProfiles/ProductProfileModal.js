@@ -1,14 +1,17 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useContext } from 'react';
 import {
-  View, Modal, Text, Image, StyleSheet,
+  View, Modal, Text, Image, StyleSheet, Button,
 } from 'react-native';
 
 // import components
 import ProductProfileNavBar from '../NavBar/ProductProfileNavBar';
+import CustomerContext from '../../applicationState/customerContext';
 
 const ProductProfileModal = ({ visible, setVisibility, product }) => {
+  const context = useContext(CustomerContext);
+  const saveUrl = 'http://b7a415db.ngrok.io';
   const {
     listItemContainer,
     image,
@@ -20,10 +23,19 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     businessName,
   } = styles;
 
-  // const SaveOrDelete = () => {
-  //   // productList.includes product ?
-  //   return (<Button > </Button>)
-  // };
+  const handleSaveProduct = () => {
+    fetch(`${saveUrl}/savedProducts?idUser=${context.currentUser.id}&idProduct=${product.id}`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(() => {
+        // update saved products list with another fetch
+      })
+      .catch(() => console.log('something happend'));
+  };
 
   return (
     <Modal
@@ -36,6 +48,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       >
         <ProductProfileNavBar setVisibility={setVisibility} />
         <Text style={productTitle}>{product.name}</Text>
+        <Button title="Save" onPress={handleSaveProduct} />
         <Image
           source={{ uri: (product.imageUrl) }}
           style={image}
