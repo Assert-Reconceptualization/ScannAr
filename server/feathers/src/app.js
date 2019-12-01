@@ -72,11 +72,26 @@ app.post('/savedProducts', (req, res) => {
   const { idUser, idProduct } = req.query;
   app.get('sequelizeClient').models.savedProducts.create({ idUser, idProduct })
     .then((saved) => {
+      res.sendStatus(200);
       res.send(saved);
     })
     .catch((err) => {
       console.log(err);
     });
+});
+
+app.delete('/savedProducts', (req, res) => {
+  const { idProduct } = req.query;
+  const savedProducts = app.get("sequelizeClient").models.savedProducts;
+  // delete savedProduct connections
+  savedProducts.destroy({
+    // where idProduct
+    where: { idProduct },
+  }).then(() => {
+    res.send("Deleted");
+  }).catch((err) => {
+    console.log(err);
+  });
 });
 
 // Set up Plugins and providers & Enable express REST services
