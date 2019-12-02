@@ -18,7 +18,7 @@ export default function AddScreen(props){
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState(null);
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(null);
   const context = useContext(BusinessContext);
 
   const handleSubmit = () => {
@@ -67,13 +67,13 @@ export default function AddScreen(props){
 
   const handleCamera = async () => {
     // get permission to use camera
-    const permission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    // open camera
-    let image = await ImagePicker.launchImageLibraryAsync({base64: true});
+    // const permission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    // // open camera
+    // let image = await ImagePicker.launchImageLibraryAsync({base64: true});
 
     // uncomment when using real phone
-    // const permission = await Permissions.askAsync(Permissions.CAMERA);
-    // let image = await ImagePicker.launchCameraAsync();
+    const permission = await Permissions.askAsync(Permissions.CAMERA);
+    let image = await ImagePicker.launchCameraAsync({base64: true});
 
     // upload image to firebase if user doesnt cancel
     if(!image.cancelled){
@@ -95,12 +95,19 @@ export default function AddScreen(props){
     }
   }
 
+  const resetScreenState = () => {
+    setName("");
+    setDescription("");
+    setImageUrl(null);
+    setPrice("");
+  }
+
   const {
     container,
     image,
     photoContainer,
     textInput,
-    descriptionInput
+    descriptionInput,
   } = styles;
 
   return (
@@ -123,10 +130,12 @@ export default function AddScreen(props){
         <TextInput
           placeholder="Name"
           style={textInput}
+          value={name}
           onChangeText={text => setName(text)}
         />
         <TextInput
           placeholder="Price"
+          value={price}
           style={textInput}
           keyboardType="decimal-pad"
           onChangeText={text => setPrice(text)}
@@ -134,12 +143,18 @@ export default function AddScreen(props){
         <TextInput
           placeholder="Description"
           style={descriptionInput}
+          value={description}
           multiline={true}
           onChangeText={text => setDescription(text)}
         />
         <Button
           title="Submit"
           onPress={handleSubmit} 
+        />
+        <Button
+          title="clear fields"
+          onPress={resetScreenState}
+          color="red"
         />
       </View>
     </TouchableWithoutFeedback>

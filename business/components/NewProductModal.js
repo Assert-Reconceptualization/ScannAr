@@ -23,6 +23,7 @@ export default function NewProductModal(props){
 
   const handleCancel = () => {
     // close modal
+    resetModalState();
     props.setCreating(false);
   }
 
@@ -58,6 +59,8 @@ export default function NewProductModal(props){
             if(products.data){
               context.setCurrentInventory(products.data)
             }
+            // reset modal state
+            resetModalState();
             // close modal
             props.setCreating(false);
             // go back to home screen
@@ -74,13 +77,13 @@ export default function NewProductModal(props){
 
   const handleCamera = async () => {
     // get permission to use camera
-    const permission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    // open camera
-    let image = await ImagePicker.launchImageLibraryAsync({base64: true});
+    // const permission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    // // open camera
+    // let image = await ImagePicker.launchImageLibraryAsync({base64: true});
 
     // uncomment when using real phone
-    // const permission = await Permissions.askAsync(Permissions.CAMERA);
-    // let image = await ImagePicker.launchCameraAsync();
+    const permission = await Permissions.askAsync(Permissions.CAMERA);
+    let image = await ImagePicker.launchCameraAsync({base64: true});
 
     // upload image to firebase if user doesnt cancel
     if(!image.cancelled){
@@ -100,6 +103,17 @@ export default function NewProductModal(props){
         // TODO - message user to try again
         .catch(err => {console.log("Try uploading again!")})
     }
+  }
+
+  const closeKeyboard = () => {
+    Keyboard.dismiss();
+  }
+
+  const resetModalState = () => {
+    setName("");
+    setDescription("");
+    setImageUrl(null);
+    setPrice("");
   }
 
   const {
