@@ -7,6 +7,8 @@ import {
   Button,
   Modal,
   TextInput,
+  Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import RegisterModal from '../components/RegisterModal';
 import SignUp from '../components/buttons/SignUp';
@@ -89,25 +91,30 @@ export default function SignInScreen(props) {
         </TouchableOpacity>
         <Button title="Register" onPress={isRegistering} />
       </View>
-      <Modal visible={signIn} animationType="slide">
-        <View style={loginModal}>
-          <Text>Sign In</Text>
-          <TextInput
-            style={textInput}
-            onChangeText={text => setEmail(text)}
-            value={email}
-            placeholder="Email"
-          />
-          <TextInput
-            style={textInput}
-            onChangeText={text => setPassword(text)}
-            value={password}
-            placeholder="Password"
-            secureTextEntry
-          />
-          <Button onPress={handleSignIn} title="Submit" />
-          <Button onPress={cancelSigningIn} title="Cancel" />
-        </View>
+      <Modal 
+        visible={signIn}
+        animationType="slide"
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={loginModal}>
+            <Text>Sign In</Text>
+            <TextInput
+              style={textInput}
+              onChangeText={text => setEmail(text)}
+              value={email}
+              placeholder="Email"
+            />
+            <TextInput
+              style={textInput}
+              onChangeText={text => setPassword(text)}
+              value={password}
+              placeholder="Password"
+              secureTextEntry
+            />
+            <Button onPress={handleSignIn} title="Submit" />
+            <Button onPress={cancelSigningIn} title="Cancel" />
+          </View>
+        </TouchableWithoutFeedback>
       </Modal>
     </View>
   );
