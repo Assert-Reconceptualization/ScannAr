@@ -63,8 +63,8 @@ app.get("/savedProducts", (req, res) => {
     .then(user => {
       res.send(user[0].products);
     })
-    .catch(error => {
-      res.send(error);
+    .catch(err => {
+      console.log(err)
       res.send(500);
     });
 });
