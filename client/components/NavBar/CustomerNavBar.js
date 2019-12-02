@@ -1,14 +1,16 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Text,
   View,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import CustomerContext from '../../applicationState/customerContext';
 
 const CustomerNavBar = ({ navigator }) => {
   // eslint-disable-next-line no-use-before-define
+  const context = useContext(CustomerContext);
   const { bar, buttonText } = styles;
   const [throttle, setThrottle] = useState(false);
 
@@ -26,12 +28,17 @@ const CustomerNavBar = ({ navigator }) => {
     }
   };
 
+  const handleLogout = () => {
+    context.setCurrentUser({});
+    navigator.pop();
+  };
+
   return (
     <View style={bar}>
       <TouchableOpacity onPress={() => handlePress()}>
         <Text style={buttonText}>AR</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigator.pop()}>
+      <TouchableOpacity onPress={handleLogout}>
         <Text style={buttonText}>Logout</Text>
       </TouchableOpacity>
     </View>
