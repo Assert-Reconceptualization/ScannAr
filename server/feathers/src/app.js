@@ -101,7 +101,7 @@ app.delete('/savedProducts', (req, res) => {
 // -------------- productTags' Routes --------------------------
 app.get('/productTags', (req, res) => {
   const { tags, products } = app.get("sequelizeClient").models;
-  const { idTag, idProduct } = req.query;
+  const { idTag } = req.query;
 
   tags.findAll({
     where: { id: idTag },
