@@ -35,26 +35,30 @@ const CustomerListItem = ({
         style={image}
       />
       <View>
-        <Text style={productTitle}>{name}</Text>
+        <View>
+          <Text style={productTitle}>{name}</Text>
+        </View>
         <Text style={productDescription}>{description}</Text>
         <Text style={productPrice}>{`$${price}.00`}</Text>
       </View>
+      <View style={productMenu} >
       <TouchableOpacity
-        style={productMenu}
         onPress={() => setModalProp(item)}
       >
         <Text style={productTitle}>...</Text>
       </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   productTitle: {
-    fontSize: 25,
+    fontSize: 20,
     color: '#B3C6CD',
     fontWeight: 'bold',
-    marginBottom: 7,
+    marginBottom: 5,
+    // marginRight: 15,
   },
   productMenu: {
     position: 'absolute',
