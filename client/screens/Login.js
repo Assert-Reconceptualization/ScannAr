@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-bind */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   Text,
   View,
@@ -21,8 +21,11 @@ const Login = ({ navigator }) => {
   const [name, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { serverUrl } = context;
+  const { serverUrl, setServerUrl } = context;
 
+  useEffect(() => {
+    setServerUrl(`http://scannar-server-second.appspot.com`);
+  }, []);
   // Renders Register fields onto login
   const handleRegisterView = () => {
     setRegister(true);

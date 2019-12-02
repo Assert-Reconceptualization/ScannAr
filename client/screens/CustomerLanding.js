@@ -15,8 +15,8 @@ const CustomerLanding = ({ navigator }) => {
   const [visible, setVisibility] = useState(false);
   const [product, setProduct] = useState('');
   const context = useContext(CustomerContext);
-  const { serverUrl } = context;
-
+  const serverUrl = context.serverUrl;
+  // setServerUrl(`http://scannar-server-second.appspot.com`);
   // sets prop to be passed to modal
   const setModalProp = (item) => {
     setProduct(item);
