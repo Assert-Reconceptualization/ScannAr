@@ -55,12 +55,12 @@ module.exports = app => {
               description: 'This is a big blue cabinet',
               imageUrl: 'https://i.ibb.co/qWf8pm0/Cabinet.jpg',
             });
-             business.createProduct({
-               name: "Beanbag",
-               price: 10000,
-               description: "The big beanbag",
-               imageUrl: "https://i.ibb.co/vmYH8TN/IMG-6066.jpg"
-             });
+            business.createProduct({
+              name: "Beanbag",
+              price: 10000,
+              description: "The big beanbag",
+              imageUrl: "https://i.ibb.co/vmYH8TN/IMG-6066.jpg"
+            });
           });
         })
         .then(() => {

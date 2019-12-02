@@ -17,33 +17,33 @@ module.exports = function (app) {
         primaryKey: true,
       },
       password: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
         // allowNull: false
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
       },
       nameFirst: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       nameLast: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       idBusiness: {
-        type: DataTypes.INTEGER
-      }
+        type: DataTypes.INTEGER,
+      },
     },
     {
       hooks: {
         beforeCount(options) {
           options.raw = true;
-        }
-      }
-    }
+        },
+      },
+    },
   );
 
   users.associate = function (models) {
