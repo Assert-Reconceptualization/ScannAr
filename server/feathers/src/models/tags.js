@@ -18,6 +18,7 @@ module.exports = function(app) {
       },
       name: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     {
@@ -29,8 +30,8 @@ module.exports = function(app) {
     },
   );
 
-  tags.associate = function(models) {
-
+  tags.associate = function (models) {
+    tags.belongsToMany(models.products, { through: "productTags", foreignKey: "idTags"});
   };
   return tags;
 };
