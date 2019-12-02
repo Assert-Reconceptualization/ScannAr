@@ -11,7 +11,7 @@ import CustomerContext from '../../applicationState/customerContext';
 
 const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const context = useContext(CustomerContext);
-  const saveUrl = 'http://b7a415db.ngrok.io';
+  const ngrok = 'http://46dfb4fc.ngrok.io';
   const {
     listItemContainer,
     image,
@@ -24,7 +24,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   } = styles;
 
   const handleSaveProduct = () => {
-    fetch(`${saveUrl}/savedProducts?idUser=${context.currentUser.id}&idProduct=${product.id}`, {
+    fetch(`${ngrok}/savedProducts?idUser=${context.currentUser.id}&idProduct=${product.id}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -32,7 +32,25 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       },
     })
       .then(() => {
+        getSavedProducts();
         // update saved products list with another fetch
+      })
+      .then(() => setVisibility(false))
+      .catch(() => console.log('something happend'));
+  };
+
+  const getSavedProducts = () => {
+    const idUser = context.currentUser.id;
+    fetch(`${ngrok}/savedProducts?idUser=${idUser}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((savedList) => {
+        context.setCurrentSavedList(savedList);
       })
       .catch(() => console.log('something happend'));
   };

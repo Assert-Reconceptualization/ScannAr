@@ -15,7 +15,7 @@ const CustomerLanding = ({ navigator }) => {
   const [visible, setVisibility] = useState(false);
   const [product, setProduct] = useState('');
   const context = useContext(CustomerContext);
-
+  const ngrok = 'http://46dfb4fc.ngrok.io';
   // sets prop to be passed to modal
   const setModalProp = (item) => {
     setProduct(item);
@@ -23,7 +23,7 @@ const CustomerLanding = ({ navigator }) => {
   };
 
   useEffect(() => {
-    fetch(`http://b7a415db.ngrok.io/products`, {
+    fetch(`${ngrok}/products`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
