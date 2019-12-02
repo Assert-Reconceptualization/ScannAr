@@ -7,6 +7,8 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+// import CustomerContext from '../../applicationState/customerContext';
+import { getSavedProducts, handleDelete} from '../../helperFunctions/fetchHelpers';
 
 const CustomerListItem = ({
   name,
@@ -25,24 +27,6 @@ const CustomerListItem = ({
     productMenu,
     // eslint-disable-next-line no-use-before-define
   } = styles;
-  import CustomerContext from '../../applicationState/customerContext';
-  const context = useContext(CustomerContext);
-
-
-  const handleDelete = () => {
-    const idUser = context.currentUser.id;
-    const idProduct = item.id;
-    // delete request
-    fetch(`${serverUrl}/products`, {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => )
-      .catch(() => console.log('something went wrong'));
-  };
 
   return (
     <View
@@ -60,11 +44,11 @@ const CustomerListItem = ({
         <Text style={productPrice}>{`$${price}.00`}</Text>
       </View>
       <View style={productMenu} >
-      <TouchableOpacity
-        onPress={() => setModalProp(item)}
-      >
-        <Text style={productTitle}>...</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setModalProp(item)}
+        >
+          <Text style={productTitle}>...</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
