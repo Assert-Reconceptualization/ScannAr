@@ -153,7 +153,8 @@ const Login = ({ navigator }) => {
           <View style={buttonContainer}>
             <TouchableOpacity
               style={button1}
-              onPress={getUserInfo}
+              // onPress={getUserInfo}
+              onPress={navigator.push('CustomerLanding')}
             >
               <Text style={customerTitle}>Login</Text>
             </TouchableOpacity>
