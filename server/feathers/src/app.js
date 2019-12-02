@@ -64,7 +64,7 @@ app.get("/savedProducts", (req, res) => {
       res.send(user[0].products);
     })
     .catch(err => {
-      console.log(err)
+      console.log(err);
       res.send(500);
     });
 });
@@ -82,12 +82,12 @@ app.post('/savedProducts', (req, res) => {
 });
 
 app.delete('/savedProducts', (req, res) => {
-  const { idProduct } = req.query;
+  const { idProduct, idUser } = req.query;
   const savedProducts = app.get("sequelizeClient").models.savedProducts;
   // delete savedProduct connections
   savedProducts.destroy({
     // where idProduct
-    where: { idProduct },
+    where: { idProduct, idUser },
   }).then(() => {
     res.sendStatus(200);
   }).catch((err) => {
