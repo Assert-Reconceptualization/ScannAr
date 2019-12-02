@@ -1,5 +1,15 @@
 import React, { useState, useContext } from 'react';
-import { Modal, Text, Button, StyleSheet, View, TextInput, Image } from 'react-native';
+import {
+  Modal,
+  Text,
+  Button,
+  StyleSheet,
+  View,
+  TextInput,
+  Image,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import BusinessContext from "../applicationState/BusinessContext";
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -94,6 +104,7 @@ export default function AddScreen(props){
   } = styles;
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={ container }>
         <Text>Create AR product!</Text>
         <View style={photoContainer}> 
@@ -131,11 +142,16 @@ export default function AddScreen(props){
           onPress={handleSubmit} 
         />
       </View>
+    </TouchableWithoutFeedback>
   );
 }
 
 AddScreen.navigationOptions = {
   title: 'Add A Product',
+  headerStyle: {
+    backgroundColor: "#505950"
+  },
+  headerTintColor: "white"
 };
 
 const styles = StyleSheet.create({
