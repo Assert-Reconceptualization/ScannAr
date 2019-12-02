@@ -13,24 +13,24 @@ module.exports = function(app) {
       id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
       price: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
       },
       description: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
       },
       imageUrl: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true
-      }
+        unique: true,
+      },
     },
     {
       hooks: {
@@ -45,6 +45,7 @@ module.exports = function(app) {
   products.associate = function (models) {
     // many to many relationship
     products.belongsToMany(models.users, { through: "savedProducts", foreignKey: "idProduct" });
+    products.belongsToMany(models.tags, { through: "productTags", foreignKey: "idProduct" });
   };
 
   return products;
