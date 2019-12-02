@@ -1,13 +1,14 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-bind */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   Text,
   View,
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Keyboard,
 } from 'react-native';
 
 // import components
@@ -21,8 +22,11 @@ const Login = ({ navigator }) => {
   const [name, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const ngrok = 'http://46dfb4fc.ngrok.io';
+  const { serverUrl, setServerUrl } = context;
 
+  useEffect(() => {
+    setServerUrl(`http://scannar-server-second.appspot.com`);
+  }, []);
   // Renders Register fields onto login
   const handleRegisterView = () => {
     setRegister(true);
@@ -30,7 +34,7 @@ const Login = ({ navigator }) => {
 
   // Gets user id / info
   const getUserInfo = () => {
-    fetch(`${ngrok}/users?email=${email}&password=${password}`, {
+    fetch(`${serverUrl}/users?email=${email}&password=${password}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -52,7 +56,7 @@ const Login = ({ navigator }) => {
   };
 
   const getSavedProducts = (idUser) => {
-    fetch(`${ngrok}/savedProducts?idUser=${idUser}`, {
+    fetch(`${serverUrl}/savedProducts?idUser=${idUser}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -69,12 +73,13 @@ const Login = ({ navigator }) => {
 
   // Handles login redirecting
   const handleLogin = () => {
+    Keyboard.dismiss();
     navigator.push('CustomerLanding');
   };
 
   const handleRegister = () => {
   // send user from state to server
-    fetch(`${ngrok}/users`, {
+    fetch(`${serverUrl}/users`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

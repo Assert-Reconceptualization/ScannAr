@@ -11,7 +11,7 @@ import CustomerContext from '../../applicationState/customerContext';
 
 const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const context = useContext(CustomerContext);
-  const ngrok = 'http://46dfb4fc.ngrok.io';
+  const { serverUrl } = context;
   const {
     listItemContainer,
     image,
@@ -24,7 +24,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   } = styles;
 
   const handleSaveProduct = () => {
-    fetch(`${ngrok}/savedProducts?idUser=${context.currentUser.id}&idProduct=${product.id}`, {
+    fetch(`${serverUrl}/savedProducts?idUser=${context.currentUser.id}&idProduct=${product.id}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -41,7 +41,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
 
   const getSavedProducts = () => {
     const idUser = context.currentUser.id;
-    fetch(`${ngrok}/savedProducts?idUser=${idUser}`, {
+    fetch(`${serverUrl}/savedProducts?idUser=${idUser}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
