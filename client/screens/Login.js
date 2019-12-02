@@ -8,6 +8,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Keyboard,
 } from 'react-native';
 
 // import components
@@ -72,6 +73,7 @@ const Login = ({ navigator }) => {
 
   // Handles login redirecting
   const handleLogin = () => {
+    Keyboard.dismiss();
     navigator.push('CustomerLanding');
   };
 
