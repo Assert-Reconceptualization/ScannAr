@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   View,
   Text,
@@ -25,6 +25,24 @@ const CustomerListItem = ({
     productMenu,
     // eslint-disable-next-line no-use-before-define
   } = styles;
+  import CustomerContext from '../../applicationState/customerContext';
+  const context = useContext(CustomerContext);
+
+
+  const handleDelete = () => {
+    const idUser = context.currentUser.id;
+    const idProduct = item.id;
+    // delete request
+    fetch(`${serverUrl}/products`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => )
+      .catch(() => console.log('something went wrong'));
+  };
 
   return (
     <View

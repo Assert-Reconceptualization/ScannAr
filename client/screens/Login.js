@@ -121,62 +121,62 @@ const Login = ({ navigator }) => {
   } = styles;
 
   return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-    <View style={screen}>
-      {error}
-      <Text style={header}>ScannAR</Text>
-      {register ? (
-        <Register
-          handleRegister={handleRegister}
-          setUserName={setUserName}
-          setEmail={setEmail}
-          setPassword={setPassword}
-          name={name}
-          password={password}
-          email={email}
-          setRegister={setRegister}
-        />
-      ) : (
-        <View style={{ flex: 1, marginTop: 20 }}>
-          <Text style={textStyle}>
-            Email
-          </Text>
-          <TextInput
-            style={inputField}
-            onChangeText={(text) => setEmail(text)}
-            value={email}
-            autoCompleteType="email"
-            placeholder="email@example.com"
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={screen}>
+        {error}
+        <Text style={header}>ScannAR</Text>
+        {register ? (
+          <Register
+            handleRegister={handleRegister}
+            setUserName={setUserName}
+            setEmail={setEmail}
+            setPassword={setPassword}
+            name={name}
+            password={password}
+            email={email}
+            setRegister={setRegister}
           />
-          <Text style={textStyle}>
-            Password
-          </Text>
-          <TextInput
-            style={inputField}
-            onChangeText={(text) => setPassword(text)}
-            value={password}
-            secureTextEntry
-            placeholder="password123"
-          />
-          <View style={buttonContainer}>
-            <TouchableOpacity
-              style={button1}
-              onPress={getUserInfo}
-              // onPress={navigator.push('CustomerLanding')}
-            >
-              <Text style={customerTitle}>Login</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={button2}
-              onPress={handleRegisterView}
-            >
-              <Text style={customerTitle}>Register</Text>
-            </TouchableOpacity>
+        ) : (
+          <View style={{ flex: 1, marginTop: 20 }}>
+            <Text style={textStyle}>
+              Email
+            </Text>
+            <TextInput
+              style={inputField}
+              onChangeText={(text) => setEmail(text)}
+              value={email}
+              autoCompleteType="email"
+              placeholder="email@example.com"
+            />
+            <Text style={textStyle}>
+              Password
+            </Text>
+            <TextInput
+              style={inputField}
+              onChangeText={(text) => setPassword(text)}
+              value={password}
+              secureTextEntry
+              placeholder="password123"
+            />
+            <View style={buttonContainer}>
+              <TouchableOpacity
+                style={button1}
+                onPress={getUserInfo}
+                // onPress={navigator.push('CustomerLanding')}
+              >
+                <Text style={customerTitle}>Login</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={button2}
+                onPress={handleRegisterView}
+              >
+                <Text style={customerTitle}>Register</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      )}
-    </View>
-      </TouchableWithoutFeedback>
+        )}
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
