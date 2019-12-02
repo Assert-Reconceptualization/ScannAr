@@ -13,6 +13,7 @@ export default function NewProductModal(props){
 
   const handleCancel = () => {
     // close modal
+    resetModalState();
     props.setCreating(false);
   }
 
@@ -48,6 +49,8 @@ export default function NewProductModal(props){
             if(products.data){
               context.setCurrentInventory(products.data)
             }
+            // reset modal state
+            resetModalState();
             // close modal
             props.setCreating(false);
             // go back to home screen
@@ -94,6 +97,13 @@ export default function NewProductModal(props){
 
   const closeKeyboard = () => {
     Keyboard.dismiss();
+  }
+
+  const resetModalState = () => {
+    setName("");
+    setDescription("");
+    setImageUrl(null);
+    setPrice("");
   }
 
   const {

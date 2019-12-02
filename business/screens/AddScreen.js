@@ -1,5 +1,13 @@
-import React, { useState, useContext } from 'react';
-import { Modal, Text, Button, StyleSheet, View, TextInput, Image } from 'react-native';
+import React, { useState, useContext} from 'react';
+import { 
+  Modal, 
+  Text, 
+  Button, 
+  StyleSheet, 
+  View, 
+  TextInput, 
+  Image 
+} from 'react-native';
 import BusinessContext from "../applicationState/BusinessContext";
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -85,12 +93,19 @@ export default function AddScreen(props){
     }
   }
 
+  const resetScreenState = () => {
+    setName("");
+    setDescription("");
+    setImageUrl(null);
+    setPrice("");
+  }
+
   const {
     container,
     image,
     photoContainer,
     textInput,
-    descriptionInput
+    descriptionInput,
   } = styles;
 
   return (
@@ -129,6 +144,11 @@ export default function AddScreen(props){
         <Button
           title="Submit"
           onPress={handleSubmit} 
+        />
+        <Button
+          title="clear fields"
+          onPress={resetScreenState}
+          color="red"
         />
       </View>
   );
