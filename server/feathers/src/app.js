@@ -61,12 +61,11 @@ app.get("/savedProducts", (req, res) => {
       ],
     })
     .then(user => {
-      res.send(200);
       res.send(user[0].products);
     })
     .catch(error => {
-      res.send(500);
       res.send(error);
+      res.send(500);
     });
 });
 
@@ -74,12 +73,11 @@ app.post('/savedProducts', (req, res) => {
   const { idUser, idProduct } = req.query;
   app.get('sequelizeClient').models.savedProducts.create({ idUser, idProduct })
     .then((saved) => {
-      res.sendStatus(200);
       res.send(saved);
     })
     .catch((err) => {
-      res.send(500);
       console.log(err);
+      res.send(500);
     });
 });
 
@@ -91,7 +89,6 @@ app.delete('/savedProducts', (req, res) => {
     // where idProduct
     where: { idProduct },
   }).then(() => {
-    res.send("Deleted");
     res.sendStatus(200);
   }).catch((err) => {
     console.log(err);
