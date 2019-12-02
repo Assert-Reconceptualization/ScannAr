@@ -18,7 +18,7 @@ export default function AddScreen(props){
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState(null);
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(null);
   const context = useContext(BusinessContext);
 
   const handleSubmit = () => {
@@ -130,10 +130,12 @@ export default function AddScreen(props){
         <TextInput
           placeholder="Name"
           style={textInput}
+          value={name}
           onChangeText={text => setName(text)}
         />
         <TextInput
           placeholder="Price"
+          value={price}
           style={textInput}
           keyboardType="decimal-pad"
           onChangeText={text => setPrice(text)}
@@ -141,6 +143,7 @@ export default function AddScreen(props){
         <TextInput
           placeholder="Description"
           style={descriptionInput}
+          value={description}
           multiline={true}
           onChangeText={text => setDescription(text)}
         />
