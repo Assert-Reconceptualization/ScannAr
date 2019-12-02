@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Modal, Text, Button, StyleSheet, View, TextInput, Image } from 'react-native';
+import { Modal, Text, Button, StyleSheet, View, TextInput, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import BusinessContext from "../applicationState/BusinessContext";
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -19,7 +19,7 @@ export default function NewProductModal(props){
   const handleSubmit = () => {
 
     // make request to server POST
-    fetch("http://localhost:3030/products", {
+    fetch("http://scannar-server-second.appspot.com/products", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -35,7 +35,7 @@ export default function NewProductModal(props){
     })
       .then(() => {
         // refresh inventory
-        fetch(`http://localhost:3030/products?idBusiness=${context.currentBusiness.id}`, {
+        fetch(`http://scannar-server-second.appspot.com/products?idBusiness=${context.currentBusiness.id}`, {
           method: "GET",
           headers: {
             Accept: "application/json",
@@ -92,6 +92,10 @@ export default function NewProductModal(props){
     }
   }
 
+  const closeKeyboard = () => {
+    Keyboard.dismiss();
+  }
+
   const {
     container,
     image,
@@ -102,48 +106,50 @@ export default function NewProductModal(props){
 
   return (
     <Modal visible={props.visible} animationType="slide">
-      <View style={ container }>
-        <Text>Create AR product!</Text>
-        <View style={photoContainer}> 
-          {imageUrl ? (
-            <Image
-              style={image}
-              source={{uri: imageUrl}}
-            />
-          ) : (
-            <Button
-              title="Take a Picture!"
-              onPress={handleCamera} 
-            />
-          )}
+      <TouchableWithoutFeedback onPress={closeKeyboard}>
+        <View style={ container }>
+          <Text>Create AR product!</Text>
+          <View style={photoContainer}> 
+            {imageUrl ? (
+              <Image
+                style={image}
+                source={{uri: imageUrl}}
+              />
+            ) : (
+              <Button
+                title="Take a Picture!"
+                onPress={handleCamera} 
+              />
+            )}
+          </View>
+          <TextInput
+            placeholder="Name"
+            style={textInput}
+            onChangeText={text => setName(text)}
+          />
+          <TextInput
+            placeholder="Price"
+            style={textInput}
+            keyboardType="decimal-pad"
+            onChangeText={text => setPrice(text)}
+          />
+          <TextInput
+            placeholder="Description"
+            style={descriptionInput}
+            multiline={true}
+            onChangeText={text => setDescription(text)}
+          />
+          <Button
+            title="Submit"
+            onPress={handleSubmit} 
+          />
+          <Button 
+            title="Cancel"
+            onPress={handleCancel}
+            color="red"
+          />
         </View>
-        <TextInput
-          placeholder="Name"
-          style={textInput}
-          onChangeText={text => setName(text)}
-        />
-        <TextInput
-          placeholder="Price"
-          style={textInput}
-          keyboardType="decimal-pad"
-          onChangeText={text => setPrice(text)}
-        />
-        <TextInput
-          placeholder="Description"
-          style={descriptionInput}
-          multiline={true}
-          onChangeText={text => setDescription(text)}
-        />
-        <Button
-          title="Submit"
-          onPress={handleSubmit} 
-        />
-        <Button 
-          title="Cancel"
-          onPress={handleCancel}
-          color="red"
-        />
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 }

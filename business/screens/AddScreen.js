@@ -14,7 +14,7 @@ export default function AddScreen(props){
   const handleSubmit = () => {
 
     // make request to server POST
-    fetch("http://localhost:3030/products", {
+    fetch("http://scannar-server-second.appspot.com/products", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -30,7 +30,7 @@ export default function AddScreen(props){
     })
       .then(() => {
         // refresh inventory
-        fetch(`http://localhost:3030/products?idBusiness=${context.currentBusiness.id}`, {
+        fetch(`http://scannar-server-second.appspot.com/products?idBusiness=${context.currentBusiness.id}`, {
           method: "GET",
           headers: {
             Accept: "application/json",
