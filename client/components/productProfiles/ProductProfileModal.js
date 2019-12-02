@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View, Modal, Text, Image, StyleSheet, Button,
 } from 'react-native';
@@ -8,10 +8,12 @@ import {
 // import components
 import ProductProfileNavBar from '../NavBar/ProductProfileNavBar';
 import CustomerContext from '../../applicationState/customerContext';
+import { getSavedProducts, handleDelete } from '../../helperFunctions/fetchHelpers';
 
 const ProductProfileModal = ({ visible, setVisibility, product }) => {
+  const [isSaved, setSaved] = useState(false);
   const context = useContext(CustomerContext);
-  const { serverUrl } = context;
+  const { serverUrl, currentSavedList, allMarkers } = context;
   const {
     listItemContainer,
     image,
@@ -39,21 +41,11 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       .catch(() => console.log('something happened'));
   };
 
-  const getSavedProducts = () => {
-    const idUser = context.currentUser.id;
-    fetch(`${serverUrl}/savedProducts?idUser=${idUser}`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((savedList) => {
-        context.setCurrentSavedList(savedList);
-      })
-      .catch(() => console.log('something happend'));
-  };
+  // useEffect(() => {
+  //   currentSavedList.forEach((savedItem) => {
+  //     if ()
+  //   });
+  // }, []);
 
   return (
     <Modal

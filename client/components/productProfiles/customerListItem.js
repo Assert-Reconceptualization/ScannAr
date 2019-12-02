@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 // import CustomerContext from '../../applicationState/customerContext';
-import { getSavedProducts, handleDelete} from '../../helperFunctions/fetchHelpers';
+// import { getSavedProducts, handleDelete} from '../../helperFunctions/fetchHelpers';
 
 const CustomerListItem = ({
   name,
@@ -43,7 +43,7 @@ const CustomerListItem = ({
         <Text style={productDescription}>{description}</Text>
         <Text style={productPrice}>{`$${price}.00`}</Text>
       </View>
-      <View style={productMenu} >
+      <View style={productMenu}>
         <TouchableOpacity
           onPress={() => setModalProp(item)}
         >
