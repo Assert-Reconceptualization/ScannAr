@@ -21,7 +21,7 @@ const Login = ({ navigator }) => {
   const [name, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const ngrok = 'http://46dfb4fc.ngrok.io';
+  const { serverUrl } = context;
 
   // Renders Register fields onto login
   const handleRegisterView = () => {
@@ -30,7 +30,7 @@ const Login = ({ navigator }) => {
 
   // Gets user id / info
   const getUserInfo = () => {
-    fetch(`${ngrok}/users?email=${email}&password=${password}`, {
+    fetch(`${serverUrl}/users?email=${email}&password=${password}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -52,7 +52,7 @@ const Login = ({ navigator }) => {
   };
 
   const getSavedProducts = (idUser) => {
-    fetch(`${ngrok}/savedProducts?idUser=${idUser}`, {
+    fetch(`${serverUrl}/savedProducts?idUser=${idUser}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -74,7 +74,7 @@ const Login = ({ navigator }) => {
 
   const handleRegister = () => {
   // send user from state to server
-    fetch(`${ngrok}/users`, {
+    fetch(`${serverUrl}/users`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

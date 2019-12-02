@@ -16,10 +16,13 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState({});
   const [currentSavedList, setCurrentSavedList] = useState([]);
   const [allMarkers, setAllMarkers] = useState([]);
-
+  const [serverUrl, setServerUrl] = useState('');
+  setServerUrl(`http://scannar-server-second.appspot.com`);
   return (
     <CustomerContext.Provider
       value={{
+        serverUrl,
+        setServerUrl,
         currentUser,
         setCurrentUser,
         currentSavedList,
