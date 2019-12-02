@@ -100,6 +100,7 @@ const Login = ({ navigator }) => {
         }, 500);
       });
   };
+  
   let error = null;
   const {
     screen,
@@ -153,8 +154,8 @@ const Login = ({ navigator }) => {
           <View style={buttonContainer}>
             <TouchableOpacity
               style={button1}
-              // onPress={getUserInfo}
-              onPress={navigator.push('CustomerLanding')}
+              onPress={getUserInfo}
+              // onPress={navigator.push('CustomerLanding')}
             >
               <Text style={customerTitle}>Login</Text>
             </TouchableOpacity>
