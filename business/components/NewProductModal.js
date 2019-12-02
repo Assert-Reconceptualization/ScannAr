@@ -1,5 +1,15 @@
 import React, { useState, useContext } from 'react';
-import { Modal, Text, Button, StyleSheet, View, TextInput, Image, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import {
+  Modal,
+  Text,
+  Button,
+  StyleSheet,
+  View,
+  TextInput,
+  Image,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native';
 import BusinessContext from "../applicationState/BusinessContext";
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -92,10 +102,6 @@ export default function NewProductModal(props){
     }
   }
 
-  const closeKeyboard = () => {
-    Keyboard.dismiss();
-  }
-
   const {
     container,
     image,
@@ -106,7 +112,7 @@ export default function NewProductModal(props){
 
   return (
     <Modal visible={props.visible} animationType="slide">
-      <TouchableWithoutFeedback onPress={closeKeyboard}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={ container }>
           <Text>Create AR product!</Text>
           <View style={photoContainer}> 
