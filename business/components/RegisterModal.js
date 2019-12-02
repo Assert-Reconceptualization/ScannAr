@@ -28,7 +28,7 @@ export default function RegisterModal(props) {
   };
 
   const handleRegister = () => {
-    fetch("http://localhost:3030/business", {
+    fetch("http://scannar-server-second.appspot.com/business", {
       method: "POST",
       headers: {
         Accept: "application/json",

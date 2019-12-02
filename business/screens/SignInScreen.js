@@ -33,7 +33,7 @@ export default function SignInScreen(props) {
 
   const handleSignIn = () => {
     // fetch business info
-    fetch(`http://localhost:3030/business?email=${email}&password=${password}`, {
+    fetch(`http://scannar-server-second.appspot.com/business?email=${email}&password=${password}`, {
       method: "GET",
       headers: {
         Accept: "application/json",

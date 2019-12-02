@@ -18,7 +18,7 @@ export default function HomeScreen(props) {
   // grab user data from database
   useEffect(() => {
     // grab products
-    fetch(`http://localhost:3030/products?idBusiness=${context.currentBusiness.id}`, {
+    fetch(`http://scannar-server-second.appspot.com/products?idBusiness=${context.currentBusiness.id}`, {
       method: "GET",
       headers: {
         Accept: "application/json",

@@ -29,7 +29,7 @@ export default function EditProductModal(props){
 
   const handleSubmit = () => {
     // make request to server POST
-    fetch(`http://localhost:3030/products/${props.product.id}`, {
+    fetch(`http://scannar-server-second.appspot.com/products/${props.product.id}`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",
@@ -44,7 +44,7 @@ export default function EditProductModal(props){
     })
       .then(() => {
         // refresh inventory
-        fetch(`http://localhost:3030/products?idBusiness=${context.currentBusiness.id}`, {
+        fetch(`http://scannar-server-second.appspot.com/products?idBusiness=${context.currentBusiness.id}`, {
           method: "GET",
           headers: {
             Accept: "application/json",

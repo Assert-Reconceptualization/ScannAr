@@ -17,7 +17,7 @@ export default function ProductCard(props){
 
   const handleDelete = () => {
     // delete request to API
-    fetch(`http://localhost:3030/products/${props.product.id}`, {
+    fetch(`http://scannar-server-second.appspot.com/products/${props.product.id}`, {
       method: 'DELETE',
       headers: {
         Accept: "application/json",
