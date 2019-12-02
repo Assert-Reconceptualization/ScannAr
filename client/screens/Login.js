@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   TextInput,
   Keyboard,
+  TouchableWithoutFeedback,
 } from 'react-native';
 
 // import components
@@ -120,6 +121,7 @@ const Login = ({ navigator }) => {
   } = styles;
 
   return (
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={screen}>
       {error}
       <Text style={header}>ScannAR</Text>
@@ -174,6 +176,7 @@ const Login = ({ navigator }) => {
         </View>
       )}
     </View>
+      </TouchableWithoutFeedback>
   );
 };
 
