@@ -32,11 +32,11 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       },
     })
       .then(() => {
-        getSavedProducts();
         // update saved products list with another fetch
+        getSavedProducts();
       })
       .then(() => setVisibility(false))
-      .catch(() => console.log('something happend'));
+      .catch(() => console.log('something happened'));
   };
 
   const getSavedProducts = () => {

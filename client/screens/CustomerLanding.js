@@ -16,16 +16,19 @@ const CustomerLanding = ({ navigator }) => {
   const [product, setProduct] = useState('');
   const context = useContext(CustomerContext);
   const ngrok = 'http://46dfb4fc.ngrok.io';
+
   // sets prop to be passed to modal
   const setModalProp = (item) => {
     setProduct(item);
     setVisibility(true);
   };
 
+  // updates AR markers upon mounting
   useEffect(() => {
     setMarkers();
   }, []);
 
+  // refresh button updates saved list, then markers
   const handleRefresh = () => {
     fetch(`${ngrok}/savedProducts?idUser=${context.currentUser.id}`, {
       method: 'GET',
@@ -42,6 +45,7 @@ const CustomerLanding = ({ navigator }) => {
       .catch(() => console.log('something went wrong'));
   };
 
+  // sets markers for AR
   const setMarkers = () => {
     fetch(`${ngrok}/products`, {
       method: 'GET',
