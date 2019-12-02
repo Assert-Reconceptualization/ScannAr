@@ -31,7 +31,7 @@ module.exports = function(app) {
   );
 
   tags.associate = function (models) {
-    tags.belongsToMany(models.products, { through: "productTags", foreignKey: "idTags"});
+    tags.belongsToMany(models.products, { through: "productTags", foreignKey: "idTag"});
   };
   return tags;
 };

@@ -46,6 +46,7 @@ app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
 // a static serve on the slash path
 app.use('/', express.static(app.get('public')));
 
+// -------------- savedProducts' Routes --------------------------
 app.get("/savedProducts", (req, res) => {
   const products = app.get("sequelizeClient").models.products;
   const { idUser } = req.query;
@@ -95,6 +96,48 @@ app.delete('/savedProducts', (req, res) => {
     res.send(500);
   });
 });
+
+
+// -------------- productTags' Routes --------------------------
+app.get('/productTags', (req, res) => {
+  const { tags, products } = app.get("sequelizeClient").models;
+  const { idTag, idProduct } = req.query;
+
+  tags.findAll({
+    where: { id: idTag },
+    include: [
+      {
+        model: products,
+        required: true,
+      },
+    ],
+  })
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    })
+});
+
+app.post('/productTags', (req, res) => {
+  const { productTags } = app.get("sequelizeClient").models;
+  const { idProduct, idTag } = req.query;
+
+  productTags.create({
+    idTag,
+    idProduct,
+  })
+    .then((filter) => {
+      res.send(filter);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    });
+});
+
 
 // Set up Plugins and providers & Enable express REST services
 app.configure(express.rest());
