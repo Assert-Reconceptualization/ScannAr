@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, Button } from 'react-native';
 
 // import components
 import CustomerNavBar from '../components/NavBar/CustomerNavBar';
@@ -16,13 +16,37 @@ const CustomerLanding = ({ navigator }) => {
   const [product, setProduct] = useState('');
   const context = useContext(CustomerContext);
   const ngrok = 'http://46dfb4fc.ngrok.io';
+
   // sets prop to be passed to modal
   const setModalProp = (item) => {
     setProduct(item);
     setVisibility(true);
   };
 
+  // updates AR markers upon mounting
   useEffect(() => {
+    setMarkers();
+  }, []);
+
+  // refresh button updates saved list, then markers
+  const handleRefresh = () => {
+    fetch(`${ngrok}/savedProducts?idUser=${context.currentUser.id}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((savedList) => {
+        context.setCurrentSavedList(savedList);
+      })
+      .then(()=> setMarkers())
+      .catch(() => console.log('something went wrong'));
+  };
+
+  // sets markers for AR
+  const setMarkers = () => {
     fetch(`${ngrok}/products`, {
       method: 'GET',
       headers: {
@@ -35,13 +59,14 @@ const CustomerLanding = ({ navigator }) => {
         context.setAllMarkers(parsedResponse.data);
       })
       .catch(() => console.log('something went wrong'));
-  }, []);
+  };
 
   return (
     <View style={screen}>
       <ProductProfileModal visible={visible} setVisibility={setVisibility} product={product} />
       <CustomerHeader navigator={navigator} />
       <Text style={productsTitle}>Saved Products</Text>
+      <Button title="Refresh" onPress={handleRefresh} />
       <View style={customerList}>
         <CustomerList setModalProp={setModalProp} setVisibility={setVisibility} />
       </View>
