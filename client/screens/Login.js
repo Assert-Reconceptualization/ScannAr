@@ -56,6 +56,7 @@ const Login = ({ navigator }) => {
       .catch(() => setRegister(true));
   };
 
+  // updated savedList for current user upon login
   const getSavedProducts = (idUser) => {
     fetch(`${serverUrl}/savedProducts?idUser=${idUser}`, {
       method: 'GET',
