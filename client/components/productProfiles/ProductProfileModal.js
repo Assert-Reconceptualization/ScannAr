@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View, Modal, Text, Image, StyleSheet, Button,
 } from 'react-native';
@@ -10,8 +10,15 @@ import ProductProfileNavBar from '../NavBar/ProductProfileNavBar';
 import CustomerContext from '../../applicationState/customerContext';
 
 const ProductProfileModal = ({ visible, setVisibility, product }) => {
+  const [isSaved, setSaved] = useState(false);
+  const [saveUpdated, setSaveUpdated] = useState(false);
   const context = useContext(CustomerContext);
-  const { serverUrl } = context;
+  const {
+    serverUrl,
+    currentSavedList,
+    currentUser,
+    setCurrentSavedList,
+  } = context;
   const {
     listItemContainer,
     image,
@@ -23,6 +30,24 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     businessName,
   } = styles;
 
+  // Retrieves all current user's saved products
+  const getSavedProducts = () => (
+    fetch(`${serverUrl}/savedProducts?idUser=${currentUser.id}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((savedList) => {
+        setCurrentSavedList(savedList);
+        setVisibility(false);
+      })
+      // .catch(() => )
+  );
+
+  // Saves product to users savedProducts list
   const handleSaveProduct = () => {
     fetch(`${serverUrl}/savedProducts?idUser=${context.currentUser.id}&idProduct=${product.id}`, {
       method: 'POST',
@@ -35,25 +60,45 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         // update saved products list with another fetch
         getSavedProducts();
       })
-      .then(() => setVisibility(false))
-      .catch(() => console.log('something happened'));
+      .then(() => setVisibility(false));
+    // .catch(() => console.log('something happened'));
   };
 
-  const getSavedProducts = () => {
-    const idUser = context.currentUser.id;
-    fetch(`${serverUrl}/savedProducts?idUser=${idUser}`, {
-      method: 'GET',
+  // Deletes the current product from the current user's savedProducts
+  const handleDelete = () => {
+    fetch(`${serverUrl}/savedProducts?idUser=${currentUser.id}&idProduct=${product.id}`, {
+      method: 'DELETE',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    })
-      .then((response) => response.json())
-      .then((savedList) => {
-        context.setCurrentSavedList(savedList);
-      })
-      .catch(() => console.log('something happend'));
+    });
+    // .catch(() => console.log('something went wrong'));
   };
+
+  // conditional rendering of save or delete
+  const saveOrDelete = () => {
+    if (isSaved === false) {
+      return (<Button title="Save" onPress={handleSaveProduct} />);
+    }
+    return (<Button title="Delete" onPress={handleDelete} />);
+  };
+
+  // If modal is visible,
+  // check if item is saved and setSaveUpdated to true so this doesn't keep happening
+  if (visible && saveUpdated === false) {
+    setSaveUpdated(true);
+    currentSavedList.forEach((savedItem) => {
+      if (savedItem.id === product.id) { // if this product is in currentSavedList
+        setSaved(true);
+      }
+    });
+  }
+
+  // When the modal is hidden, reset saveUpdated to false
+  if (!visible && saveUpdated) {
+    setSaveUpdated(false);
+  }
 
   return (
     <Modal
@@ -66,7 +111,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       >
         <ProductProfileNavBar setVisibility={setVisibility} />
         <Text style={productTitle}>{product.name}</Text>
-        <Button title="Save" onPress={handleSaveProduct} />
+        {saveOrDelete()}
         <Image
           source={{ uri: (product.imageUrl) }}
           style={image}

@@ -1,5 +1,12 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useContext } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+} from 'react-native';
 
 // import components
 import CustomerNavBar from '../components/NavBar/CustomerNavBar';
@@ -8,14 +15,12 @@ import CustomerList from '../components/productLists/CustomerList';
 import ProductProfileModal from '../components/productProfiles/ProductProfileModal';
 import CustomerContext from '../applicationState/customerContext';
 
-// eslint-disable-next-line react/prop-types
 const CustomerLanding = ({ navigator }) => {
-  // eslint-disable-next-line no-use-before-define
   const { screen, customerList, productsTitle } = styles;
   const [visible, setVisibility] = useState(false);
   const [product, setProduct] = useState('');
   const context = useContext(CustomerContext);
-  const serverUrl = context.serverUrl;
+  const { serverUrl } = context;
 
   // sets item for modal to render upon click of product profile
   const setModalProp = (item) => {
@@ -41,8 +46,8 @@ const CustomerLanding = ({ navigator }) => {
       .then((savedList) => {
         context.setCurrentSavedList(savedList);
       })
-      .then(()=> setMarkers())
-      .catch(() => console.log('something went wrong'));
+      .then(() => setMarkers());
+    // .catch(() => console.log('something went wrong'));
   };
 
   // sets markers for AR
@@ -57,8 +62,8 @@ const CustomerLanding = ({ navigator }) => {
       .then((response) => response.json())
       .then((parsedResponse) => {
         context.setAllMarkers(parsedResponse.data);
-      })
-      .catch(() => console.log('something went wrong'));
+      });
+    // .catch(() => console.log('something went wrong'));
   };
 
   return (

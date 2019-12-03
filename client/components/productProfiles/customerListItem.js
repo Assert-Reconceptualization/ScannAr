@@ -41,12 +41,12 @@ const CustomerListItem = ({
         <Text style={productDescription}>{description}</Text>
         <Text style={productPrice}>{`$${price}.00`}</Text>
       </View>
-      <View style={productMenu} >
-      <TouchableOpacity
-        onPress={() => setModalProp(item)}
-      >
-        <Text style={productTitle}>...</Text>
-      </TouchableOpacity>
+      <View style={productMenu}>
+        <TouchableOpacity
+          onPress={() => setModalProp(item)}
+        >
+          <Text style={productTitle}>...</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
