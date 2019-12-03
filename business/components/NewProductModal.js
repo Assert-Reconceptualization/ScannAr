@@ -21,6 +21,7 @@ export default function NewProductModal(props){
   const [imageUrl, setImageUrl] = useState(null);
   const [price, setPrice] = useState("");
   const context = useContext(BusinessContext);
+  const [spinner, setSpinner] = useState(false);
 
   const handleCancel = () => {
     // close modal
@@ -124,6 +125,11 @@ export default function NewProductModal(props){
     textInput,
     descriptionInput
   } = styles;
+
+  let imageText = spinner ? <ActivityIndicator size="small" color="black" /> : <Button
+    title={"Take a Picture!"}
+    onPress={handleCamera}
+  />;
 
   return (
     <Modal visible={props.visible} animationType="slide">
