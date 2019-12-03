@@ -90,7 +90,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         'Content-Type': 'application/json',
       },
     })
-      .then(() => setVisibility(false));
+      .then(() => getSavedProducts());
     // .catch(() => console.log('something went wrong'));
   };
 
