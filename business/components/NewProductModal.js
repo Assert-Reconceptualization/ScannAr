@@ -108,11 +108,7 @@ export default function NewProductModal(props){
         .catch(err => {console.log("Try uploading again!")})
     }
   }
-
-  const closeKeyboard = () => {
-    Keyboard.dismiss();
-  }
-
+  
   const resetModalState = () => {
     setName("");
     setDescription("");
