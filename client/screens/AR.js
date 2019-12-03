@@ -68,13 +68,7 @@ const ARscene = ({ setVisibility, setProduct }) => {
   // eslint-disable-next-line no-use-before-define
   const { initialText } = styles;
   return (
-    <ViroARScene onTrackingUpdated={() => setText('Look around to get started')}>
-      <ViroText
-        text={text}
-        scale={[0.5, 0.5, 0.5]}
-        position={[0, 0, -1]}
-        style={initialText}
-      />
+    <ViroARScene>
       <ViroNode>
         {context.allMarkers.map((item) => (
           <ARImageMarkerItem
