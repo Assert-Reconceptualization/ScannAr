@@ -65,7 +65,7 @@ app.get("/savedProducts", (req, res) => {
       res.send(user[0].products);
     })
     .catch(err => {
-      console.log(err);
+      console.log('no saved products');
       res.send([]);
     });
 });
@@ -77,8 +77,7 @@ app.post('/savedProducts', (req, res) => {
       res.send(saved);
     })
     .catch((err) => {
-      console.log(err);
-      res.sendStatus(500);
+      res.send(500);
     });
 });
 
