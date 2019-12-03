@@ -114,6 +114,13 @@ export default function AddScreen(props){
     descriptionInput,
   } = styles;
 
+  const imageText = () => {
+    if (spinner) {
+      return <ActivityIndicator size="small" color="white" />
+    }
+    return "Take a Picture!";
+  };
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={ container }>
@@ -126,7 +133,7 @@ export default function AddScreen(props){
             />
           ) : (
             <Button
-              title={"Take a Picture!"}
+              title={imageText()}
               onPress={handleCamera} 
             />
           )}
