@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
     color: '#B3C6CD',
     fontWeight: 'bold',
     marginBottom: 5,
-    // marginRight: 15,
   },
   productMenu: {
     position: 'absolute',
