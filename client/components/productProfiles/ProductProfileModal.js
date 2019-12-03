@@ -89,7 +89,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    });
+    })
+      .then(() => setVisibility(false));
     // .catch(() => console.log('something went wrong'));
   };
 
