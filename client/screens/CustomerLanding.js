@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/prop-types */
 import React, { useState, useEffect, useContext } from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 
@@ -8,9 +10,7 @@ import CustomerList from '../components/productLists/CustomerList';
 import ProductProfileModal from '../components/productProfiles/ProductProfileModal';
 import CustomerContext from '../applicationState/customerContext';
 
-// eslint-disable-next-line react/prop-types
 const CustomerLanding = ({ navigator }) => {
-  // eslint-disable-next-line no-use-before-define
   const { screen, customerList, productsTitle } = styles;
   const [visible, setVisibility] = useState(false);
   const [product, setProduct] = useState('');
