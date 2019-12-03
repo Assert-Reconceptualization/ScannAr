@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useContext } from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -7,8 +7,6 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-// import CustomerContext from '../../applicationState/customerContext';
-// import { getSavedProducts, handleDelete} from '../../helperFunctions/fetchHelpers';
 
 const CustomerListItem = ({
   name,

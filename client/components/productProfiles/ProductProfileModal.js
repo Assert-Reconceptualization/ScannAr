@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View, Modal, Text, Image, StyleSheet, Button,
 } from 'react-native';
@@ -13,7 +13,12 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const [isSaved, setSaved] = useState(false);
   const [saveUpdated, setSaveUpdated] = useState(false);
   const context = useContext(CustomerContext);
-  const { serverUrl, currentSavedList, allMarkers, currentUser, setCurrentSavedList } = context;
+  const {
+    serverUrl,
+    currentSavedList,
+    currentUser,
+    setCurrentSavedList,
+  } = context;
   const {
     listItemContainer,
     image,
@@ -25,8 +30,9 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     businessName,
   } = styles;
 
-  const getSavedProducts = () => {
-    return fetch(`${serverUrl}/savedProducts?idUser=${currentUser.id}`, {
+  // Retrieves all current user's saved products
+  const getSavedProducts = () => (
+    fetch(`${serverUrl}/savedProducts?idUser=${currentUser.id}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -38,9 +44,10 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         setCurrentSavedList(savedList);
         setVisibility(false);
       })
-      .catch(() => console.log('something happend'));
-  };
+      // .catch(() => )
+  );
 
+  // Saves product to users savedProducts list
   const handleSaveProduct = () => {
     fetch(`${serverUrl}/savedProducts?idUser=${context.currentUser.id}&idProduct=${product.id}`, {
       method: 'POST',
@@ -53,11 +60,11 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         // update saved products list with another fetch
         getSavedProducts();
       })
-      .then(() => setVisibility(false))
-      .catch(() => console.log('something happened'));
+      .then(() => setVisibility(false));
+    // .catch(() => console.log('something happened'));
   };
 
-  // deletes the current product from the current user's savedProducts
+  // Deletes the current product from the current user's savedProducts
   const handleDelete = () => {
     fetch(`${serverUrl}/savedProducts?idUser=${currentUser.id}&idProduct=${product.id}`, {
       method: 'DELETE',
@@ -65,10 +72,11 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    })
-      .catch(() => console.log('something went wrong'));
+    });
+    // .catch(() => console.log('something went wrong'));
   };
 
+  // conditional rendering of save or delete
   const saveOrDelete = () => {
     if (isSaved === false) {
       return (<Button title="Save" onPress={handleSaveProduct} />);
@@ -76,7 +84,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     return (<Button title="Delete" onPress={handleDelete} />);
   };
 
-  // If modal is visible, check if item is saved and setSaveUpdated to true so this doesn't keep happening
+  // If modal is visible,
+  // check if item is saved and setSaveUpdated to true so this doesn't keep happening
   if (visible && saveUpdated === false) {
     setSaveUpdated(true);
     currentSavedList.forEach((savedItem) => {
