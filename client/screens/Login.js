@@ -26,7 +26,7 @@ const Login = ({ navigator }) => {
   const { serverUrl, setServerUrl } = context;
 
   useEffect(() => {
-    setServerUrl(`http://scannar-server-second.appspot.com`);
+    setServerUrl('http://scannar-server-second.appspot.com');
   }, []);
   // Renders Register fields onto login
   const handleRegisterView = () => {
@@ -69,8 +69,8 @@ const Login = ({ navigator }) => {
       .then((savedList) => {
         context.setCurrentSavedList(savedList);
       })
-      .then(() => handleLogin())
-      .catch(() => console.log('something happend'));
+      .then(() => handleLogin());
+    // .catch(() => console.log('something happend'));
   };
 
   // Handles login redirecting
@@ -107,7 +107,7 @@ const Login = ({ navigator }) => {
         }, 500);
       });
   };
-  
+
   let error = null;
   const {
     screen,
