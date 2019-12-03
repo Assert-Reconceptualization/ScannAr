@@ -18,6 +18,7 @@ const CustomerList = ({ setModalProp, setVisibility }) => {
     serverUrl,
     currentUser,
   } = context;
+  // eslint-disable-next-line no-use-before-define
   const { container } = styles;
 
   const getSavedProducts = () => {
