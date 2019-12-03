@@ -1,0 +1,6 @@
+runtime: nodejs
+env: flex
+
+
+beta_settings:
+    cloud_sql_instances: scannar-server-second:us-central1:scannar
