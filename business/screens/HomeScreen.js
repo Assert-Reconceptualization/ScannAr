@@ -11,9 +11,11 @@ import ProductCard from "../components/productCard";
 import BusinessContext from "../applicationState/BusinessContext";
 import NoProductMessage from "../components/NoProductMessage";
 import NewProductModal from "../components/NewProductModal";
+import HomeScreenHeader from "../components/HomeScreenHeader";
 
 export default function HomeScreen(props) {
   const context = useContext(BusinessContext);
+  context.setAppNavigator(props.navigation);
   const [creating, setCreating] = useState(false);
   // grab user data from database
   useEffect(() => {
@@ -50,8 +52,9 @@ export default function HomeScreen(props) {
     noInventoryContainer,
     businessInfoContainer,
     businessName,
-    addButton
+    addButton,
   } = styles;
+
   return (
     <View style={container}>
       <View style={businessInfoContainer}>
@@ -82,23 +85,25 @@ export default function HomeScreen(props) {
   );
 }
 
-// add content and style to header
-HomeScreen.navigationOptions = {
-  headerTitle: "ScannAR for Business",
-  headerStyle: {
-    backgroundColor: "#505950"
-  },
-  headerTintColor: "white"
-};
+  // add content and style to header
+  HomeScreen.navigationOptions = {
+    headerTitle: () => <HomeScreenHeader />,
+    headerStyle: {
+      backgroundColor: "#505950",
+    },
+    headerTintColor: "white",
+  };
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#39403A"
+    backgroundColor: "#39403A",
   },
   businessInfoContainer: {
-    justifyContent: 'center',
-    alignItems: 'center'
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   titleContainer: {
     flex: 1,
@@ -106,7 +111,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginLeft: '5%',
     marginRight: '5%',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   inventoryContainer: {
     flex: 7,
@@ -116,7 +121,7 @@ const styles = StyleSheet.create({
   },
   businessName: {
     color: '#EFF6E0',
-    fontSize: 20
+    fontSize: 20,
   },
   titleText: {
     fontSize: 30,
@@ -126,6 +131,6 @@ const styles = StyleSheet.create({
   addButton: {
     position: 'absolute',
     bottom: '10%',
-    right: '10%'
-  }
+    right: '10%',
+  },
 });
