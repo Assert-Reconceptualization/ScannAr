@@ -31,8 +31,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   } = styles;
 
   // Retrieves all current user's saved products
-  const getSavedProducts = () => {
-    return fetch(`${serverUrl}/savedProducts?idUser=${currentUser.id}`, {
+  const getSavedProducts = () => (
+    fetch(`${serverUrl}/savedProducts?idUser=${currentUser.id}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -44,8 +44,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         setCurrentSavedList(savedList);
         setVisibility(false);
       })
-      .catch(() => console.log('something happend'));
-  };
+      // .catch(() => )
+  );
 
   // Saves product to users savedProducts list
   const handleSaveProduct = () => {
@@ -60,8 +60,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         // update saved products list with another fetch
         getSavedProducts();
       })
-      .then(() => setVisibility(false))
-      .catch(() => console.log('something happened'));
+      .then(() => setVisibility(false));
+    // .catch(() => console.log('something happened'));
   };
 
   // Deletes the current product from the current user's savedProducts
@@ -72,8 +72,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    })
-      .catch(() => console.log('something went wrong'));
+    });
+    // .catch(() => console.log('something went wrong'));
   };
 
   // conditional rendering of save or delete
@@ -84,7 +84,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     return (<Button title="Delete" onPress={handleDelete} />);
   };
 
-  // If modal is visible, check if item is saved and setSaveUpdated to true so this doesn't keep happening
+  // If modal is visible,
+  // check if item is saved and setSaveUpdated to true so this doesn't keep happening
   if (visible && saveUpdated === false) {
     setSaveUpdated(true);
     currentSavedList.forEach((savedItem) => {
