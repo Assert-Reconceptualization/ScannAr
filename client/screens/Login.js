@@ -26,7 +26,7 @@ const Login = ({ navigator }) => {
   const { serverUrl, setServerUrl } = context;
 
   useEffect(() => {
-    setServerUrl(`http://scannar-server-second.appspot.com`);
+    setServerUrl('http://scannar-server-second.appspot.com');
   }, []);
   // Renders Register fields onto login
   const handleRegisterView = () => {
@@ -56,6 +56,7 @@ const Login = ({ navigator }) => {
       .catch(() => setRegister(true));
   };
 
+  // updated savedList for current user upon login
   const getSavedProducts = (idUser) => {
     fetch(`${serverUrl}/savedProducts?idUser=${idUser}`, {
       method: 'GET',
@@ -68,8 +69,8 @@ const Login = ({ navigator }) => {
       .then((savedList) => {
         context.setCurrentSavedList(savedList);
       })
-      .then(() => handleLogin())
-      .catch(() => console.log('something happend'));
+      .then(() => handleLogin());
+    // .catch(() => console.log('something happend'));
   };
 
   // Handles login redirecting
@@ -106,7 +107,7 @@ const Login = ({ navigator }) => {
         }, 500);
       });
   };
-  
+
   let error = null;
   const {
     screen,
