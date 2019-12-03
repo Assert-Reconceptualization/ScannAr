@@ -66,8 +66,9 @@ export default function AddScreen(props){
         console.log("something went wrong");
       })
   }
-
+  
   const handleCamera = async () => {
+    setSpinner(true); // turn spinner on
     // get permission to use camera
     const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     // open camera
@@ -80,7 +81,6 @@ export default function AddScreen(props){
 
     // upload image to firebase if user doesnt cancel
     if(!image.cancelled){
-      setSpinner(true); // turn spinner on
       // extract base64 image data
       const file = image.base64
       // make request to cloud function

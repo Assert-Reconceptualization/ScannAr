@@ -78,8 +78,9 @@ export default function NewProductModal(props){
   }
 
   const handleCamera = async () => {
+    setSpinner(true); // turn spinner on
     // get permission to use camera
-    // const permission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     // // open camera
     // let image = await ImagePicker.launchImageLibraryAsync({base64: true});
 
@@ -89,7 +90,6 @@ export default function NewProductModal(props){
 
     // upload image to firebase if user doesnt cancel
     if(!image.cancelled){
-      setSpinner(true); // turn spinner on
       // extract base64 image data
       const file = image.base64
       // make request to cloud function
@@ -108,7 +108,7 @@ export default function NewProductModal(props){
         .catch(err => {console.log("Try uploading again!")})
     }
   }
-  
+
   const resetModalState = () => {
     setName("");
     setDescription("");
@@ -141,10 +141,7 @@ export default function NewProductModal(props){
                 source={{uri: imageUrl}}
               />
             ) : (
-              <Button
-                title="Take a Picture!"
-                onPress={handleCamera} 
-              />
+              imageText
             )}
           </View>
           <TextInput
