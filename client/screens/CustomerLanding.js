@@ -32,23 +32,6 @@ const CustomerLanding = ({ navigator }) => {
     setMarkers();
   }, []);
 
-  // refresh button updates saved list, then markers
-  // const handleRefresh = () => {
-  //   fetch(`${serverUrl}/savedProducts?idUser=${context.currentUser.id}`, {
-  //     method: 'GET',
-  //     headers: {
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json',
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((savedList) => {
-  //       context.setCurrentSavedList(savedList);
-  //     })
-  //     .then(() => setMarkers());
-  //   // .catch(() => console.log('something went wrong'));
-  // };
-
   // sets markers for AR
   const setMarkers = () => {
     fetch(`${serverUrl}/products`, {
