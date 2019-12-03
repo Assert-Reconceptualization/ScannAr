@@ -5,7 +5,6 @@ import {
   Text,
   View,
   StyleSheet,
-  Button,
 } from 'react-native';
 
 // import components
