@@ -34,21 +34,21 @@ const CustomerLanding = ({ navigator }) => {
   }, []);
 
   // refresh button updates saved list, then markers
-  const handleRefresh = () => {
-    fetch(`${serverUrl}/savedProducts?idUser=${context.currentUser.id}`, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((response) => response.json())
-      .then((savedList) => {
-        context.setCurrentSavedList(savedList);
-      })
-      .then(() => setMarkers());
-    // .catch(() => console.log('something went wrong'));
-  };
+  // const handleRefresh = () => {
+  //   fetch(`${serverUrl}/savedProducts?idUser=${context.currentUser.id}`, {
+  //     method: 'GET',
+  //     headers: {
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((savedList) => {
+  //       context.setCurrentSavedList(savedList);
+  //     })
+  //     .then(() => setMarkers());
+  //   // .catch(() => console.log('something went wrong'));
+  // };
 
   // sets markers for AR
   const setMarkers = () => {
@@ -71,7 +71,6 @@ const CustomerLanding = ({ navigator }) => {
       <ProductProfileModal visible={visible} setVisibility={setVisibility} product={product} />
       <CustomerHeader navigator={navigator} />
       <Text style={productsTitle}>Saved Products</Text>
-      <Button title="Refresh" onPress={handleRefresh} />
       <View style={customerList}>
         <CustomerList setModalProp={setModalProp} setVisibility={setVisibility} />
       </View>
