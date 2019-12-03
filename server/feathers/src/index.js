@@ -3,10 +3,13 @@ const logger = require('./logger');
 const app = require('./app');
 // retrieve host name
 const hostname = 'scannar-server-second.appspot.com';
-// retrive port 3030
+
+// retrieve port 3030
 const port = process.env.PORT;
+
 // starting server up
-const server = app.listen(port);
+// const server = app.listen(port);
+const server = app.listen(3030);
 
 // if there is an error
 process.on('unhandledRejection', (reason, p) => logger.error('Unhandled Rejection at: Promise ', p, reason));
