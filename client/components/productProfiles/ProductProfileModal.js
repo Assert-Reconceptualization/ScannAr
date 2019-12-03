@@ -12,6 +12,7 @@ import CustomerContext from '../../applicationState/customerContext';
 const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const [isSaved, setSaved] = useState(false);
   const [saveUpdated, setSaveUpdated] = useState(false);
+  const [businessName, setBusinessName] = useState('Loading...');
   const context = useContext(CustomerContext);
   const {
     serverUrl,
@@ -29,6 +30,11 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     description,
     businessName,
   } = styles;
+
+  // Retrieves and updates business name based on product
+  const getBusinessName = () => {
+    
+  };
 
   // Retrieves all current user's saved products
   const getSavedProducts = () => (
