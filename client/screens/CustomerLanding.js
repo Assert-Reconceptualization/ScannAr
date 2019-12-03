@@ -15,7 +15,7 @@ const CustomerLanding = ({ navigator }) => {
   const [visible, setVisibility] = useState(false);
   const [product, setProduct] = useState('');
   const context = useContext(CustomerContext);
-  const serverUrl = context.serverUrl;
+  const { serverUrl } = context;
 
   // sets item for modal to render upon click of product profile
   const setModalProp = (item) => {
