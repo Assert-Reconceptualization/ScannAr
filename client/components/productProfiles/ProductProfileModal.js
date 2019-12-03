@@ -8,12 +8,12 @@ import {
 // import components
 import ProductProfileNavBar from '../NavBar/ProductProfileNavBar';
 import CustomerContext from '../../applicationState/customerContext';
-import { getSavedProducts } from '../../helperFunctions/fetchHelpers';
 
 const ProductProfileModal = ({ visible, setVisibility, product }) => {
-  const [isSaved, setSaved] = useState(true);
+  const [isSaved, setSaved] = useState(false);
+  const [saveUpdated, setSaveUpdated] = useState(false);
   const context = useContext(CustomerContext);
-  const { serverUrl, currentSavedList, allMarkers, currentUser } = context;
+  const { serverUrl, currentSavedList, allMarkers, currentUser, setCurrentSavedList } = context;
   const {
     listItemContainer,
     image,
@@ -24,6 +24,22 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     description,
     businessName,
   } = styles;
+
+  const getSavedProducts = () => {
+    return fetch(`${serverUrl}/savedProducts?idUser=${currentUser.id}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((savedList) => {
+        setCurrentSavedList(savedList);
+        setVisibility(false);
+      })
+      .catch(() => console.log('something happend'));
+  };
 
   const handleSaveProduct = () => {
     fetch(`${serverUrl}/savedProducts?idUser=${context.currentUser.id}&idProduct=${product.id}`, {
@@ -41,9 +57,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       .catch(() => console.log('something happened'));
   };
 
+  // deletes the current product from the current user's savedProducts
   const handleDelete = () => {
-    // const context = useContext(CustomerContext);
-    // const { serverUrl, currentUser } = context;
     fetch(`${serverUrl}/savedProducts?idUser=${currentUser.id}&idProduct=${product.id}`, {
       method: 'DELETE',
       headers: {
@@ -53,13 +68,6 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     })
       .catch(() => console.log('something went wrong'));
   };
-  // useEffect(() => {
-  //   currentSavedList.forEach((savedItem) => {
-  //     if (savedItem.id === product.id) { // if this product is in currentSavedList
-  //       setSaved(true);
-  //     }
-  //   });
-  // }, []);
 
   const saveOrDelete = () => {
     if (isSaved === false) {
@@ -67,6 +75,21 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     }
     return (<Button title="Delete" onPress={handleDelete} />);
   };
+
+  // If modal is visible, check if item is saved and setSaveUpdated to true so this doesn't keep happening
+  if (visible && saveUpdated === false) {
+    setSaveUpdated(true);
+    currentSavedList.forEach((savedItem) => {
+      if (savedItem.id === product.id) { // if this product is in currentSavedList
+        setSaved(true);
+      }
+    });
+  }
+
+  // When the modal is hidden, reset saveUpdated to false
+  if (!visible && saveUpdated) {
+    setSaveUpdated(false);
+  }
 
   return (
     <Modal
