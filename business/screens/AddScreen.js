@@ -92,7 +92,6 @@ export default function AddScreen(props){
       })
         .then(res => res.json())
         .then(result => {
-          // 
           setImageUrl(result.imageUrl);
         })
         .then(() => setSpinner(false)) // turn spinner off

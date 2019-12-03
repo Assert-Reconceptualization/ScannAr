@@ -89,6 +89,7 @@ export default function NewProductModal(props){
 
     // upload image to firebase if user doesnt cancel
     if(!image.cancelled){
+      setSpinner(true); // turn spinner on
       // extract base64 image data
       const file = image.base64
       // make request to cloud function
@@ -102,6 +103,7 @@ export default function NewProductModal(props){
         .then(result => {
           setImageUrl(result.imageUrl);
         })
+        .then(() => setSpinner(false)) // turn spinner off
         // TODO - message user to try again
         .catch(err => {console.log("Try uploading again!")})
     }
