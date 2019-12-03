@@ -39,6 +39,7 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
   return (
     <ViroARImageMarker target={item.name}>
       <ViroNode
+        onClick={() => { setVisibility(); setProduct(item); }}
         key="card"
       >
         <ViroNode
@@ -50,7 +51,6 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
           scale={[1, 1, 1]}
         >
           <ViroFlexView
-            onClick={() => { setVisibility(); setProduct(item); }}
             rotation={[-90, 0, 0]}
             height={0.5}
             width={1}
