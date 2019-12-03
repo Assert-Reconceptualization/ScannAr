@@ -1,7 +1,12 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useContext } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+} from 'react-native';
 
 // import components
 import CustomerNavBar from '../components/NavBar/CustomerNavBar';
@@ -41,8 +46,8 @@ const CustomerLanding = ({ navigator }) => {
       .then((savedList) => {
         context.setCurrentSavedList(savedList);
       })
-      .then(()=> setMarkers())
-      .catch(() => console.log('something went wrong'));
+      .then(() => setMarkers());
+    // .catch(() => console.log('something went wrong'));
   };
 
   // sets markers for AR
@@ -57,8 +62,8 @@ const CustomerLanding = ({ navigator }) => {
       .then((response) => response.json())
       .then((parsedResponse) => {
         context.setAllMarkers(parsedResponse.data);
-      })
-      .catch(() => console.log('something went wrong'));
+      });
+    // .catch(() => console.log('something went wrong'));
   };
 
   return (
