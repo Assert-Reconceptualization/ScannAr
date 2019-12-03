@@ -33,7 +33,19 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
 
   // Retrieves and updates business name based on product
   const getBusinessName = () => {
-
+    fetch(`${serverUrl}/business?id=${product.idBusiness}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((parsed) => {
+        let businessInfo = parsed.data[0];
+        setBusinessName(businessInfo.name);
+      });
+    // .catch(() => )
   };
 
   // Retrieves all current user's saved products
