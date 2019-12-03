@@ -11,10 +11,33 @@ import CustomerContext from '../../applicationState/customerContext';
 // eslint-disable-next-line react/prop-types
 const CustomerList = ({ setModalProp, setVisibility }) => {
   const context = useContext(CustomerContext);
-  const { currentSavedList } = context;
+  const {
+    currentSavedList,
+    setCurrentSavedList,
+    serverUrl,
+    currentUser,
+  } = context;
+
+  const getSavedProducts = () => (
+    fetch(`${serverUrl}/savedProducts?idUser=${currentUser.id}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((savedList) => {
+        setCurrentSavedList(savedList);
+      })
+    // .catch(() => )
+  );
+
   return (
     <View onPress={() => setVisibility(true)}>
       <FlatList
+        onRefresh
+        refreshing={getSavedProducts}
         data={currentSavedList}
         renderItem={({ item }) => (
           <CustomerListItem
