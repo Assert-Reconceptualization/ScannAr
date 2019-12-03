@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   View, Modal, Text, Image, StyleSheet, Button,
 } from 'react-native';
@@ -8,12 +8,12 @@ import {
 // import components
 import ProductProfileNavBar from '../NavBar/ProductProfileNavBar';
 import CustomerContext from '../../applicationState/customerContext';
-import { getSavedProducts, handleDelete } from '../../helperFunctions/fetchHelpers';
+import { getSavedProducts } from '../../helperFunctions/fetchHelpers';
 
 const ProductProfileModal = ({ visible, setVisibility, product }) => {
-  const [isSaved, setSaved] = useState(false);
+  const [isSaved, setSaved] = useState(true);
   const context = useContext(CustomerContext);
-  const { serverUrl, currentSavedList, allMarkers } = context;
+  const { serverUrl, currentSavedList, allMarkers, currentUser } = context;
   const {
     listItemContainer,
     image,
@@ -41,18 +41,31 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       .catch(() => console.log('something happened'));
   };
 
+  const handleDelete = () => {
+    // const context = useContext(CustomerContext);
+    // const { serverUrl, currentUser } = context;
+    fetch(`${serverUrl}/savedProducts?idUser=${currentUser.id}&idProduct=${product.id}`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .catch(() => console.log('something went wrong'));
+  };
   // useEffect(() => {
   //   currentSavedList.forEach((savedItem) => {
   //     if (savedItem.id === product.id) { // if this product is in currentSavedList
-  //       setSaved(false);
+  //       setSaved(true);
   //     }
   //   });
   // }, []);
+
   const saveOrDelete = () => {
     if (isSaved === false) {
       return (<Button title="Save" onPress={handleSaveProduct} />);
     }
-    return (<Button title="Delete" onPress={() => handleDelete(product.id)} />);
+    return (<Button title="Delete" onPress={handleDelete} />);
   };
 
   return (
