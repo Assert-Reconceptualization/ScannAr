@@ -41,6 +41,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       .catch(() => console.log('something happend'));
   };
 
+  // Saves product to users savedProducts list
   const handleSaveProduct = () => {
     fetch(`${serverUrl}/savedProducts?idUser=${context.currentUser.id}&idProduct=${product.id}`, {
       method: 'POST',
@@ -57,7 +58,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       .catch(() => console.log('something happened'));
   };
 
-  // deletes the current product from the current user's savedProducts
+  // Deletes the current product from the current user's savedProducts
   const handleDelete = () => {
     fetch(`${serverUrl}/savedProducts?idUser=${currentUser.id}&idProduct=${product.id}`, {
       method: 'DELETE',
@@ -69,6 +70,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       .catch(() => console.log('something went wrong'));
   };
 
+  // conditional rendering of save or delete
   const saveOrDelete = () => {
     if (isSaved === false) {
       return (<Button title="Save" onPress={handleSaveProduct} />);
