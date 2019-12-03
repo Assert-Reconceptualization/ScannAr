@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View, Modal, Text, Image, StyleSheet, Button,
 } from 'react-native';
@@ -13,7 +13,12 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const [isSaved, setSaved] = useState(false);
   const [saveUpdated, setSaveUpdated] = useState(false);
   const context = useContext(CustomerContext);
-  const { serverUrl, currentSavedList, allMarkers, currentUser, setCurrentSavedList } = context;
+  const {
+    serverUrl,
+    currentSavedList,
+    currentUser,
+    setCurrentSavedList,
+  } = context;
   const {
     listItemContainer,
     image,
