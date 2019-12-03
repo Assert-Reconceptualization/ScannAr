@@ -25,6 +25,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     businessName,
   } = styles;
 
+  // Retrieves all current user's saved products
   const getSavedProducts = () => {
     return fetch(`${serverUrl}/savedProducts?idUser=${currentUser.id}`, {
       method: 'GET',
