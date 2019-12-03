@@ -66,7 +66,7 @@ app.get("/savedProducts", (req, res) => {
     })
     .catch(err => {
       console.log(err);
-      res.send(500);
+      res.send([]);
     });
 });
 
@@ -78,7 +78,7 @@ app.post('/savedProducts', (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.send(500);
+      res.sendStatus(500);
     });
 });
 
@@ -93,7 +93,7 @@ app.delete('/savedProducts', (req, res) => {
     res.sendStatus(200);
   }).catch((err) => {
     console.log(err);
-    res.send(500);
+    res.sendStatus(500);
   });
 });
 
@@ -112,13 +112,13 @@ app.get('/productTags', (req, res) => {
       },
     ],
   })
-    .then((result) => {
-      res.send(result);
+    .then((filterItems) => {
+      res.send(filterItems);
     })
     .catch((err) => {
       console.log(err);
-      res.sendStatus(500);
-    })
+      res.send([]);
+    });
 });
 
 app.post('/productTags', (req, res) => {
