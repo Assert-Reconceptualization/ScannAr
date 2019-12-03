@@ -2,16 +2,16 @@
 const logger = require('./logger');
 const app = require('./app');
 // retrieve host name
-const hostname = app.get('host');
+const hostname = 'scannar-server-second.appspot.com';
 // retrive port 3030
-const port = app.get('port');
+const port = process.env.PORT;
 // starting server up
-const server = app.listen(port, hostname);
+const server = app.listen(port);
 
 // if there is an error
 process.on('unhandledRejection', (reason, p) => logger.error('Unhandled Rejection at: Promise ', p, reason));
 
 // if there is no error
-server.on('listening', () => logger.info('Feathers application started on http://%s:%d', hostname, port));
+server.on('listening', () => logger.info('Feathers application started on http://%s', hostname));
 
 // this the entry point of our nodejs application
