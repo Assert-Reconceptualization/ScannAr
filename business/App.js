@@ -16,18 +16,7 @@ export default function App(props) {
   const [currentUser, setCurrentUser] = useState({});
   const [currentBusiness, setCurrentBusiness] = useState({});
   const [currentInventory, setCurrentInventory] = useState([]);
-
-  const updateUser = (user) => {
-    setCurrentUser(user);
-  }
-
-  const updateBusiness = (business) => {
-    setCurrentBusiness(business);
-  }
-
-  const updateCurrentInventory = (inventory) => {
-    setCurrentInventory(inventory)
-  }
+  const [appNavigator, setAppNavigator] = useState({});
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
@@ -49,6 +38,8 @@ export default function App(props) {
             setCurrentBusiness,
             setCurrentUser,
             setCurrentInventory,
+            appNavigator,
+            setAppNavigator,
           }}
         >
           <AppNavigator />
