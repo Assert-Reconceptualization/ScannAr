@@ -20,6 +20,7 @@ export default function AddScreen(props){
   const [imageUrl, setImageUrl] = useState(null);
   const [price, setPrice] = useState(null);
   const context = useContext(BusinessContext);
+  const [spinner, setSpinner] = useContext(false);
 
   const handleSubmit = () => {
 
@@ -66,6 +67,7 @@ export default function AddScreen(props){
   }
 
   const handleCamera = async () => {
+    setSpinner(true); // turn spinner on
     // get permission to use camera
     // const permission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     // // open camera
@@ -88,6 +90,7 @@ export default function AddScreen(props){
       })
         .then(res => res.json())
         .then(result => {
+          setSpinner(false); // turn spinner off
           setImageUrl(result.imageUrl);
         })
         // TODO - message user to try again
