@@ -7,8 +7,6 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-// import CustomerContext from '../../applicationState/customerContext';
-// import { getSavedProducts, handleDelete} from '../../helperFunctions/fetchHelpers';
 
 const CustomerListItem = ({
   name,
