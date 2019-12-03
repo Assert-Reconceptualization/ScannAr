@@ -9,6 +9,7 @@ import {
   Image,
   TouchableWithoutFeedback,
   Keyboard,
+  ActivityIndicator,
 } from 'react-native';
 import BusinessContext from "../applicationState/BusinessContext";
 import * as ImagePicker from 'expo-image-picker';
@@ -125,7 +126,7 @@ export default function AddScreen(props){
             />
           ) : (
             <Button
-              title="Take a Picture!"
+              title={"Take a Picture!"}
               onPress={handleCamera} 
             />
           )}
