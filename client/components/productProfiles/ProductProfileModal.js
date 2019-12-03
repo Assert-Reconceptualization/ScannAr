@@ -43,9 +43,17 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
 
   // useEffect(() => {
   //   currentSavedList.forEach((savedItem) => {
-  //     if ()
+  //     if (savedItem.id === product.id) { // if this product is in currentSavedList
+  //       setSaved(false);
+  //     }
   //   });
   // }, []);
+  const saveOrDelete = () => {
+    if (isSaved === false) {
+      return (<Button title="Save" onPress={handleSaveProduct} />);
+    }
+    return (<Button title="Delete" onPress={() => handleDelete(product.id)} />);
+  };
 
   return (
     <Modal
@@ -58,7 +66,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       >
         <ProductProfileNavBar setVisibility={setVisibility} />
         <Text style={productTitle}>{product.name}</Text>
-        <Button title="Save" onPress={handleSaveProduct} />
+        {saveOrDelete()}
         <Image
           source={{ uri: (product.imageUrl) }}
           style={image}
