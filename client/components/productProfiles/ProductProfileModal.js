@@ -59,8 +59,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       .then(() => {
         // update saved products list with another fetch
         getSavedProducts();
-      })
-      .then(() => setVisibility(false));
+      });
     // .catch(() => console.log('something happened'));
   };
 
