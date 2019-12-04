@@ -21,13 +21,14 @@ export default function EditProfileModal(props){
     name,
     email,
     phone,
-    description
+    description,
+    password
   } = context.currentBusiness;
 
   // form state
   const [newName, setNewName] = useState(name);
   const [newEmail, setNewEmail] = useState(email);
-  const [newPassword, setUsePassword] = useState(null);
+  const [newPassword, setNewPassword] = useState(password);
   const [newPhone, setNewPhone] = useState(phone);
   const [newDescription, setNewDescription] = useState(description);
 
@@ -47,6 +48,7 @@ export default function EditProfileModal(props){
         description: newDescription,
         email: newEmail,
         phone: newPhone,
+        password: newPassword,
       })
     })
       .then((response) => response.json())
@@ -105,6 +107,7 @@ export default function EditProfileModal(props){
             placeholder="Change Password"
             value={newPassword}
             style={textInput}
+            secureTextEntry
             onChangeText={text => setNewPassword(text)}
           />
           <Button
