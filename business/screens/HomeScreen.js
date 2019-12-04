@@ -77,7 +77,6 @@ export default function HomeScreen(props) {
         sortedInventory = inventory.sort((a, b) => {
           return new Date(a.updatedAt) - new Date(b.updatedAt);
         });
-          console.log(sortedInventory);
           context.setCurrentInventory(sortedInventory);
           // force re-render component
           break;
@@ -85,7 +84,6 @@ export default function HomeScreen(props) {
         sortedInventory = inventory.sort((a, b) => {
           return new Date(b.updatedAt) - new Date(a.updatedAt);
         });
-        console.log(sortedInventory);
         context.setCurrentInventory(sortedInventory);
         // force re-render component
         break;
