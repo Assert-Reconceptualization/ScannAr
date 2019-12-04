@@ -73,7 +73,6 @@ export default function AddScreen(props){
 
     // uncomment when using real phone
     const permission = await Permissions.askAsync(Permissions.CAMERA);
-    // console.log(permission);
     let image = await ImagePicker.launchCameraAsync({base64: true});
 
     // upload image to firebase if user doesnt cancel
