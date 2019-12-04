@@ -11,6 +11,7 @@ import CustomerContext from '../../applicationState/customerContext';
 // eslint-disable-next-line react/prop-types
 const CustomerList = ({ setModalProp, setVisibility }) => {
   const [refresh, setRefresh] = useState(false);
+  const [sortVisibility, setSortVisibility] = useState(false);
   const context = useContext(CustomerContext);
   const {
     currentSavedList,
@@ -36,6 +37,39 @@ const CustomerList = ({ setModalProp, setVisibility }) => {
         setRefresh(false);
       });
     // .catch(() => )
+  };
+
+  const filterFunctions = (filterBy) => {
+    let sortedInventory;
+    // hide filter functions
+    // hideSortModal();
+    // grab current inventory
+    const inventory = context.currentInventory;
+    switch (filterBy) {
+      case 'priceAscending':
+        sortedInventory = inventory.sort((a, b) => a.price - b.price);
+        context.setCurrentInventory(sortedInventory);
+        // force re-render component
+        break;
+      case 'priceDescending':
+        sortedInventory = inventory.sort((a, b) => b.price - a.price);
+        context.setCurrentInventory(sortedInventory);
+        // force re-render component
+        break;
+      case 'oldestFirst':
+        sortedInventory = inventory.sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
+        context.setCurrentInventory(sortedInventory);
+        // force re-render component
+        break;
+      case 'mostRecent':
+        sortedInventory = inventory.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+        context.setCurrentInventory(sortedInventory);
+        // force re-render component
+        break;
+      default: break;
+    }
+    // ensure component is refreshed!
+    // setRefresh(!refresh);
   };
 
   return (
