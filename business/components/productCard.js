@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import BusinessContext from "../applicationState/BusinessContext";
@@ -38,6 +39,21 @@ export default function ProductCard(props){
 
   const showEditModal = () => {
     setEditing(true);
+  }
+
+  const confirmDelete = () => {
+    Alert.alert(
+      'Confirm Delete',
+      'Product will be permanently removed',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {text: 'OK', onPress: () => handleDelete()},
+      ],
+      {cancelable: false},
+    );
   }
 
   const {
@@ -84,7 +100,7 @@ export default function ProductCard(props){
       </View>
       <View style={deleteContainer}>
         <TouchableOpacity
-          onPress={handleDelete}
+          onPress={confirmDelete}
         >
           <Ionicons
             name="ios-close"
