@@ -68,9 +68,6 @@ export default function NewProductModal(props){
             // go back to home screen
             props.navigation.navigate({routeName: 'Home'});
           })
-          .catch(() => {
-            console.log('Something Went Wrong');
-          });
       })
       .catch(() => {
         console.log("something went wrong");

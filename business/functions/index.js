@@ -19,7 +19,6 @@ exports.storeImage = functions.https.onRequest((request, response) => {
   return cors(request, response, () => {
     const body = JSON.parse(request.body);
     fs.writeFileSync("/tmp/uploaded-image.jpg", body.image, "base64", err => {
-      console.log(err);
       return response.status(500).json({ error: err });
     });
     const bucket = gcs.bucket("scannar-260417.appspot.com");

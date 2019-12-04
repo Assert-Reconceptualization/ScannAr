@@ -26,14 +26,13 @@ export default function ProductCard(props){
     })
       .then((response) => response.json())
       .then(parsedResponse => {
-        console.log(parsedResponse)
         // delete item from current inventory
         const currentInventory = context.currentInventory.filter((product) => product.id !== props.product.id);
         // update state
         context.setCurrentInventory(currentInventory);
       })
       .catch(error => {
-        console.log(error);
+        console.log('Item not deleted');
       })
   }
 

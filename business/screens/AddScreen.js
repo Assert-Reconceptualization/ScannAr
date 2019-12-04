@@ -58,9 +58,6 @@ export default function AddScreen(props){
             // go back to home screen
             props.navigation.navigate({routeName: 'Home'});
           })
-          .catch(() => {
-            console.log('Something Went Wrong');
-          });
       })
       .catch(() => {
         console.log("something went wrong");
@@ -76,7 +73,6 @@ export default function AddScreen(props){
 
     // uncomment when using real phone
     const permission = await Permissions.askAsync(Permissions.CAMERA);
-    // console.log(permission);
     let image = await ImagePicker.launchCameraAsync({base64: true});
 
     // upload image to firebase if user doesnt cancel
