@@ -29,6 +29,7 @@ const CustomerListItem = ({
     // eslint-disable-next-line no-use-before-define
   } = styles;
   const context = useContext(CustomerContext);
+  const { setCurrentSavedList, serverUrl, currentUser } = context;
 
   // Retrieves all current user's saved products
   const getSavedProducts = () => (
