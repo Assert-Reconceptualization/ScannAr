@@ -13,7 +13,6 @@ export default function SettingsScreen() {
   const {
     name,
     email,
-    password,
     phone,
     description
   } = useContext(BusinessContext).currentBusiness;

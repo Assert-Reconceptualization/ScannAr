@@ -6,6 +6,8 @@ import {
   Button,
   StyleSheet,
   TextInput,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from 'react-native';
 
 import BusinessContext from "../applicationState/BusinessContext";
@@ -34,44 +36,29 @@ export default function EditProfileModal(props){
   }
 
   const handleSubmit = () => {
-    // make request to server POST
-    // fetch(`http://scannar-server-second.appspot.com/products/${props.product.id}`, {
-    //   method: "PATCH",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     name,
-    //     description,
-    //     price,
-    //     imageUrl,
-    //   })
-    // })
-    //   .then(() => {
-    //     // refresh inventory
-    //     fetch(`http://scannar-server-second.appspot.com/products?idBusiness=${context.currentBusiness.id}`, {
-    //       method: "GET",
-    //       headers: {
-    //         Accept: "application/json",
-    //         "Content-Type": "application/json"
-    //       },
-    //     })
-    //       .then(response => response.json())
-    //       .then(products => {
-    //         //update current inventory if there are products
-    //         if(products.data){
-    //           context.setCurrentInventory(products.data)
-    //         }
-    //         // close modal
-    //         props.closeModal(false);
-    //         // go back to home screen
-    //         props.navigation.navigate({routeName: 'Home'});
-    //       })
-    //   })
-    //   .catch(() => {
-    //     console.log("something went wrong");
-    //   })
+    fetch(`http://scannar-server-second.appspot.com/business/${id}`, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: newName,
+        description: newDescription,
+        email: newEmail,
+        phone: newPhone,
+      })
+    })
+      .then((response) => response.json())
+      .then(updatedBusiness => {
+        // update current business
+        context.setCurrentBusiness(updatedBusiness);
+        // close modal
+        handleCancel();
+      })
+      .catch(() => {
+        console.log("something went wrong");
+      })
   }
 
   const {
@@ -86,49 +73,51 @@ export default function EditProfileModal(props){
 
   return (
     <Modal visible={visible} animationType="fade">
-      <View style={container}>
-        <Text>Update Business Information</Text>
-        <TextInput
-          placeholder="Name"
-          value={newName}
-          style={textInput}
-          onChangeText={text => setNewName(text)}
-        />
-        <TextInput
-          placeholder="Email"
-          value={newEmail}
-          style={textInput}
-          onChangeText={text => setNewEmail(text)}
-        />
-        <TextInput
-          placeholder="Phone"
-          value={newPhone}
-          style={textInput}
-          onChangeText={text => setNewPhone(text)}
-        />
-        <TextInput
-          placeholder="Description"
-          value={newDescription}
-          style={descriptionInput}
-          multiline={true}
-          onChangeText={text => setNewDescription(text)}
-        />
-        <TextInput
-          placeholder="Change Password"
-          value={newPassword}
-          style={textInput}
-          onChangeText={text => setNewPassword(text)}
-        />
-        <Button
-          title="Submit"
-          onPress={handleSubmit} 
-        />
-        <Button 
-          title="cancel"
-          color="red"
-          onPress={handleCancel}
-        />
-      </View>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={container}>
+          <Text>Update Business Information</Text>
+          <TextInput
+            placeholder="Name"
+            value={newName}
+            style={textInput}
+            onChangeText={text => setNewName(text)}
+          />
+          <TextInput
+            placeholder="Email"
+            value={newEmail}
+            style={textInput}
+            onChangeText={text => setNewEmail(text)}
+          />
+          <TextInput
+            placeholder="Phone"
+            value={newPhone}
+            style={textInput}
+            onChangeText={text => setNewPhone(text)}
+          />
+          <TextInput
+            placeholder="Description"
+            value={newDescription}
+            style={descriptionInput}
+            multiline={true}
+            onChangeText={text => setNewDescription(text)}
+          />
+          <TextInput
+            placeholder="Change Password"
+            value={newPassword}
+            style={textInput}
+            onChangeText={text => setNewPassword(text)}
+          />
+          <Button
+            title="Submit"
+            onPress={handleSubmit} 
+          />
+          <Button 
+            title="cancel"
+            color="red"
+            onPress={handleCancel}
+          />
+        </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 }
