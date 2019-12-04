@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import BusinessContext from '../applicationState/BusinessContext';
 import { Ionicons } from "@expo/vector-icons";
+import EditProfileModal from '../components/EditProfileModal';
 
 export default function SettingsScreen() {
   const {
@@ -17,13 +18,11 @@ export default function SettingsScreen() {
     description
   } = useContext(BusinessContext).currentBusiness;
 
-  // variables to hold form state
-  const [businessName, setBusinessName] = useState(name);
-  const [businessEmail, setBusinessEmail] = useState(email);
-  const [businessPassword, setBusinessPassword] = useState(password);
-  const [businessNumber, setBusinessNumber] = useState(phone);
-  const [businessDescription, setBusinessDescription] = useState(description);
   const [editing, setEditing] = useState(false);
+
+  const showEditModal = () => {
+    setEditing(true);
+  }
 
   const {
     container,
@@ -38,9 +37,13 @@ export default function SettingsScreen() {
 
   return (
     <View style={container}>
+      <EditProfileModal
+        visible={editing}
+        closeModal={setEditing}
+      />
       <View style={titleContainer}>
-        <Text style={titleText}>{businessName}</Text>
-        <TouchableOpacity>
+        <Text style={titleText}>{name}</Text>
+        <TouchableOpacity onPress={showEditModal}>
           <Ionicons
             name="ios-settings"
             size={40}
@@ -50,14 +53,14 @@ export default function SettingsScreen() {
       </View>
       <View style={contentContainer}>
         <Text style={subTitle}>Description:</Text>
-        <Text style={text}>{businessDescription}</Text>
+        <Text style={text}>{description}</Text>
         <View style={emailContainer}>
           <Text style={subTitle}>Email address</Text>
-          <Text style={text}>{businessEmail}</Text>
+          <Text style={text}>{email}</Text>
         </View>
         <View style={phoneContainer}>
           <Text style={subTitle}>Phone number:</Text>
-          <Text style={text}>{businessNumber}</Text>
+          <Text style={text}>{phone}</Text>
         </View>
       </View>
     </View>
