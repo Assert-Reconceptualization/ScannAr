@@ -12,6 +12,7 @@ import CustomerContext from '../../applicationState/customerContext';
 const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const [isSaved, setSaved] = useState(false);
   const [saveUpdated, setSaveUpdated] = useState(false);
+  const [businessName, setBusinessName] = useState('Loading...');
   const context = useContext(CustomerContext);
   const {
     serverUrl,
@@ -27,8 +28,25 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     productDescription,
     nameAndPrice,
     description,
-    businessName,
+    businessNameStyle,
   } = styles;
+
+  // Retrieves and updates business name based on product
+  const getBusinessName = () => {
+    fetch(`${serverUrl}/business?id=${product.idBusiness}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((parsed) => {
+        const businessInfo = parsed.data[0];
+        setBusinessName(businessInfo.name);
+      });
+    // .catch(() => )
+  };
 
   // Retrieves all current user's saved products
   const getSavedProducts = () => (
@@ -71,7 +89,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-    });
+    })
+      .then(() => getSavedProducts());
     // .catch(() => console.log('something went wrong'));
   };
 
@@ -86,6 +105,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   // If modal is visible,
   // check if item is saved and setSaveUpdated to true so this doesn't keep happening
   if (visible && saveUpdated === false) {
+    getBusinessName();
     setSaveUpdated(true);
     currentSavedList.forEach((savedItem) => {
       if (savedItem.id === product.id) { // if this product is in currentSavedList
@@ -119,7 +139,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
           <View style={nameAndPrice}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={productDescription}>By </Text>
-              <Text style={businessName}>{product.businessName || 'Some Business'}</Text>
+              <Text style={businessNameStyle}>{businessName || 'Some Business'}</Text>
             </View>
             <Text style={productPrice}>{`$${product.price}.00`}</Text>
           </View>
@@ -150,7 +170,7 @@ const styles = StyleSheet.create({
     color: '#B3C6CD',
     marginBottom: 6,
   },
-  businessName: {
+  businessNameStyle: {
     fontSize: 15,
     color: '#B3C6CD',
     marginBottom: 6,

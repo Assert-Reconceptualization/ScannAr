@@ -9,6 +9,7 @@ import {
   Image,
   TouchableWithoutFeedback,
   Keyboard,
+  ActivityIndicator,
 } from 'react-native';
 import BusinessContext from "../applicationState/BusinessContext";
 import * as ImagePicker from 'expo-image-picker';
@@ -20,6 +21,7 @@ export default function AddScreen(props){
   const [imageUrl, setImageUrl] = useState(null);
   const [price, setPrice] = useState(null);
   const context = useContext(BusinessContext);
+  const [spinner, setSpinner] = useState(false);
 
   const handleSubmit = () => {
 
@@ -64,15 +66,17 @@ export default function AddScreen(props){
         console.log("something went wrong");
       })
   }
-
+  
   const handleCamera = async () => {
+    setSpinner(true); // turn spinner on
     // get permission to use camera
-    // const permission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    // // open camera
+    const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    // open camera
     // let image = await ImagePicker.launchImageLibraryAsync({base64: true});
 
     // uncomment when using real phone
     const permission = await Permissions.askAsync(Permissions.CAMERA);
+    // console.log(permission);
     let image = await ImagePicker.launchCameraAsync({base64: true});
 
     // upload image to firebase if user doesnt cancel
@@ -90,6 +94,7 @@ export default function AddScreen(props){
         .then(result => {
           setImageUrl(result.imageUrl);
         })
+        .then(() => setSpinner(false)) // turn spinner off
         // TODO - message user to try again
         .catch(err => {console.log("Try uploading again!")})
     }
@@ -110,6 +115,11 @@ export default function AddScreen(props){
     descriptionInput,
   } = styles;
 
+  let imageText = spinner ? <ActivityIndicator size="small" color="black" /> : <Button
+    title={"Take a Picture!"}
+    onPress={handleCamera}
+  />;
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={ container }>
@@ -121,11 +131,8 @@ export default function AddScreen(props){
               source={{uri: imageUrl}}
             />
           ) : (
-            <Button
-              title="Take a Picture!"
-              onPress={handleCamera} 
-            />
-          )}
+              imageText
+              )}
         </View>
         <TextInput
           placeholder="Name"

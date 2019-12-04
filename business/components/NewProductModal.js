@@ -9,6 +9,7 @@ import {
   Image,
   TouchableWithoutFeedback,
   Keyboard,
+  ActivityIndicator,
 } from 'react-native';
 import BusinessContext from "../applicationState/BusinessContext";
 import * as ImagePicker from 'expo-image-picker';
@@ -20,6 +21,7 @@ export default function NewProductModal(props){
   const [imageUrl, setImageUrl] = useState(null);
   const [price, setPrice] = useState("");
   const context = useContext(BusinessContext);
+  const [spinner, setSpinner] = useState(false);
 
   const handleCancel = () => {
     // close modal
@@ -76,8 +78,9 @@ export default function NewProductModal(props){
   }
 
   const handleCamera = async () => {
+    setSpinner(true); // turn spinner on
     // get permission to use camera
-    // const permission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
     // // open camera
     // let image = await ImagePicker.launchImageLibraryAsync({base64: true});
 
@@ -100,13 +103,10 @@ export default function NewProductModal(props){
         .then(result => {
           setImageUrl(result.imageUrl);
         })
+        .then(() => setSpinner(false)) // turn spinner off
         // TODO - message user to try again
         .catch(err => {console.log("Try uploading again!")})
     }
-  }
-
-  const closeKeyboard = () => {
-    Keyboard.dismiss();
   }
 
   const resetModalState = () => {
@@ -124,6 +124,11 @@ export default function NewProductModal(props){
     descriptionInput
   } = styles;
 
+  let imageText = spinner ? <ActivityIndicator size="small" color="black" /> : <Button
+    title={"Take a Picture!"}
+    onPress={handleCamera}
+  />;
+
   return (
     <Modal visible={props.visible} animationType="slide">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -136,10 +141,7 @@ export default function NewProductModal(props){
                 source={{uri: imageUrl}}
               />
             ) : (
-              <Button
-                title="Take a Picture!"
-                onPress={handleCamera} 
-              />
+              imageText
             )}
           </View>
           <TextInput

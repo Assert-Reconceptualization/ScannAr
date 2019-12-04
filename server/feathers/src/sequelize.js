@@ -22,6 +22,15 @@ module.exports = (app) => {
     logging: false,
     operatorsAliases: false,
   });
+  // const connectionString = app.get("postgres");
+  // const sequelize = new Sequelize(connectionString, {
+  //   dialect: "postgres",
+  //   database: "ScannAr",
+  //   logging: false,
+  //   define: {
+  //     freezeTableName: true, // Model tableName will be the same as the model name
+  //   },
+  // });
   const oldSetup = app.setup;
 
   app.set('sequelizeClient', sequelize);
