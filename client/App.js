@@ -16,6 +16,7 @@ const App = () => {
   const [currentSavedList, setCurrentSavedList] = useState([]);
   const [allMarkers, setAllMarkers] = useState([]);
   const [serverUrl, setServerUrl] = useState('');
+  const [accessToken, setAccessToken] = useState(null);
   return (
     <CustomerContext.Provider
       value={{
@@ -27,6 +28,8 @@ const App = () => {
         setCurrentSavedList,
         allMarkers,
         setAllMarkers,
+        accessToken,
+        setAccessToken,
       }}
     >
       <Navigator>

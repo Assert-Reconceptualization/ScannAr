@@ -23,10 +23,10 @@ const Login = ({ navigator }) => {
   const [name, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { serverUrl, setServerUrl } = context;
+  const { serverUrl, setServerUrl, setAccessToken, setCurrentUser } = context;
 
   useEffect(() => {
-    setServerUrl('http://scannar-server-second.appspot.com');
+    setServerUrl('https://scannar-server-second.appspot.com');
   }, []);
   // Renders Register fields onto login
   const handleRegisterView = () => {
@@ -35,19 +35,25 @@ const Login = ({ navigator }) => {
 
   // Gets user id / info
   const getUserInfo = () => {
-    fetch(`${serverUrl}/users?email=${email}&password=${password}`, {
-      method: 'GET',
+    fetch(`${serverUrl}/authentication`, {
+      method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({
+        strategy: 'local',
+        password,
+        email,
+      }),
     })
       .then((response) => response.json())
       .then((userInfo) => {
         // add idUser to context
-        const { id } = userInfo.data[0];
+        const { id } = userInfo.user;
         if (id) {
-          context.setCurrentUser(userInfo.data[0]);
+          setAccessToken(userInfo.accessToken);
+          setCurrentUser(userInfo.user);
           getSavedProducts(id);
         } else {
           setRegister(true);
