@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 
 import CustomerContext from '../../applicationState/customerContext';
@@ -62,6 +63,22 @@ const CustomerListItem = ({
     // .catch(() => console.log('something went wrong'));
   };
 
+  const handleAlert = () => {
+    Alert.alert(
+      'Delete Saved Product',
+      'Are you sure you want to delete?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'Yes', onPress: () => handleDelete() },
+      ],
+      { cancelable: false },
+    );
+  };
+
   return (
     <View
       style={listItemContainer}
@@ -91,7 +108,7 @@ const CustomerListItem = ({
         </TouchableOpacity>
       </View>
       <View style={deleteButtonView}>
-        <TouchableOpacity onPress={handleDelete}>
+        <TouchableOpacity onPress={handleAlert}>
           <Text style={deleteButton}>x</Text>
         </TouchableOpacity>
       </View>
