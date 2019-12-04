@@ -9,7 +9,7 @@
   "authentication": {
     "entity": "user",
     "service": "users",
-    "secret": "Qn6Y/IUW5m/1q/Cto7fr9+Q0tCc=",
+    "secret": "addMblQg48bQWkLIWNT1z1X1XYM=",
     "authStrategies": [
       "jwt",
       "local"
@@ -26,18 +26,6 @@
     "local": {
       "usernameField": "email",
       "passwordField": "password"
-    },
-    "oauth": {
-      "redirect": "http://localhost:3030/",
-      "google": {
-        "key": "GOOGLE_OAUTH_KEY",
-        "secret": "GOOGLE_OAUTH_SERECT",
-        "scope": [
-          "email",
-          "profile",
-          "openid"
-        ]
-      }
     }
   },
   "postgres": "postgres://postgres:@localhost:5432/scannar"
