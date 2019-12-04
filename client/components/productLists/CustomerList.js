@@ -86,7 +86,7 @@ const CustomerList = ({ setModalProp, setVisibility }) => {
     <View
       onPress={() => setVisibility(true)}
       style={container}
-    >{sortVisibility ? pickerFilter() : (
+    >
       <FlatList
         refreshing={refresh}
         onRefresh={getSavedProducts}
@@ -103,8 +103,6 @@ const CustomerList = ({ setModalProp, setVisibility }) => {
         )}
         keyExtractor={(item) => item.name}
       />
-      )
-    }
     </View>
   );
 };
