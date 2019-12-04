@@ -1,31 +1,26 @@
+/* eslint-disable class-methods-use-this */
 const { AuthenticationService, JWTStrategy } = require('@feathersjs/authentication');
 const { LocalStrategy } = require('@feathersjs/authentication-local');
-const { expressOauth, OAuthStrategy } = require('@feathersjs/authentication-oauth');
+const { hashPassword, protect } = require('@feathersjs/authentication-local').hooks;
 
-class GoogleStrategy extends OAuthStrategy {
-  async getEntityData(profile) {
-    // this will set 'googleId'
-    const baseData = await super.getEntityData(profile);
 
-    // this will grab the first and last name and email address of the Google profile
+class MyLocalStrategy extends LocalStrategy {
+  getEntityQuery(query, params) {
+    const { email } = query.usernameField;
+    // Query for user but only include users marked as `active`
     return {
-      ...baseData,
-      email: profile.email,
-      nameFirst: profile.given_name,
-      nameLast: profile.family_name,
+      ...query,
+      usernameField: email,
     };
   }
 }
 
+module.exports = (app) => {
+  const authService = new AuthenticationService(app);
 
+  authService.register('local', new MyLocalStrategy());
+  authService.register("jwt", new JWTStrategy());
 
-module.exports = app => {
-  const authentication = new AuthenticationService(app);
-
-  authentication.register('jwt', new JWTStrategy());
-  authentication.register('local', new LocalStrategy());
-  authentication.register('google', new GoogleStrategy());
-
-  app.use('/authentication', authentication);
-  app.configure(expressOauth());
+  // ...
+  app.use('/authentication', authService);
 };

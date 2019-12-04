@@ -25,7 +25,10 @@
     },
     "local": {
       "usernameField": "email",
-      "passwordField": "password"
+      "passwordField": "password",
+      "hashSize": 12,
+      "entityUsernameField": "email",
+      "entityPasswordField": "password"
     },
     "oauth": {
       "redirect": "http://localhost:3030/",
