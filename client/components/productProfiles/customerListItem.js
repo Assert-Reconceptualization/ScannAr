@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,8 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+
+import CustomerContext from '../../applicationState/customerContext';
 
 const CustomerListItem = ({
   name,
@@ -26,6 +28,7 @@ const CustomerListItem = ({
     informationContainer,
     // eslint-disable-next-line no-use-before-define
   } = styles;
+  const context = useContext(CustomerContext);
 
   // Retrieves all current user's saved products
   const getSavedProducts = () => (
