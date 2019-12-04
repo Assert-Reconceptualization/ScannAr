@@ -5,7 +5,6 @@ import CustomerContext from './applicationState/customerContext';
 import Login from './screens/Login';
 import AR from './screens/AR';
 import CustomerLanding from './screens/CustomerLanding';
-import BusinessLanding from './screens/BusinessLanding';
 
 // import components
 // eslint-disable-next-line import/named
@@ -33,7 +32,6 @@ const App = () => {
       <Navigator>
         <Route name="Login" component={Login} />
         <Route name="CustomerLanding" component={CustomerLanding} />
-        <Route name="Business" component={BusinessLanding} />
         <Route name="AR" component={AR} />
       </Navigator>
     </CustomerContext.Provider>
