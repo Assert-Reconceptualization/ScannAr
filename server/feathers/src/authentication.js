@@ -1,8 +1,6 @@
 /* eslint-disable class-methods-use-this */
 const { AuthenticationService, JWTStrategy } = require('@feathersjs/authentication');
 const { LocalStrategy } = require('@feathersjs/authentication-local');
-const { hashPassword, protect } = require('@feathersjs/authentication-local').hooks;
-
 
 class MyLocalStrategy extends LocalStrategy {
   getEntityQuery(query, params) {
