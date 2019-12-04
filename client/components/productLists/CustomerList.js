@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import CustomerListItem from '../productProfiles/customerListItem';
 import CustomerContext from '../../applicationState/customerContext';
-
+import SortModal from '../SortModal';
 // import mock data
 // import mockData from '../../mock-data/products';
 
@@ -72,21 +72,16 @@ const CustomerList = ({ setModalProp, setVisibility }) => {
     // ensure component is refreshed!
     // setRefresh(!refresh);
   };
-  const pickerFilter = () => (
-    <Picker
-      selectedValue={sortingBy}
-      style={{ height: 50, width: 100 }}
-      onValueChange={(itemValue) => setSortingBy(itemValue)}
-    >
-      <Picker.Item label="mostRecent" value="mostRecent" />
-    </Picker>
-  );
 
   return (
     <View
       onPress={() => setVisibility(true)}
       style={container}
     >
+      <SortModal
+        sortVisibility={sortVisibility}
+        setSortVisibility={setSortVisibility}
+      />
       <FlatList
         refreshing={refresh}
         onRefresh={getSavedProducts}
