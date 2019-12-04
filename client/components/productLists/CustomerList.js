@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import {
-  View, FlatList, StyleSheet,
+  View, FlatList, StyleSheet, Picker,
 } from 'react-native';
 import CustomerListItem from '../productProfiles/customerListItem';
 import CustomerContext from '../../applicationState/customerContext';
@@ -12,6 +12,7 @@ import CustomerContext from '../../applicationState/customerContext';
 const CustomerList = ({ setModalProp, setVisibility }) => {
   const [refresh, setRefresh] = useState(false);
   const [sortVisibility, setSortVisibility] = useState(false);
+  const [sortingBy, setSortingBy] = useState('');
   const context = useContext(CustomerContext);
   const {
     currentSavedList,
@@ -71,12 +72,21 @@ const CustomerList = ({ setModalProp, setVisibility }) => {
     // ensure component is refreshed!
     // setRefresh(!refresh);
   };
+  const pickerFilter = () => (
+    <Picker
+      selectedValue={sortingBy}
+      style={{ height: 50, width: 100 }}
+      onValueChange={(itemValue) => setSortingBy(itemValue)}
+    >
+      <Picker.Item label="mostRecent" value="mostRecent" />
+    </Picker>
+  );
 
   return (
     <View
       onPress={() => setVisibility(true)}
       style={container}
-    >
+    >{sortVisibility ? pickerFilter() : (
       <FlatList
         refreshing={refresh}
         onRefresh={getSavedProducts}
@@ -93,6 +103,8 @@ const CustomerList = ({ setModalProp, setVisibility }) => {
         )}
         keyExtractor={(item) => item.name}
       />
+      )
+    }
     </View>
   );
 };
