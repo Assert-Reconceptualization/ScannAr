@@ -49,6 +49,7 @@ export default function ProductCard(props){
     productTitle,
     deleteContainer,
     editContainer,
+    infoContainer,
   } = styles;
   const {
     name,
@@ -65,9 +66,21 @@ export default function ProductCard(props){
         closeModal={setEditing}
       />
       <Image style={image} source={{ uri: imageUrl }}/>
-      <View>
-        <Text style={productTitle}>{name}</Text>
-        <Text style={productDescription}>{description}</Text>
+      <View style={infoContainer}>
+        <Text
+          style={productTitle}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+        >
+          {name}
+        </Text>
+        <Text
+          style={productDescription}
+          numberOfLines={1}
+          ellipsizeMode='tail'
+        >
+          {description}
+        </Text>
         <Text style={productPrice}>{`$${price}.00`}</Text>
       </View>
       <View style={deleteContainer}>
@@ -140,5 +153,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     right: 10
+  },
+  infoContainer: {
+    flex: 1,
+    paddingRight: 50
   }
 });

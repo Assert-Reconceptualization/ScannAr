@@ -23,6 +23,7 @@ const CustomerListItem = ({
     productDescription,
     productPrice,
     productMenu,
+    informationContainer,
     // eslint-disable-next-line no-use-before-define
   } = styles;
 
@@ -34,9 +35,15 @@ const CustomerListItem = ({
         source={{ uri }}
         style={image}
       />
-      <View>
+      <View style={informationContainer}>
         <View>
-          <Text style={productTitle}>{name}</Text>
+          <Text
+            style={productTitle}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+          >
+            {name}
+          </Text>
         </View>
         <Text style={productDescription}>{description}</Text>
         <Text style={productPrice}>{`$${price}.00`}</Text>
@@ -82,6 +89,10 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  informationContainer: {
+    flex: 1,
+    paddingRight: 50,
   },
   image: {
     height: 90,

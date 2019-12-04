@@ -138,8 +138,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         <View>
           <View style={nameAndPrice}>
             <View style={{ flexDirection: 'row' }}>
-              <Text style={productDescription}>By </Text>
-              <Text style={businessNameStyle}>{businessName || 'Some Business'}</Text>
+              <Text style={productDescription}>By: </Text>
+              <Text style={businessNameStyle}>{businessName}</Text>
             </View>
             <Text style={productPrice}>{`$${product.price}.00`}</Text>
           </View>
