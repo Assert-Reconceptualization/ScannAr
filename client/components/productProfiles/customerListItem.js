@@ -88,6 +88,11 @@ const CustomerListItem = ({
           <Text style={productTitle}>...</Text>
         </TouchableOpacity>
       </View>
+      <View>
+        <TouchableOpacity onPress={handleDelete}>
+          <Text style={{ color: 'red', fontSize: 24 }}>-</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
