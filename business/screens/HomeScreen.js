@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ProductCard from "../components/productCard";
@@ -12,6 +13,7 @@ import BusinessContext from "../applicationState/BusinessContext";
 import NoProductMessage from "../components/NoProductMessage";
 import NewProductModal from "../components/NewProductModal";
 import HomeScreenHeader from "../components/HomeScreenHeader";
+import SortModal from "../components/SortModal";
 
 
 export default function HomeScreen(props) {
@@ -19,6 +21,7 @@ export default function HomeScreen(props) {
   context.setAppNavigator(props.navigation);
   const [creating, setCreating] = useState(false);
   const [refresh, setRefresh] = useState(false);
+  const [sorting, setSorting] = useState(false);
   // grab user data from database
   useEffect(() => {
     // grab products
@@ -51,6 +54,8 @@ export default function HomeScreen(props) {
   }
 
   const filterFunctions = (filterBy) => {
+    // hide filter functions
+    hideSortModal();
     // grab current inventory
     const inventory = context.currentInventory;
     switch (filterBy) {
@@ -89,6 +94,14 @@ export default function HomeScreen(props) {
     setRefresh(!refresh);
   }
 
+  const toggleSortModal = () => {
+    setSorting(true);
+  }
+
+  const hideSortModal = () => {
+    setSorting(false);
+  }
+
   const {
     container,
     titleContainer,
@@ -98,35 +111,43 @@ export default function HomeScreen(props) {
     businessInfoContainer,
     businessName,
     addButton,
+    sortingContainer,
   } = styles;
 
   return (
-    <View style={container}>
-      <View style={businessInfoContainer}>
-        <Text style={businessName}>{context.currentBusiness.name}</Text>
-      </View>
-      <View style={titleContainer}>
-        <Text style={titleText}>Our Products</Text>
-        <TouchableOpacity onPress={filterFunctions.bind(this, 'oldestFirst')} >
-          <Ionicons name="ios-options" size={40} color="#AEC3B0"/>
+    <TouchableWithoutFeedback onPress={hideSortModal}>
+      <View style={container}>
+        {sorting && (
+          <View style={sortingContainer}>
+            <SortModal sort={filterFunctions}/>
+          </View>
+        )}
+        <View style={businessInfoContainer}>
+          <Text style={businessName}>{context.currentBusiness.name}</Text>
+        </View>
+        <View style={titleContainer}>
+          <Text style={titleText}>Our Products</Text>
+          <TouchableOpacity onPress={toggleSortModal} >
+            <Ionicons name="ios-options" size={40} color="#AEC3B0"/>
+          </TouchableOpacity>
+        </View>
+        {context.currentInventory.length ? (
+          <View style={inventoryContainer}>
+            <ScrollView>
+              {context.currentInventory.map(product => <ProductCard navigation={props.navigation} key={product.id} product={product}/>)}
+            </ScrollView>
+          </View>
+        ) : (
+          <View style={noInventoryContainer}>
+            <NoProductMessage />
+          </View>
+        )}
+        <TouchableOpacity style={addButton} onPress={handleModalVisibility}>
+          <Ionicons name="ios-add-circle" size={70} color="#AEC3B0"/>
         </TouchableOpacity>
+        <NewProductModal navigation={props.navigation} visible={creating} setCreating={setCreating}/>
       </View>
-      {context.currentInventory.length ? (
-        <View style={inventoryContainer}>
-          <ScrollView>
-            {context.currentInventory.map(product => <ProductCard navigation={props.navigation} key={product.id} product={product}/>)}
-          </ScrollView>
-        </View>
-      ) : (
-        <View style={noInventoryContainer}>
-          <NoProductMessage />
-        </View>
-      )}
-      <TouchableOpacity style={addButton} onPress={handleModalVisibility}>
-        <Ionicons name="ios-add-circle" size={70} color="#AEC3B0"/>
-      </TouchableOpacity>
-      <NewProductModal navigation={props.navigation} visible={creating} setCreating={setCreating}/>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -178,4 +199,10 @@ const styles = StyleSheet.create({
     bottom: '10%',
     right: '10%',
   },
+  sortingContainer: {
+    position: 'absolute',
+    top: 40,
+    right: 0,
+    zIndex: 5,
+  }
 });
