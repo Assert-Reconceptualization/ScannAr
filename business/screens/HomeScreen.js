@@ -33,7 +33,11 @@ export default function HomeScreen(props) {
       .then(products => {
         //update current inventory if there are products
         if(products.data){
-          context.setCurrentInventory(products.data)
+          // ensure default sort is most recent - oldest
+          const pInventory = products.data.sort((a, b) => (
+            new Date(b.updatedAt) - new Date(a.updatedAt)
+          ));
+          context.setCurrentInventory(pInventory)
         }
       })
       .catch(() => {
@@ -47,7 +51,6 @@ export default function HomeScreen(props) {
   }
 
   const filterFunctions = (filterBy) => {
-    filterBy = 'oldestFirst';
     // grab current inventory
     const inventory = context.currentInventory;
     switch (filterBy) {
@@ -65,23 +68,24 @@ export default function HomeScreen(props) {
         context.setCurrentInventory(sortedInventory);
         // force re-render component
         break;
-      case 'mostRecent':
+      case 'oldestFirst':
         sortedInventory = inventory.sort((a, b) => {
-            return a.updatedAt - b.updatedAt;
+          return new Date(a.updatedAt) - new Date(b.updatedAt);
         });
           console.log(sortedInventory);
           context.setCurrentInventory(sortedInventory);
           // force re-render component
           break;
-      case 'oldestFirst':
+      case 'mostRecent':
         sortedInventory = inventory.sort((a, b) => {
-          return b.updatedAt - a.updatedAt;
+          return new Date(b.updatedAt) - new Date(a.updatedAt);
         });
         console.log(sortedInventory);
         context.setCurrentInventory(sortedInventory);
         // force re-render component
         break;
     }
+    // ensure component is refreshed!
     setRefresh(!refresh);
   }
 
@@ -103,7 +107,7 @@ export default function HomeScreen(props) {
       </View>
       <View style={titleContainer}>
         <Text style={titleText}>Our Products</Text>
-        <TouchableOpacity onPress={filterFunctions} >
+        <TouchableOpacity onPress={filterFunctions.bind(this, 'oldestFirst')} >
           <Ionicons name="ios-options" size={40} color="#AEC3B0"/>
         </TouchableOpacity>
       </View>
