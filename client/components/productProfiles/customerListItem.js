@@ -27,6 +27,35 @@ const CustomerListItem = ({
     // eslint-disable-next-line no-use-before-define
   } = styles;
 
+  // Retrieves all current user's saved products
+  const getSavedProducts = () => (
+    fetch(`${serverUrl}/savedProducts?idUser=${currentUser.id}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((savedList) => {
+        setCurrentSavedList(savedList);
+      })
+    // .catch(() => )
+  );
+
+  // Deletes the current product from the current user's savedProducts
+  const handleDelete = () => {
+    fetch(`${serverUrl}/savedProducts?idUser=${currentUser.id}&idProduct=${item.id}`, {
+      method: 'DELETE',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then(() => getSavedProducts());
+    // .catch(() => console.log('something went wrong'));
+  };
+
   return (
     <View
       style={listItemContainer}
