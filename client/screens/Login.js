@@ -101,10 +101,8 @@ const Login = ({ navigator }) => {
         password,
       }),
     })
-      .then((response) => response.json())
-      .then((userInfo) => {
-        context.setCurrentUser(userInfo);
-        handleLogin();
+      .then(() => {
+        getUserInfo(); // logs user in after acc creation
       })
       .catch(() => {
         error = (<Text> Please try again</Text>);
