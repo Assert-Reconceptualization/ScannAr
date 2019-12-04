@@ -13,10 +13,12 @@ import NoProductMessage from "../components/NoProductMessage";
 import NewProductModal from "../components/NewProductModal";
 import HomeScreenHeader from "../components/HomeScreenHeader";
 
+
 export default function HomeScreen(props) {
   const context = useContext(BusinessContext);
   context.setAppNavigator(props.navigation);
   const [creating, setCreating] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   // grab user data from database
   useEffect(() => {
     // grab products
@@ -44,6 +46,45 @@ export default function HomeScreen(props) {
     setCreating(true);
   }
 
+  const filterFunctions = (filterBy) => {
+    filterBy = 'oldestFirst';
+    // grab current inventory
+    const inventory = context.currentInventory;
+    switch (filterBy) {
+      case 'priceAscending':
+        let sortedInventory = inventory.sort((a, b) => {
+          return a.price - b.price;
+        });
+        context.setCurrentInventory(sortedInventory);
+        // force re-render component
+        break;
+      case 'priceDescending':
+        sortedInventory = inventory.sort((a, b) => {
+          return b.price - a.price;
+        });
+        context.setCurrentInventory(sortedInventory);
+        // force re-render component
+        break;
+      case 'mostRecent':
+        sortedInventory = inventory.sort((a, b) => {
+            return a.updatedAt - b.updatedAt;
+        });
+          console.log(sortedInventory);
+          context.setCurrentInventory(sortedInventory);
+          // force re-render component
+          break;
+      case 'oldestFirst':
+        sortedInventory = inventory.sort((a, b) => {
+          return b.updatedAt - a.updatedAt;
+        });
+        console.log(sortedInventory);
+        context.setCurrentInventory(sortedInventory);
+        // force re-render component
+        break;
+    }
+    setRefresh(!refresh);
+  }
+
   const {
     container,
     titleContainer,
@@ -62,7 +103,7 @@ export default function HomeScreen(props) {
       </View>
       <View style={titleContainer}>
         <Text style={titleText}>Our Products</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={filterFunctions} >
           <Ionicons name="ios-options" size={40} color="#AEC3B0"/>
         </TouchableOpacity>
       </View>
