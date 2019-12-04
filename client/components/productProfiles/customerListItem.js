@@ -26,6 +26,7 @@ const CustomerListItem = ({
     productPrice,
     productMenu,
     informationContainer,
+    deleteButton,
     // eslint-disable-next-line no-use-before-define
   } = styles;
   const context = useContext(CustomerContext);
@@ -90,7 +91,7 @@ const CustomerListItem = ({
       </View>
       <View>
         <TouchableOpacity onPress={handleDelete}>
-          <Text style={{ color: 'red', fontSize: 24 }}>-</Text>
+          <Text style={deleteButton}>x</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -138,6 +139,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginLeft: 10,
     marginRight: 10,
+  },
+  deleteButton: {
+    fontSize: 20,
+    color: 'red',
   },
 });
 
