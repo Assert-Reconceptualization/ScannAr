@@ -20,11 +20,27 @@ const CustomerNavBar = ({ navigator }) => {
       setThrottle(false);
     }, 400);
   };
-
+  const updateMarkers = () => {
+    return fetch(`${context.serverUrl}/products`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((parsedResponse) => {
+        context.setAllMarkers(parsedResponse.data);
+      });
+  }
+  
   const handlePress = () => {
     if (!throttle) { // only do something if throttle is false
-      handleThrottle();
-      navigator.push('AR');
+      updateMarkers()
+        .then(() => handleThrottle())
+        .then(() => navigator.push('AR'));
+      // handleThrottle();
+      // navigator.push('AR');
     }
   };
 
