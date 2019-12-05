@@ -13,6 +13,7 @@ const CustomerNavBar = ({ navigator }) => {
   const context = useContext(CustomerContext);
   const { bar, buttonText } = styles;
   const [throttle, setThrottle] = useState(false);
+  const { serverUrl, setAllMarkers, setCurrentUser } = context;
 
   const handleThrottle = () => {
     setThrottle(true);
