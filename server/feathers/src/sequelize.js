@@ -49,42 +49,6 @@ module.exports = (app) => {
         .then(() => {
           console.log('connected to database');
         })
-        // .then(() => {
-        //   models.business.create({
-        //     name: 'Big Baller Brand',
-        //     phone: '3127735041',
-        //     email: 'BBB01@gmail.com',
-        //     description: 'Top players to ever play in the NBA',
-        //     password: 'lavar',
-        //   }).then((business) => {
-        //     business.createProduct({
-        //       name: 'Flag',
-        //       price: 10,
-        //       description: 'Wow, so American',
-        //       imageUrl: 'https://i.ibb.co/yXVGX37/American-Flag.jpg',
-        //     });
-        //     business.createProduct({
-        //       name: 'Cabinet',
-        //       price: 1000,
-        //       description: 'This is a big blue cabinet',
-        //       imageUrl: 'https://i.ibb.co/qWf8pm0/Cabinet.jpg',
-        //     });
-        //     business.createProduct({
-        //       name: 'Beanbag',
-        //       price: 10000,
-        //       description: 'The big beanbag',
-        //       imageUrl: 'https://i.ibb.co/vmYH8TN/IMG-6066.jpg',
-        //     });
-        //   });
-        // })
-        // .then(() => {
-        //   models.users.create({
-        //     password: '231321',
-        //     email: 'abel@scannar',
-        //     nameFirst: 'abel',
-        //     nameLast: 'jade',
-        //   });
-        // })
         .catch((err) => {
           console.log(`Error: ${err}`);
         }),
