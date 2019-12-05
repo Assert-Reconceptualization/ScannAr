@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
 import React, { useState, useContext } from 'react';
 import {
@@ -13,6 +14,7 @@ const CustomerNavBar = ({ navigator }) => {
   const context = useContext(CustomerContext);
   const { bar, buttonText } = styles;
   const [throttle, setThrottle] = useState(false);
+  const { serverUrl, setAllMarkers, setCurrentUser } = context;
 
   const handleThrottle = () => {
     setThrottle(true);
@@ -20,16 +22,30 @@ const CustomerNavBar = ({ navigator }) => {
       setThrottle(false);
     }, 400);
   };
+  const updateMarkers = () => (
+    fetch(`${serverUrl}/products`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((parsedResponse) => {
+        setAllMarkers(parsedResponse.data);
+      })
+  );
 
   const handlePress = () => {
     if (!throttle) { // only do something if throttle is false
+      updateMarkers();
       handleThrottle();
       navigator.push('AR');
     }
   };
 
   const handleLogout = () => {
-    context.setCurrentUser({});
+    setCurrentUser({});
     navigator.pop();
   };
 
