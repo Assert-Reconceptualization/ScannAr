@@ -37,9 +37,12 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
   } = styles;
 
   return (
-    <ViroARImageMarker target={item.name}>
+    <ViroARImageMarker
+      target={item.name}
+      onClick={() => { setVisibility(); setProduct(item); }}
+    >
       <ViroNode
-        onClick={() => { setVisibility(); setProduct(item); }}
+        // onClick={() => { setVisibility(); setProduct(item); }}
         key="card"
       >
         <ViroNode
