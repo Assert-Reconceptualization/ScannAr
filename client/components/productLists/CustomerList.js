@@ -1,12 +1,9 @@
 import React, { useContext, useState } from 'react';
 import {
-  View, FlatList, StyleSheet, Picker,
+  View, FlatList, StyleSheet, Picker, Button,
 } from 'react-native';
 import CustomerListItem from '../productProfiles/customerListItem';
 import CustomerContext from '../../applicationState/customerContext';
-import SortModal from '../SortModal';
-// import mock data
-// import mockData from '../../mock-data/products';
 
 // eslint-disable-next-line react/prop-types
 const CustomerList = ({ setModalProp, setVisibility }) => {
@@ -72,16 +69,23 @@ const CustomerList = ({ setModalProp, setVisibility }) => {
     // ensure component is refreshed!
     // setRefresh(!refresh);
   };
+  const picker = () => (
+    <Picker
+      selectedValue={sortingBy}
+      style={{ height: 50, width: 100, flex: 1 }}
+      onValueChange={(itemValue) => setSortingBy(itemValue)}
+    >
+      <Picker.Item label="newest" value="newest" />
+      <Picker.Item label="oldest" value="oldest" />
+    </Picker>
+  );
 
   return (
     <View
       onPress={() => setVisibility(true)}
       style={container}
     >
-      <SortModal
-        sortVisibility={sortVisibility}
-        setSortVisibility={setSortVisibility}
-      />
+      <Button title="Sort" onPress={() => setSortVisibility(true)} />
       <FlatList
         refreshing={refresh}
         onRefresh={getSavedProducts}
