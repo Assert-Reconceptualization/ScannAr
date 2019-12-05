@@ -37,55 +37,12 @@ const CustomerList = ({ setModalProp, setVisibility }) => {
     // .catch(() => )
   };
 
-  const filterFunctions = (filterBy) => {
-    let sortedInventory;
-    // hide filter functions
-    // hideSortModal();
-    // grab current inventory
-    const inventory = context.currentInventory;
-    switch (filterBy) {
-      case 'priceAscending':
-        sortedInventory = inventory.sort((a, b) => a.price - b.price);
-        context.setCurrentInventory(sortedInventory);
-        // force re-render component
-        break;
-      case 'priceDescending':
-        sortedInventory = inventory.sort((a, b) => b.price - a.price);
-        context.setCurrentInventory(sortedInventory);
-        // force re-render component
-        break;
-      case 'oldestFirst':
-        sortedInventory = inventory.sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
-        context.setCurrentInventory(sortedInventory);
-        // force re-render component
-        break;
-      case 'mostRecent':
-        sortedInventory = inventory.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-        context.setCurrentInventory(sortedInventory);
-        // force re-render component
-        break;
-      default: break;
-    }
-    // ensure component is refreshed!
-    // setRefresh(!refresh);
-  };
-  const picker = () => (
-    <Picker
-      selectedValue={sortingBy}
-      style={{ height: 50, width: 100, flex: 1 }}
-      onValueChange={(itemValue) => setSortingBy(itemValue)}
-    >
-      <Picker.Item label="newest" value="newest" />
-      <Picker.Item label="oldest" value="oldest" />
-    </Picker>
-  );
 
   return (
     <View
       onPress={() => setVisibility(true)}
       style={container}
     >
-      <Button title="Sort" onPress={() => setSortVisibility(true)} />
       <FlatList
         refreshing={refresh}
         onRefresh={getSavedProducts}

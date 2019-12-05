@@ -5,6 +5,8 @@ import {
   Text,
   View,
   StyleSheet,
+  Picker,
+  Button,
 } from 'react-native';
 
 // import components
@@ -48,12 +50,53 @@ const CustomerLanding = ({ navigator }) => {
     // .catch(() => console.log('something went wrong'));
   };
 
+  const filterFunctions = (filterBy) => {
+    let sortedInventory;
+    const inventory = context.currentInventory;
+    switch (filterBy) {
+      case 'priceAscending':
+        sortedInventory = inventory.sort((a, b) => a.price - b.price);
+        context.setCurrentInventory(sortedInventory);
+        // force re-render component
+        break;
+      case 'priceDescending':
+        sortedInventory = inventory.sort((a, b) => b.price - a.price);
+        context.setCurrentInventory(sortedInventory);
+        // force re-render component
+        break;
+      case 'oldestFirst':
+        sortedInventory = inventory.sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
+        context.setCurrentInventory(sortedInventory);
+        // force re-render component
+        break;
+      case 'mostRecent':
+        sortedInventory = inventory.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+        context.setCurrentInventory(sortedInventory);
+        // force re-render component
+        break;
+      default: break;
+    }
+  };
+
+
+  const picker = () => (
+    <Picker
+      selectedValue={sortingBy}
+      style={{ height: 50, width: 100, flex: 1 }}
+      onValueChange={(itemValue) => setSortingBy(itemValue)}
+    >
+      <Picker.Item label="newest" value="newest" />
+      <Picker.Item label="oldest" value="oldest" />
+    </Picker>
+  );
+
   return (
     <View style={screen}>
       <ProductProfileModal visible={visible} setVisibility={setVisibility} product={product} />
       <CustomerHeader navigator={navigator} />
       <Text style={productsTitle}>Saved Products</Text>
       <View style={customerList}>
+        <Button title="Sort" onPress={() => setSortVisibility(true)} />
         <CustomerList setModalProp={setModalProp} setVisibility={setVisibility} />
       </View>
       <CustomerNavBar navigator={navigator} />
