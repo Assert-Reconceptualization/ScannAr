@@ -38,9 +38,9 @@ const CustomerNavBar = ({ navigator }) => {
 
   const handlePress = () => {
     if (!throttle) { // only do something if throttle is false
-      updateMarkers()
-        .then(() => handleThrottle())
-        .then(() => navigator.push('AR'));
+      updateMarkers();
+      handleThrottle();
+      navigator.push('AR');
     }
   };
 
