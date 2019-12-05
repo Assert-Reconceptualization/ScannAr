@@ -17,7 +17,14 @@ import ProductProfileModal from '../components/productProfiles/ProductProfileMod
 import CustomerContext from '../applicationState/customerContext';
 
 const CustomerLanding = ({ navigator }) => {
-  const { screen, customerList, productsTitle, pickerStyle, sortButton, pickerViewStyle } = styles;
+  const {
+    screen,
+    customerList,
+    productsTitle,
+    pickerStyle,
+    sortButton,
+    pickerViewStyle,
+  } = styles;
   const [visible, setVisibility] = useState(false);
   const [product, setProduct] = useState('');
   const [sortVisibility, setSortVisibility] = useState(false);
