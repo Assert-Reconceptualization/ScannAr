@@ -125,7 +125,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     setSaveUpdated(true);
     currentSavedList.forEach((savedItem) => {
       if (savedItem.id === product.id) { // if this product is in currentSavedList
-        setSaved(true);
+        setSaved(true); // For conditional rendering of saveOrDelete
       }
     });
   }
