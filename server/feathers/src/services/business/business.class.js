@@ -1,3 +1,3 @@
-const { Service } = require("feathers-sequelize");
+// const { Service } = require("feathers-sequelize");
 
-exports.Business = class Business extends Service {};
+// exports.Business = class Business extends Service {};
