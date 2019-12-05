@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useContext } from 'react';
