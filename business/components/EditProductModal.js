@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 
 import BusinessContext from "../applicationState/BusinessContext";
+import serverConfig from '../serverConfig';
+const server = serverConfig().url;
 
 export default function EditProductModal(props){
 
@@ -29,7 +31,7 @@ export default function EditProductModal(props){
 
   const handleSubmit = () => {
     // make request to server POST
-    fetch(`http://scannar-server-second.appspot.com/products/${props.product.id}`, {
+    fetch(`${server}/products/${props.product.id}`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",
@@ -44,7 +46,7 @@ export default function EditProductModal(props){
     })
       .then(() => {
         // refresh inventory
-        fetch(`http://scannar-server-second.appspot.com/products?idBusiness=${context.currentBusiness.id}`, {
+        fetch(`${server}/products?idBusiness=${context.currentBusiness.id}`, {
           method: "GET",
           headers: {
             Accept: "application/json",

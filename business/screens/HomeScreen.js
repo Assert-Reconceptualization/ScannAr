@@ -14,9 +14,12 @@ import NoProductMessage from "../components/NoProductMessage";
 import NewProductModal from "../components/NewProductModal";
 import HomeScreenHeader from "../components/HomeScreenHeader";
 import SortModal from "../components/SortModal";
+import serverConfig from '../serverConfig';
+const server = serverConfig().url;
 
 
 export default function HomeScreen(props) {
+  console.log(server);
   const context = useContext(BusinessContext);
   context.setAppNavigator(props.navigation);
   const [creating, setCreating] = useState(false);
@@ -25,7 +28,7 @@ export default function HomeScreen(props) {
   // grab user data from database
   useEffect(() => {
     // grab products
-    fetch(`http://scannar-server-second.appspot.com/products?idBusiness=${context.currentBusiness.id}`, {
+    fetch(`${server}/products?idBusiness=${context.currentBusiness.id}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
