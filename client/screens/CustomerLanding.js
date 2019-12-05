@@ -20,6 +20,8 @@ const CustomerLanding = ({ navigator }) => {
   const { screen, customerList, productsTitle } = styles;
   const [visible, setVisibility] = useState(false);
   const [product, setProduct] = useState('');
+  const [sortVisibility, setSortVisibility] = useState(false);
+  const [sortingBy, setSortingBy] = useState('');
   const context = useContext(CustomerContext);
   const { serverUrl } = context;
 
@@ -83,7 +85,7 @@ const CustomerLanding = ({ navigator }) => {
     <Picker
       selectedValue={sortingBy}
       style={{ height: 50, width: 100, flex: 1 }}
-      onValueChange={(itemValue) => setSortingBy(itemValue)}
+      onValueChange={(itemValue) => { setSortingBy(itemValue); setSortVisibility(false); }}
     >
       <Picker.Item label="newest" value="newest" />
       <Picker.Item label="oldest" value="oldest" />
@@ -96,6 +98,7 @@ const CustomerLanding = ({ navigator }) => {
       <CustomerHeader navigator={navigator} />
       <Text style={productsTitle}>Saved Products</Text>
       <View style={customerList}>
+        {sortVisibility ? picker() : null}
         <Button title="Sort" onPress={() => setSortVisibility(true)} />
         <CustomerList setModalProp={setModalProp} setVisibility={setVisibility} />
       </View>

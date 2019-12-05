@@ -8,8 +8,6 @@ import CustomerContext from '../../applicationState/customerContext';
 // eslint-disable-next-line react/prop-types
 const CustomerList = ({ setModalProp, setVisibility }) => {
   const [refresh, setRefresh] = useState(false);
-  const [sortVisibility, setSortVisibility] = useState(false);
-  const [sortingBy, setSortingBy] = useState('');
   const context = useContext(CustomerContext);
   const {
     currentSavedList,
