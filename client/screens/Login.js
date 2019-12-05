@@ -107,7 +107,7 @@ const Login = ({ navigator }) => {
       }),
     })
       .then(() => {
-        handleLoginRedirect(); // logs user in after acc creation
+        handleLogin(); // logs user in and adds to state
       })
       .catch(() => {
         error = (<Text> Please try again</Text>);
