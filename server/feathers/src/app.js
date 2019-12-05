@@ -100,13 +100,13 @@ app.delete('/savedProducts', (req, res) => {
 // -------------- productTags' Routes --------------------------
 app.get('/productTags', (req, res) => {
   const { tags, products } = app.get("sequelizeClient").models;
-  const { idTag } = req.query;
+  const { idProduct } = req.query;
 
-  tags.findAll({
-    where: { id: idTag },
+  products.findAll({
+    where: { id: idProduct },
     include: [
       {
-        model: products,
+        model: tags,
         required: true,
       },
     ],
