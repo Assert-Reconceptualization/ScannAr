@@ -10,6 +10,8 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import BusinessContext from "../applicationState/BusinessContext";
 import EditProductModal from './EditProductModal';
+import serverConfig from '../serverConfig';
+const server = serverConfig().url;
 
 export default function ProductCard(props){
 
@@ -18,7 +20,7 @@ export default function ProductCard(props){
 
   const handleDelete = () => {
     // delete request to API
-    fetch(`http://scannar-server-second.appspot.com/products/${props.product.id}`, {
+    fetch(`${server}/products/${props.product.id}`, {
       method: 'DELETE',
       headers: {
         Accept: "application/json",

@@ -14,6 +14,8 @@ import {
 import BusinessContext from "../applicationState/BusinessContext";
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import serverConfig from '../serverConfig';
+const server = serverConfig().url;
 
 export default function AddScreen(props){
   const [name, setName] = useState("");
@@ -26,7 +28,7 @@ export default function AddScreen(props){
   const handleSubmit = () => {
 
     // make request to server POST
-    fetch("http://scannar-server-second.appspot.com/products", {
+    fetch(`${server}/products`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -42,7 +44,7 @@ export default function AddScreen(props){
     })
       .then(() => {
         // refresh inventory
-        fetch(`http://scannar-server-second.appspot.com/products?idBusiness=${context.currentBusiness.id}`, {
+        fetch(`${server}/products?idBusiness=${context.currentBusiness.id}`, {
           method: "GET",
           headers: {
             Accept: "application/json",

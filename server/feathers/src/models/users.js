@@ -18,20 +18,27 @@ module.exports = function (app) {
       },
       password: {
         type: DataTypes.STRING,
-        // allowNull: false
+        allowNull: false,
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
       },
+      phone: {
+        type: DataTypes.STRING,
+      },
       nameFirst: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       nameLast: {
         type: DataTypes.STRING,
-        allowNull: false,
+      },
+      description: {
+        type: DataTypes.STRING,
+      },
+      name: {
+        type: DataTypes.STRING,
       },
     },
     {
@@ -45,6 +52,7 @@ module.exports = function (app) {
 
   users.associate = function (models) {
     users.belongsToMany(models.products, { through: "savedProducts", foreignKey: "idUser"});
+    // users.hasMany(models.products, { foreignKey: 'idBusiness' });
   };
   return users;
 };

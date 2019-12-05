@@ -14,8 +14,7 @@ module.exports = {
     patch: [],
     remove: [],
 
-    // had to comment this out for development
-    find: [authenticate("jwt")],
+    // find: [authenticate("jwt")],
     get: [authenticate("jwt")],
     create: [hashPassword("password")],
     update: [hashPassword("password"), authenticate("jwt")],

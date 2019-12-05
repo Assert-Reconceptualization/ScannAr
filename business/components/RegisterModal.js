@@ -13,6 +13,7 @@ import {
 
 import SignUp from "./buttons/SignUp";
 import State from "../applicationState/BusinessContext";
+import serverConfig from '../serverConfig';
 
 export default function RegisterModal(props) {
   const [businessName, setBusinessName] = useState("");
@@ -22,13 +23,15 @@ export default function RegisterModal(props) {
   const [businessDescription, setBusinessDescription] = useState("");
 
   const context = useContext(State)
+  const server = serverConfig().url;
+  console.log(server);
 
   const handleCancel = () => {
     props.cancelRegistration(false);
   };
 
   const handleRegister = () => {
-    fetch("http://scannar-server-second.appspot.com/business", {
+    fetch(`${server}/users`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -44,11 +47,12 @@ export default function RegisterModal(props) {
     })
       .then((response) => response.json())
       .then(business => {
-        context.setCurrentBusiness(business);
-        props.navigation.navigate({ routeName: "Home" });
+        if(business.id){
+          props.handleSignIn(businessEmail, businessPassword);
+        }
       })
-      .catch(() => {
-        console.log("Unable to register")
+      .catch((err) => {
+        console.log("Unable to register", err)
       })
   };
 
