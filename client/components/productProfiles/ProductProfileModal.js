@@ -158,7 +158,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
             </View>
             <Text style={productPrice}>{`$${product.price}.00`}</Text>
           </View>
-          <Text style={tagsStyle}>tags here</Text>
+          <Text style={tagsStyle}>{productTags || 'No tags available'}</Text>
           <View style={description}>
             <Text style={productDescription}>{product.description}</Text>
           </View>
