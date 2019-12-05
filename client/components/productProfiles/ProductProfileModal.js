@@ -131,6 +131,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   }
 
   // When the modal is hidden, reset saveUpdated to false
+  // This aids in the condition checking to see if the modal is updated
   if (!visible && saveUpdated) {
     setSaveUpdated(false);
   }
