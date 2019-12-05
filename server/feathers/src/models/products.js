@@ -31,6 +31,9 @@ module.exports = function(app) {
         allowNull: false,
         unique: true,
       },
+      idBusiness: {
+        type: DataTypes.INTEGER,
+      },
     },
     {
       hooks: {

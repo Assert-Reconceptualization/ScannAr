@@ -52,7 +52,7 @@ module.exports = function (app) {
 
   users.associate = function (models) {
     users.belongsToMany(models.products, { through: "savedProducts", foreignKey: "idUser"});
-    users.hasMany(models.products, { foreignKey: 'idBusiness' });
+    // users.hasMany(models.products, { foreignKey: 'idBusiness' });
   };
   return users;
 };
