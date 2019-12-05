@@ -23,7 +23,12 @@ const Login = ({ navigator }) => {
   const [name, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { serverUrl, setServerUrl, setAccessToken, setCurrentUser } = context;
+  const {
+    serverUrl,
+    setServerUrl,
+    setAccessToken,
+    setCurrentUser,
+  } = context;
 
   useEffect(() => {
     setServerUrl('https://scannar-server-second.appspot.com');
