@@ -35,18 +35,28 @@ export default function SignInScreen(props) {
     setRegister(false);
   }
 
-  const handleSignIn = () => {
+  const handleSignIn = (bEmail, bPassword) => {
     // fetch business info
-    fetch(`${server}/business?email=${email}&password=${password}`, {
-      method: "GET",
+    fetch(`${server}/authentication`, {
+      method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json"
       },
+      body: JSON.stringify({
+        strategy: 'local',
+        email: bEmail,
+        password: bPassword,
+      })
     }).then(business => business.json())
       .then(businessInfo => {
-        if(businessInfo.data[0] === undefined) throw Error
-        return context.setCurrentBusiness(businessInfo.data[0])
+        console.log(businessInfo);
+        if(businessInfo.user){
+          context.setAccessToken(businessInfo.accessToken);
+          return context.setCurrentBusiness(businessInfo.user);
+        } else {
+          throw Error;
+        }
       })
       .then(() => {
         props.navigation.navigate({routeName: 'Home'});
@@ -72,6 +82,7 @@ export default function SignInScreen(props) {
   return (
     <View style={container}>
       <RegisterModal
+        handleSignIn={handleSignIn}
         visible={register}
         navigation={props.navigation}
         cancelRegistration={cancelRegistration}
@@ -113,7 +124,7 @@ export default function SignInScreen(props) {
               placeholder="Password"
               secureTextEntry
             />
-            <Button onPress={handleSignIn} title="Submit" />
+            <Button onPress={handleSignIn.bind(null, email, password)} title="Submit" />
             <Button onPress={cancelSigningIn} title="Cancel" />
           </View>
         </TouchableWithoutFeedback>

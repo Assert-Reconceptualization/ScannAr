@@ -16,6 +16,7 @@ export default function HomeScreenHeader(props){
     // clear currentbusiness
     context.setCurrentBusiness({});
     context.setAppNavigator({});
+    context.setAccessToken({});
     context.appNavigator.navigate({routeName: 'Auth'});
   }
 

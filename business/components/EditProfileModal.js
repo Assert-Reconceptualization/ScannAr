@@ -30,7 +30,6 @@ export default function EditProfileModal(props){
   // form state
   const [newName, setNewName] = useState(name);
   const [newEmail, setNewEmail] = useState(email);
-  const [newPassword, setNewPassword] = useState(password);
   const [newPhone, setNewPhone] = useState(phone);
   const [newDescription, setNewDescription] = useState(description);
 
@@ -39,18 +38,18 @@ export default function EditProfileModal(props){
   }
 
   const handleSubmit = () => {
-    fetch(`${server}/business/${id}`, {
+    fetch(`${server}/users/${id}`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: context.accessToken
       },
       body: JSON.stringify({
         name: newName,
         description: newDescription,
         email: newEmail,
         phone: newPhone,
-        password: newPassword,
       })
     })
       .then((response) => response.json())
@@ -104,13 +103,6 @@ export default function EditProfileModal(props){
             style={descriptionInput}
             multiline={true}
             onChangeText={text => setNewDescription(text)}
-          />
-          <TextInput
-            placeholder="Change Password"
-            value={newPassword}
-            style={textInput}
-            secureTextEntry
-            onChangeText={text => setNewPassword(text)}
           />
           <Button
             title="Submit"
