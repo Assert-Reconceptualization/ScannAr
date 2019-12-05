@@ -17,13 +17,14 @@ import ProductProfileModal from '../components/productProfiles/ProductProfileMod
 import CustomerContext from '../applicationState/customerContext';
 
 const CustomerLanding = ({ navigator }) => {
-  const { screen, customerList, productsTitle, pickerStyle, sortButton } = styles;
+  const { screen, customerList, productsTitle, pickerStyle, sortButton, pickerViewStyle } = styles;
   const [visible, setVisibility] = useState(false);
   const [product, setProduct] = useState('');
   const [sortVisibility, setSortVisibility] = useState(false);
   const [sortingBy, setSortingBy] = useState('');
+  const [refreshState, setRefreshState] = useState(false);
   const context = useContext(CustomerContext);
-  const { serverUrl, currentSavedItems } = context;
+  const { serverUrl, currentSavedList } = context;
 
   // sets item for modal to render upon click of product profile
   const setModalProp = (item) => {
@@ -56,39 +57,46 @@ const CustomerLanding = ({ navigator }) => {
     let sortedInventory;
     switch (filterBy) {
       case 'priceAscending':
-        sortedInventory = currentSavedItems.sort((a, b) => a.price - b.price);
-        context.setCurrentSavedItems(sortedInventory);
+        sortedInventory = currentSavedList.sort((a, b) => a.price - b.price);
+        context.setCurrentSavedList(sortedInventory);
         // force re-render component
         break;
       case 'priceDescending':
-        sortedInventory = currentSavedItems.sort((a, b) => b.price - a.price);
-        context.setCurrentSavedItems(sortedInventory);
+        sortedInventory = currentSavedList.sort((a, b) => b.price - a.price);
+        context.setCurrentSavedList(sortedInventory);
         // force re-render component
         break;
       case 'oldest':
-        sortedInventory = currentSavedItems.sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
-        context.setCurrentSavedItems(sortedInventory);
+        sortedInventory = currentSavedList.sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
+        context.setCurrentSavedList(sortedInventory);
         // force re-render component
         break;
       case 'newest':
-        sortedInventory = currentSavedItems.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-        context.setCurrentSavedItems(sortedInventory);
+        sortedInventory = currentSavedList.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+        context.setCurrentSavedList(sortedInventory);
         // force re-render component
         break;
       default: break;
     }
+    setRefreshState(!refreshState);
   };
 
 
   const picker = () => (
-    <Picker
-      selectedValue={sortingBy}
-      style={pickerStyle}
-      onValueChange={(itemValue) => { setSortingBy(itemValue); filterFunctions(sortingBy); setSortVisibility(false); }}
+    <View
+      style={pickerViewStyle}
     >
-      <Picker.Item label="newest" value="newest" />
-      <Picker.Item label="oldest" value="oldest" />
-    </Picker>
+      <Picker
+        selectedValue={sortingBy}
+        style={pickerStyle}
+        onValueChange={(itemValue) => { setSortingBy(itemValue); filterFunctions(sortingBy); setSortVisibility(false); }}
+      >
+        <Picker.Item label="Highest Cost" value="priceAscending" />
+        <Picker.Item label="Lowest Cost" value="priceDescending" />
+        <Picker.Item label="Newest" value="newest" />
+        <Picker.Item label="Oldest" value="oldest" />
+      </Picker>
+    </View>
   );
 
   return (
@@ -132,9 +140,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 8,
   },
-  pickerStyle: {
-    height: 50,
+  pickerViewStyle: {
     width: 100,
+    backgroundColor: '#d9d9d9',
+    borderBottomStartRadius: 5,
+    borderTopStartRadius: 5,
+    opacity: 0.5,
+  },
+  pickerStyle: {
+    flex: 1,
   },
   sortButton: {
     zIndex: 5,

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import {
-  View, FlatList, StyleSheet, Picker, Button,
+  View, FlatList, StyleSheet,
 } from 'react-native';
 import CustomerListItem from '../productProfiles/customerListItem';
 import CustomerContext from '../../applicationState/customerContext';
