@@ -34,7 +34,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   } = styles;
 
   const getProductTags = () => {
-    fetch(`${serverUrl}/productTags?idTag=${product.id}`, {
+    // fetch(`https://scannar-server-second.appspot.com/productTags?idTag=1`, {
+    fetch(`${serverUrl}/productTags?idProduct=${product.id}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -42,7 +43,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       },
     })
       .then((response) => response.json())
-      .then((tags) => setProductTags(...tags));
+      .then((parsed) => setProductTags(parsed[0].name));
     // .catch(() => )
   };
 
