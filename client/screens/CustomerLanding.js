@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useContext } from 'react';
@@ -5,6 +6,8 @@ import {
   Text,
   View,
   StyleSheet,
+  Picker,
+  Button,
 } from 'react-native';
 
 // import components
@@ -15,11 +18,21 @@ import ProductProfileModal from '../components/productProfiles/ProductProfileMod
 import CustomerContext from '../applicationState/customerContext';
 
 const CustomerLanding = ({ navigator }) => {
-  const { screen, customerList, productsTitle } = styles;
+  const {
+    screen,
+    customerList,
+    productsTitle,
+    pickerStyle,
+    sortButton,
+    pickerViewStyle,
+  } = styles;
   const [visible, setVisibility] = useState(false);
   const [product, setProduct] = useState('');
+  const [sortVisibility, setSortVisibility] = useState(false);
+  const [sortingBy, setSortingBy] = useState('');
+  const [refreshState, setRefreshState] = useState(false);
   const context = useContext(CustomerContext);
-  const { serverUrl } = context;
+  const { serverUrl, currentSavedList } = context;
 
   // sets item for modal to render upon click of product profile
   const setModalProp = (item) => {
@@ -48,11 +61,61 @@ const CustomerLanding = ({ navigator }) => {
     // .catch(() => console.log('something went wrong'));
   };
 
+  const filterFunctions = (filterBy) => {
+    let sortedInventory;
+    switch (filterBy) {
+      case 'priceAscending':
+        sortedInventory = currentSavedList.sort((a, b) => a.price - b.price);
+        context.setCurrentSavedList(sortedInventory);
+        // force re-render component
+        break;
+      case 'priceDescending':
+        sortedInventory = currentSavedList.sort((a, b) => b.price - a.price);
+        context.setCurrentSavedList(sortedInventory);
+        // force re-render component
+        break;
+      case 'oldest':
+        sortedInventory = currentSavedList.sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
+        context.setCurrentSavedList(sortedInventory);
+        // force re-render component
+        break;
+      case 'newest':
+        sortedInventory = currentSavedList.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+        context.setCurrentSavedList(sortedInventory);
+        // force re-render component
+        break;
+      default: break;
+    }
+    setRefreshState(!refreshState);
+  };
+
+
+  const picker = () => (
+    <View
+      style={pickerViewStyle}
+    >
+      <Picker
+        selectedValue={sortingBy}
+        style={pickerStyle}
+        onValueChange={(itemValue) => { setSortingBy(itemValue); filterFunctions(sortingBy); setSortVisibility(false); }}
+      >
+        <Picker.Item label="Highest Cost" value="priceAscending" />
+        <Picker.Item label="Lowest Cost" value="priceDescending" />
+        <Picker.Item label="Newest" value="newest" />
+        <Picker.Item label="Oldest" value="oldest" />
+      </Picker>
+    </View>
+  );
+
   return (
     <View style={screen}>
       <ProductProfileModal visible={visible} setVisibility={setVisibility} product={product} />
       <CustomerHeader navigator={navigator} />
       <Text style={productsTitle}>Saved Products</Text>
+      <View style={sortButton}>
+        <Button title="Sort" onPress={() => setSortVisibility(true)} />
+        {sortVisibility ? picker() : null }
+      </View>
       <View style={customerList}>
         <CustomerList setModalProp={setModalProp} setVisibility={setVisibility} />
       </View>
@@ -84,6 +147,22 @@ const styles = StyleSheet.create({
     color: '#B3C6CD',
     fontWeight: 'bold',
     marginBottom: 8,
+  },
+  pickerViewStyle: {
+    width: 100,
+    backgroundColor: '#d9d9d9',
+    borderBottomStartRadius: 5,
+    borderTopStartRadius: 5,
+    opacity: 0.5,
+  },
+  pickerStyle: {
+    flex: 1,
+  },
+  sortButton: {
+    zIndex: 5,
+    position: 'absolute',
+    top: 10,
+    right: 10,
   },
 });
 
