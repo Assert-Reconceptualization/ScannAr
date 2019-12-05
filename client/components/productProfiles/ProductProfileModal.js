@@ -120,7 +120,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   // If modal is visible,
   // check if item is saved and setSaveUpdated to true so this doesn't keep happening
   if (visible && saveUpdated === false) {
-    getBusinessName();
+    getProductTags(); // Get tags when modal is visible
+    getBusinessName(); // Get businessName when modal is visible
     setSaveUpdated(true);
     currentSavedList.forEach((savedItem) => {
       if (savedItem.id === product.id) { // if this product is in currentSavedList
