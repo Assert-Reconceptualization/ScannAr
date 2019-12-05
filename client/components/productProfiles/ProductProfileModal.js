@@ -114,7 +114,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     if (isSaved === false) {
       return (<Button title="Save" onPress={handleSaveProduct} />);
     }
-    return (<Button title="Delete" onPress={handleDelete} />);
+    return (<Button title="Delete from saved products" onPress={handleDelete} />);
   };
 
   // If modal is visible,
@@ -134,6 +134,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   // This aids in the condition checking to see if the modal is updated
   if (!visible && saveUpdated) {
     setSaveUpdated(false);
+    setSaved(false);
   }
 
   return (
