@@ -39,7 +39,7 @@ const Login = ({ navigator }) => {
   };
 
   // Gets user id / info
-  const getUserInfo = () => {
+  const handleLogin = () => {
     fetch(`${serverUrl}/authentication`, {
       method: 'POST',
       headers: {
@@ -80,12 +80,12 @@ const Login = ({ navigator }) => {
       .then((savedList) => {
         context.setCurrentSavedList(savedList);
       })
-      .then(() => handleLogin());
+      .then(() => handleLoginRedirect());
     // .catch(() => console.log('something happend'));
   };
 
   // Handles login redirecting
-  const handleLogin = () => {
+  const handleLoginRedirect = () => {
     Keyboard.dismiss();
     navigator.push('CustomerLanding');
   };
@@ -107,7 +107,7 @@ const Login = ({ navigator }) => {
       }),
     })
       .then(() => {
-        getUserInfo(); // logs user in after acc creation
+        handleLoginRedirect(); // logs user in after acc creation
       })
       .catch(() => {
         error = (<Text> Please try again</Text>);
@@ -171,7 +171,7 @@ const Login = ({ navigator }) => {
             <View style={buttonContainer}>
               <TouchableOpacity
                 style={button1}
-                onPress={getUserInfo}
+                onPress={handleLogin}
                 // onPress={navigator.push('CustomerLanding')}
               >
                 <Text style={customerTitle}>Login</Text>
