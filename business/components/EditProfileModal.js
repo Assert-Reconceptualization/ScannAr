@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 
 import BusinessContext from "../applicationState/BusinessContext";
+import serverConfig from '../serverConfig';
+const server = serverConfig().url;
 
 export default function EditProfileModal(props){
 
@@ -37,7 +39,7 @@ export default function EditProfileModal(props){
   }
 
   const handleSubmit = () => {
-    fetch(`http://scannar-server-second.appspot.com/business/${id}`, {
+    fetch(`${server}/business/${id}`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",

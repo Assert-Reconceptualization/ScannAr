@@ -13,6 +13,8 @@ import {
 
 import SignUp from "./buttons/SignUp";
 import State from "../applicationState/BusinessContext";
+import serverConfig from '../serverConfig';
+const server = serverConfig().url;
 
 export default function RegisterModal(props) {
   const [businessName, setBusinessName] = useState("");
@@ -28,7 +30,7 @@ export default function RegisterModal(props) {
   };
 
   const handleRegister = () => {
-    fetch("http://scannar-server-second.appspot.com/business", {
+    fetch(`${server}/business`, {
       method: "POST",
       headers: {
         Accept: "application/json",

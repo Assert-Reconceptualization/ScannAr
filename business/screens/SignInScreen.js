@@ -12,7 +12,9 @@ import {
 } from 'react-native';
 import RegisterModal from '../components/RegisterModal';
 import SignUp from '../components/buttons/SignUp';
-import BusinessContext from '../applicationState/BusinessContext'
+import BusinessContext from '../applicationState/BusinessContext';
+import serverConfig from '../serverConfig';
+const server = serverConfig().url;
 
 export default function SignInScreen(props) {
   const context = useContext(BusinessContext)
@@ -35,7 +37,7 @@ export default function SignInScreen(props) {
 
   const handleSignIn = () => {
     // fetch business info
-    fetch(`http://scannar-server-second.appspot.com/business?email=${email}&password=${password}`, {
+    fetch(`${server}/business?email=${email}&password=${password}`, {
       method: "GET",
       headers: {
         Accept: "application/json",
