@@ -13,6 +13,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const [isSaved, setSaved] = useState(false);
   const [saveUpdated, setSaveUpdated] = useState(false);
   const [businessName, setBusinessName] = useState('Loading...');
+  const [productTags, setProductTags] = useState('');
   const context = useContext(CustomerContext);
   const {
     serverUrl,
@@ -31,6 +32,19 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     businessNameStyle,
     tagsStyle,
   } = styles;
+
+  const getProductTags = () => {
+    fetch(`${serverUrl}/productTags?idTag=${product.id}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((tags) => setProductTags(...tags));
+    // .catch(() => )
+  };
 
   // Retrieves and updates business name based on product
   const getBusinessName = () => {
