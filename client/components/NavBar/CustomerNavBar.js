@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
 import React, { useState, useContext } from 'react';
 import {
@@ -21,8 +22,8 @@ const CustomerNavBar = ({ navigator }) => {
       setThrottle(false);
     }, 400);
   };
-  const updateMarkers = () => {
-    return fetch(`${serverUrl}/products`, {
+  const updateMarkers = () => (
+    fetch(`${serverUrl}/products`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -32,8 +33,8 @@ const CustomerNavBar = ({ navigator }) => {
       .then((response) => response.json())
       .then((parsedResponse) => {
         setAllMarkers(parsedResponse.data);
-      });
-  };
+      })
+  );
 
   const handlePress = () => {
     if (!throttle) { // only do something if throttle is false
