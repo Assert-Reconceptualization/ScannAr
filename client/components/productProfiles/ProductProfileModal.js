@@ -29,6 +29,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     nameAndPrice,
     description,
     businessNameStyle,
+    tagsStyle,
   } = styles;
 
   // Retrieves and updates business name based on product
@@ -143,6 +144,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
             </View>
             <Text style={productPrice}>{`$${product.price}.00`}</Text>
           </View>
+          <Text style={tagsStyle}>tags here</Text>
           <View style={description}>
             <Text style={productDescription}>{product.description}</Text>
           </View>
@@ -201,6 +203,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 15,
     justifyContent: 'flex-start',
+  },
+  tagsStyle: {
+    marginLeft: 5,
+    color: 'white',
   },
 });
 
