@@ -50,7 +50,6 @@ export default function SignInScreen(props) {
       })
     }).then(business => business.json())
       .then(businessInfo => {
-        console.log(businessInfo);
         if(businessInfo.user){
           context.setAccessToken(businessInfo.accessToken);
           return context.setCurrentBusiness(businessInfo.user);
