@@ -17,13 +17,13 @@ import ProductProfileModal from '../components/productProfiles/ProductProfileMod
 import CustomerContext from '../applicationState/customerContext';
 
 const CustomerLanding = ({ navigator }) => {
-  const { screen, customerList, productsTitle } = styles;
+  const { screen, customerList, productsTitle, pickerStyle, sortButton } = styles;
   const [visible, setVisibility] = useState(false);
   const [product, setProduct] = useState('');
   const [sortVisibility, setSortVisibility] = useState(false);
   const [sortingBy, setSortingBy] = useState('');
   const context = useContext(CustomerContext);
-  const { serverUrl } = context;
+  const { serverUrl, currentSavedItems } = context;
 
   // sets item for modal to render upon click of product profile
   const setModalProp = (item) => {
@@ -54,26 +54,25 @@ const CustomerLanding = ({ navigator }) => {
 
   const filterFunctions = (filterBy) => {
     let sortedInventory;
-    const inventory = context.currentInventory;
     switch (filterBy) {
       case 'priceAscending':
-        sortedInventory = inventory.sort((a, b) => a.price - b.price);
-        context.setCurrentInventory(sortedInventory);
+        sortedInventory = currentSavedItems.sort((a, b) => a.price - b.price);
+        context.setCurrentSavedItems(sortedInventory);
         // force re-render component
         break;
       case 'priceDescending':
-        sortedInventory = inventory.sort((a, b) => b.price - a.price);
-        context.setCurrentInventory(sortedInventory);
+        sortedInventory = currentSavedItems.sort((a, b) => b.price - a.price);
+        context.setCurrentSavedItems(sortedInventory);
         // force re-render component
         break;
-      case 'oldestFirst':
-        sortedInventory = inventory.sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
-        context.setCurrentInventory(sortedInventory);
+      case 'oldest':
+        sortedInventory = currentSavedItems.sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
+        context.setCurrentSavedItems(sortedInventory);
         // force re-render component
         break;
-      case 'mostRecent':
-        sortedInventory = inventory.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-        context.setCurrentInventory(sortedInventory);
+      case 'newest':
+        sortedInventory = currentSavedItems.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
+        context.setCurrentSavedItems(sortedInventory);
         // force re-render component
         break;
       default: break;
@@ -84,8 +83,8 @@ const CustomerLanding = ({ navigator }) => {
   const picker = () => (
     <Picker
       selectedValue={sortingBy}
-      style={{ height: 50, width: 100, flex: 1 }}
-      onValueChange={(itemValue) => { setSortingBy(itemValue); setSortVisibility(false); }}
+      style={pickerStyle}
+      onValueChange={(itemValue) => { setSortingBy(itemValue); filterFunctions(sortingBy); setSortVisibility(false); }}
     >
       <Picker.Item label="newest" value="newest" />
       <Picker.Item label="oldest" value="oldest" />
@@ -97,9 +96,11 @@ const CustomerLanding = ({ navigator }) => {
       <ProductProfileModal visible={visible} setVisibility={setVisibility} product={product} />
       <CustomerHeader navigator={navigator} />
       <Text style={productsTitle}>Saved Products</Text>
-      <View style={customerList}>
-        {sortVisibility ? picker() : null}
+      <View style={sortButton}>
         <Button title="Sort" onPress={() => setSortVisibility(true)} />
+        {sortVisibility ? picker() : null }
+      </View>
+      <View style={customerList}>
         <CustomerList setModalProp={setModalProp} setVisibility={setVisibility} />
       </View>
       <CustomerNavBar navigator={navigator} />
@@ -130,6 +131,16 @@ const styles = StyleSheet.create({
     color: '#B3C6CD',
     fontWeight: 'bold',
     marginBottom: 8,
+  },
+  pickerStyle: {
+    height: 50,
+    width: 100,
+  },
+  sortButton: {
+    zIndex: 5,
+    position: 'absolute',
+    top: 10,
+    right: 10,
   },
 });
 
