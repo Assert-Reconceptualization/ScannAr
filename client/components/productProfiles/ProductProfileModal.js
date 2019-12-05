@@ -34,7 +34,6 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   } = styles;
 
   const getProductTags = () => {
-    // fetch(`https://scannar-server-second.appspot.com/productTags?idTag=1`, {
     fetch(`${serverUrl}/productTags?idProduct=${product.id}`, {
       method: 'GET',
       headers: {
