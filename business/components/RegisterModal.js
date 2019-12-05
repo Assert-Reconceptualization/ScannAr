@@ -22,9 +22,8 @@ export default function RegisterModal(props) {
   const [businessNumber, setBusinessNumber] = useState("");
   const [businessDescription, setBusinessDescription] = useState("");
 
-  const context = useContext(State)
+  const context = useContext(State);
   const server = serverConfig().url;
-  console.log(server);
 
   const handleCancel = () => {
     props.cancelRegistration(false);

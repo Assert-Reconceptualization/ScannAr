@@ -19,7 +19,6 @@ const server = serverConfig().url;
 
 
 export default function HomeScreen(props) {
-  console.log(server);
   const context = useContext(BusinessContext);
   context.setAppNavigator(props.navigation);
   const [creating, setCreating] = useState(false);

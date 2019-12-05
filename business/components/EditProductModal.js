@@ -35,7 +35,8 @@ export default function EditProductModal(props){
       method: "PATCH",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: context.accessToken,
       },
       body: JSON.stringify({
         name,

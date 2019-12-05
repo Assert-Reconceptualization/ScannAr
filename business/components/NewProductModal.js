@@ -38,7 +38,8 @@ export default function NewProductModal(props){
       method: "POST",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: context.accessToken,
       },
       body: JSON.stringify({
         name,
