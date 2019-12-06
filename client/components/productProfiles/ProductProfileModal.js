@@ -33,6 +33,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     tagsStyle,
   } = styles;
 
+  // retrieve and update tags for products
   const getProductTags = () => {
     fetch(`${serverUrl}/productTags?idProduct=${product.id}`, {
       method: 'GET',
@@ -42,8 +43,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       },
     })
       .then((response) => response.json())
-      .then((parsed) => setProductTags(parsed[0].name));
-    // .catch(() => )
+      .then((parsed) => setProductTags(parsed[0].name))
+      .catch(() => console.log('Something happened'));
   };
 
   // Retrieves and updates business name based on product
@@ -60,7 +61,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         const businessInfo = parsed.data[0];
         setBusinessName(businessInfo.name);
       });
-    // .catch(() => )
+    // .catch(() => console.log('Something happened'));
   };
 
   // Retrieves all current user's saved products
@@ -120,7 +121,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   // If modal is visible,
   // check if item is saved and setSaveUpdated to true so this doesn't keep happening
   if (visible && saveUpdated === false) {
-    // getProductTags(); // Get tags when modal is visible
+    getProductTags(); // Get tags when modal is visible
     getBusinessName(); // Get businessName when modal is visible
     setSaveUpdated(true);
     currentSavedList.forEach((savedItem) => {
