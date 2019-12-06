@@ -69,7 +69,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   };
 
   // Retrieves all current user's saved products
-  const getSavedProducts = () => (
+  const getSavedProducts = (type) => (
     fetch(`${serverUrl}/savedProducts?idUser=${currentUser.id}`, {
       method: 'GET',
       headers: {
@@ -80,7 +80,9 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       .then((response) => response.json())
       .then((savedList) => {
         setCurrentSavedList(savedList);
-        handleSaveAlert();
+        if (type === 'save') { // if save is passed, will alert after save
+          handleSaveAlert();
+        }
         // setVisibility(false)
       })
       // .then(() => setVisibility(false))
@@ -96,7 +98,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         'Content-Type': 'application/json',
       },
     })
-      .then(() => getSavedProducts()); // update saved products list with another fetch
+      .then(() => getSavedProducts('save')); // update saved products list with another fetch
   };
 
   // Deletes the current product from the current user's savedProducts
@@ -108,7 +110,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         'Content-Type': 'application/json',
       },
     })
-      .then(() => getSavedProducts());
+      .then(() => getSavedProducts('delete'))
+      .then(() => setVisibility(false)); // Hiding modal after deletion
     // .catch(() => console.log('something went wrong'));
   };
 
@@ -117,7 +120,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     if (isSaved === false) {
       return (<Button title="Save" onPress={handleSaveProduct} />);
     }
-    return (<Button title="Delete from saved products" onPress={handleDelete} />);
+    return (<Button title="Delete from saved products" onPress={handleDeleteAlert} />);
   };
 
   // Alerts user when a product is saved
