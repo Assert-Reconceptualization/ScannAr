@@ -131,7 +131,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       [
         {
           text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
+          onPress: () => '',
           style: 'cancel',
         },
         { text: 'Yes', onPress: () => handleDelete() },
