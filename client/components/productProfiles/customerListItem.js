@@ -47,7 +47,6 @@ const CustomerListItem = ({
       .then((savedList) => {
         setCurrentSavedList(savedList);
       })
-    // .catch(() => )
   );
 
   // Deletes the current product from the current user's savedProducts
@@ -60,7 +59,6 @@ const CustomerListItem = ({
       },
     })
       .then(() => getSavedProducts());
-    // .catch(() => console.log('something went wrong'));
   };
 
   const handleAlert = () => {
@@ -70,7 +68,7 @@ const CustomerListItem = ({
       [
         {
           text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
+          onPress: () => '',
           style: 'cancel',
         },
         { text: 'Yes', onPress: () => handleDelete() },
