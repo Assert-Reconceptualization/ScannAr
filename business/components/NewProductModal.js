@@ -85,14 +85,16 @@ export default function NewProductModal(props) {
             if (products.data) {
               setCurrentInventory(products.data);
             }
-            // reset modal state
-            resetModalState();
-            // close modal
-            setCreating(false);
-            // go back to home screen
             Alert.alert(
               'Success!',
               'Product added to inventory',
+              [{
+                text: 'OK',
+                onPress: () => {
+                  resetModalState();
+                  setCreating(false);
+                },
+              }],
             );
             navigation.navigate({ routeName: 'Home' });
           });
@@ -143,6 +145,8 @@ export default function NewProductModal(props) {
           Alert.alert('Error', 'Try uploading another picture');
           setSpinner(false);
         });
+    } else {
+      setSpinner(false);
     }
   };
 
