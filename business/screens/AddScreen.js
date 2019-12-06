@@ -258,11 +258,10 @@ const styles = StyleSheet.create({
   descriptionInput: {
     width: '70%',
     borderWidth: 2,
-    height: 200,
+    height: 100,
     borderColor: 'black',
     borderRadius: 5,
     fontSize: 25,
-    marginBottom: 20,
     paddingLeft: 5,
   },
 });
