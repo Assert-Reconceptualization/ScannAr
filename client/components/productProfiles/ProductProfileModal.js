@@ -80,9 +80,10 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       .then((response) => response.json())
       .then((savedList) => {
         setCurrentSavedList(savedList);
-        setVisibility(false);
+        handleAlert();
+        // setVisibility(false)
       })
-      // .then(() => handleAlert())
+      // .then(() => setVisibility(false))
       // .catch(() => )
   );
 
@@ -122,9 +123,9 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   };
 
   // Will alert when invoked
-  // const handleAlert = () => {
-  //   Alert.alert('Saved to your list!', '', [{ text: 'OK', onPress: () => 'doNothing' }], { cancelable: false });
-  // };
+  const handleAlert = () => {
+    Alert.alert('Saved to your list!', '', [{ text: 'OK', onPress: () => setVisibility(false) }], { cancelable: false });
+  };
 
   // If modal is visible,
   // check if item is saved and setSaveUpdated to true so this doesn't keep happening
