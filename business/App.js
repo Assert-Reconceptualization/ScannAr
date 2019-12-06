@@ -18,6 +18,7 @@ export default function App(props) {
   const [currentInventory, setCurrentInventory] = useState([]);
   const [appNavigator, setAppNavigator] = useState({});
   const [accessToken, setAccessToken] = useState(null);
+  const [tags, setTags] = useState([]);
 
   if (!isLoadingComplete && !props.skipLoadingScreen) {
     return (
@@ -43,6 +44,8 @@ export default function App(props) {
             setAppNavigator,
             accessToken,
             setAccessToken,
+            tags,
+            setTags,
           }}
         >
           <AppNavigator />
