@@ -4,7 +4,6 @@ const app = require('./app');
 // retrieve host name
 const hostname = 'scannar-server-second.appspot.com';
 
-// retrieve port 3030
 const port = process.env.PORT;
 
 // starting server up

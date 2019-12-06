@@ -50,9 +50,12 @@ export default function SignInScreen(props) {
       })
     }).then(business => business.json())
       .then(businessInfo => {
-        console.log(businessInfo);
         if(businessInfo.user){
+          // grab tags from db
+          fetchTags();
+          // store JWT token on app state
           context.setAccessToken(businessInfo.accessToken);
+          // store current business info
           return context.setCurrentBusiness(businessInfo.user);
         } else {
           throw Error;
@@ -64,9 +67,16 @@ export default function SignInScreen(props) {
       .catch(() => {
         console.log("Wrong email or password")
       });
-    // get business info
-    // 
-  }
+  };
+
+  const fetchTags = () => {
+    fetch(`${server}/tags`)
+      .then(response => response.json())
+      .then(tags => {
+        context.setTags(tags.data);
+      })
+      .catch(() => console.log("couldn't fetch tags"));
+  };
 
   const {
     container,

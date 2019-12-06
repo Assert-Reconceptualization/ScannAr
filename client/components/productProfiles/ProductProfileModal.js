@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useContext, useState } from 'react';
 import {
-  View, Modal, Text, Image, StyleSheet, Button,
+  View, Modal, Text, Image, StyleSheet, Button, Alert,
 } from 'react-native';
 
 // import components
@@ -13,6 +13,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const [isSaved, setSaved] = useState(false);
   const [saveUpdated, setSaveUpdated] = useState(false);
   const [businessName, setBusinessName] = useState('Loading...');
+  const [productTags, setProductTags] = useState('');
   const context = useContext(CustomerContext);
   const {
     serverUrl,
@@ -29,11 +30,30 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     nameAndPrice,
     description,
     businessNameStyle,
+    tagsStyle,
   } = styles;
+
+  // retrieve and update tags for products
+  const getProductTags = () => {
+    fetch(`${serverUrl}/productTags?idProduct=${product.id}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((parsed) => {
+        if (parsed[0]) {
+          setProductTags(parsed[0].tags[0].name);
+        }
+      });
+    // .catch(() => console.log('Something happened'));
+  };
 
   // Retrieves and updates business name based on product
   const getBusinessName = () => {
-    fetch(`${serverUrl}/business?id=${product.idBusiness}`, {
+    fetch(`${serverUrl}/users?id=${product.idBusiness}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -45,11 +65,11 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         const businessInfo = parsed.data[0];
         setBusinessName(businessInfo.name);
       });
-    // .catch(() => )
+    // .catch(() => console.log('Something happened'));
   };
 
   // Retrieves all current user's saved products
-  const getSavedProducts = () => (
+  const getSavedProducts = (type) => (
     fetch(`${serverUrl}/savedProducts?idUser=${currentUser.id}`, {
       method: 'GET',
       headers: {
@@ -60,8 +80,12 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       .then((response) => response.json())
       .then((savedList) => {
         setCurrentSavedList(savedList);
-        setVisibility(false);
+        if (type === 'save') { // if save is passed, will alert after save
+          handleSaveAlert();
+        }
+        // setVisibility(false)
       })
+      // .then(() => setVisibility(false))
       // .catch(() => )
   );
 
@@ -74,11 +98,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         'Content-Type': 'application/json',
       },
     })
-      .then(() => {
-        // update saved products list with another fetch
-        getSavedProducts();
-      });
-    // .catch(() => console.log('something happened'));
+      .then(() => getSavedProducts('save')); // update saved products list with another fetch
   };
 
   // Deletes the current product from the current user's savedProducts
@@ -90,7 +110,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         'Content-Type': 'application/json',
       },
     })
-      .then(() => getSavedProducts());
+      .then(() => getSavedProducts('delete'))
+      .then(() => setVisibility(false)); // Hiding modal after deletion
     // .catch(() => console.log('something went wrong'));
   };
 
@@ -99,24 +120,48 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     if (isSaved === false) {
       return (<Button title="Save" onPress={handleSaveProduct} />);
     }
-    return (<Button title="Delete" onPress={handleDelete} />);
+    return (<Button title="Delete from saved products" onPress={handleDeleteAlert} />);
+  };
+
+  // Alerts user when a product is saved
+  const handleSaveAlert = () => {
+    Alert.alert('Saved to your list!', '', [{ text: 'OK', onPress: () => setVisibility(false) }], { cancelable: false });
+  };
+
+  const handleDeleteAlert = () => {
+    Alert.alert(
+      'Delete Saved Product',
+      'Are you sure you want to delete?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'Yes', onPress: () => handleDelete() },
+      ],
+      { cancelable: false },
+    );
   };
 
   // If modal is visible,
   // check if item is saved and setSaveUpdated to true so this doesn't keep happening
   if (visible && saveUpdated === false) {
-    getBusinessName();
+    getProductTags(); // Get tags when modal is visible
+    getBusinessName(); // Get businessName when modal is visible
     setSaveUpdated(true);
     currentSavedList.forEach((savedItem) => {
       if (savedItem.id === product.id) { // if this product is in currentSavedList
-        setSaved(true);
+        setSaved(true); // For conditional rendering of saveOrDelete
       }
     });
   }
 
   // When the modal is hidden, reset saveUpdated to false
+  // This aids in the condition checking to see if the modal is updated
   if (!visible && saveUpdated) {
     setSaveUpdated(false);
+    setSaved(false);
   }
 
   return (
@@ -143,6 +188,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
             </View>
             <Text style={productPrice}>{`$${product.price}.00`}</Text>
           </View>
+          <Text style={tagsStyle}>{productTags || 'No tags available'}</Text>
           <View style={description}>
             <Text style={productDescription}>{product.description}</Text>
           </View>
@@ -201,6 +247,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: 15,
     justifyContent: 'flex-start',
+  },
+  tagsStyle: {
+    marginLeft: 5,
+    color: 'white',
   },
 });
 
