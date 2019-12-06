@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-use-before-define */
 import React, { useState, useContext } from 'react';
 import {
   Modal,
@@ -10,158 +12,189 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
-import BusinessContext from "../applicationState/BusinessContext";
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import BusinessContext from '../applicationState/BusinessContext';
 import serverConfig from '../serverConfig';
 import TagPicker from './TagPicker';
+
 const server = serverConfig().url;
 
-export default function NewProductModal(props){
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
+export default function NewProductModal(props) {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState(null);
-  const [price, setPrice] = useState("");
-  const context = useContext(BusinessContext);
+  const [price, setPrice] = useState('');
   const [spinner, setSpinner] = useState(false);
   const [currentTag, setCurrentTag] = useState('default');
+
+  const {
+    setCreating,
+    navigation,
+    visible,
+  } = props;
+  const {
+    currentBusiness,
+    setCurrentInventory,
+    accessToken,
+    tags,
+  } = useContext(BusinessContext);
 
   const handleCancel = () => {
     // close modal
     resetModalState();
     props.setCreating(false);
-  }
+  };
 
   const handleSubmit = () => {
-
     // make request to server POST
     fetch(`${server}/products`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: context.accessToken,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: accessToken,
       },
       body: JSON.stringify({
         name,
         description,
         price,
         imageUrl,
-        idBusiness: context.currentBusiness.id
-      })
+        idBusiness: currentBusiness.id,
+      }),
     })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((newProduct) => {
         // create new product tag
-        if(currentTag.name !== 'default'){
+        if (currentTag.name !== 'default') {
           saveProductTags(newProduct.id, currentTag);
         }
         // refresh inventory
-        fetch(`${server}/products?idBusiness=${context.currentBusiness.id}`, {
-          method: "GET",
+        fetch(`${server}/products?idBusiness=${currentBusiness.id}`, {
+          method: 'GET',
           headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
           },
         })
-          .then(response => response.json())
-          .then(products => {
-            //update current inventory if there are products
-            if(products.data){
-              context.setCurrentInventory(products.data)
+          .then((response) => response.json())
+          .then((products) => {
+            // update current inventory if there are products
+            if (products.data) {
+              setCurrentInventory(products.data);
             }
-            // reset modal state
-            resetModalState();
-            // close modal
-            props.setCreating(false);
-            // go back to home screen
-            props.navigation.navigate({routeName: 'Home'});
-          })
+            Alert.alert(
+              'Success!',
+              'Product added to inventory',
+              [{
+                text: 'OK',
+                onPress: () => {
+                  resetModalState();
+                  setCreating(false);
+                },
+              }],
+            );
+            navigation.navigate({ routeName: 'Home' });
+          });
       })
-      .catch((err) => {
-        console.log("something went wrong", err);
-      })
-  }
+      .catch(() => {
+        Alert.alert(
+          'Error',
+          'Try Again',
+        );
+      });
+  };
 
   const handleCamera = async () => {
     setSpinner(true); // turn spinner on
     // get permission to use camera and library
-    const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    const cameraRollPermission = await Permissions.askAsync(
+      Permissions.CAMERA_ROLL,
+    );
     const permission = await Permissions.askAsync(Permissions.CAMERA);
 
     // image library
     // let image = await ImagePicker.launchImageLibraryAsync({base64: true});
 
     // phone camera
-    let image = await ImagePicker.launchCameraAsync({base64: true});
+    const image = await ImagePicker.launchCameraAsync({ base64: true });
 
     // upload image to firebase if user doesnt cancel
-    if(!image.cancelled){
+    if (!image.cancelled) {
       // extract base64 image data
-      const file = image.base64
+      const file = image.base64;
       // make request to cloud function
-      fetch("https://us-central1-scannar-260417.cloudfunctions.net/storeImage", {
-        method: "POST",
-        body: JSON.stringify({
-          image: file
-        })
-      })
-        .then(res => res.json())
-        .then(result => {
+      fetch(
+        'https://us-central1-scannar-260417.cloudfunctions.net/storeImage',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            image: file,
+          }),
+        },
+      )
+        .then((res) => res.json())
+        .then((result) => {
           setImageUrl(result.imageUrl);
         })
         .then(() => setSpinner(false)) // turn spinner off
         // TODO - message user to try again
-        .catch(err => {console.log("Try uploading again!")})
+        .catch(() => {
+          Alert.alert('Error', 'Try uploading another picture');
+          setSpinner(false);
+        });
+    } else {
+      setSpinner(false);
     }
-  }
+  };
 
   const resetModalState = () => {
-    setName("");
-    setDescription("");
+    setName('');
+    setDescription('');
     setImageUrl(null);
-    setPrice("");
-  }
+    setPrice('');
+  };
 
   const saveProductTags = (productId, tagName) => {
     // grab tag id
-    const { id } = context.tags.filter(tag => tag.name === tagName)[0];
+    const { id } = tags.filter((tag) => tag.name === tagName)[0];
     fetch(`${server}/productTags?idProduct=${productId}&idTag=${id}`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: context.accessToken,
-      }
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: accessToken,
+      },
     })
-      .catch((err) => console.log(err))
-  }
+      .catch(() => {
+        Alert.alert('Error', 'Unable to create tag');
+      });
+  };
 
   const {
     container,
     image,
     photoContainer,
     textInput,
-    descriptionInput
+    descriptionInput,
   } = styles;
 
-  let imageText = spinner ? <ActivityIndicator size="small" color="black" /> : <Button
-    title={"Take a Picture!"}
-    onPress={handleCamera}
-  />;
+  const imageText = spinner ? (
+    <ActivityIndicator size="small" color="black" />
+  ) : (
+    <Button title="Take a Picture!" onPress={handleCamera} />
+  );
 
   return (
-    <Modal visible={props.visible} animationType="slide">
+    <Modal visible={visible} animationType="slide">
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={ container }>
+        <View style={container}>
           <Text>Create AR product!</Text>
-          <View style={photoContainer}> 
+          <View style={photoContainer}>
             {imageUrl ? (
-              <Image
-                style={image}
-                source={{uri: imageUrl}}
-              />
+              <Image style={image} source={{ uri: imageUrl }} />
             ) : (
               imageText
             )}
@@ -169,33 +202,23 @@ export default function NewProductModal(props){
           <TextInput
             placeholder="Name"
             style={textInput}
-            onChangeText={text => setName(text)}
+            onChangeText={(text) => setName(text)}
           />
           <TextInput
             placeholder="Price"
             style={textInput}
             keyboardType="decimal-pad"
-            onChangeText={text => setPrice(text)}
+            onChangeText={(text) => setPrice(text)}
           />
           <TextInput
             placeholder="Description"
             style={descriptionInput}
-            multiline={true}
-            onChangeText={text => setDescription(text)}
+            multiline
+            onChangeText={(text) => setDescription(text)}
           />
-          <TagPicker
-            currentTag={currentTag}
-            setCurrentTag={setCurrentTag}
-          />
-          <Button
-            title="Submit"
-            onPress={handleSubmit} 
-          />
-          <Button 
-            title="Cancel"
-            onPress={handleCancel}
-            color="red"
-          />
+          <TagPicker currentTag={currentTag} setCurrentTag={setCurrentTag} />
+          <Button title="Submit" onPress={handleSubmit} />
+          <Button title="Cancel" onPress={handleCancel} color="red" />
         </View>
       </TouchableWithoutFeedback>
     </Modal>
@@ -206,12 +229,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   image: {
     width: 114,
     height: 114,
-    borderRadius: 5
+    borderRadius: 5,
   },
   photoContainer: {
     alignItems: 'center',
@@ -224,22 +247,22 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   textInput: {
-    width: "70%",
+    width: '70%',
     borderWidth: 2,
-    borderColor: "black",
+    borderColor: 'black',
     borderRadius: 5,
     fontSize: 25,
     marginBottom: 20,
-    paddingLeft: 5
+    paddingLeft: 5,
   },
   descriptionInput: {
-    width: "70%",
+    width: '70%',
     borderWidth: 2,
     height: 200,
-    borderColor: "black",
+    borderColor: 'black',
     borderRadius: 5,
     fontSize: 25,
     marginBottom: 20,
-    paddingLeft: 5
-  }
+    paddingLeft: 5,
+  },
 });
