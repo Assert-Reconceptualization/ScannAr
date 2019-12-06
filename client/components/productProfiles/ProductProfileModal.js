@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useContext, useState } from 'react';
 import {
-  View, Modal, Text, Image, StyleSheet, Button,
+  View, Modal, Text, Image, StyleSheet, Button, Alert,
 } from 'react-native';
 
 // import components
@@ -43,7 +43,11 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       },
     })
       .then((response) => response.json())
-      .then((parsed) => setProductTags(parsed[0].name || null));
+      .then((parsed) => {
+        if (parsed[0]) {
+          setProductTags(parsed[0].tags[0].name);
+        }
+      });
     // .catch(() => console.log('Something happened'));
   };
 
@@ -78,6 +82,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         setCurrentSavedList(savedList);
         setVisibility(false);
       })
+      // .then(() => handleAlert())
       // .catch(() => )
   );
 
@@ -90,11 +95,9 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         'Content-Type': 'application/json',
       },
     })
-      .then(() => {
-        // update saved products list with another fetch
-        getSavedProducts();
-      });
-    // .catch(() => console.log('something happened'));
+      .then(() => getSavedProducts()); // update saved products list with another fetch
+    //  .then(() => handleAlert());
+    //   .catch(() => console.log('something happened'));
   };
 
   // Deletes the current product from the current user's savedProducts
@@ -119,9 +122,9 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   };
 
   // Will alert when invoked
-  const handleAlert = () => {
-    Alert.alert('Delete Saved Product');
-  };
+  // const handleAlert = () => {
+  //   Alert.alert('Saved to your list!', '', [{ text: 'OK', onPress: () => 'doNothing' }], { cancelable: false });
+  // };
 
   // If modal is visible,
   // check if item is saved and setSaveUpdated to true so this doesn't keep happening
