@@ -118,6 +118,11 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     return (<Button title="Delete from saved products" onPress={handleDelete} />);
   };
 
+  // Will alert when invoked
+  const handleAlert = () => {
+    Alert.alert('Delete Saved Product');
+  };
+
   // If modal is visible,
   // check if item is saved and setSaveUpdated to true so this doesn't keep happening
   if (visible && saveUpdated === false) {
