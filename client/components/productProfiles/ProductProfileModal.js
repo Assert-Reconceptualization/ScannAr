@@ -125,6 +125,22 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     Alert.alert('Saved to your list!', '', [{ text: 'OK', onPress: () => setVisibility(false) }], { cancelable: false });
   };
 
+  const handleDeleteAlert = () => {
+    Alert.alert(
+      'Delete Saved Product',
+      'Are you sure you want to delete?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        { text: 'Yes', onPress: () => handleDelete() },
+      ],
+      { cancelable: false },
+    );
+  };
+
   // If modal is visible,
   // check if item is saved and setSaveUpdated to true so this doesn't keep happening
   if (visible && saveUpdated === false) {
