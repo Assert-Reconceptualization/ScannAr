@@ -80,7 +80,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       .then((response) => response.json())
       .then((savedList) => {
         setCurrentSavedList(savedList);
-        handleAlert();
+        handleSaveAlert();
         // setVisibility(false)
       })
       // .then(() => setVisibility(false))
@@ -121,7 +121,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   };
 
   // Alerts user when a product is saved
-  const handleAlert = () => {
+  const handleSaveAlert = () => {
     Alert.alert('Saved to your list!', '', [{ text: 'OK', onPress: () => setVisibility(false) }], { cancelable: false });
   };
 
