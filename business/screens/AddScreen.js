@@ -139,58 +139,58 @@ export default function AddScreen(props) {
   } = styles;
 
   const imageText = spinner ? <ActivityIndicator size="small" color="black" /> : (
-      <Button
-          title={'Take a Picture!'}
-          onPress={handleCamera}
-      />
-    );
+    <Button
+      title="Take a Picture!"
+      onPress={handleCamera}
+    />
+  );
 
   return (
     <ScrollView style={{ flex: 1 }}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={container}>
           <View style={photoContainer}>
-              {imageUrl ? (
-                <Image
-                  style={image}
-                  source={{ uri: imageUrl }}
-                />
-              ) : (
-                imageText
-              )}
-            </View>
+            {imageUrl ? (
+              <Image
+                style={image}
+                source={{ uri: imageUrl }}
+              />
+            ) : (
+              imageText
+            )}
+          </View>
           <TextInput
-              placeholder="Name"
-              style={textInput}
-              value={name}
-              onChangeText={(text) => setName(text)}
+            placeholder="Name"
+            style={textInput}
+            value={name}
+            onChangeText={(text) => setName(text)}
           />
           <TextInput
-              placeholder="Price"
-              value={price}
-              style={textInput}
-              keyboardType="decimal-pad"
-              onChangeText={(text) => setPrice(text)}
+            placeholder="Price"
+            value={price}
+            style={textInput}
+            keyboardType="decimal-pad"
+            onChangeText={(text) => setPrice(text)}
           />
           <TextInput
-              placeholder="Description"
-              style={descriptionInput}
-              value={description}
-              multiline
-              onChangeText={(text) => setDescription(text)}
+            placeholder="Description"
+            style={descriptionInput}
+            value={description}
+            multiline
+            onChangeText={(text) => setDescription(text)}
           />
           <TagPicker
-              currentTag={currentTag}
-              setCurrentTag={setCurrentTag}
+            currentTag={currentTag}
+            setCurrentTag={setCurrentTag}
           />
           <Button
-              title="Submit"
-              onPress={handleSubmit}
+            title="Submit"
+            onPress={handleSubmit}
           />
           <Button
-              title="clear fields"
-              onPress={resetScreenState}
-              color="red"
+            title="clear fields"
+            onPress={resetScreenState}
+            color="red"
           />
         </View>
       </TouchableWithoutFeedback>
