@@ -177,6 +177,7 @@ export default function AddScreen(props) {
             style={textInput}
             value={name}
             onChangeText={(text) => setName(text)}
+            maxLength={20}
           />
           <TextInput
             placeholder="Price"
