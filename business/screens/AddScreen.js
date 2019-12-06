@@ -72,7 +72,6 @@ export default function AddScreen(props) {
             Alert.alert(
               'Success!',
               'Product added to inventory',
-              { cancelable: false },
             );
             props.navigation.navigate({ routeName: 'Home' });
           });
@@ -123,13 +122,13 @@ export default function AddScreen(props) {
         .then((result) => {
           setImageUrl(result.imageUrl);
         })
-        .then(() => setSpinner(false)) // turn spinner off
-        // TODO - message user to try again
+        .then(() => setSpinner(false))
         .catch(() => {
           Alert.alert(
             'Error',
             'Try uploading another picture',
           );
+          setSpinner(false);
         });
     } else {
       setSpinner(false);
