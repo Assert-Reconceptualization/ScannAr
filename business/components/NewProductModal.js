@@ -51,7 +51,12 @@ export default function NewProductModal(props){
         idBusiness: context.currentBusiness.id
       })
     })
-      .then(() => {
+      .then(response => response.json())
+      .then((newProduct) => {
+        // create new product tag
+        if(currentTag !== 'default'){
+          saveProductTags(newProduct.id, currentTag.id);
+        }
         // refresh inventory
         fetch(`${server}/products?idBusiness=${context.currentBusiness.id}`, {
           method: "GET",
@@ -116,6 +121,20 @@ export default function NewProductModal(props){
     setDescription("");
     setImageUrl(null);
     setPrice("");
+  }
+
+  const saveProductTags = (productId, tagId) => {
+    fetch(`${server}/productTags?idProduct=${productId}&idTag=${tagId}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: context.accessToken,
+      }
+    })
+      .then((response) => response.json())
+      .then(parsedResponse => console.log(parsedResponse))
+      .catch((err) => console.log(err))
   }
 
   const {

@@ -24,7 +24,8 @@ export default function ProductCard(props){
       method: 'DELETE',
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        Authorization: context.accessToken,
       },
     })
       .then((response) => response.json())
