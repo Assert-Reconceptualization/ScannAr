@@ -20,7 +20,8 @@ import CustomerContext from '../applicationState/customerContext';
 const Login = ({ navigator }) => {
   const context = useContext(CustomerContext);
   const [register, setRegister] = useState(false);
-  const [name, setUserName] = useState('');
+  const [nameFirst, setNameFirst] = useState('');
+  const [nameLast, setNameLast] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {
@@ -101,8 +102,8 @@ const Login = ({ navigator }) => {
       body: JSON.stringify({
         role: 'customer',
         email,
-        nameFirst: `${name.split(' ')[0]}`,
-        nameLast: `${name.split(' ')[1]}`,
+        nameFirst,
+        nameLast,
         password,
       }),
     })
@@ -138,10 +139,12 @@ const Login = ({ navigator }) => {
         {register ? (
           <Register
             handleRegister={handleRegister}
-            setUserName={setUserName}
+            setNameFirst={setNameFirst}
+            setNameLast={setNameLast}
             setEmail={setEmail}
             setPassword={setPassword}
-            name={name}
+            nameFirst={nameFirst}
+            nameLast={nameLast}
             password={password}
             email={email}
             setRegister={setRegister}
