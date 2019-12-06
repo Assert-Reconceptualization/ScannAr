@@ -125,7 +125,12 @@ export default function AddScreen(props) {
         })
         .then(() => setSpinner(false)) // turn spinner off
         // TODO - message user to try again
-        .catch(() => { console.log('Try uploading again!'); });
+        .catch(() => {
+          Alert.alert(
+            'Error',
+            'Try uploading another picture',
+          );
+        });
     } else {
       setSpinner(false);
     }
