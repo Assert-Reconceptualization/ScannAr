@@ -6,9 +6,9 @@ import {
   Button,
   StyleSheet,
   TextInput,
-  TouchableWithoutFeedback,
-  Keyboard,
-  TouchableOpacity
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
 } from "react-native";
 
 import SignUp from "./buttons/SignUp";
@@ -69,61 +69,62 @@ export default function RegisterModal(props) {
 
   return (
     <Modal visible={props.visible} animationType="slide">
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={modalContainer}>
-          <View style={titleContainer}>
-            <Text style={title}>Register Your Business</Text>
-          </View>
-          <View style={inputContainer}>
-            <Text style={inputHeader}>Business Name</Text>
-            <TextInput
-              style={textInput}
-              onChangeText={text => setBusinessName(text)}
-              value={businessName}
-              placeholder="Business Name"
-              autoCapitalize="sentences"
-            />
-            <Text style={inputHeader}>Email</Text>
-            <TextInput
-              style={textInput}
-              onChangeText={text => setBusinessEmail(text)}
-              value={businessEmail}
-              placeholder="Email"
-              keyboardType="email-address"
-            />
-            <Text style={inputHeader}>Password</Text>
-            <TextInput
-              style={textInput}
-              onChangeText={text => setBusinessPassword(text)}
-              value={businessPassword}
-              placeholder="Password"
-              secureTextEntry
-            />
-            <Text style={inputHeader}>Phone Number</Text>
-            <TextInput
-              style={textInput}
-              onChangeText={num => setBusinessNumber(num)}
-              value={businessNumber}
-              placeholder="Phone Number"
-              keyboardType="phone-pad"
-            />
-            <Text style={inputHeader}>Description</Text>
-            <TextInput
-              style={descriptionInput}
-              multiline={true}
-              onChangeText={text => setBusinessDescription(text)}
-              value={businessDescription}
-              placeholder="Description"
-            />
-          </View>
-          <View style={buttonContainer}>
-            <TouchableOpacity onPress={handleRegister}>
-              <Text>Register</Text>
-            </TouchableOpacity>
-            <Button title="cancel" onPress={handleCancel} />
-          </View>
+      <View style={modalContainer}>
+        <SafeAreaView style={titleContainer}>
+          <Text style={title}>Register Your Business</Text>
+        </SafeAreaView>
+        <ScrollView
+          contentContainerStyle={inputContainer}
+          keyboardDismissMode="on-drag"
+        >
+          <Text style={inputHeader}>Business Name</Text>
+          <TextInput
+            style={textInput}
+            onChangeText={text => setBusinessName(text)}
+            value={businessName}
+            placeholder="Business Name"
+            autoCapitalize="sentences"
+          />
+          <Text style={inputHeader}>Email</Text>
+          <TextInput
+            style={textInput}
+            onChangeText={text => setBusinessEmail(text)}
+            value={businessEmail}
+            placeholder="Email"
+            keyboardType="email-address"
+          />
+          <Text style={inputHeader}>Password</Text>
+          <TextInput
+            style={textInput}
+            onChangeText={text => setBusinessPassword(text)}
+            value={businessPassword}
+            placeholder="Password"
+            secureTextEntry
+          />
+          <Text style={inputHeader}>Phone Number</Text>
+          <TextInput
+            style={textInput}
+            onChangeText={num => setBusinessNumber(num)}
+            value={businessNumber}
+            placeholder="Phone Number"
+            keyboardType="phone-pad"
+          />
+          <Text style={inputHeader}>Description</Text>
+          <TextInput
+            style={descriptionInput}
+            multiline={true}
+            onChangeText={text => setBusinessDescription(text)}
+            value={businessDescription}
+            placeholder="Description"
+          />
+        </ScrollView>
+        <View style={buttonContainer}>
+          <TouchableOpacity onPress={handleRegister}>
+            <Text>Register</Text>
+          </TouchableOpacity>
+          <Button title="cancel" onPress={handleCancel} />
         </View>
-      </TouchableWithoutFeedback>
+      </View>
     </Modal>
   );
 }
@@ -139,8 +140,8 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   inputContainer: {
-    flex: 6,
-    alignItems: "center"
+    flexGrow: 1,
+    alignItems: "center",
   },
   buttonContainer: {
     flex: 1,
