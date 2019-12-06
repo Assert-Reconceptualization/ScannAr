@@ -97,8 +97,6 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       },
     })
       .then(() => getSavedProducts()); // update saved products list with another fetch
-    //  .then(() => handleAlert());
-    //   .catch(() => console.log('something happened'));
   };
 
   // Deletes the current product from the current user's savedProducts
@@ -122,7 +120,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     return (<Button title="Delete from saved products" onPress={handleDelete} />);
   };
 
-  // Will alert when invoked
+  // Alerts user when a product is saved
   const handleAlert = () => {
     Alert.alert('Saved to your list!', '', [{ text: 'OK', onPress: () => setVisibility(false) }], { cancelable: false });
   };
