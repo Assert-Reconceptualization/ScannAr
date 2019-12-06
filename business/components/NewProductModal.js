@@ -15,6 +15,7 @@ import BusinessContext from "../applicationState/BusinessContext";
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import serverConfig from '../serverConfig';
+import TagPicker from './TagPicker';
 const server = serverConfig().url;
 
 export default function NewProductModal(props){
@@ -24,6 +25,7 @@ export default function NewProductModal(props){
   const [price, setPrice] = useState("");
   const context = useContext(BusinessContext);
   const [spinner, setSpinner] = useState(false);
+  const [currentTag, setCurrentTag] = useState('default');
 
   const handleCancel = () => {
     // close modal
@@ -160,6 +162,10 @@ export default function NewProductModal(props){
             style={descriptionInput}
             multiline={true}
             onChangeText={text => setDescription(text)}
+          />
+          <TagPicker
+            currentTag={currentTag}
+            setCurrentTag={setCurrentTag}
           />
           <Button
             title="Submit"
