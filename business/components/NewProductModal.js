@@ -25,10 +25,7 @@ export default function NewProductModal(props){
   const [price, setPrice] = useState("");
   const context = useContext(BusinessContext);
   const [spinner, setSpinner] = useState(false);
-  const [currentTag, setCurrentTag] = useState({
-    id: 0,
-    name: 'default'
-  });
+  const [currentTag, setCurrentTag] = useState('default');
 
   const handleCancel = () => {
     // close modal
