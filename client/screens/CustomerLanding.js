@@ -29,7 +29,7 @@ const CustomerLanding = ({ navigator }) => {
   const [visible, setVisibility] = useState(false);
   const [product, setProduct] = useState('');
   const [sortVisibility, setSortVisibility] = useState(false);
-  const [sortingBy, setSortingBy] = useState('');
+  const [sortingBy, setSortingBy] = useState('oldest');
   const [refreshState, setRefreshState] = useState(false);
   const context = useContext(CustomerContext);
   const { serverUrl, currentSavedList } = context;
@@ -43,6 +43,7 @@ const CustomerLanding = ({ navigator }) => {
   // updates AR markers upon mounting
   useEffect(() => {
     setMarkers();
+    filterFunctions(sortingBy);
   }, []);
 
   // sets markers for AR
