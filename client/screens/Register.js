@@ -7,10 +7,12 @@ import {
 
 const Register = ({
   handleRegister,
-  setUserName,
+  setNameFirst,
+  setNameLast,
   setEmail,
   setPassword,
-  name,
+  nameFirst,
+  nameLast,
   email,
   password,
   setRegister,
@@ -26,14 +28,24 @@ const Register = ({
   return (
     <View style={inputFields}>
       <Text style={textStyle}>
-          Full Name
+          First Name
       </Text>
       <TextInput
         style={inputField}
-        onChangeText={(text) => setUserName(text)}
-        value={name}
+        onChangeText={(text) => setNameFirst(text)}
+        value={nameFirst}
         autoCompleteType="name"
-        placeholder="John Doe"
+        placeholder="John"
+      />
+      <Text style={textStyle}>
+        Last Name
+      </Text>
+      <TextInput
+        style={inputField}
+        onChangeText={(text) => setNameLast(text)}
+        value={nameLast}
+        autoCompleteType="name"
+        placeholder="Doe"
       />
       <Text style={textStyle}>
         Email
