@@ -10,11 +10,13 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ActivityIndicator,
+  ScrollView,
 } from 'react-native';
 import BusinessContext from "../applicationState/BusinessContext";
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import serverConfig from '../serverConfig';
+import TagPicker from '../components/TagPicker';
 const server = serverConfig().url;
 
 export default function AddScreen(props){
@@ -24,6 +26,7 @@ export default function AddScreen(props){
   const [price, setPrice] = useState(null);
   const context = useContext(BusinessContext);
   const [spinner, setSpinner] = useState(false);
+  const [currentTag, setCurrentTag] = useState('default');
 
   const handleSubmit = () => {
 
@@ -43,7 +46,12 @@ export default function AddScreen(props){
         idBusiness: context.currentBusiness.id
       })
     })
-      .then(() => {
+      .then(response => response.json())
+      .then((newProduct) => {
+        // save product tag
+        if(currentTag.name !== 'default'){
+          saveProductTags(newProduct.id, currentTag);
+        }
         // refresh inventory
         fetch(`${server}/products?idBusiness=${context.currentBusiness.id}`, {
           method: "GET",
@@ -65,6 +73,21 @@ export default function AddScreen(props){
       .catch(() => {
         console.log("something went wrong");
       })
+  }
+
+  const saveProductTags = (productId, tagName) => {
+    // grab tag id
+    const { id } = context.tags.filter(tag => tag.name === tagName)[0];
+    console.log(productId, id);
+    fetch(`${server}/productTags?idProduct=${productId}&idTag=${id}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: context.accessToken,
+      }
+    })
+      .catch((err) => console.log(err))
   }
   
   const handleCamera = async () => {
@@ -110,6 +133,8 @@ export default function AddScreen(props){
     container,
     image,
     photoContainer,
+    titleContainer,
+    formContainer,
     textInput,
     descriptionInput,
   } = styles;
@@ -120,50 +145,55 @@ export default function AddScreen(props){
   />;
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={ container }>
-        <Text>Create AR product!</Text>
-        <View style={photoContainer}> 
-          {imageUrl ? (
-            <Image
-              style={image}
-              source={{uri: imageUrl}}
+    <ScrollView style={{flex: 1}}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={ container }>
+            <View style={photoContainer}>
+              {imageUrl ? (
+                <Image
+                  style={image}
+                  source={{uri: imageUrl}}
+                />
+              ) : (
+                  imageText
+                  )}
+            </View>
+            <TextInput
+              placeholder="Name"
+              style={textInput}
+              value={name}
+              onChangeText={text => setName(text)}
             />
-          ) : (
-              imageText
-              )}
-        </View>
-        <TextInput
-          placeholder="Name"
-          style={textInput}
-          value={name}
-          onChangeText={text => setName(text)}
-        />
-        <TextInput
-          placeholder="Price"
-          value={price}
-          style={textInput}
-          keyboardType="decimal-pad"
-          onChangeText={text => setPrice(text)}
-        />
-        <TextInput
-          placeholder="Description"
-          style={descriptionInput}
-          value={description}
-          multiline={true}
-          onChangeText={text => setDescription(text)}
-        />
-        <Button
-          title="Submit"
-          onPress={handleSubmit} 
-        />
-        <Button
-          title="clear fields"
-          onPress={resetScreenState}
-          color="red"
-        />
-      </View>
-    </TouchableWithoutFeedback>
+            <TextInput
+              placeholder="Price"
+              value={price}
+              style={textInput}
+              keyboardType="decimal-pad"
+              onChangeText={text => setPrice(text)}
+            />
+            <TextInput
+              placeholder="Description"
+              style={descriptionInput}
+              value={description}
+              multiline={true}
+              onChangeText={text => setDescription(text)}
+            />
+            <TagPicker
+              currentTag={currentTag}
+              setCurrentTag={setCurrentTag}
+            />
+            <Button
+              title="Submit"
+              onPress={handleSubmit} 
+            />
+            <Button
+              title="clear fields"
+              onPress={resetScreenState}
+              color="red"
+            />
+          </View>
+      </TouchableWithoutFeedback>
+    </ScrollView>
   );
 }
 
@@ -180,6 +210,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  titleContainer: {
+    flex: 1
+  },
+  formContainer: {
+    flex: 8
   },
   image: {
     width: 114,

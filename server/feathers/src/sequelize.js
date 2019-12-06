@@ -48,6 +48,24 @@ module.exports = (app) => {
         .sync({ force: true })
         .then(() => {
           console.log('connected to database');
+          models.tags.create({
+            name: 'Real Estate',
+          });
+          models.tags.create({
+            name: 'Art',
+          });
+          models.tags.create({
+            name: 'Technology',
+          });
+          models.tags.create({
+            name: 'Furniture',
+          });
+          models.tags.create({
+            name: 'Collectables',
+          });
+          models.tags.create({
+            name: 'Miscellaneous',
+          });
         })
         .catch((err) => {
           console.log(`Error: ${err}`);

@@ -15,6 +15,7 @@ import BusinessContext from "../applicationState/BusinessContext";
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import serverConfig from '../serverConfig';
+import TagPicker from './TagPicker';
 const server = serverConfig().url;
 
 export default function NewProductModal(props){
@@ -24,6 +25,7 @@ export default function NewProductModal(props){
   const [price, setPrice] = useState("");
   const context = useContext(BusinessContext);
   const [spinner, setSpinner] = useState(false);
+  const [currentTag, setCurrentTag] = useState('default');
 
   const handleCancel = () => {
     // close modal
@@ -49,7 +51,12 @@ export default function NewProductModal(props){
         idBusiness: context.currentBusiness.id
       })
     })
-      .then(() => {
+      .then(response => response.json())
+      .then((newProduct) => {
+        // create new product tag
+        if(currentTag.name !== 'default'){
+          saveProductTags(newProduct.id, currentTag);
+        }
         // refresh inventory
         fetch(`${server}/products?idBusiness=${context.currentBusiness.id}`, {
           method: "GET",
@@ -72,20 +79,21 @@ export default function NewProductModal(props){
             props.navigation.navigate({routeName: 'Home'});
           })
       })
-      .catch(() => {
-        console.log("something went wrong");
+      .catch((err) => {
+        console.log("something went wrong", err);
       })
   }
 
   const handleCamera = async () => {
     setSpinner(true); // turn spinner on
-    // get permission to use camera
+    // get permission to use camera and library
     const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    // // open camera
+    const permission = await Permissions.askAsync(Permissions.CAMERA);
+
+    // image library
     // let image = await ImagePicker.launchImageLibraryAsync({base64: true});
 
-    // uncomment when using real phone
-    const permission = await Permissions.askAsync(Permissions.CAMERA);
+    // phone camera
     let image = await ImagePicker.launchCameraAsync({base64: true});
 
     // upload image to firebase if user doesnt cancel
@@ -114,6 +122,20 @@ export default function NewProductModal(props){
     setDescription("");
     setImageUrl(null);
     setPrice("");
+  }
+
+  const saveProductTags = (productId, tagName) => {
+    // grab tag id
+    const { id } = context.tags.filter(tag => tag.name === tagName)[0];
+    fetch(`${server}/productTags?idProduct=${productId}&idTag=${id}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: context.accessToken,
+      }
+    })
+      .catch((err) => console.log(err))
   }
 
   const {
@@ -160,6 +182,10 @@ export default function NewProductModal(props){
             style={descriptionInput}
             multiline={true}
             onChangeText={text => setDescription(text)}
+          />
+          <TagPicker
+            currentTag={currentTag}
+            setCurrentTag={setCurrentTag}
           />
           <Button
             title="Submit"
