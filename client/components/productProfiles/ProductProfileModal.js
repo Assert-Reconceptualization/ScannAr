@@ -43,8 +43,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       },
     })
       .then((response) => response.json())
-      .then((parsed) => setProductTags(parsed[0].name))
-      .catch(() => console.log('Something happened'));
+      .then((parsed) => setProductTags(parsed[0].name || null));
+    // .catch(() => console.log('Something happened'));
   };
 
   // Retrieves and updates business name based on product
