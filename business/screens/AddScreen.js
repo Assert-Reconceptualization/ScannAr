@@ -12,6 +12,7 @@ import {
   Keyboard,
   ActivityIndicator,
   ScrollView,
+  Alert,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -68,6 +69,11 @@ export default function AddScreen(props) {
               context.setCurrentInventory(products.data);
             }
             // go back to home screen
+            Alert.alert(
+              'Success!',
+              'Product added to inventory',
+              { cancelable: false },
+            );
             props.navigation.navigate({ routeName: 'Home' });
           });
       })
@@ -120,6 +126,8 @@ export default function AddScreen(props) {
         .then(() => setSpinner(false)) // turn spinner off
         // TODO - message user to try again
         .catch(() => { console.log('Try uploading again!'); });
+    } else {
+      setSpinner(false);
     }
   };
 
@@ -128,6 +136,7 @@ export default function AddScreen(props) {
     setDescription('');
     setImageUrl(null);
     setPrice('');
+    setSpinner(false);
   };
 
   const {
