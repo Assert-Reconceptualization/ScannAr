@@ -41,15 +41,18 @@ export default function HomeScreen(props) {
         //update current inventory if there are products
         if(products.data){
           // ensure default sort is most recent - oldest
-          const pInventory = products.data.sort((a, b) => (
-            new Date(b.updatedAt) - new Date(a.updatedAt)
-          ));
-          context.setCurrentInventory(pInventory)
+          
+          const setInventory = async () => {
+            await context.setCurrentInventory(products.data)
+          }
+          setInventory();
+          return products.data;
         }
       })
-      .then(() => filterFunctions(sortingBy))
-      .catch(() => {
-        Alert.alert('Oops!', 'Unable to update inventory');
+      .then((products) => filterFunctions(sortingBy, products))  
+      .catch((err) => {
+        // Alert.alert('Oops!', 'Unable to update inventory');
+        console.log(err)
       });
     
   }, []);
@@ -58,11 +61,15 @@ export default function HomeScreen(props) {
     setCreating(true);
   }
 
-  const filterFunctions = (filterBy) => {
+  const filterFunctions = (filterBy, inventory) => {
     // hide filter functions
     hideSortModal();
     // grab current inventory
-    const inventory = context.currentInventory;
+    setSortingBy(filterBy);
+    if (!inventory) {
+      inventory = context.currentInventory;
+    }
+    console.log(inventory);
     switch (filterBy) {
       case 'priceAscending':
         let sortedInventory = inventory.sort((a, b) => {
