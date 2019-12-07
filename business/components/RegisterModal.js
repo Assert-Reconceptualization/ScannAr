@@ -140,11 +140,13 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexGrow: 1,
-    alignItems: "center",
+    alignItems: "center"
   },
   buttonContainer: {
     flex: 1,
-    alignItems: "center"
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center"
   },
   textInput: {
     width: "70%",
