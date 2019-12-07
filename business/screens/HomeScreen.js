@@ -83,16 +83,12 @@ export default function HomeScreen(props) {
         // force re-render component
         break;
       case 'oldestFirst':
-        sortedInventory = inventory.sort((a, b) => {
-          return new Date(a.updatedAt) - new Date(b.updatedAt);
-        });
+        sortedInventory = inventory.sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
         context.setCurrentInventory(sortedInventory);
         // force re-render component
         break;
       case 'mostRecent':
-        sortedInventory = inventory.sort((a, b) => {
-          return new Date(b.updatedAt) - new Date(a.updatedAt);
-        });
+        sortedInventory = inventory.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
         context.setCurrentInventory(sortedInventory);
         // force re-render component
         break;
@@ -121,29 +117,30 @@ export default function HomeScreen(props) {
     addButton,
     sortingContainer,
   } = styles;
-
+  const { navigation } = props;
+  const { currentBusiness, currentInventory } = context;
   return (
     <TouchableWithoutFeedback onPress={hideSortModal}>
       <View style={container}>
         {sorting && (
           <View style={sortingContainer}>
-            <SortModal sort={filterFunctions}/>
+            <SortModal sort={filterFunctions} />
           </View>
         )}
         <View style={businessInfoContainer}>
-          <Text style={businessName}>{context.currentBusiness.name}</Text>
+          <Text style={businessName}>{currentBusiness.name}</Text>
         </View>
         <View style={titleContainer}>
           <Text style={titleText}>Our Products</Text>
-          <TouchableOpacity onPress={toggleSortModal} >
-            <Ionicons name="ios-options" size={40} color="#AEC3B0"/>
+          <TouchableOpacity onPress={toggleSortModal}>
+            <Ionicons name="ios-options" size={40} color="#AEC3B0" />
           </TouchableOpacity>
         </View>
-        {context.currentInventory.length ? (
+        {currentInventory.length ? (
           <View style={inventoryContainer}>
             <ScrollView>
               <View onStartShouldSetResponder={() => true}>
-                {context.currentInventory.map(product => <ProductCard navigation={props.navigation} key={product.id} product={product}/>)}
+                {currentInventory.map((product) => <ProductCard navigation={navigation} key={product.id} product={product} />)}
               </View>
             </ScrollView>
           </View>
@@ -153,9 +150,9 @@ export default function HomeScreen(props) {
           </View>
         )}
         <TouchableOpacity style={addButton} onPress={handleModalVisibility}>
-          <Ionicons name="ios-add-circle" size={70} color="#AEC3B0"/>
+          <Ionicons name="ios-add-circle" size={70} color="#AEC3B0" />
         </TouchableOpacity>
-        <NewProductModal navigation={props.navigation} visible={creating} setCreating={setCreating}/>
+        <NewProductModal navigation={navigation} visible={creating} setCreating={setCreating} />
       </View>
     </TouchableWithoutFeedback>
   );
