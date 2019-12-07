@@ -1,5 +1,6 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-use-before-define */
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -8,21 +9,24 @@ import {
   View,
   TouchableWithoutFeedback,
   Alert,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import ProductCard from "../components/productCard";
-import BusinessContext from "../applicationState/BusinessContext";
-import NoProductMessage from "../components/NoProductMessage";
-import NewProductModal from "../components/NewProductModal";
-import HomeScreenHeader from "../components/HomeScreenHeader";
-import SortModal from "../components/SortModal";
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import ProductCard from '../components/productCard';
+import BusinessContext from '../applicationState/BusinessContext';
+import NoProductMessage from '../components/NoProductMessage';
+import NewProductModal from '../components/NewProductModal';
+import HomeScreenHeader from '../components/HomeScreenHeader';
+import SortModal from '../components/SortModal';
 import serverConfig from '../serverConfig';
+
 const server = serverConfig().url;
 
 
 export default function HomeScreen(props) {
   const context = useContext(BusinessContext);
-  context.setAppNavigator(props.navigation);
+  const { navigation } = props;
+  const { setAppNavigator } = context;
+  setAppNavigator(navigation);
   const [creating, setCreating] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [sorting, setSorting] = useState(false);
@@ -31,35 +35,34 @@ export default function HomeScreen(props) {
   useEffect(() => {
     // grab products
     fetch(`${server}/products?idBusiness=${context.currentBusiness.id}`, {
-      method: "GET",
+      method: 'GET',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
     })
-      .then(response => response.json())
-      .then(products => {
-        //update current inventory if there are products
-        if(products.data){
+      .then((response) => response.json())
+      .then((products) => {
+        // update current inventory if there are products
+        if (products.data) {
           // ensure default sort is most recent - oldest
-          
           const setInventory = async () => {
-            await context.setCurrentInventory(products.data)
-          }
+            await context.setCurrentInventory(products.data);
+          };
           setInventory();
           return products.data;
         }
+        return null;
       })
-      .then((products) => filterFunctions(sortingBy, products))  
+      .then((products) => filterFunctions(sortingBy, products))
       .catch(() => {
         Alert.alert('Oops!', 'Unable to update inventory');
       });
-    
   }, []);
 
   const handleModalVisibility = () => {
     setCreating(true);
-  }
+  };
 
   const filterFunctions = (filterBy, inventory) => {
     // hide filter functions
@@ -117,7 +120,7 @@ export default function HomeScreen(props) {
     addButton,
     sortingContainer,
   } = styles;
-  const { navigation } = props;
+
   const { currentBusiness, currentInventory } = context;
   return (
     <TouchableWithoutFeedback onPress={hideSortModal}>
@@ -140,7 +143,9 @@ export default function HomeScreen(props) {
           <View style={inventoryContainer}>
             <ScrollView>
               <View onStartShouldSetResponder={() => true}>
-                {currentInventory.map((product) => <ProductCard navigation={navigation} key={product.id} product={product} />)}
+                {currentInventory.map((product) => (
+                  <ProductCard navigation={navigation} key={product.id} product={product} />
+                ))}
               </View>
             </ScrollView>
           </View>
@@ -158,20 +163,20 @@ export default function HomeScreen(props) {
   );
 }
 
-  // add content and style to header
-  HomeScreen.navigationOptions = {
-    headerTitle: () => <HomeScreenHeader />,
-    headerStyle: {
-      backgroundColor: "#505950",
-    },
-    headerTintColor: "white",
-  };
+// add content and style to header
+HomeScreen.navigationOptions = {
+  headerTitle: () => <HomeScreenHeader />,
+  headerStyle: {
+    backgroundColor: '#505950',
+  },
+  headerTintColor: 'white',
+};
 
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#39403A",
+    backgroundColor: '#39403A',
   },
   businessInfoContainer: {
     flexDirection: 'row',
@@ -199,7 +204,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: '#EFF6E0'
+    color: '#EFF6E0',
   },
   addButton: {
     position: 'absolute',
@@ -211,5 +216,5 @@ const styles = StyleSheet.create({
     top: 40,
     right: 0,
     zIndex: 5,
-  }
+  },
 });
