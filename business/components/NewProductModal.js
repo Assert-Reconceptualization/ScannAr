@@ -203,6 +203,7 @@ export default function NewProductModal(props) {
             placeholder="Name"
             style={textInput}
             onChangeText={(text) => setName(text)}
+            maxLength={20}
           />
           <TextInput
             placeholder="Price"
