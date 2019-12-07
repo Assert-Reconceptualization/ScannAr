@@ -68,7 +68,6 @@ export default function HomeScreen(props) {
     if (!inventory) {
       inventory = context.currentInventory;
     }
-    console.log(inventory);
     switch (filterBy) {
       case 'priceAscending':
         let sortedInventory = inventory.sort((a, b) => {
