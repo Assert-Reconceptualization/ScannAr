@@ -14,10 +14,10 @@ export default function SortModal(props) {
   return (
     <View style={container}>
       <Text>Sort By:</Text>
-      <Button title="price up" onPress={sort.bind(null, 'priceAscending')}/>
-      <Button title="price down" onPress={sort.bind(null, 'priceDescending')}/>
-      <Button title="most recent" onPress={sort.bind(null, 'mostRecent')}/>
-      <Button title="oldest" onPress={sort.bind(null, 'oldestFirst')}/>
+      <Button title="Lowest" onPress={() => sort('priceAscending')}/>
+      <Button title="Highest" onPress={() => sort('priceDescending')}/>
+      <Button title="Most Recent" onPress={() => sort('mostRecent')}/>
+      <Button title="Oldest" onPress={() => sort('oldestFirst')}/>
     </View>
   );
 }
