@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from 'react';
 import {
   Modal,
   View,
@@ -9,18 +9,18 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
-} from "react-native";
+} from 'react-native';
 
-import SignUp from "./buttons/SignUp";
-import State from "../applicationState/BusinessContext";
+import SignUp from './buttons/SignUp';
+import State from '../applicationState/BusinessContext';
 import serverConfig from '../serverConfig';
 
 export default function RegisterModal(props) {
-  const [businessName, setBusinessName] = useState("");
-  const [businessEmail, setBusinessEmail] = useState("");
-  const [businessPassword, setBusinessPassword] = useState("");
-  const [businessNumber, setBusinessNumber] = useState("");
-  const [businessDescription, setBusinessDescription] = useState("");
+  const [businessName, setBusinessName] = useState('');
+  const [businessEmail, setBusinessEmail] = useState('');
+  const [businessPassword, setBusinessPassword] = useState('');
+  const [businessNumber, setBusinessNumber] = useState('');
+  const [businessDescription, setBusinessDescription] = useState('');
 
   const context = useContext(State);
   const server = serverConfig().url;
@@ -31,28 +31,28 @@ export default function RegisterModal(props) {
 
   const handleRegister = () => {
     fetch(`${server}/users`, {
-      method: "POST",
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         name: businessName,
         phone: businessNumber,
         email: businessEmail,
         password: businessPassword,
-        description: businessDescription
-      })
+        description: businessDescription,
+      }),
     })
       .then((response) => response.json())
-      .then(business => {
-        if(business.id){
+      .then((business) => {
+        if (business.id) {
           props.handleSignIn(businessEmail, businessPassword);
         }
       })
       .catch((err) => {
-        console.log("Unable to register", err)
-      })
+        console.log('Unable to register', err);
+      });
   };
 
   const {
@@ -63,7 +63,9 @@ export default function RegisterModal(props) {
     descriptionInput,
     inputHeader,
     buttonContainer,
-    title
+    title,
+    buttonCancel,
+    buttonRegister,
   } = styles;
 
   return (
@@ -119,9 +121,11 @@ export default function RegisterModal(props) {
         </ScrollView>
         <View style={buttonContainer}>
           <TouchableOpacity onPress={handleRegister}>
-            <Text>Register</Text>
+            <Text style={buttonRegister}>Register</Text>
           </TouchableOpacity>
-          <Button title="cancel" onPress={handleCancel} />
+          <TouchableOpacity onPress={handleCancel}>
+            <Text style={buttonCancel}>cancel</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </Modal>
@@ -141,6 +145,16 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexGrow: 1,
     alignItems: "center"
+  },
+  buttonCancel: {
+    fontSize: 35,
+    color: "white",
+    backgroundColor: "#ff2200",
+  },
+  buttonRegister: {
+    fontSize: 35,
+    color: "white",
+    backgroundColor: "#339900",
   },
   buttonContainer: {
     flex: 1,
