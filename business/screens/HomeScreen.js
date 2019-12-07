@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   TouchableWithoutFeedback,
+  Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ProductCard from "../components/productCard";
@@ -24,6 +25,7 @@ export default function HomeScreen(props) {
   const [creating, setCreating] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [sorting, setSorting] = useState(false);
+  const [sortingBy, setSortingBy] = useState('mostRecent'); // add default to sort
   // grab user data from database
   useEffect(() => {
     // grab products
@@ -39,14 +41,17 @@ export default function HomeScreen(props) {
         //update current inventory if there are products
         if(products.data){
           // ensure default sort is most recent - oldest
-          const pInventory = products.data.sort((a, b) => (
-            new Date(b.updatedAt) - new Date(a.updatedAt)
-          ));
-          context.setCurrentInventory(pInventory)
+          
+          const setInventory = async () => {
+            await context.setCurrentInventory(products.data)
+          }
+          setInventory();
+          return products.data;
         }
       })
+      .then((products) => filterFunctions(sortingBy, products))  
       .catch(() => {
-        console.log('Something Went Wrong');
+        Alert.alert('Oops!', 'Unable to update inventory');
       });
     
   }, []);
@@ -55,11 +60,14 @@ export default function HomeScreen(props) {
     setCreating(true);
   }
 
-  const filterFunctions = (filterBy) => {
+  const filterFunctions = (filterBy, inventory) => {
     // hide filter functions
     hideSortModal();
     // grab current inventory
-    const inventory = context.currentInventory;
+    setSortingBy(filterBy);
+    if (!inventory) {
+      inventory = context.currentInventory;
+    }
     switch (filterBy) {
       case 'priceAscending':
         let sortedInventory = inventory.sort((a, b) => {
