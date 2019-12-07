@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-use-before-define */
@@ -98,6 +99,7 @@ export default function AddScreen(props) {
 
   const handleCamera = async (type) => {
     setSpinner(true); // turn spinner on
+
     // get permission to use camera and library
     const permissionCameraRoll = await Permissions.askAsync(
       Permissions.CAMERA_ROLL,
