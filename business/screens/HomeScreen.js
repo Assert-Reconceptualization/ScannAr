@@ -25,6 +25,7 @@ export default function HomeScreen(props) {
   const [creating, setCreating] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [sorting, setSorting] = useState(false);
+  const [sortingBy, setSortingBy] = useState('mostRecent'); // add default to sort
   // grab user data from database
   useEffect(() => {
     // grab products
