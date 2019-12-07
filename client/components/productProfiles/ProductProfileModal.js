@@ -83,10 +83,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         if (type === 'save') { // if save is passed, will alert after save
           handleSaveAlert();
         }
-        // setVisibility(false)
       })
-      // .then(() => setVisibility(false))
-      // .catch(() => )
   );
 
   // Saves product to users savedProducts list
@@ -112,7 +109,6 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     })
       .then(() => getSavedProducts('delete'))
       .then(() => setVisibility(false)); // Hiding modal after deletion
-    // .catch(() => console.log('something went wrong'));
   };
 
   // conditional rendering of save or delete
@@ -135,7 +131,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       [
         {
           text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
+          onPress: () => '',
           style: 'cancel',
         },
         { text: 'Yes', onPress: () => handleDelete() },

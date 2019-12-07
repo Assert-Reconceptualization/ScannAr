@@ -127,6 +127,7 @@ export default function EditProductModal(props){
           value={name}
           style={textInput}
           onChangeText={text => setName(text)}
+          maxLength={20}
         />
         <TextInput
           style={textInput}
