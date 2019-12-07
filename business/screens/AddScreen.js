@@ -96,17 +96,20 @@ export default function AddScreen(props) {
       .catch((err) => console.log(err));
   };
 
-  const handleCamera = async () => {
+  const handleCamera = async (type) => {
     setSpinner(true); // turn spinner on
-    // get permission to use camera
-    const cameraRollPermission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    // open camera
-    // let image = await ImagePicker.launchImageLibraryAsync({base64: true});
+    // get permission to use camera and library
+    const permissionCameraRoll = await Permissions.askAsync(
+      Permissions.CAMERA_ROLL,
+    );
+    const permissionCamera = await Permissions.askAsync(Permissions.CAMERA);
 
-    // uncomment when using real phone
-    const permission = await Permissions.askAsync(Permissions.CAMERA);
-    const image = await ImagePicker.launchCameraAsync({ base64: true });
-
+    let image;
+    if (type === 'camera') {
+      image = await ImagePicker.launchCameraAsync({ base64: true });
+    } else {
+      image = await ImagePicker.launchImageLibraryAsync({ base64: true });
+    }
     // upload image to firebase if user doesnt cancel
     if (!image.cancelled) {
       // extract base64 image data
