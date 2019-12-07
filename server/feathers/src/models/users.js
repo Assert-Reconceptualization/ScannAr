@@ -47,6 +47,7 @@ module.exports = function (app) {
           options.raw = true;
         },
       },
+      freezeTableName: true,
     },
   );
 
