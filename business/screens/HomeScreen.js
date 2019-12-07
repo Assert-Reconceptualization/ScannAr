@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import React, { useContext, useEffect, useState } from "react";
 import {
   ScrollView,
@@ -65,21 +66,19 @@ export default function HomeScreen(props) {
     hideSortModal();
     // grab current inventory
     setSortingBy(filterBy);
+    let sortedInventory;
     if (!inventory) {
+      // eslint-disable-next-line no-param-reassign
       inventory = context.currentInventory;
     }
     switch (filterBy) {
       case 'priceAscending':
-        let sortedInventory = inventory.sort((a, b) => {
-          return a.price - b.price;
-        });
+        sortedInventory = inventory.sort((a, b) => a.price - b.price);
         context.setCurrentInventory(sortedInventory);
         // force re-render component
         break;
       case 'priceDescending':
-        sortedInventory = inventory.sort((a, b) => {
-          return b.price - a.price;
-        });
+        sortedInventory = inventory.sort((a, b) => b.price - a.price);
         context.setCurrentInventory(sortedInventory);
         // force re-render component
         break;
@@ -87,9 +86,9 @@ export default function HomeScreen(props) {
         sortedInventory = inventory.sort((a, b) => {
           return new Date(a.updatedAt) - new Date(b.updatedAt);
         });
-          context.setCurrentInventory(sortedInventory);
-          // force re-render component
-          break;
+        context.setCurrentInventory(sortedInventory);
+        // force re-render component
+        break;
       case 'mostRecent':
         sortedInventory = inventory.sort((a, b) => {
           return new Date(b.updatedAt) - new Date(a.updatedAt);
@@ -97,18 +96,19 @@ export default function HomeScreen(props) {
         context.setCurrentInventory(sortedInventory);
         // force re-render component
         break;
+      default: break;
     }
     // ensure component is refreshed!
     setRefresh(!refresh);
-  }
+  };
 
   const toggleSortModal = () => {
     setSorting(true);
-  }
+  };
 
   const hideSortModal = () => {
     setSorting(false);
-  }
+  };
 
   const {
     container,
