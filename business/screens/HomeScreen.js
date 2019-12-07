@@ -50,9 +50,8 @@ export default function HomeScreen(props) {
         }
       })
       .then((products) => filterFunctions(sortingBy, products))  
-      .catch((err) => {
-        // Alert.alert('Oops!', 'Unable to update inventory');
-        console.log(err)
+      .catch(() => {
+        Alert.alert('Oops!', 'Unable to update inventory');
       });
     
   }, []);
