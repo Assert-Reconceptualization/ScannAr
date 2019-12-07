@@ -174,7 +174,7 @@ export default function AddScreen(props) {
   const imageText = spinner ? <ActivityIndicator size="small" color="black" /> : (
     <Button
       title="Take a Picture!"
-      onPress={handleCamera}
+      onPress={cameraAlert}
     />
   );
 
