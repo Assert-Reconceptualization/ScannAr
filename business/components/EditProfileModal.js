@@ -8,23 +8,23 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
-} from 'react-native';
+  ScrollView,
+  SafeAreaView
+} from "react-native";
 
 import BusinessContext from "../applicationState/BusinessContext";
 import serverConfig from '../serverConfig';
 const server = serverConfig().url;
 
-export default function EditProfileModal(props){
-
+export default function EditProfileModal(props) {
   const context = useContext(BusinessContext);
-
   const {
     id,
     name,
     email,
     phone,
     description,
-    password
+    password,
   } = context.currentBusiness;
 
   // form state
@@ -67,7 +67,7 @@ export default function EditProfileModal(props){
   const {
     container,
     textInput,
-    descriptionInput
+    descriptionInput,
   } = styles;
 
   const {
@@ -76,46 +76,40 @@ export default function EditProfileModal(props){
 
   return (
     <Modal visible={visible} animationType="fade">
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={container}>
-          <Text>Update Business Information</Text>
-          <TextInput
-            placeholder="Name"
-            value={newName}
-            style={textInput}
-            onChangeText={text => setNewName(text)}
-            maxLength={20}
-          />
-          <TextInput
-            placeholder="Email"
-            value={newEmail}
-            style={textInput}
-            onChangeText={text => setNewEmail(text)}
-          />
-          <TextInput
-            placeholder="Phone"
-            value={newPhone}
-            style={textInput}
-            onChangeText={text => setNewPhone(text)}
-          />
-          <TextInput
-            placeholder="Description"
-            value={newDescription}
-            style={descriptionInput}
-            multiline={true}
-            onChangeText={text => setNewDescription(text)}
-          />
-          <Button
-            title="Submit"
-            onPress={handleSubmit} 
-          />
-          <Button 
-            title="cancel"
-            color="red"
-            onPress={handleCancel}
-          />
-        </View>
-      </TouchableWithoutFeedback>
+      <ScrollView
+        contentContainerStyle={container}
+        keyboardDismissMode="on-drag"
+      >
+        <Text>Update Business Information</Text>
+        <TextInput
+          placeholder="Name"
+          value={newName}
+          style={textInput}
+          onChangeText={text => setNewName(text)}
+          maxLength={20}
+        />
+        <TextInput
+          placeholder="Email"
+          value={newEmail}
+          style={textInput}
+          onChangeText={text => setNewEmail(text)}
+        />
+        <TextInput
+          placeholder="Phone"
+          value={newPhone}
+          style={textInput}
+          onChangeText={text => setNewPhone(text)}
+        />
+        <TextInput
+          placeholder="Description"
+          value={newDescription}
+          style={descriptionInput}
+          multiline={true}
+          onChangeText={text => setNewDescription(text)}
+        />
+        <Button title="Submit" onPress={handleSubmit} />
+        <Button title="cancel" color="red" onPress={handleCancel} />
+      </ScrollView>
     </Modal>
   );
 }
