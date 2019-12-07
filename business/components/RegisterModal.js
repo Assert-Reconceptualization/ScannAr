@@ -71,13 +71,13 @@ export default function RegisterModal(props) {
   return (
     <Modal visible={props.visible} animationType="slide">
       <View style={modalContainer}>
-        <SafeAreaView style={titleContainer}>
-          <Text style={title}>Register Your Business</Text>
-        </SafeAreaView>
         <ScrollView
           contentContainerStyle={inputContainer}
           keyboardDismissMode="on-drag"
         >
+          <SafeAreaView style={titleContainer}>
+            <Text style={title}>Register Your Business</Text>
+          </SafeAreaView>
           <Text style={inputHeader}>Business Name</Text>
           <TextInput
             style={textInput}
@@ -118,15 +118,15 @@ export default function RegisterModal(props) {
             value={businessDescription}
             placeholder="Description"
           />
+          <View style={buttonContainer}>
+            <TouchableOpacity onPress={handleRegister}>
+              <Text style={buttonRegister}>Register</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleCancel}>
+              <Text style={buttonCancel}>cancel</Text>
+            </TouchableOpacity>
+          </View>
         </ScrollView>
-        <View style={buttonContainer}>
-          <TouchableOpacity onPress={handleRegister}>
-            <Text style={buttonRegister}>Register</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleCancel}>
-            <Text style={buttonCancel}>cancel</Text>
-          </TouchableOpacity>
-        </View>
       </View>
     </Modal>
   );
