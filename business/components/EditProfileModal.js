@@ -1,3 +1,7 @@
+/* eslint-disable react/jsx-boolean-value */
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
 import React, { useState, useContext } from 'react';
 import {
   Modal,
@@ -9,11 +13,13 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   ScrollView,
-  SafeAreaView
-} from "react-native";
+  SafeAreaView,
+  TouchableOpacity,
+} from 'react-native';
 
-import BusinessContext from "../applicationState/BusinessContext";
+import BusinessContext from '../applicationState/BusinessContext';
 import serverConfig from '../serverConfig';
+
 const server = serverConfig().url;
 
 export default function EditProfileModal(props) {
@@ -25,6 +31,7 @@ export default function EditProfileModal(props) {
     phone,
     description,
     password,
+  // eslint-disable-next-line react/destructuring-assignment
   } = context.currentBusiness;
 
   // form state
@@ -35,39 +42,42 @@ export default function EditProfileModal(props) {
 
   const handleCancel = () => {
     props.closeModal(false);
-  }
+  };
 
   const handleSubmit = () => {
     fetch(`${server}/users/${id}`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: context.accessToken
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: context.accessToken,
       },
       body: JSON.stringify({
         name: newName,
         description: newDescription,
         email: newEmail,
         phone: newPhone,
-      })
+      }),
     })
       .then((response) => response.json())
-      .then(updatedBusiness => {
+      .then((updatedBusiness) => {
         // update current business
         context.setCurrentBusiness(updatedBusiness);
         // close modal
         handleCancel();
       })
       .catch(() => {
-        console.log("something went wrong");
-      })
-  }
+        console.log('something went wrong');
+      });
+  };
 
   const {
     container,
     textInput,
     descriptionInput,
+    buttonCancel,
+    buttonRegister,
+    buttonContainer,
   } = styles;
 
   const {
@@ -85,30 +95,36 @@ export default function EditProfileModal(props) {
           placeholder="Name"
           value={newName}
           style={textInput}
-          onChangeText={text => setNewName(text)}
+          onChangeText={(text) => setNewName(text)}
           maxLength={20}
         />
         <TextInput
           placeholder="Email"
           value={newEmail}
           style={textInput}
-          onChangeText={text => setNewEmail(text)}
+          onChangeText={(text) => setNewEmail(text)}
         />
         <TextInput
           placeholder="Phone"
           value={newPhone}
           style={textInput}
-          onChangeText={text => setNewPhone(text)}
+          onChangeText={(text) => setNewPhone(text)}
         />
         <TextInput
           placeholder="Description"
           value={newDescription}
           style={descriptionInput}
           multiline={true}
-          onChangeText={text => setNewDescription(text)}
+          onChangeText={(text) => setNewDescription(text)}
         />
-        <Button title="Submit" onPress={handleSubmit} />
-        <Button title="cancel" color="red" onPress={handleCancel} />
+        <SafeAreaView style={buttonContainer}>
+          <TouchableOpacity onPress={handleSubmit}>
+            <Text style={buttonRegister}>Register</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={handleCancel}>
+            <Text style={buttonCancel}>cancel</Text>
+          </TouchableOpacity>
+        </SafeAreaView>
       </ScrollView>
     </Modal>
   );
@@ -117,26 +133,43 @@ export default function EditProfileModal(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   textInput: {
-    width: "70%",
+    width: '70%',
     borderWidth: 2,
-    borderColor: "black",
+    borderColor: 'black',
     borderRadius: 5,
     fontSize: 25,
     marginBottom: 20,
-    paddingLeft: 5
+    paddingLeft: 5,
   },
   descriptionInput: {
-    width: "70%",
+    width: '70%',
     borderWidth: 2,
     height: 200,
-    borderColor: "black",
+    borderColor: 'black',
     borderRadius: 5,
     fontSize: 25,
-    marginBottom: 20,
-    paddingLeft: 5
-  }
+    marginBottom: 15,
+    paddingLeft: 5,
+  },
+  buttonCancel: {
+    fontSize: 35,
+    flexDirection: 'row',
+    color: 'white',
+    backgroundColor: '#ff2200',
+  },
+  buttonRegister: {
+    fontSize: 35,
+    flexDirection: 'row',
+    color: 'white',
+    backgroundColor: '#339900',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
