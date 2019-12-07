@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-use-before-define */
 import React, { useState, useContext } from 'react';
@@ -107,19 +108,21 @@ export default function NewProductModal(props) {
       });
   };
 
-  const handleCamera = async () => {
+  const handleCamera = async (type) => {
     setSpinner(true); // turn spinner on
+
     // get permission to use camera and library
-    const cameraRollPermission = await Permissions.askAsync(
+    const permissionCameraRoll = await Permissions.askAsync(
       Permissions.CAMERA_ROLL,
     );
-    const permission = await Permissions.askAsync(Permissions.CAMERA);
+    const permissionCamera = await Permissions.askAsync(Permissions.CAMERA);
 
-    // image library
-    // let image = await ImagePicker.launchImageLibraryAsync({base64: true});
-
-    // phone camera
-    const image = await ImagePicker.launchCameraAsync({ base64: true });
+    let image;
+    if (type === 'camera') {
+      image = await ImagePicker.launchCameraAsync({ base64: true });
+    } else {
+      image = await ImagePicker.launchImageLibraryAsync({ base64: true });
+    }
 
     // upload image to firebase if user doesnt cancel
     if (!image.cancelled) {
@@ -140,7 +143,6 @@ export default function NewProductModal(props) {
           setImageUrl(result.imageUrl);
         })
         .then(() => setSpinner(false)) // turn spinner off
-        // TODO - message user to try again
         .catch(() => {
           Alert.alert('Error', 'Try uploading another picture');
           setSpinner(false);
@@ -148,6 +150,26 @@ export default function NewProductModal(props) {
     } else {
       setSpinner(false);
     }
+  };
+
+  const cameraAlert = async () => {
+    Alert.alert(
+      'Upload Photo',
+      'Use photo from',
+      [{
+        text: 'Camera',
+        onPress: async () => {
+          handleCamera('camera');
+        },
+      },
+      {
+        text: 'Photo Gallery',
+        onPress: async () => {
+          handleCamera('gallery');
+        },
+      },
+      ],
+    );
   };
 
   const resetModalState = () => {
@@ -184,7 +206,7 @@ export default function NewProductModal(props) {
   const imageText = spinner ? (
     <ActivityIndicator size="small" color="black" />
   ) : (
-    <Button title="Take a Picture!" onPress={handleCamera} />
+    <Button title="Take a Picture!" onPress={cameraAlert} />
   );
 
   return (
