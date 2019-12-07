@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   TouchableWithoutFeedback,
+  Alert,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import ProductCard from "../components/productCard";
@@ -46,7 +47,7 @@ export default function HomeScreen(props) {
         }
       })
       .catch(() => {
-        console.log('Something Went Wrong');
+        Alert.alert('Oops!', 'Unable to update inventory');
       });
     
   }, []);
