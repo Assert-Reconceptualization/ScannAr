@@ -113,7 +113,7 @@ export default function RegisterModal(props) {
           <Text style={inputHeader}>Description</Text>
           <TextInput
             style={descriptionInput}
-            multiline
+            multiline={true}
             onChangeText={text => setBusinessDescription(text)}
             value={businessDescription}
             placeholder="Description"
@@ -126,7 +126,6 @@ export default function RegisterModal(props) {
           <TouchableOpacity onPress={handleCancel}>
             <Text style={buttonCancel}>cancel</Text>
           </TouchableOpacity>
-          {/* <Button title="cancel" onPress={handleCancel} /> */}
         </View>
       </View>
     </Modal>
