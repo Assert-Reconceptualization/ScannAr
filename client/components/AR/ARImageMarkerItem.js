@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
 import React from 'react';
 
@@ -10,6 +11,8 @@ import {
   ViroARImageMarker,
   ViroNode,
   ViroAnimations,
+  ViroImage,
+
 } from 'react-viro';
 
 /**
@@ -28,12 +31,8 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
   });
 
   const {
-    card,
-    nameAndPrice,
-    subText,
-    textStyle,
-    priceStyle,
-  // eslint-disable-next-line no-use-before-define
+    itemText,
+    clickText,
   } = styles;
 
   return (
@@ -41,45 +40,41 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
       target={item.name}
       onClick={() => { setVisibility(); setProduct(item); }}
     >
-      <ViroNode
-        // onClick={() => { setVisibility(); setProduct(item); }}
-        key="card"
-      >
+      <ViroNode key="card">
         <ViroNode
-          position={[0, -0.02, 0]}
+          position={[0, -0.2, 0]}
+          scale={[1, 1, 1]}
           animation={{
             name: 'animateImage',
             run: true,
           }}
-          scale={[1, 1, 1]}
         >
           <ViroFlexView
+            scale={[0.5, 0.5, 0.5]}
             rotation={[-90, 0, 0]}
-            height={0.5}
-            width={1}
-            style={card}
+            height={1}
+            width={1.25}
+            style={{ flexDirection: 'row', backgroundColor: 'black' }}
+
           >
             <ViroFlexView
-              style={nameAndPrice}
+              width={0.4}
+              height={1}
+              style={{ flexDirection: 'column' }}
             >
-              <ViroText
-                textClipMode="None"
-                text={item.name}
-                scale={[0.25, 0.25, 0.25]}
-                style={textStyle}
-              />
-              <ViroText
-                text={`$${item.price}.00`}
-                scale={[0.25, 0.25, 0.25]}
-                style={priceStyle}
+              <ViroImage
+                style={{ flex: 0.4 }}
+                source={{ uri: item.imageUrl }}
               />
             </ViroFlexView>
-            <ViroFlexView style={subText}>
-              <ViroText
-                text="Click for info"
-                scale={[0.15, 0.15, 0.15]}
-                style={textStyle}
-              />
+            <ViroFlexView
+              width={0.6}
+              height={1}
+              style={{ flexDirection: 'column', padding: 0.1 }}
+            >
+              <ViroText text={item.name} flex={0.3} style={itemText} />
+              <ViroText text={`$${item.price}.00`} flex={0.3} style={itemText} />
+              <ViroText text="click for more" flex={0.4} style={clickText} />
             </ViroFlexView>
           </ViroFlexView>
         </ViroNode>
@@ -91,7 +86,7 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
 ViroAnimations.registerAnimations({
   animateImage: {
     properties: {
-      positionX: 0.05,
+      positionX: 0.00,
       opacity: 1.0,
     },
     easing: 'Bounce',
@@ -108,33 +103,17 @@ ViroAnimations.registerAnimations({
 });
 
 const styles = StyleSheet.create({
-  nameAndPrice: {
-    flex: 1,
-    alignItems: 'flex-start',
-    flexDirection: 'row',
+  itemText: {
+    fontFamily: "lucida grande', tahoma, verdana, arial, sans-serif", 
+    fontSize: 12,
+    fontWeight: "900",
+    color: "#ffffff",
   },
-  card: {
-    flex: 1,
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
-    flexDirection: 'column',
-  },
-  textStyle: {
-    fontFamily: 'Roboto',
-    fontSize: 30,
-    color: 'black',
-    fontWeight: 'bold',
-  },
-  priceStyle: {
-    fontFamily: 'Roboto',
-    fontSize: 30,
-    color: 'black',
-    fontStyle: 'italic',
-    fontWeight: 'bold',
-    margin: 0.07,
-  },
-  subText: {
-    height: 0.5,
-    width: 0.3,
+  clickText: {
+    fontFamily: "lucida grande', tahoma, verdana, arial, sans-serif", 
+    fontSize: 9,
+    fontWeight: '400',
+    color: "white",
   },
 });
 
