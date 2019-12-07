@@ -47,6 +47,7 @@ export default function HomeScreen(props) {
           context.setCurrentInventory(pInventory)
         }
       })
+      .then(() => filterFunctions(sortingBy))
       .catch(() => {
         Alert.alert('Oops!', 'Unable to update inventory');
       });
