@@ -109,11 +109,12 @@ export default function NewProductModal(props) {
 
   const handleCamera = async (type) => {
     setSpinner(true); // turn spinner on
+
     // get permission to use camera and library
-    const cameraRollPermission = await Permissions.askAsync(
+    const permissionCameraRoll = await Permissions.askAsync(
       Permissions.CAMERA_ROLL,
     );
-    const permission = await Permissions.askAsync(Permissions.CAMERA);
+    const permissionCamera = await Permissions.askAsync(Permissions.CAMERA);
 
     let image;
     if (type === 'camera') {
