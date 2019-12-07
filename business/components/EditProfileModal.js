@@ -84,6 +84,7 @@ export default function EditProfileModal(props){
             value={newName}
             style={textInput}
             onChangeText={text => setNewName(text)}
+            maxLength={20}
           />
           <TextInput
             placeholder="Email"
