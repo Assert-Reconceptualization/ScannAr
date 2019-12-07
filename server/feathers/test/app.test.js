@@ -43,4 +43,28 @@ describe('Feathers API tests', function () {
       assert.ok(Array.isArray(products));
     });
   });
+
+  describe('Tags endpoint works', function () {
+    let tags;
+    before(async function () {
+      const response = await axios.get(getUrl('/tags'));
+      tags = response.data.data;
+    });
+
+    it('/tags returns an array', function () {
+      assert.ok(Array.isArray(tags));
+    });
+  });
+
+  describe('Users endpoint works', function () {
+    let users;
+    before(async function () {
+      const response = await axios.get(getUrl('/users'));
+      users = response.data.data;
+    });
+
+    it('/users returns an array', function () {
+      assert.ok(Array.isArray(users));
+    });
+  });
 });
