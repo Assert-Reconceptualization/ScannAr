@@ -106,7 +106,7 @@ const CustomerListItem = ({
         </TouchableOpacity>
       </View>
       <View style={deleteButtonView}>
-        <TouchableOpacity onPress={handleAlert}>
+        <TouchableOpacity onPress={handleAlert} style={{ width: 30, alignItems: 'flex-end' }}>
           <Text style={deleteButton}>x</Text>
         </TouchableOpacity>
       </View>
