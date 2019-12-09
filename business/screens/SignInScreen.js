@@ -13,6 +13,7 @@ import {
   TouchableWithoutFeedback,
   ImageBackground,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import RegisterModal from '../components/RegisterModal';
 import SignUp from '../components/buttons/SignUp';
 import BusinessContext from '../applicationState/BusinessContext';
@@ -93,6 +94,12 @@ export default function SignInScreen(props) {
     subTitle,
     loginModal,
     textInput,
+    titleIconContainer,
+    newContainer,
+    cancelButtonContainer,
+    smallText,
+    buttonSignIn,
+    registerButtonContainer,
   } = styles;
 
   const {
@@ -114,6 +121,9 @@ export default function SignInScreen(props) {
         <View style={titleContainer}>
           <Text style={titleLeftText}>Scann</Text>
           <Text style={titleRightText}>AR</Text>
+          <View style={titleIconContainer}>
+            <Ionicons name="ios-briefcase" size={30} color="#AEC3B0"/>
+          </View>
         </View>
         <View style={subTitleContainer}>
           <Text style={subTitle}>
@@ -126,30 +136,45 @@ export default function SignInScreen(props) {
           >
             <SignUp />
           </TouchableOpacity>
-          <Button title="Register" onPress={isRegistering} />
+          <View style={newContainer}>
+            <Text style={smallText}>New?</Text>
+          </View>
+          <Button color="#EFF6E0" title="Register" onPress={isRegistering} />
         </View>
         <Modal
           visible={signIn}
           animationType="slide"
         >
+          <TouchableOpacity
+            style={cancelButtonContainer}
+            onPress={cancelSigningIn}
+          >
+            <Ionicons name="ios-rewind" size={30} color="#AEC3B0" />
+          </TouchableOpacity>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={loginModal}>
-              <Text>Sign In</Text>
               <TextInput
                 style={textInput}
                 onChangeText={(text) => setEmail(text)}
                 value={email}
                 placeholder="Email"
+                placeholderTextColor="#EFF6E0"
               />
               <TextInput
                 style={textInput}
                 onChangeText={(text) => setPassword(text)}
                 value={password}
                 placeholder="Password"
+                placeholderTextColor="#EFF6E0"
                 secureTextEntry
               />
-              <Button onPress={() => { handleSignIn(email, password); }} title="Submit" />
-              <Button onPress={cancelSigningIn} title="Cancel" />
+              <TouchableOpacity
+                onPress={() => { handleSignIn(email, password); }}
+                style={registerButtonContainer}
+              >
+                <Text style={buttonSignIn}>Sign in  </Text>
+                <Ionicons name="ios-redo" size={30} color="#AEC3B0" />
+              </TouchableOpacity>
             </View>
           </TouchableWithoutFeedback>
         </Modal>
@@ -170,6 +195,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-end',
   },
+  titleIconContainer: {
+    paddingBottom: 12,
+  },
   subTitleContainer: {
     flex: 2,
     alignItems: 'center',
@@ -188,6 +216,10 @@ const styles = StyleSheet.create({
     color: '#AEC3B0',
     fontSize: 40,
   },
+  smallText: {
+    color: '#EFF6E0',
+    fontWeight: 'bold',
+  },
   buttonContainer: {
     flex: 3,
     alignItems: 'center',
@@ -196,6 +228,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#3B423C',
   },
   textInput: {
     width: '70%',
@@ -205,5 +238,27 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginBottom: 20,
     paddingLeft: 5,
+    color: '#EFF6E0',
+  },
+  newContainer: {
+    paddingTop: 10,
+  },
+  cancelButtonContainer: {
+    position: 'absolute',
+    zIndex: 5,
+    top: 50,
+    left: 50,
+  },
+  buttonSignIn: {
+    fontSize: 25,
+    color: '#AEC3B0',
+  },
+  registerButtonContainer: {
+    backgroundColor: '#1E241F',
+    borderRadius: 5,
+    borderWidth: 3,
+    borderColor: '#AEC3B0',
+    padding: 10,
+    flexDirection: 'row',
   },
 });
