@@ -10,6 +10,7 @@ import {
   TextInput,
   Keyboard,
   TouchableWithoutFeedback,
+  ActivityIndicator,
 } from 'react-native';
 
 // import components
@@ -45,9 +46,6 @@ const Login = ({ navigator }) => {
   const handleLogin = () => {
     if (!throttle) {
       setThrottle(true); // set throttle to allow only one button press
-      setTimeout(() => {
-        setThrottle(false);
-      }, 1200);
       // regular function call here
       fetch(`${serverUrl}/authentication`, {
         method: 'POST',
@@ -71,9 +69,13 @@ const Login = ({ navigator }) => {
             getSavedProducts(id);
           } else {
             setRegister(true);
+            setThrottle(false);
           }
         })
-        .catch(() => setRegister(true));
+        .catch(() => {
+          setThrottle(false);
+          setRegister(true);
+        });
     }
   };
 
@@ -98,14 +100,14 @@ const Login = ({ navigator }) => {
   const handleLoginRedirect = () => {
     Keyboard.dismiss();
     navigator.push('CustomerLanding');
+    setTimeout(() => {
+      setThrottle(false);
+    }, 1200);
   };
 
   const handleRegister = () => {
     if (!regThrottle) {
       setRegThrottle(true); // set throttle to allow only one button press
-      setTimeout(() => {
-        setRegThrottle(false);
-      }, 1200);
       // send user from state to server
       fetch(`${serverUrl}/users`, {
         method: 'POST',
@@ -192,7 +194,11 @@ const Login = ({ navigator }) => {
                 onPress={handleLogin}
                 // onPress={navigator.push('CustomerLanding')}
               >
-                <Text style={customerTitle}>Login</Text>
+                {throttle ? (
+                  <ActivityIndicator size="small" color="white" />
+                ) : (
+                  <Text style={customerTitle}>Login</Text>
+                )}
               </TouchableOpacity>
               <TouchableOpacity
                 style={button2}
