@@ -12,6 +12,7 @@ import {
   StyleSheet,
   Image,
   TextInput,
+  ActivityIndicator,
 } from 'react-native';
 
 import BusinessContext from '../applicationState/BusinessContext';
@@ -138,6 +139,12 @@ export default function EditProductModal(props) {
       ],
     );
   };
+
+  const imageText = spinner ? (
+    <ActivityIndicator size="small" color="black" />
+  ) : (
+    <Button title="Take a Picture!" onPress={cameraAlert} />
+  );
 
   const {
     container,
