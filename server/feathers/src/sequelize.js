@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 
 module.exports = (app) => {
+  // sequelize connection for production
   const sequelize = new Sequelize('scannar', 'postgres', 'scannar', {
     dialect: 'postgres',
-    // e.g. host: '/cloudsql/my-awesome-project:us-central1:my-cloud-sql-instance'
     host: '/cloudsql/scannar-server-second:us-central1:scannar',
     pool: {
       max: 5,
@@ -12,13 +12,12 @@ module.exports = (app) => {
       idle: 10000,
     },
     dialectOptions: {
-      // e.g. socketPath: '/cloudsql/my-awesome-project:us-central1:my-cloud-sql-instance'
-      // same as host string above
       socketPath: '/cloudsql/scannar-server-second:us-central1:scannar',
     },
     logging: false,
     operatorsAliases: false,
   });
+  // sequelize connection for development
   // const connectionString = app.get("postgres");
   // const sequelize = new Sequelize(connectionString, {
   //   dialect: "postgres",
