@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useContext, useState } from 'react';
 import {
-  View, Modal, Text, Image, StyleSheet, Button, Alert, TouchableOpacity,
+  View, Modal, Text, Image, StyleSheet, Alert, TouchableOpacity,
 } from 'react-native';
 
 // import components
