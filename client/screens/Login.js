@@ -42,31 +42,38 @@ const Login = ({ navigator }) => {
 
   // Gets user id / info
   const handleLogin = () => {
-    fetch(`${serverUrl}/authentication`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        strategy: 'local',
-        password,
-        email,
-      }),
-    })
-      .then((response) => response.json())
-      .then((userInfo) => {
-        // add idUser to context
-        const { id } = userInfo.user;
-        if (id) {
-          setAccessToken(userInfo.accessToken);
-          setCurrentUser(userInfo.user);
-          getSavedProducts(id);
-        } else {
-          setRegister(true);
-        }
+    if (!throttle) {
+      setThrottle(true); // set throttle to allow only one button press
+      setTimeout(() => {
+        setThrottle(false);
+      }, 400);
+      // regular function call here
+      fetch(`${serverUrl}/authentication`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          strategy: 'local',
+          password,
+          email,
+        }),
       })
-      .catch(() => setRegister(true));
+        .then((response) => response.json())
+        .then((userInfo) => {
+          // add idUser to context
+          const { id } = userInfo.user;
+          if (id) {
+            setAccessToken(userInfo.accessToken);
+            setCurrentUser(userInfo.user);
+            getSavedProducts(id);
+          } else {
+            setRegister(true);
+          }
+        })
+        .catch(() => setRegister(true));
+    }
   };
 
   // updated savedList for current user upon login
