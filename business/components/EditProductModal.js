@@ -29,6 +29,7 @@ export default function EditProductModal(props) {
   const [name, setName] = useState(product.name);
   const [price, setPrice] = useState(product.price);
   const [description, setDescription] = useState(product.description);
+  const [spinner, setSpinner] = useState(false);
 
   const handleCancel = () => {
     props.closeModal(false);
