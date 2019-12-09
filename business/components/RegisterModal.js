@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import {
   Modal,
   View,
+  Alert,
   Text,
   StyleSheet,
   TextInput,
@@ -46,11 +47,21 @@ export default function RegisterModal(props) {
       .then((response) => response.json())
       .then((business) => {
         if (business.id) {
-          props.handleSignIn(businessEmail, businessPassword);
+          Alert.alert(
+            'Success!',
+            'Business Registered',
+            [{
+              text: 'Sign in',
+              onPress: () => props.handleSignIn(businessEmail, businessPassword),
+            }],
+          );
         }
       })
-      .catch((err) => {
-        console.log('Unable to register', err);
+      .catch(() => {
+        Alert.alert(
+          'Error',
+          'Unable to register',
+        );
       });
   };
 
