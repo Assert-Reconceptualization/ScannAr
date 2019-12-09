@@ -13,6 +13,7 @@ import {
   ImageBackground,
 } from 'react-native';
 import serverConfig from '../serverConfig';
+import { Ionicons } from '@expo/vector-icons';
 
 const backgroundImagePath = require('../assets/images/business-bg.png');
 
@@ -64,8 +65,9 @@ export default function RegisterModal(props) {
     inputHeader,
     buttonContainer,
     title,
-    buttonCancel,
     buttonRegister,
+    registerButtonContainer,
+    cancelButtonContainer,
   } = styles;
 
   const { visible } = props;
@@ -77,6 +79,12 @@ export default function RegisterModal(props) {
         style={{ flex: 1, width: null, height: null, backgroundColor: '#3B423C' }}
       >
         <View style={modalContainer}>
+          <TouchableOpacity
+            style={cancelButtonContainer}
+            onPress={handleCancel}
+          >
+            <Ionicons name="ios-rewind" size={30} color="#AEC3B0" />
+          </TouchableOpacity>
           <ScrollView
             contentContainerStyle={inputContainer}
             keyboardDismissMode="on-drag"
@@ -132,11 +140,10 @@ export default function RegisterModal(props) {
             <View style={buttonContainer}>
               <TouchableOpacity
                 onPress={handleRegister}
+                style={registerButtonContainer}
               >
-                <Text style={buttonRegister}>Register</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={handleCancel}>
-                <Text style={buttonCancel}>cancel</Text>
+                <Text style={buttonRegister}>Register  </Text>
+                <Ionicons name="ios-redo" size={30} color="#AEC3B0" />
               </TouchableOpacity>
             </View>
           </ScrollView>
@@ -150,6 +157,7 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     paddingTop: '30%',
+    backgroundColor: '#3B423C',
   },
   titleContainer: {
     flex: 1,
@@ -160,15 +168,22 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     alignItems: 'center',
   },
-  buttonCancel: {
-    fontSize: 35,
-    color: 'white',
-    backgroundColor: '#ff2200',
-  },
   buttonRegister: {
-    fontSize: 35,
-    color: 'white',
-    backgroundColor: '#339900',
+    fontSize: 25,
+    color: '#AEC3B0',
+  },
+  registerButtonContainer: {
+    backgroundColor: '#1E241F',
+    borderRadius: 5,
+    borderWidth: 3,
+    borderColor: '#AEC3B0',
+    padding: 10,
+    flexDirection: 'row',
+  },
+  cancelButtonContainer: {
+    position: 'absolute',
+    top: 50,
+    left: 50,
   },
   buttonContainer: {
     flex: 1,
@@ -185,6 +200,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingLeft: 5,
     backgroundColor: '#1E241F',
+    color: '#EFF6E0',
   },
   title: {
     fontSize: 30,
@@ -208,6 +224,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     paddingLeft: 5,
     backgroundColor: '#1E241F',
-    color: '#AEC3B0',
+    color: '#EFF6E0',
   },
 });
