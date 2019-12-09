@@ -105,6 +105,26 @@ export default function EditProductModal(props) {
     }
   };
 
+  const cameraAlert = async () => {
+    Alert.alert(
+      'Upload Photo',
+      'Use photo from',
+      [{
+        text: 'Camera',
+        onPress: async () => {
+          handleCamera('camera');
+        },
+      },
+      {
+        text: 'Photo Gallery',
+        onPress: async () => {
+          handleCamera('gallery');
+        },
+      },
+      ],
+    );
+  };
+
   const {
     container,
     photoContainer,
