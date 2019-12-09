@@ -179,7 +179,9 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       >
         <ProductProfileNavBar setVisibility={setVisibility} />
         <Text style={productTitle}>{product.name}</Text>
-        {saveOrDelete()}
+        <View style={{ alignItems: 'center' }}>
+          {saveOrDelete()}
+        </View>
         <Image
           source={{ uri: (product.imageUrl) }}
           style={image}
@@ -259,6 +261,7 @@ const styles = StyleSheet.create({
   saveButton: {
     alignItems: 'center',
     backgroundColor: '#DDDDDD',
+    width: 100,
     padding: 10,
   },
 });
