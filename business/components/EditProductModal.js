@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React, { useState, useContext } from 'react';
@@ -70,7 +71,7 @@ export default function EditProductModal(props) {
           });
       })
       .catch(() => {
-        console.log('something went wrong');
+        // console.log('something went wrong');
       });
   };
 
@@ -98,9 +99,9 @@ export default function EditProductModal(props) {
         .then((res) => res.json())
         .then((result) => {
           setImageUrl(result.imageUrl);
-        })
-        // TODO - message user to try again
-        .catch((err) => console.log('Try uploading again!'));
+        });
+      // TODO - message user to try again
+      // .catch((err) => console.log('Try uploading again!'));
     }
   };
 
@@ -111,6 +112,7 @@ export default function EditProductModal(props) {
     textInput,
     descriptionInput,
   } = styles;
+
   return (
     <Modal visible={visible} animationType="fade">
       <View style={container}>
