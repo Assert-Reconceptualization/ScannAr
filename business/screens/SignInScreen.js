@@ -96,6 +96,7 @@ export default function SignInScreen(props) {
     textInput,
     titleIconContainer,
     newContainer,
+    cancelButtonContainer,
   } = styles;
 
   const {
@@ -141,6 +142,12 @@ export default function SignInScreen(props) {
           visible={signIn}
           animationType="slide"
         >
+          <TouchableOpacity
+            style={cancelButtonContainer}
+            onPress={cancelSigningIn}
+          >
+            <Ionicons name="ios-rewind" size={30} color="#AEC3B0" />
+          </TouchableOpacity>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={loginModal}>
               <Text>Sign In</Text>
@@ -158,7 +165,6 @@ export default function SignInScreen(props) {
                 secureTextEntry
               />
               <Button onPress={() => { handleSignIn(email, password); }} title="Submit" />
-              <Button onPress={cancelSigningIn} title="Cancel" />
             </View>
           </TouchableWithoutFeedback>
         </Modal>
@@ -208,6 +214,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#3B423C',
   },
   textInput: {
     width: '70%',
@@ -220,5 +227,11 @@ const styles = StyleSheet.create({
   },
   newContainer: {
     paddingTop: 10,
+  },
+  cancelButtonContainer: {
+    position: 'absolute',
+    zIndex: 5,
+    top: 50,
+    left: 50,
   },
 });
