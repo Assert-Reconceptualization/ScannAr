@@ -75,33 +75,47 @@ export default function EditProductModal(props) {
       });
   };
 
-  const handleCamera = async () => {
-    // get permission to use camera
-    const permission = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-    // open camera
-    const image = await ImagePicker.launchImageLibraryAsync({ base64: true });
+  const handleCamera = async (type) => {
+    setSpinner(true); // turn spinner on
 
-    // uncomment when using real phone
-    // const permission = await Permissions.askAsync(Permissions.CAMERA);
-    // let image = await ImagePicker.launchCameraAsync();
+    // get permission to use camera and library
+    const permissionCameraRoll = await Permissions.askAsync(
+      Permissions.CAMERA_ROLL,
+    );
+    const permissionCamera = await Permissions.askAsync(Permissions.CAMERA);
+
+    let image;
+    if (type === 'camera') {
+      image = await ImagePicker.launchCameraAsync({ base64: true });
+    } else {
+      image = await ImagePicker.launchImageLibraryAsync({ base64: true });
+    }
 
     // upload image to firebase if user doesnt cancel
     if (!image.cancelled) {
       // extract base64 image data
       const file = image.base64;
       // make request to cloud function
-      fetch('https://us-central1-scannar-260417.cloudfunctions.net/storeImage', {
-        method: 'POST',
-        body: JSON.stringify({
-          image: file,
-        }),
-      })
+      fetch(
+        'https://us-central1-scannar-260417.cloudfunctions.net/storeImage',
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            image: file,
+          }),
+        },
+      )
         .then((res) => res.json())
         .then((result) => {
           setImageUrl(result.imageUrl);
+        })
+        .then(() => setSpinner(false)) // turn spinner off
+        .catch(() => {
+          Alert.alert('Error', 'Try uploading another picture');
+          setSpinner(false);
         });
-      // TODO - message user to try again
-      // .catch((err) => console.log('Try uploading again!'));
+    } else {
+      setSpinner(false);
     }
   };
 
