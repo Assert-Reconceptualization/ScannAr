@@ -1,8 +1,13 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  Text, View, StyleSheet, TextInput, TouchableOpacity,
+  Text, 
+  View, 
+  StyleSheet, 
+  TextInput, 
+  TouchableOpacity, 
+  ActivityIndicator,
 } from 'react-native';
 
 const Register = ({
@@ -17,6 +22,17 @@ const Register = ({
   password,
   setRegister,
 }) => {
+  const [addingUser, setAddingUser ] = useState(false);
+
+  const register = () => {
+    setAddingUser(true);
+    handleRegister();
+    setTimeout(() => {
+      setAddingUser(false);
+      setRegister(false);
+    }, 1000);
+  };
+
   const {
     inputField,
     inputFields,
@@ -69,9 +85,13 @@ const Register = ({
       />
       <TouchableOpacity
         style={button3}
-        onPress={handleRegister}
+        onPress={register}
       >
-        <Text style={customerTitle}>Register</Text>
+        {addingUser ? (
+          <ActivityIndicator size="small" color="white" />
+        ) : (
+          <Text style={customerTitle}>Register</Text>
+        )}
       </TouchableOpacity>
       <TouchableOpacity
         style={button3}

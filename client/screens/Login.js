@@ -27,6 +27,7 @@ const Login = ({ navigator }) => {
   const [password, setPassword] = useState('');
   const [throttle, setThrottle] = useState(false); // throttle for login
   const [regThrottle, setRegThrottle] = useState(false); // throttle for register
+  const [error, setError] = useState(false); // error logging in
   const {
     serverUrl,
     setServerUrl,
@@ -74,7 +75,10 @@ const Login = ({ navigator }) => {
         })
         .catch(() => {
           setThrottle(false);
-          setRegister(true);
+          setError(true);
+          setTimeout(() => {
+            setError(false);
+          }, 900);
         });
     }
   };
@@ -127,15 +131,16 @@ const Login = ({ navigator }) => {
           handleLogin(); // logs user in and adds to state
         })
         .catch(() => {
-          error = (<Text> Please try again</Text>);
+          setError(true);
           setTimeout(() => {
-            error = null;
-          }, 500);
+            setError(false);
+          }, 900);
         });
     }
   };
 
-  let error = null;
+  let errorMessage = error ? (<Text style={{ color: 'red' }}> Please try again</Text>) : null;
+
   const {
     screen,
     header,
@@ -151,8 +156,8 @@ const Login = ({ navigator }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={screen}>
-        {error}
         <Text style={header}>ScannAR</Text>
+        {errorMessage}
         {register ? (
           <Register
             handleRegister={handleRegister}
