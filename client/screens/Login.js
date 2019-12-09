@@ -24,6 +24,7 @@ const Login = ({ navigator }) => {
   const [nameLast, setNameLast] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [throttle, setThrottle] = useState(false);
   const {
     serverUrl,
     setServerUrl,
