@@ -115,7 +115,6 @@ const CustomerLanding = ({ navigator }) => {
       <CustomerHeader navigator={navigator} />
       <Text style={productsTitle}>Saved Products</Text>
       <View style={sortButton}>
-        {/* <Button title="Sort" onPress={() => setSortVisibility(true)} /> */}
         <TouchableOpacity onPress={() => setSortVisibility(true)}>
           <Text style={sortButtonText}>.</Text>
           <Text style={sortButtonText}>.</Text>
@@ -153,7 +152,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: '#B3C6CD',
     fontWeight: 'bold',
-    marginBottom: 8,
+    marginBottom: 3,
+    marginLeft: 8,
   },
   pickerViewStyle: {
     width: 150,
@@ -169,15 +169,17 @@ const styles = StyleSheet.create({
   sortButton: {
     zIndex: 5,
     position: 'absolute',
-    top: 60,
+    top: 70,
     right: 20,
     height: 50,
-    width: 35,
+    width: 50,
+    alignItems: 'flex-end',
   },
   sortButtonText: {
     color: 'white',
     marginTop: -5,
     marginBottom: -20,
+    marginRight: 10,
     fontSize: 25,
     alignSelf: 'center',
   },
