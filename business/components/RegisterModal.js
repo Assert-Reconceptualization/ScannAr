@@ -90,6 +90,7 @@ export default function RegisterModal(props) {
               onChangeText={(text) => setBusinessName(text)}
               value={businessName}
               placeholder="Business Name"
+              placeholderTextColor="#AEC3B0"
               autoCapitalize="sentences"
             />
             <Text style={inputHeader}>Email</Text>
@@ -98,6 +99,7 @@ export default function RegisterModal(props) {
               onChangeText={(text) => setBusinessEmail(text)}
               value={businessEmail}
               placeholder="Email"
+              placeholderTextColor="#AEC3B0"
               keyboardType="email-address"
             />
             <Text style={inputHeader}>Password</Text>
@@ -106,6 +108,7 @@ export default function RegisterModal(props) {
               onChangeText={(text) => setBusinessPassword(text)}
               value={businessPassword}
               placeholder="Password"
+              placeholderTextColor="#AEC3B0"
               secureTextEntry
             />
             <Text style={inputHeader}>Phone Number</Text>
@@ -114,18 +117,22 @@ export default function RegisterModal(props) {
               onChangeText={(num) => setBusinessNumber(num)}
               value={businessNumber}
               placeholder="Phone Number"
+              placeholderTextColor="#AEC3B0"
               keyboardType="phone-pad"
             />
             <Text style={inputHeader}>Description</Text>
             <TextInput
               style={descriptionInput}
               multiline
+              placeholderTextColor="#AEC3B0"
               onChangeText={(text) => setBusinessDescription(text)}
               value={businessDescription}
               placeholder="Description"
             />
             <View style={buttonContainer}>
-              <TouchableOpacity onPress={handleRegister}>
+              <TouchableOpacity
+                onPress={handleRegister}
+              >
                 <Text style={buttonRegister}>Register</Text>
               </TouchableOpacity>
               <TouchableOpacity onPress={handleCancel}>
@@ -142,7 +149,7 @@ export default function RegisterModal(props) {
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
-    paddingTop: '20%',
+    paddingTop: '30%',
   },
   titleContainer: {
     flex: 1,
@@ -172,29 +179,35 @@ const styles = StyleSheet.create({
   textInput: {
     width: '70%',
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: '#AEC3B0',
     borderRadius: 5,
-    fontSize: 25,
+    fontSize: 18,
     marginBottom: 20,
     paddingLeft: 5,
-    backgroundColor: '#1E241F'
+    backgroundColor: '#1E241F',
   },
   title: {
     fontSize: 30,
+    fontWeight: 'bold',
+    color: '#EFF6E0',
   },
   inputHeader: {
     width: '70%',
     paddingLeft: 5,
-    fontSize: 15,
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#EFF6E0',
   },
   descriptionInput: {
     width: '70%',
     borderWidth: 2,
     height: 200,
-    borderColor: 'black',
+    borderColor: '#AEC3B0',
     borderRadius: 5,
-    fontSize: 25,
+    fontSize: 18,
     marginBottom: 20,
     paddingLeft: 5,
+    backgroundColor: '#1E241F',
+    color: '#AEC3B0',
   },
 });
