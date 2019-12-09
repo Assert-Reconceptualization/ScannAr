@@ -10,12 +10,10 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
-  ImageBackground,
 } from 'react-native';
-import serverConfig from '../serverConfig';
 import { Ionicons } from '@expo/vector-icons';
+import serverConfig from '../serverConfig';
 
-const backgroundImagePath = require('../assets/images/business-bg.png');
 
 export default function RegisterModal(props) {
   const [businessName, setBusinessName] = useState('');
@@ -74,81 +72,76 @@ export default function RegisterModal(props) {
 
   return (
     <Modal visible={visible} animationType="slide">
-      <ImageBackground
-        source={backgroundImagePath}
-        style={{ flex: 1, width: null, height: null, backgroundColor: '#3B423C' }}
-      >
-        <View style={modalContainer}>
-          <TouchableOpacity
-            style={cancelButtonContainer}
-            onPress={handleCancel}
-          >
-            <Ionicons name="ios-rewind" size={30} color="#AEC3B0" />
-          </TouchableOpacity>
-          <ScrollView
-            contentContainerStyle={inputContainer}
-            keyboardDismissMode="on-drag"
-          >
-            <SafeAreaView style={titleContainer}>
-              <Text style={title}>Register Your Business</Text>
-            </SafeAreaView>
-            <Text style={inputHeader}>Business Name</Text>
-            <TextInput
-              style={textInput}
-              onChangeText={(text) => setBusinessName(text)}
-              value={businessName}
-              placeholder="Business Name"
-              placeholderTextColor="#AEC3B0"
-              autoCapitalize="sentences"
-            />
-            <Text style={inputHeader}>Email</Text>
-            <TextInput
-              style={textInput}
-              onChangeText={(text) => setBusinessEmail(text)}
-              value={businessEmail}
-              placeholder="Email"
-              placeholderTextColor="#AEC3B0"
-              keyboardType="email-address"
-            />
-            <Text style={inputHeader}>Password</Text>
-            <TextInput
-              style={textInput}
-              onChangeText={(text) => setBusinessPassword(text)}
-              value={businessPassword}
-              placeholder="Password"
-              placeholderTextColor="#AEC3B0"
-              secureTextEntry
-            />
-            <Text style={inputHeader}>Phone Number</Text>
-            <TextInput
-              style={textInput}
-              onChangeText={(num) => setBusinessNumber(num)}
-              value={businessNumber}
-              placeholder="Phone Number"
-              placeholderTextColor="#AEC3B0"
-              keyboardType="phone-pad"
-            />
-            <Text style={inputHeader}>Description</Text>
-            <TextInput
-              style={descriptionInput}
-              multiline
-              placeholderTextColor="#AEC3B0"
-              onChangeText={(text) => setBusinessDescription(text)}
-              value={businessDescription}
-              placeholder="Description"
-            />
-            <View style={buttonContainer}>
-              <TouchableOpacity
-                onPress={handleRegister}
-                style={registerButtonContainer}
-              >
-                <Text style={buttonRegister}>Register  </Text>
-                <Ionicons name="ios-redo" size={30} color="#AEC3B0" />
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
-        </View>
-      </ImageBackground>
+      <View style={modalContainer}>
+        <TouchableOpacity
+          style={cancelButtonContainer}
+          onPress={handleCancel}
+        >
+          <Ionicons name="ios-rewind" size={30} color="#AEC3B0" />
+        </TouchableOpacity>
+        <ScrollView
+          contentContainerStyle={inputContainer}
+          keyboardDismissMode="on-drag"
+        >
+          <SafeAreaView style={titleContainer}>
+            <Text style={title}>Register Your Business</Text>
+          </SafeAreaView>
+          <Text style={inputHeader}>Business Name</Text>
+          <TextInput
+            style={textInput}
+            onChangeText={(text) => setBusinessName(text)}
+            value={businessName}
+            placeholder="Business Name"
+            placeholderTextColor="#AEC3B0"
+            autoCapitalize="sentences"
+          />
+          <Text style={inputHeader}>Email</Text>
+          <TextInput
+            style={textInput}
+            onChangeText={(text) => setBusinessEmail(text)}
+            value={businessEmail}
+            placeholder="Email"
+            placeholderTextColor="#AEC3B0"
+            keyboardType="email-address"
+          />
+          <Text style={inputHeader}>Password</Text>
+          <TextInput
+            style={textInput}
+            onChangeText={(text) => setBusinessPassword(text)}
+            value={businessPassword}
+            placeholder="Password"
+            placeholderTextColor="#AEC3B0"
+            secureTextEntry
+          />
+          <Text style={inputHeader}>Phone Number</Text>
+          <TextInput
+            style={textInput}
+            onChangeText={(num) => setBusinessNumber(num)}
+            value={businessNumber}
+            placeholder="Phone Number"
+            placeholderTextColor="#AEC3B0"
+            keyboardType="phone-pad"
+          />
+          <Text style={inputHeader}>Description</Text>
+          <TextInput
+            style={descriptionInput}
+            multiline
+            placeholderTextColor="#AEC3B0"
+            onChangeText={(text) => setBusinessDescription(text)}
+            value={businessDescription}
+            placeholder="Description"
+          />
+          <View style={buttonContainer}>
+            <TouchableOpacity
+              onPress={handleRegister}
+              style={registerButtonContainer}
+            >
+              <Text style={buttonRegister}>Register  </Text>
+              <Ionicons name="ios-redo" size={30} color="#AEC3B0" />
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </View>
     </Modal>
   );
 }
