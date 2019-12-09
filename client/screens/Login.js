@@ -46,7 +46,7 @@ const Login = ({ navigator }) => {
       setThrottle(true); // set throttle to allow only one button press
       setTimeout(() => {
         setThrottle(false);
-      }, 800);
+      }, 1200);
       // regular function call here
       fetch(`${serverUrl}/authentication`, {
         method: 'POST',
