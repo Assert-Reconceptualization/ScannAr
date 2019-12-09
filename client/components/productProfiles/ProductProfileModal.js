@@ -32,6 +32,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     businessNameStyle,
     tagsStyle,
     saveButton,
+    removeButton,
   } = styles;
 
   // retrieve and update tags for products
@@ -120,11 +121,19 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
           style={saveButton}
           onPress={handleSaveProduct}
         >
-          <Text>Save</Text>
+          <Text style={{ color: '#082A36' }}>Save</Text>
         </TouchableOpacity>
       );
     }
-    return (<Button title="Remove from saved" onPress={handleDeleteAlert} />);
+    return (
+    // <Button title="Remove from saved" onPress={handleDeleteAlert} />
+      <TouchableOpacity
+        style={removeButton}
+        onPress={handleDeleteAlert}
+      >
+        <Text>Remove</Text>
+      </TouchableOpacity>
+    );
   };
 
   // Alerts user when a product is saved
@@ -178,8 +187,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         style={listItemContainer}
       >
         <ProductProfileNavBar setVisibility={setVisibility} />
-        <Text style={productTitle}>{product.name}</Text>
-        <View style={{ alignItems: 'center' }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Text style={productTitle}>{product.name}</Text>
           {saveOrDelete()}
         </View>
         <Image
@@ -260,9 +269,17 @@ const styles = StyleSheet.create({
   },
   saveButton: {
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
+    backgroundColor: '#B3C6CD',
     width: 100,
     padding: 10,
+    borderRadius: 5,
+  },
+  removeButton: {
+    alignItems: 'center',
+    backgroundColor: '#eb4242',
+    width: 100,
+    padding: 10,
+    borderRadius: 5,
   },
 });
 
