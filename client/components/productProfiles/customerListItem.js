@@ -101,12 +101,16 @@ const CustomerListItem = ({
       <View style={productMenu}>
         <TouchableOpacity
           onPress={() => setModalProp(item)}
+          style={{ width: 30, alignItems: 'flex-end' }} // touch area
         >
           <Text style={productTitle}>...</Text>
         </TouchableOpacity>
       </View>
       <View style={deleteButtonView}>
-        <TouchableOpacity onPress={handleAlert} style={{ width: 30, alignItems: 'flex-end' }}>
+        <TouchableOpacity
+          onPress={handleAlert}
+          style={{ width: 30, alignItems: 'flex-end' }} // touch area
+        >
           <Text style={deleteButton}>x</Text>
         </TouchableOpacity>
       </View>
