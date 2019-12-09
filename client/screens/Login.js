@@ -24,6 +24,8 @@ const Login = ({ navigator }) => {
   const [nameLast, setNameLast] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [throttle, setThrottle] = useState(false); // throttle for login
+  const [regThrottle, setRegThrottle] = useState(false); // throttle for register
   const {
     serverUrl,
     setServerUrl,
@@ -41,31 +43,38 @@ const Login = ({ navigator }) => {
 
   // Gets user id / info
   const handleLogin = () => {
-    fetch(`${serverUrl}/authentication`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        strategy: 'local',
-        password,
-        email,
-      }),
-    })
-      .then((response) => response.json())
-      .then((userInfo) => {
-        // add idUser to context
-        const { id } = userInfo.user;
-        if (id) {
-          setAccessToken(userInfo.accessToken);
-          setCurrentUser(userInfo.user);
-          getSavedProducts(id);
-        } else {
-          setRegister(true);
-        }
+    if (!throttle) {
+      setThrottle(true); // set throttle to allow only one button press
+      setTimeout(() => {
+        setThrottle(false);
+      }, 1200);
+      // regular function call here
+      fetch(`${serverUrl}/authentication`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          strategy: 'local',
+          password,
+          email,
+        }),
       })
-      .catch(() => setRegister(true));
+        .then((response) => response.json())
+        .then((userInfo) => {
+          // add idUser to context
+          const { id } = userInfo.user;
+          if (id) {
+            setAccessToken(userInfo.accessToken);
+            setCurrentUser(userInfo.user);
+            getSavedProducts(id);
+          } else {
+            setRegister(true);
+          }
+        })
+        .catch(() => setRegister(true));
+    }
   };
 
   // updated savedList for current user upon login
@@ -92,30 +101,36 @@ const Login = ({ navigator }) => {
   };
 
   const handleRegister = () => {
-  // send user from state to server
-    fetch(`${serverUrl}/users`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        role: 'customer',
-        email,
-        nameFirst,
-        nameLast,
-        password,
-      }),
-    })
-      .then(() => {
-        handleLogin(); // logs user in and adds to state
+    if (!regThrottle) {
+      setRegThrottle(true); // set throttle to allow only one button press
+      setTimeout(() => {
+        setRegThrottle(false);
+      }, 1200);
+      // send user from state to server
+      fetch(`${serverUrl}/users`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          role: 'customer',
+          email,
+          nameFirst,
+          nameLast,
+          password,
+        }),
       })
-      .catch(() => {
-        error = (<Text> Please try again</Text>);
-        setTimeout(() => {
-          error = null;
-        }, 500);
-      });
+        .then(() => {
+          handleLogin(); // logs user in and adds to state
+        })
+        .catch(() => {
+          error = (<Text> Please try again</Text>);
+          setTimeout(() => {
+            error = null;
+          }, 500);
+        });
+    }
   };
 
   let error = null;
