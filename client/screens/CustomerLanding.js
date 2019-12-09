@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Picker,
   Button,
+  TouchableOpacity,
 } from 'react-native';
 
 // import components
@@ -25,6 +26,7 @@ const CustomerLanding = ({ navigator }) => {
     pickerStyle,
     sortButton,
     pickerViewStyle,
+    sortButtonText,
   } = styles;
   const [visible, setVisibility] = useState(false);
   const [product, setProduct] = useState('');
@@ -114,7 +116,12 @@ const CustomerLanding = ({ navigator }) => {
       <CustomerHeader navigator={navigator} />
       <Text style={productsTitle}>Saved Products</Text>
       <View style={sortButton}>
-        <Button title="Sort" onPress={() => setSortVisibility(true)} />
+        {/* <Button title="Sort" onPress={() => setSortVisibility(true)} /> */}
+        <TouchableOpacity onPress={() => setSortVisibility(true)}>
+          <Text style={sortButtonText}>.</Text>
+          <Text style={sortButtonText}>.</Text>
+          <Text style={sortButtonText}>.</Text>
+        </TouchableOpacity>
         {sortVisibility ? picker() : null }
       </View>
       <View style={customerList}>
@@ -151,19 +158,31 @@ const styles = StyleSheet.create({
   },
   pickerViewStyle: {
     width: 100,
-    backgroundColor: '#d9d9d9',
+    // backgroundColor: '#d9d9d9',
     borderBottomStartRadius: 5,
     borderTopStartRadius: 5,
-    opacity: 0.5,
+    backgroundColor: 'red',
+    opacity: 0.7,
   },
   pickerStyle: {
     flex: 1,
+    marginRight: 40,
   },
   sortButton: {
     zIndex: 5,
     position: 'absolute',
-    top: 10,
-    right: 10,
+    top: 60,
+    right: 20,
+    height: 50,
+    width: 35,
+    // alignItems: 'flex-start',
+  },
+  sortButtonText: {
+    color: 'white',
+    marginTop: -5,
+    marginBottom: -20,
+    fontSize: 25,
+    alignSelf: 'center',
   },
 });
 
