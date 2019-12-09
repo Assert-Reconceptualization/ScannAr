@@ -13,6 +13,7 @@ import {
   TouchableWithoutFeedback,
   ImageBackground,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import RegisterModal from '../components/RegisterModal';
 import SignUp from '../components/buttons/SignUp';
 import BusinessContext from '../applicationState/BusinessContext';
@@ -93,6 +94,7 @@ export default function SignInScreen(props) {
     subTitle,
     loginModal,
     textInput,
+    titleIconContainer,
   } = styles;
 
   const {
@@ -114,6 +116,9 @@ export default function SignInScreen(props) {
         <View style={titleContainer}>
           <Text style={titleLeftText}>Scann</Text>
           <Text style={titleRightText}>AR</Text>
+          <View style={titleIconContainer}>
+            <Ionicons name="ios-briefcase" size={30} color="#AEC3B0"/>
+          </View>
         </View>
         <View style={subTitleContainer}>
           <Text style={subTitle}>
@@ -169,6 +174,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-end',
+  },
+  titleIconContainer: {
+    paddingBottom: 12,
   },
   subTitleContainer: {
     flex: 2,
