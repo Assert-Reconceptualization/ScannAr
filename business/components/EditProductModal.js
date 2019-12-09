@@ -13,6 +13,7 @@ import {
   Image,
   TextInput,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 
 import BusinessContext from '../applicationState/BusinessContext';
@@ -144,7 +145,7 @@ export default function EditProductModal(props) {
   const imageText = spinner ? (
     <ActivityIndicator size="small" color="black" />
   ) : (
-    <Button title="Take a Picture!" onPress={cameraAlert} />
+    <Button title="Change Photo" onPress={cameraAlert} />
   );
 
   const {
@@ -165,10 +166,7 @@ export default function EditProductModal(props) {
             source={{ uri: imageUrl }}
           />
         </View>
-        <Button
-          title="Change Photo"
-          onPress={handleCamera}
-        />
+        {imageText}
         <TextInput
           placeholder="Name"
           value={name}
