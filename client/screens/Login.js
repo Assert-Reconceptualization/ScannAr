@@ -24,7 +24,7 @@ const Login = ({ navigator }) => {
   const [nameLast, setNameLast] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [throttle, setThrottle] = useState(false);
+  const [throttle, setThrottle] = useState(false); // throttle for login
   const {
     serverUrl,
     setServerUrl,
@@ -46,7 +46,7 @@ const Login = ({ navigator }) => {
       setThrottle(true); // set throttle to allow only one button press
       setTimeout(() => {
         setThrottle(false);
-      }, 400);
+      }, 800);
       // regular function call here
       fetch(`${serverUrl}/authentication`, {
         method: 'POST',
