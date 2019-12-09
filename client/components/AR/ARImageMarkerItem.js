@@ -43,24 +43,23 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
       <ViroNode key="card">
         <ViroNode
           position={[0, -0.2, 0]}
-          scale={[1, 1, 1]}
           animation={{
             name: 'animateImage',
             run: true,
           }}
         >
           <ViroFlexView
-            scale={[0.5, 0.5, 0.5]}
             rotation={[-90, 0, 0]}
+            scale={[0.5, 0.5, 0.5]}
             height={1}
             width={1.25}
-            style={{ flexDirection: 'row', backgroundColor: 'black' }}
+            style={{ flexDirection: 'row', backgroundColor: 'rgba(52, 52, 52, 0.8)' }}
 
           >
             <ViroFlexView
               width={0.4}
               height={1}
-              style={{ flexDirection: 'column' }}
+              style={{ flexDirection: 'column', justifyContent: 'center' }}
             >
               <ViroImage
                 style={{ flex: 0.4 }}
@@ -70,11 +69,11 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
             <ViroFlexView
               width={0.6}
               height={1}
-              style={{ flexDirection: 'column', padding: 0.1 }}
+              style={{ flexDirection: 'column', padding: 0.03 }}
             >
-              <ViroText text={item.name} flex={0.3} style={itemText} />
-              <ViroText text={`$${item.price}.00`} flex={0.3} style={itemText} />
-              <ViroText text="click for more" flex={0.4} style={clickText} />
+              <ViroText text={item.name} flex={1} style={itemText} fontSize={10} />
+              <ViroText text={`$${item.price}.00`} flex={1} style={itemText} fontSize={10} />
+              <ViroText text="click for more info" flex={0.7} style={clickText} fontSize={8} />
             </ViroFlexView>
           </ViroFlexView>
         </ViroNode>
@@ -105,15 +104,15 @@ ViroAnimations.registerAnimations({
 const styles = StyleSheet.create({
   itemText: {
     fontFamily: "lucida grande', tahoma, verdana, arial, sans-serif", 
-    fontSize: 12,
-    fontWeight: "900",
-    color: "#ffffff",
+    // fontSize: 11,
+    fontWeight: '900',
+    color: 'white',
   },
   clickText: {
     fontFamily: "lucida grande', tahoma, verdana, arial, sans-serif", 
-    fontSize: 9,
-    fontWeight: '400',
-    color: "white",
+    // fontSize: 9,
+    fontWeight: '900',
+    color: 'white',
   },
 });
 
