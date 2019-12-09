@@ -101,30 +101,36 @@ const Login = ({ navigator }) => {
   };
 
   const handleRegister = () => {
-  // send user from state to server
-    fetch(`${serverUrl}/users`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        role: 'customer',
-        email,
-        nameFirst,
-        nameLast,
-        password,
-      }),
-    })
-      .then(() => {
-        handleLogin(); // logs user in and adds to state
+    if (!regThrottle) {
+      setRegThrottle(true); // set throttle to allow only one button press
+      setTimeout(() => {
+        setRegThrottle(false);
+      }, 1200);
+      // send user from state to server
+      fetch(`${serverUrl}/users`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          role: 'customer',
+          email,
+          nameFirst,
+          nameLast,
+          password,
+        }),
       })
-      .catch(() => {
-        error = (<Text> Please try again</Text>);
-        setTimeout(() => {
-          error = null;
-        }, 500);
-      });
+        .then(() => {
+          handleLogin(); // logs user in and adds to state
+        })
+        .catch(() => {
+          error = (<Text> Please try again</Text>);
+          setTimeout(() => {
+            error = null;
+          }, 500);
+        });
+    }
   };
 
   let error = null;
