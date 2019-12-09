@@ -1,10 +1,9 @@
-import React, { Component, useState, useContext } from 'react';
+import React, { Component, useContext } from 'react';
 
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
 import {
   ViroARScene,
-  ViroText,
   ViroARSceneNavigator,
   ViroNode,
 } from 'react-viro';
@@ -64,13 +63,12 @@ class ARScreen extends Component {
 // eslint-disable-next-line react/prop-types
 const ARscene = ({ setVisibility, setProduct }) => {
   const context = useContext(CustomerContext);
-  const [text, setText] = useState('Initializing...');
+  const { allMarkers } = context;
   // eslint-disable-next-line no-use-before-define
-  const { initialText } = styles;
   return (
     <ViroARScene>
       <ViroNode>
-        {context.allMarkers.map((item) => (
+        {allMarkers.map((item) => (
           <ARImageMarkerItem
             setVisibility={setVisibility}
             setProduct={setProduct}
@@ -82,18 +80,5 @@ const ARscene = ({ setVisibility, setProduct }) => {
     </ViroARScene>
   );
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-  },
-  initialText: {
-    fontFamily: 'Arial',
-    fontSize: 30,
-    color: '#ffffff',
-    textAlignVertical: 'center',
-    textAlign: 'center',
-  },
-});
 
 export default ARScreen;
