@@ -7,7 +7,6 @@ import {
   View,
   StyleSheet,
   Picker,
-  Button,
   TouchableOpacity,
 } from 'react-native';
 
@@ -122,8 +121,8 @@ const CustomerLanding = ({ navigator }) => {
           <Text style={sortButtonText}>.</Text>
           <Text style={sortButtonText}>.</Text>
         </TouchableOpacity>
-        {sortVisibility ? picker() : null }
       </View>
+      {sortVisibility ? picker() : null }
       <View style={customerList}>
         <CustomerList setModalProp={setModalProp} setVisibility={setVisibility} />
       </View>
@@ -157,16 +156,15 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   pickerViewStyle: {
-    width: 100,
-    // backgroundColor: '#d9d9d9',
-    borderBottomStartRadius: 5,
-    borderTopStartRadius: 5,
-    backgroundColor: 'red',
-    opacity: 0.7,
-  },
-  pickerStyle: {
-    flex: 1,
-    marginRight: 40,
+    width: 150,
+    zIndex: 5,
+    backgroundColor: '#d9d9d9',
+    borderRadius: 5,
+    alignSelf: 'center',
+    position: 'absolute',
+    top: 100,
+    right: 10,
+    opacity: 0.8,
   },
   sortButton: {
     zIndex: 5,
@@ -175,7 +173,6 @@ const styles = StyleSheet.create({
     right: 20,
     height: 50,
     width: 35,
-    // alignItems: 'flex-start',
   },
   sortButtonText: {
     color: 'white',
