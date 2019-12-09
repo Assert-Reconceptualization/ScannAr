@@ -95,6 +95,7 @@ export default function SignInScreen(props) {
     loginModal,
     textInput,
     titleIconContainer,
+    newContainer,
   } = styles;
 
   const {
@@ -131,7 +132,10 @@ export default function SignInScreen(props) {
           >
             <SignUp />
           </TouchableOpacity>
-          <Button title="Register" onPress={isRegistering} />
+          <View style={newContainer}>
+            <Text style={{ color: '#EFF6E0', fontWeight: 'bold' }}>New?</Text>
+          </View>
+          <Button color="#EFF6E0" title="Register" onPress={isRegistering} />
         </View>
         <Modal
           visible={signIn}
@@ -213,5 +217,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginBottom: 20,
     paddingLeft: 5,
+  },
+  newContainer: {
+    paddingTop: 10,
   },
 });

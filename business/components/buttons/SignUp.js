@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     height: 60,
     flexDirection: 'row',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: '#20241F',
   },
   signInText: {
     fontSize: 30,
