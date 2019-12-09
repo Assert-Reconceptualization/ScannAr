@@ -1,17 +1,11 @@
-/* eslint-disable react/jsx-boolean-value */
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
 import React, { useState, useContext } from 'react';
 import {
   Modal,
-  View,
   Text,
-  Button,
   StyleSheet,
   TextInput,
-  TouchableWithoutFeedback,
-  Keyboard,
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
@@ -30,7 +24,6 @@ export default function EditProfileModal(props) {
     email,
     phone,
     description,
-    password,
   // eslint-disable-next-line react/destructuring-assignment
   } = context.currentBusiness;
 
@@ -114,7 +107,7 @@ export default function EditProfileModal(props) {
           placeholder="Description"
           value={newDescription}
           style={descriptionInput}
-          multiline={true}
+          multiline
           onChangeText={(text) => setNewDescription(text)}
         />
         <SafeAreaView style={buttonContainer}>
