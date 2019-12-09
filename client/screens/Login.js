@@ -25,6 +25,7 @@ const Login = ({ navigator }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [throttle, setThrottle] = useState(false); // throttle for login
+  const [regThrottle, setRegThrottle] = useState(false); // throttle for register
   const {
     serverUrl,
     setServerUrl,
