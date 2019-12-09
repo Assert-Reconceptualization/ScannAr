@@ -97,6 +97,9 @@ export default function SignInScreen(props) {
     titleIconContainer,
     newContainer,
     cancelButtonContainer,
+    smallText,
+    buttonSignIn,
+    registerButtonContainer,
   } = styles;
 
   const {
@@ -134,7 +137,7 @@ export default function SignInScreen(props) {
             <SignUp />
           </TouchableOpacity>
           <View style={newContainer}>
-            <Text style={{ color: '#EFF6E0', fontWeight: 'bold' }}>New?</Text>
+            <Text style={smallText}>New?</Text>
           </View>
           <Button color="#EFF6E0" title="Register" onPress={isRegistering} />
         </View>
@@ -150,21 +153,28 @@ export default function SignInScreen(props) {
           </TouchableOpacity>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={loginModal}>
-              <Text>Sign In</Text>
               <TextInput
                 style={textInput}
                 onChangeText={(text) => setEmail(text)}
                 value={email}
                 placeholder="Email"
+                placeholderTextColor="#EFF6E0"
               />
               <TextInput
                 style={textInput}
                 onChangeText={(text) => setPassword(text)}
                 value={password}
                 placeholder="Password"
+                placeholderTextColor="#EFF6E0"
                 secureTextEntry
               />
-              <Button onPress={() => { handleSignIn(email, password); }} title="Submit" />
+              <TouchableOpacity
+                onPress={() => { handleSignIn(email, password); }}
+                style={registerButtonContainer}
+              >
+                <Text style={buttonSignIn}>Sign in  </Text>
+                <Ionicons name="ios-redo" size={30} color="#AEC3B0" />
+              </TouchableOpacity>
             </View>
           </TouchableWithoutFeedback>
         </Modal>
@@ -206,6 +216,10 @@ const styles = StyleSheet.create({
     color: '#AEC3B0',
     fontSize: 40,
   },
+  smallText: {
+    color: '#EFF6E0',
+    fontWeight: 'bold',
+  },
   buttonContainer: {
     flex: 3,
     alignItems: 'center',
@@ -224,6 +238,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginBottom: 20,
     paddingLeft: 5,
+    color: '#EFF6E0',
   },
   newContainer: {
     paddingTop: 10,
@@ -233,5 +248,17 @@ const styles = StyleSheet.create({
     zIndex: 5,
     top: 50,
     left: 50,
+  },
+  buttonSignIn: {
+    fontSize: 25,
+    color: '#AEC3B0',
+  },
+  registerButtonContainer: {
+    backgroundColor: '#1E241F',
+    borderRadius: 5,
+    borderWidth: 3,
+    borderColor: '#AEC3B0',
+    padding: 10,
+    flexDirection: 'row',
   },
 });
