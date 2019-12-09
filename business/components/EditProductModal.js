@@ -14,7 +14,9 @@ import {
   TextInput,
   ActivityIndicator,
   Alert,
-} from 'react-native';
+  ScrollView,
+  SafeAreaView,
+} from "react-native";
 
 import BusinessContext from '../applicationState/BusinessContext';
 import serverConfig from '../serverConfig';
@@ -158,45 +160,35 @@ export default function EditProductModal(props) {
 
   return (
     <Modal visible={visible} animationType="fade">
-      <View style={container}>
+      <ScrollView contentContainerStyle={container}>
         <Text>Update Product information</Text>
         <View style={photoContainer}>
-          <Image
-            style={image}
-            source={{ uri: imageUrl }}
-          />
+          <Image style={image} source={{ uri: imageUrl }} />
         </View>
         {imageText}
         <TextInput
           placeholder="Name"
           value={name}
           style={textInput}
-          onChangeText={(text) => setName(text)}
+          onChangeText={text => setName(text)}
           maxLength={20}
         />
         <TextInput
           style={textInput}
           keyboardType="decimal-pad"
           value={price.toString()}
-          onChangeText={(text) => setPrice(text)}
+          onChangeText={text => setPrice(text)}
         />
         <TextInput
           placeholder="Description"
           value={description}
           style={descriptionInput}
           multiline
-          onChangeText={(text) => setDescription(text)}
+          onChangeText={text => setDescription(text)}
         />
-        <Button
-          title="Submit"
-          onPress={handleSubmit}
-        />
-        <Button
-          title="cancel"
-          color="red"
-          onPress={handleCancel}
-        />
-      </View>
+        <Button title="Submit" onPress={handleSubmit} />
+        <Button title="cancel" color="red" onPress={handleCancel} />
+      </ScrollView>
     </Modal>
   );
 }
