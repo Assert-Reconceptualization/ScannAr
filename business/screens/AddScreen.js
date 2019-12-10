@@ -15,6 +15,8 @@ import {
   ScrollView,
   Alert,
   ImageBackground,
+  TouchableOpacity,
+  Text,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -176,12 +178,17 @@ export default function AddScreen(props) {
     photoContainer,
     textInput,
     descriptionInput,
+    buttonContainer,
+    buttonText,
+    submitButtonContainer,
+    cancelButtonContainer,
   } = styles;
 
   const imageText = spinner ? <ActivityIndicator size="small" color="black" /> : (
     <Button
       title="Take a Picture!"
       onPress={cameraAlert}
+      color="#EFF6E0"
     />
   );
 
@@ -205,6 +212,7 @@ export default function AddScreen(props) {
             </View>
             <TextInput
               placeholder="Name"
+              placeholderTextColor="#EFF6E0"
               style={textInput}
               value={name}
               onChangeText={(text) => setName(text)}
@@ -212,6 +220,7 @@ export default function AddScreen(props) {
             />
             <TextInput
               placeholder="Price"
+              placeholderTextColor="#EFF6E0"
               value={price}
               style={textInput}
               keyboardType="decimal-pad"
@@ -219,6 +228,7 @@ export default function AddScreen(props) {
             />
             <TextInput
               placeholder="Description"
+              placeholderTextColor="#EFF6E0"
               style={descriptionInput}
               value={description}
               multiline
@@ -228,15 +238,22 @@ export default function AddScreen(props) {
               currentTag={currentTag}
               setCurrentTag={setCurrentTag}
             />
-            <Button
-              title="Submit"
-              onPress={handleSubmit}
-            />
-            <Button
-              title="clear fields"
-              onPress={resetScreenState}
-              color="red"
-            />
+            <View style={buttonContainer}>
+              <View style={submitButtonContainer}>
+                <TouchableOpacity
+                  onPress={handleSubmit}
+                >
+                  <Text style={buttonText}>Submit</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={cancelButtonContainer}>
+                <TouchableOpacity
+                  onPress={resetScreenState}
+                >
+                  <Text style={buttonText}>Clear</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
         </TouchableWithoutFeedback>
       </ScrollView>
@@ -278,23 +295,52 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     marginBottom: 20,
     marginTop: 20,
+    borderColor: '#AEC3B0',
+    backgroundColor: '#1E241F',
   },
   textInput: {
     width: '70%',
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: '#AEC3B0',
+    backgroundColor: '#1E241F',
     borderRadius: 5,
     fontSize: 25,
     marginBottom: 20,
     paddingLeft: 5,
+    color: '#EFF6E0',
   },
   descriptionInput: {
     width: '70%',
     borderWidth: 2,
     height: 100,
-    borderColor: 'black',
+    borderColor: '#AEC3B0',
+    backgroundColor: '#1E241F',
     borderRadius: 5,
     fontSize: 25,
     paddingLeft: 5,
+    color: '#EFF6E0',
+  },
+  buttonContainer: {
+    width: 200,
+    marginTop: 20,
+    borderWidth: 2,
+    borderColor: '#AEC3B0',
+    borderRadius: 5,
+    flexDirection: 'row',
+  },
+  buttonText: {
+    color: '#EFF6E0',
+    fontSize: 25,
+  },
+  submitButtonContainer: {
+    padding: 5,
+    flex: 1.3,
+    backgroundColor: '#1E241F',
+    alignItems: 'center',
+  },
+  cancelButtonContainer: {
+    padding: 5,
+    flex: 0.7,
+    alignItems: 'center',
   },
 });
