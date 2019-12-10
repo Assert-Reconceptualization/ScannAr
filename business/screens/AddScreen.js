@@ -20,6 +20,7 @@ import {
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import { Ionicons } from '@expo/vector-icons';
 import BusinessContext from '../applicationState/BusinessContext';
 import serverConfig from '../serverConfig';
 import TagPicker from '../components/TagPicker';
@@ -184,7 +185,7 @@ export default function AddScreen(props) {
     cancelButtonContainer,
   } = styles;
 
-  const imageText = spinner ? <ActivityIndicator size="small" color="black" /> : (
+  const imageText = spinner ? <ActivityIndicator size="small" color="white" /> : (
     <Button
       title="Take a Picture!"
       onPress={cameraAlert}
@@ -250,7 +251,7 @@ export default function AddScreen(props) {
                 <TouchableOpacity
                   onPress={resetScreenState}
                 >
-                  <Text style={buttonText}>Clear</Text>
+                  <Ionicons name="ios-backspace" size={30} color="#AEC3B0" />
                 </TouchableOpacity>
               </View>
             </View>

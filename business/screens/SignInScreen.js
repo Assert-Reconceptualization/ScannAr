@@ -7,7 +7,6 @@ import {
   Alert,
   StyleSheet,
   TouchableOpacity,
-  Button,
   Modal,
   TextInput,
   Keyboard,
@@ -246,11 +245,12 @@ const styles = StyleSheet.create({
   textInput: {
     width: '70%',
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: '#AEC3B0',
     borderRadius: 5,
     fontSize: 25,
     marginBottom: 20,
     paddingLeft: 5,
+    backgroundColor: '#1E241F',
     color: '#EFF6E0',
   },
   newContainer: {

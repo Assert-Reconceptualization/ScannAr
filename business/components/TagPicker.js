@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   pickerContainer: {
-    marginTop: 10,
+    marginTop: 20,
     borderWidth: 2,
     borderRadius: 5,
     borderColor: '#AEC3B0',
