@@ -7,7 +7,6 @@ import {
   Alert,
   StyleSheet,
   TouchableOpacity,
-  Button,
   Modal,
   TextInput,
   Keyboard,
@@ -106,6 +105,7 @@ export default function SignInScreen(props) {
     smallText,
     buttonSignIn,
     registerButtonContainer,
+    registerContainer,
   } = styles;
 
   const {
@@ -145,8 +145,14 @@ export default function SignInScreen(props) {
           <View style={newContainer}>
             <Text style={smallText}>New?</Text>
           </View>
-          <Button color="#EFF6E0" title="Register" onPress={isRegistering} />
+          <TouchableOpacity
+            onPress={isRegistering}
+            style={registerContainer}
+          >
+            <Text style={{ color: '#EFF6E0', fontSize: 18 }}>Register</Text>
+          </TouchableOpacity>
         </View>
+        <View style={{ flex: 1 }} />
         <Modal
           visible={signIn}
           animationType="slide"
@@ -239,11 +245,12 @@ const styles = StyleSheet.create({
   textInput: {
     width: '70%',
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: '#AEC3B0',
     borderRadius: 5,
     fontSize: 25,
     marginBottom: 20,
     paddingLeft: 5,
+    backgroundColor: '#1E241F',
     color: '#EFF6E0',
   },
   newContainer: {
@@ -266,5 +273,14 @@ const styles = StyleSheet.create({
     borderColor: '#AEC3B0',
     padding: 10,
     flexDirection: 'row',
+  },
+  registerContainer: {
+    backgroundColor: '#1E241F',
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#AEC3B0',
+    marginTop: 10,
+    width: 100,
+    alignItems: 'center',
   },
 });

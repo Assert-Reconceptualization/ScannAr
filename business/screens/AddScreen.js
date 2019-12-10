@@ -14,14 +14,19 @@ import {
   ActivityIndicator,
   ScrollView,
   Alert,
+  ImageBackground,
+  TouchableOpacity,
+  Text,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import { Ionicons } from '@expo/vector-icons';
 import BusinessContext from '../applicationState/BusinessContext';
 import serverConfig from '../serverConfig';
 import TagPicker from '../components/TagPicker';
 
 const server = serverConfig().url;
+const backgroundUrl = require('../assets/images/business-bg.png');
 
 export default function AddScreen(props) {
   const [name, setName] = useState('');
@@ -174,66 +179,86 @@ export default function AddScreen(props) {
     photoContainer,
     textInput,
     descriptionInput,
+    buttonContainer,
+    buttonText,
+    submitButtonContainer,
+    cancelButtonContainer,
   } = styles;
 
-  const imageText = spinner ? <ActivityIndicator size="small" color="black" /> : (
+  const imageText = spinner ? <ActivityIndicator size="small" color="white" /> : (
     <Button
       title="Take a Picture!"
       onPress={cameraAlert}
+      color="#EFF6E0"
     />
   );
 
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={container}>
-          <View style={photoContainer}>
-            {imageUrl ? (
-              <Image
-                style={image}
-                source={{ uri: imageUrl }}
-              />
-            ) : (
-              imageText
-            )}
+    <ImageBackground
+      source={backgroundUrl}
+      style={{ width: '100%', height: '100%', backgroundColor: '#3B423C' }}
+    >
+      <ScrollView style={{ flex: 1 }}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ flex: 1 }}>
+          <View style={container}>
+            <View style={photoContainer}>
+              {imageUrl ? (
+                <Image
+                  style={image}
+                  source={{ uri: imageUrl }}
+                />
+              ) : (
+                imageText
+              )}
+            </View>
+            <TextInput
+              placeholder="Name"
+              placeholderTextColor="#EFF6E0"
+              style={textInput}
+              value={name}
+              onChangeText={(text) => setName(text)}
+              maxLength={20}
+            />
+            <TextInput
+              placeholder="Price"
+              placeholderTextColor="#EFF6E0"
+              value={price}
+              style={textInput}
+              keyboardType="decimal-pad"
+              onChangeText={(text) => setPrice(text)}
+            />
+            <TextInput
+              placeholder="Description"
+              placeholderTextColor="#EFF6E0"
+              style={descriptionInput}
+              value={description}
+              multiline
+              onChangeText={(text) => setDescription(text)}
+            />
+            <TagPicker
+              currentTag={currentTag}
+              setCurrentTag={setCurrentTag}
+            />
+            <View style={buttonContainer}>
+              <View style={submitButtonContainer}>
+                <TouchableOpacity
+                  onPress={handleSubmit}
+                >
+                  <Text style={buttonText}>Submit</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={cancelButtonContainer}>
+                <TouchableOpacity
+                  onPress={resetScreenState}
+                >
+                  <Ionicons name="ios-backspace" size={30} color="#AEC3B0" />
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
-          <TextInput
-            placeholder="Name"
-            style={textInput}
-            value={name}
-            onChangeText={(text) => setName(text)}
-            maxLength={20}
-          />
-          <TextInput
-            placeholder="Price"
-            value={price}
-            style={textInput}
-            keyboardType="decimal-pad"
-            onChangeText={(text) => setPrice(text)}
-          />
-          <TextInput
-            placeholder="Description"
-            style={descriptionInput}
-            value={description}
-            multiline
-            onChangeText={(text) => setDescription(text)}
-          />
-          <TagPicker
-            currentTag={currentTag}
-            setCurrentTag={setCurrentTag}
-          />
-          <Button
-            title="Submit"
-            onPress={handleSubmit}
-          />
-          <Button
-            title="clear fields"
-            onPress={resetScreenState}
-            color="red"
-          />
-        </View>
-      </TouchableWithoutFeedback>
-    </ScrollView>
+        </TouchableWithoutFeedback>
+      </ScrollView>
+    </ImageBackground>
   );
 }
 
@@ -271,23 +296,52 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     marginBottom: 20,
     marginTop: 20,
+    borderColor: '#AEC3B0',
+    backgroundColor: '#1E241F',
   },
   textInput: {
     width: '70%',
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: '#AEC3B0',
+    backgroundColor: '#1E241F',
     borderRadius: 5,
     fontSize: 25,
     marginBottom: 20,
     paddingLeft: 5,
+    color: '#EFF6E0',
   },
   descriptionInput: {
     width: '70%',
     borderWidth: 2,
     height: 100,
-    borderColor: 'black',
+    borderColor: '#AEC3B0',
+    backgroundColor: '#1E241F',
     borderRadius: 5,
     fontSize: 25,
     paddingLeft: 5,
+    color: '#EFF6E0',
+  },
+  buttonContainer: {
+    width: 200,
+    marginTop: 20,
+    borderWidth: 2,
+    borderColor: '#AEC3B0',
+    borderRadius: 5,
+    flexDirection: 'row',
+  },
+  buttonText: {
+    color: '#EFF6E0',
+    fontSize: 25,
+  },
+  submitButtonContainer: {
+    padding: 5,
+    flex: 1.3,
+    backgroundColor: '#1E241F',
+    alignItems: 'center',
+  },
+  cancelButtonContainer: {
+    padding: 5,
+    flex: 0.7,
+    alignItems: 'center',
   },
 });
