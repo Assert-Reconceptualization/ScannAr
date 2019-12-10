@@ -158,6 +158,7 @@ export default function EditProductModal(props) {
     image,
     textInput,
     descriptionInput,
+    titleText,
   } = styles;
 
   return (
@@ -167,7 +168,7 @@ export default function EditProductModal(props) {
         style={{ width: '100%', height: '100%', backgroundColor: '#3B423C' }}
       >
         <ScrollView contentContainerStyle={container}>
-          <Text>Update Product information</Text>
+          <Text style={titleText}>Update product information</Text>
           <View style={photoContainer}>
             <Image style={image} source={{ uri: imageUrl }} />
           </View>
@@ -204,22 +205,27 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 70,
   },
   image: {
-    width: 114,
-    height: 114,
+    width: 199,
+    height: 199,
     borderRadius: 5,
   },
   photoContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 116,
-    height: 116,
+    width: 200,
+    height: 200,
     borderRadius: 5,
-    borderWidth: 3,
-    marginBottom: 20,
+    borderWidth: 2,
     marginTop: 20,
+    borderColor: '#AEC3B0',
+    backgroundColor: '#1E241F',
+  },
+  titleText: {
+    fontSize: 30,
+    color: '#AEC3B0',
   },
   textInput: {
     width: '70%',
