@@ -112,10 +112,10 @@ export default function EditProfileModal(props) {
         />
         <SafeAreaView style={buttonContainer}>
           <TouchableOpacity onPress={handleSubmit}>
-            <Text style={buttonRegister}>Register</Text>
+            <Text style={buttonRegister}>Save</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={handleCancel}>
-            <Text style={buttonCancel}>cancel</Text>
+            <Text style={buttonCancel}>Cancel</Text>
           </TouchableOpacity>
         </SafeAreaView>
       </ScrollView>
