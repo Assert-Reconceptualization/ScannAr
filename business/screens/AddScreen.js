@@ -14,6 +14,7 @@ import {
   ActivityIndicator,
   ScrollView,
   Alert,
+  ImageBackground,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -22,6 +23,7 @@ import serverConfig from '../serverConfig';
 import TagPicker from '../components/TagPicker';
 
 const server = serverConfig().url;
+const backgroundUrl = require('../assets/images/business-bg.png');
 
 export default function AddScreen(props) {
   const [name, setName] = useState('');
@@ -184,56 +186,61 @@ export default function AddScreen(props) {
   );
 
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={container}>
-          <View style={photoContainer}>
-            {imageUrl ? (
-              <Image
-                style={image}
-                source={{ uri: imageUrl }}
-              />
-            ) : (
-              imageText
-            )}
+    <ImageBackground
+      source={backgroundUrl}
+      style={{ width: '100%', height: '100%', backgroundColor: '#3B423C' }}
+    >
+      <ScrollView style={{ flex: 1 }}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} style={{ flex: 1 }}>
+          <View style={container}>
+            <View style={photoContainer}>
+              {imageUrl ? (
+                <Image
+                  style={image}
+                  source={{ uri: imageUrl }}
+                />
+              ) : (
+                imageText
+              )}
+            </View>
+            <TextInput
+              placeholder="Name"
+              style={textInput}
+              value={name}
+              onChangeText={(text) => setName(text)}
+              maxLength={20}
+            />
+            <TextInput
+              placeholder="Price"
+              value={price}
+              style={textInput}
+              keyboardType="decimal-pad"
+              onChangeText={(text) => setPrice(text)}
+            />
+            <TextInput
+              placeholder="Description"
+              style={descriptionInput}
+              value={description}
+              multiline
+              onChangeText={(text) => setDescription(text)}
+            />
+            <TagPicker
+              currentTag={currentTag}
+              setCurrentTag={setCurrentTag}
+            />
+            <Button
+              title="Submit"
+              onPress={handleSubmit}
+            />
+            <Button
+              title="clear fields"
+              onPress={resetScreenState}
+              color="red"
+            />
           </View>
-          <TextInput
-            placeholder="Name"
-            style={textInput}
-            value={name}
-            onChangeText={(text) => setName(text)}
-            maxLength={20}
-          />
-          <TextInput
-            placeholder="Price"
-            value={price}
-            style={textInput}
-            keyboardType="decimal-pad"
-            onChangeText={(text) => setPrice(text)}
-          />
-          <TextInput
-            placeholder="Description"
-            style={descriptionInput}
-            value={description}
-            multiline
-            onChangeText={(text) => setDescription(text)}
-          />
-          <TagPicker
-            currentTag={currentTag}
-            setCurrentTag={setCurrentTag}
-          />
-          <Button
-            title="Submit"
-            onPress={handleSubmit}
-          />
-          <Button
-            title="clear fields"
-            onPress={resetScreenState}
-            color="red"
-          />
-        </View>
-      </TouchableWithoutFeedback>
-    </ScrollView>
+        </TouchableWithoutFeedback>
+      </ScrollView>
+    </ImageBackground>
   );
 }
 
