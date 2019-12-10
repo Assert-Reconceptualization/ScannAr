@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useContext, useState } from 'react';
 import {
-  View, Modal, Text, Image, StyleSheet, Alert, TouchableOpacity,
+  View, Modal, Text, Image, StyleSheet, Alert, TouchableOpacity, Linking,
 } from 'react-native';
 
 // import components
@@ -13,6 +13,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const [isSaved, setSaved] = useState(false);
   const [saveUpdated, setSaveUpdated] = useState(false);
   const [businessName, setBusinessName] = useState('Loading...');
+  const [businessPhone, setBusinessPhone] = useState(null);
   const [productTags, setProductTags] = useState('');
   const context = useContext(CustomerContext);
   const {
@@ -65,6 +66,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       .then((response) => response.json())
       .then((parsed) => {
         const businessInfo = parsed.data[0];
+        setBusinessPhone(businessInfo.phone);
         setBusinessName(businessInfo.name);
       });
     // .catch(() => console.log('Something happened'));
@@ -199,7 +201,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
           <View style={nameAndPrice}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={productDescription}>By: </Text>
-              <Text style={businessNameStyle}>{businessName}</Text>
+              <Text style={businessNameStyle} onPress={() => { Linking.openURL(`tel:${businessPhone}`); }}>{businessName}</Text>
             </View>
             <Text style={productPrice}>{`$${product.price}.00`}</Text>
           </View>
