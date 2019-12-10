@@ -154,9 +154,9 @@ export default function HomeScreen(props) {
             <NoProductMessage />
           </View>
         )}
-        <TouchableOpacity style={addButton} onPress={handleModalVisibility}>
+        {/* <TouchableOpacity style={addButton} onPress={handleModalVisibility}>
           <Ionicons name="ios-add-circle" size={70} color="#AEC3B0" />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <NewProductModal navigation={navigation} visible={creating} setCreating={setCreating} />
       </View>
     </TouchableWithoutFeedback>
