@@ -4,6 +4,7 @@ import React, { useState, useContext } from 'react';
 import {
   View,
   Text,
+  Alert,
   StyleSheet,
   TouchableOpacity,
   Button,
@@ -71,7 +72,12 @@ export default function SignInScreen(props) {
         props.navigation.navigate({ routeName: 'Home' });
       })
       .catch(() => {
-        console.log('Wrong email or password');
+        Alert.alert(
+          'Error',
+          'Wrong email or password',
+        );
+        setPassword('');
+        setEmail('');
       });
   };
 
