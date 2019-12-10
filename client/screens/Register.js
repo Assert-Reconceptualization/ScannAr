@@ -52,6 +52,7 @@ const Register = ({
         value={nameFirst}
         autoCompleteType="name"
         placeholder="John"
+        placeholderTextColor="#d3d3d3"
       />
       <Text style={textStyle}>
         Last Name
@@ -62,6 +63,7 @@ const Register = ({
         value={nameLast}
         autoCompleteType="name"
         placeholder="Doe"
+        placeholderTextColor="#d3d3d3"
       />
       <Text style={textStyle}>
         Email
@@ -72,6 +74,7 @@ const Register = ({
         value={email}
         autoCompleteType="email"
         placeholder="email@example.com"
+        placeholderTextColor="#d3d3d3"
       />
       <Text style={textStyle}>
         Password
@@ -82,6 +85,7 @@ const Register = ({
         value={password}
         secureTextEntry
         placeholder="password123"
+        placeholderTextColor="#d3d3d3"
       />
       <TouchableOpacity
         style={button3}
