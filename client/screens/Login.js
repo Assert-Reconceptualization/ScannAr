@@ -182,7 +182,7 @@ const Login = ({ navigator }) => {
               value={email}
               autoCompleteType="email"
               placeholder="email@example.com"
-              placeholderTextColor="#d3d3d3"
+              placeholderTextColor="rgba(130, 130, 130, 0.7);"
             />
             <Text style={textStyle}>
               Password
@@ -193,7 +193,7 @@ const Login = ({ navigator }) => {
               value={password}
               secureTextEntry
               placeholder="password123"
-              placeholderTextColor="#d3d3d3"
+              placeholderTextColor="rgba(130, 130, 130, 0.7);"
             />
             <View style={buttonContainer}>
               <TouchableOpacity
