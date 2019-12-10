@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/prop-types */
 import React, { Component, useContext } from 'react';
 
 import { View } from 'react-native';
@@ -10,7 +12,6 @@ import {
 
 import ARNavBar from '../components/NavBar/ARNavBar';
 import ARImageMarkerItem from '../components/AR/ARImageMarkerItem';
-// import products from '../mock-data/products';
 import ProductProfileModal from '../components/productProfiles/ProductProfileModal';
 import CustomerContext from '../applicationState/customerContext';
 
@@ -36,7 +37,6 @@ class ARScreen extends Component {
   }
 
   render() {
-    // eslint-disable-next-line react/prop-types
     const { navigator } = this.props;
     const { visible, product } = this.state;
     const { setProduct, setVisibility } = this;
@@ -50,7 +50,6 @@ class ARScreen extends Component {
         <ARNavBar navigator={navigator} />
         <ViroARSceneNavigator
           initialScene={{
-            // eslint-disable-next-line no-use-before-define
             scene: ARscene,
             passProps: { setVisibility, setProduct },
           }}
@@ -60,11 +59,9 @@ class ARScreen extends Component {
   }
 }
 
-// eslint-disable-next-line react/prop-types
 const ARscene = ({ setVisibility, setProduct }) => {
   const context = useContext(CustomerContext);
   const { allMarkers } = context;
-  // eslint-disable-next-line no-use-before-define
   return (
     <ViroARScene>
       <ViroNode>

@@ -27,8 +27,8 @@ const CustomerLanding = ({ navigator }) => {
     pickerViewStyle,
     sortButtonText,
   } = styles;
-  const [visible, setVisibility] = useState(false);
-  const [product, setProduct] = useState('');
+  const [visible, setVisibility] = useState(false); // visibility of modal
+  const [product, setProduct] = useState(''); // current product for profile modal
   const [sortVisibility, setSortVisibility] = useState(false);
   const [sortingBy, setSortingBy] = useState('oldest');
   const [refreshState, setRefreshState] = useState(false);
