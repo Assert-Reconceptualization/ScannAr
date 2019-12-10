@@ -7,7 +7,7 @@ import {
   View,
   StyleSheet,
   Picker,
-  Button,
+  TouchableOpacity,
 } from 'react-native';
 
 // import components
@@ -25,6 +25,7 @@ const CustomerLanding = ({ navigator }) => {
     pickerStyle,
     sortButton,
     pickerViewStyle,
+    sortButtonText,
   } = styles;
   const [visible, setVisibility] = useState(false);
   const [product, setProduct] = useState('');
@@ -114,9 +115,13 @@ const CustomerLanding = ({ navigator }) => {
       <CustomerHeader navigator={navigator} />
       <Text style={productsTitle}>Saved Products</Text>
       <View style={sortButton}>
-        <Button title="Sort" onPress={() => setSortVisibility(true)} />
-        {sortVisibility ? picker() : null }
+        <TouchableOpacity onPress={() => setSortVisibility(true)}>
+          <Text style={sortButtonText}>.</Text>
+          <Text style={sortButtonText}>.</Text>
+          <Text style={sortButtonText}>.</Text>
+        </TouchableOpacity>
       </View>
+      {sortVisibility ? picker() : null }
       <View style={customerList}>
         <CustomerList setModalProp={setModalProp} setVisibility={setVisibility} />
       </View>
@@ -147,23 +152,36 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: '#B3C6CD',
     fontWeight: 'bold',
-    marginBottom: 8,
+    marginBottom: 3,
+    marginLeft: 8,
   },
   pickerViewStyle: {
-    width: 100,
+    width: 150,
+    zIndex: 5,
     backgroundColor: '#d9d9d9',
-    borderBottomStartRadius: 5,
-    borderTopStartRadius: 5,
-    opacity: 0.5,
-  },
-  pickerStyle: {
-    flex: 1,
+    borderRadius: 5,
+    alignSelf: 'center',
+    position: 'absolute',
+    top: 100,
+    right: 10,
+    opacity: 0.8,
   },
   sortButton: {
     zIndex: 5,
     position: 'absolute',
-    top: 10,
-    right: 10,
+    top: 70,
+    right: 20,
+    height: 50,
+    width: 50,
+    alignItems: 'flex-end',
+  },
+  sortButtonText: {
+    color: 'white',
+    marginTop: -5,
+    marginBottom: -20,
+    marginRight: 10,
+    fontSize: 25,
+    alignSelf: 'center',
   },
 });
 
