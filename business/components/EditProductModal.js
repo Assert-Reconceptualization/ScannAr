@@ -16,6 +16,7 @@ import {
   Alert,
   ScrollView,
   ImageBackground,
+  TouchableOpacity,
 } from 'react-native';
 
 import BusinessContext from '../applicationState/BusinessContext';
@@ -146,12 +147,6 @@ export default function EditProductModal(props) {
     );
   };
 
-  const imageText = spinner ? (
-    <ActivityIndicator size="small" color="black" />
-  ) : (
-    <Button title="Change Photo" onPress={cameraAlert} />
-  );
-
   const {
     container,
     photoContainer,
@@ -159,7 +154,20 @@ export default function EditProductModal(props) {
     textInput,
     descriptionInput,
     titleText,
+    changeImageButton,
+    changeButtonText,
   } = styles;
+
+  const imageText = spinner ? (
+    <ActivityIndicator size="small" color="black" />
+  ) : (
+    <TouchableOpacity
+      onPress={cameraAlert}
+      style={changeImageButton}
+    >
+      <Text style={changeButtonText}>change photo</Text>
+    </TouchableOpacity>
+  );
 
   return (
     <Modal visible={visible} animationType="fade">
@@ -175,6 +183,7 @@ export default function EditProductModal(props) {
           {imageText}
           <TextInput
             placeholder="Name"
+            placeholderTextColor="#AEC3B0"
             value={name}
             style={textInput}
             onChangeText={text => setName(text)}
@@ -182,12 +191,15 @@ export default function EditProductModal(props) {
           />
           <TextInput
             style={textInput}
+            placeholder="Price"
+            placeholderTextColor="#AEC3B0"
             keyboardType="decimal-pad"
             value={price.toString()}
             onChangeText={text => setPrice(text)}
           />
           <TextInput
             placeholder="Description"
+            placeholderTextColor="#AEC3B0"
             value={description}
             style={descriptionInput}
             multiline
@@ -208,8 +220,8 @@ const styles = StyleSheet.create({
     paddingTop: 70,
   },
   image: {
-    width: 199,
-    height: 199,
+    width: 197,
+    height: 197,
     borderRadius: 5,
   },
   photoContainer: {
@@ -218,7 +230,7 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     borderRadius: 5,
-    borderWidth: 2,
+    borderWidth: 3,
     marginTop: 20,
     borderColor: '#AEC3B0',
     backgroundColor: '#1E241F',
@@ -227,23 +239,41 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: '#AEC3B0',
   },
+  changeImageButton: {
+    backgroundColor: '#1E241F',
+    marginTop: 10,
+    marginBottom: 10,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#AEC3B0',
+    padding: 4,
+  },
+  changeButtonText: {
+    color: '#AEC3B0',
+    fontSize: 15,
+  },
   textInput: {
     width: '70%',
-    borderWidth: 2,
-    borderColor: 'black',
+    backgroundColor: '#1E241F',
+    marginTop: 10,
     borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#AEC3B0',
     fontSize: 25,
-    marginBottom: 20,
     paddingLeft: 5,
+    color: '#AEC3B0',
   },
   descriptionInput: {
     width: '70%',
     borderWidth: 2,
-    height: 200,
-    borderColor: 'black',
+    height: 150,
+    backgroundColor: '#1E241F',
+    borderColor: '#AEC3B0',
     borderRadius: 5,
     fontSize: 25,
-    marginBottom: 20,
+    marginTop: 10,
+    marginBottom: 10,
     paddingLeft: 5,
+    color: '#AEC3B0',
   },
 });
