@@ -42,7 +42,7 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
     >
       <ViroNode key="card">
         <ViroNode
-          position={[0, -0.2, 0]}
+          position={[0, -0.7, 0]}
           animation={{
             name: 'animateImage',
             run: true,
@@ -50,9 +50,9 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
         >
           <ViroFlexView
             rotation={[-90, 0, 0]}
-            scale={[0.5, 0.5, 0.5]}
+            scale={[1, 1, 1]}
             height={1}
-            width={1.25}
+            width={1}
             style={{ flexDirection: 'row', backgroundColor: 'rgba(52, 52, 52, 0.8)' }}
 
           >
