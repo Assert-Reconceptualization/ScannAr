@@ -15,11 +15,13 @@ import {
   ActivityIndicator,
   Alert,
   ScrollView,
-  SafeAreaView,
-} from "react-native";
+  ImageBackground,
+} from 'react-native';
 
 import BusinessContext from '../applicationState/BusinessContext';
 import serverConfig from '../serverConfig';
+
+const backgroundImagePath = require('../assets/images/business-bg.png');
 
 const server = serverConfig().url;
 
@@ -160,35 +162,40 @@ export default function EditProductModal(props) {
 
   return (
     <Modal visible={visible} animationType="fade">
-      <ScrollView contentContainerStyle={container}>
-        <Text>Update Product information</Text>
-        <View style={photoContainer}>
-          <Image style={image} source={{ uri: imageUrl }} />
-        </View>
-        {imageText}
-        <TextInput
-          placeholder="Name"
-          value={name}
-          style={textInput}
-          onChangeText={text => setName(text)}
-          maxLength={20}
-        />
-        <TextInput
-          style={textInput}
-          keyboardType="decimal-pad"
-          value={price.toString()}
-          onChangeText={text => setPrice(text)}
-        />
-        <TextInput
-          placeholder="Description"
-          value={description}
-          style={descriptionInput}
-          multiline
-          onChangeText={text => setDescription(text)}
-        />
-        <Button title="Submit" onPress={handleSubmit} />
-        <Button title="cancel" color="red" onPress={handleCancel} />
-      </ScrollView>
+      <ImageBackground
+        source={backgroundImagePath}
+        style={{ width: '100%', height: '100%', backgroundColor: '#3B423C' }}
+      >
+        <ScrollView contentContainerStyle={container}>
+          <Text>Update Product information</Text>
+          <View style={photoContainer}>
+            <Image style={image} source={{ uri: imageUrl }} />
+          </View>
+          {imageText}
+          <TextInput
+            placeholder="Name"
+            value={name}
+            style={textInput}
+            onChangeText={text => setName(text)}
+            maxLength={20}
+          />
+          <TextInput
+            style={textInput}
+            keyboardType="decimal-pad"
+            value={price.toString()}
+            onChangeText={text => setPrice(text)}
+          />
+          <TextInput
+            placeholder="Description"
+            value={description}
+            style={descriptionInput}
+            multiline
+            onChangeText={text => setDescription(text)}
+          />
+          <Button title="Submit" onPress={handleSubmit} />
+          <Button title="cancel" color="red" onPress={handleCancel} />
+        </ScrollView>
+      </ImageBackground>
     </Modal>
   );
 }
