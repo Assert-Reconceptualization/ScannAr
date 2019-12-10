@@ -67,7 +67,7 @@ export default function SettingsScreen() {
 }
 
 SettingsScreen.navigationOptions = {
-  title: 'Edit Business Profile',
+  title: 'Business Profile',
   headerStyle: {
     backgroundColor: "#505950"
   },
