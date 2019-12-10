@@ -80,6 +80,7 @@ export default function AddScreen(props) {
               'Product added to inventory',
             );
             props.navigation.navigate({ routeName: 'Home' });
+            resetScreenState();
           });
       })
       .catch(() => {

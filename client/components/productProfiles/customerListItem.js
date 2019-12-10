@@ -78,43 +78,47 @@ const CustomerListItem = ({
   };
 
   return (
-    <View
-      style={listItemContainer}
+    <TouchableOpacity
+      onPress={() => setModalProp(item)}
     >
-      <Image
-        source={{ uri }}
-        style={image}
-      />
-      <View style={informationContainer}>
-        <View>
-          <Text
-            style={productTitle}
-            numberOfLines={1}
-            adjustsFontSizeToFit
-          >
-            {name}
-          </Text>
+      <View
+        style={listItemContainer}
+      >
+        <Image
+          source={{ uri }}
+          style={image}
+        />
+        <View style={informationContainer}>
+          <View>
+            <Text
+              style={productTitle}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+            >
+              {name}
+            </Text>
+          </View>
+          <Text style={productDescription}>{description}</Text>
+          <Text style={productPrice}>{`$${price}.00`}</Text>
         </View>
-        <Text style={productDescription}>{description}</Text>
-        <Text style={productPrice}>{`$${price}.00`}</Text>
+        <View style={productMenu}>
+          <TouchableOpacity
+            onPress={() => setModalProp(item)}
+            style={{ width: 30, alignItems: 'flex-end' }} // touch area
+          >
+            <Text style={productTitle}>...</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={deleteButtonView}>
+          <TouchableOpacity
+            onPress={handleAlert}
+            style={{ width: 30, alignItems: 'flex-end' }} // touch area
+          >
+            <Text style={deleteButton}>x</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={productMenu}>
-        <TouchableOpacity
-          onPress={() => setModalProp(item)}
-          style={{ width: 30, alignItems: 'flex-end' }} // touch area
-        >
-          <Text style={productTitle}>...</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={deleteButtonView}>
-        <TouchableOpacity
-          onPress={handleAlert}
-          style={{ width: 30, alignItems: 'flex-end' }} // touch area
-        >
-          <Text style={deleteButton}>x</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
