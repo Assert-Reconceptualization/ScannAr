@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/prop-types */
 import React, { useContext, useState } from 'react';
 import {
   View,
@@ -7,14 +9,14 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-import { Ionicons } from "@expo/vector-icons";
-import BusinessContext from "../applicationState/BusinessContext";
+import { FontAwesome } from '@expo/vector-icons';
+import BusinessContext from '../applicationState/BusinessContext';
 import EditProductModal from './EditProductModal';
 import serverConfig from '../serverConfig';
+
 const server = serverConfig().url;
 
-export default function ProductCard(props){
-
+export default function ProductCard(props) {
   const context = useContext(BusinessContext);
   const [editing, setEditing] = useState(false);
 
@@ -23,26 +25,30 @@ export default function ProductCard(props){
     fetch(`${server}/products/${props.product.id}`, {
       method: 'DELETE',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
         Authorization: context.accessToken,
       },
     })
-      .then((response) => response.json())
-      .then(parsedResponse => {
+      .then(() => {
         // delete item from current inventory
-        const currentInventory = context.currentInventory.filter((product) => product.id !== props.product.id);
+        const currentInventory = context.currentInventory.filter(
+          (product) => product.id !== props.product.id,
+        );
         // update state
         context.setCurrentInventory(currentInventory);
       })
-      .catch(error => {
-        console.log('Item not deleted');
-      })
-  }
+      .catch(() => {
+        Alert.alert(
+          'Error',
+          'Unable to delete item',
+        );
+      });
+  };
 
   const showEditModal = () => {
     setEditing(true);
-  }
+  };
 
   const confirmDelete = () => {
     Alert.alert(
@@ -53,11 +59,11 @@ export default function ProductCard(props){
           text: 'Cancel',
           style: 'cancel',
         },
-        {text: 'OK', onPress: () => handleDelete()},
+        { text: 'OK', onPress: () => handleDelete() },
       ],
-      {cancelable: false},
+      { cancelable: false },
     );
-  }
+  };
 
   const {
     container,
@@ -66,70 +72,49 @@ export default function ProductCard(props){
     productPrice,
     productTitle,
     deleteContainer,
-    editContainer,
     infoContainer,
   } = styles;
+
+  const { product, navigation } = props;
   const {
     name,
     imageUrl,
     description,
-    price
-  } = props.product;
+    price,
+  } = product;
+
   return (
-    <View style={container}>
-      <EditProductModal
-        navigation={props.navigation}
-        product={props.product}
-        visible={editing}
-        closeModal={setEditing}
-      />
-      <Image style={image} source={{ uri: imageUrl }}/>
-      <View style={infoContainer}>
-        <Text
-          style={productTitle}
-          numberOfLines={1}
-          adjustsFontSizeToFit
-        >
-          {name}
-        </Text>
-        <Text
-          style={productDescription}
-          numberOfLines={1}
-          ellipsizeMode='tail'
-        >
-          {description}
-        </Text>
-        <Text style={productPrice}>{`$${price}.00`}</Text>
+    <TouchableOpacity onPress={showEditModal}>
+      <View style={container}>
+        <EditProductModal
+          navigation={navigation}
+          product={product}
+          visible={editing}
+          closeModal={setEditing}
+        />
+        <Image style={image} source={{ uri: imageUrl }} />
+        <View style={infoContainer}>
+          <Text style={productTitle} numberOfLines={1} adjustsFontSizeToFit>
+            {name}
+          </Text>
+          <Text style={productDescription} numberOfLines={1} ellipsizeMode="tail">
+            {description}
+          </Text>
+          <Text style={productPrice}>{`$${price}.00`}</Text>
+        </View>
+        <View style={deleteContainer}>
+          <TouchableOpacity onPress={confirmDelete}>
+            <FontAwesome name="trash-o" size={25} style={{ color: '#EFF6E0' }} />
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={deleteContainer}>
-        <TouchableOpacity
-          onPress={confirmDelete}
-        >
-          <Ionicons
-            name="ios-close"
-            size={40}
-            style={{color: '#EFF6E0' }}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={editContainer}>
-        <TouchableOpacity
-          onPress={showEditModal}
-        >
-          <Ionicons
-            name="ios-more"
-            size={25}
-            style={{color: '#EFF6E0' }}
-          />
-        </TouchableOpacity>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection:'row',
+    flexDirection: 'row',
     alignItems: 'center',
     marginLeft: '5%',
     marginRight: '5%',
@@ -137,7 +122,7 @@ const styles = StyleSheet.create({
     borderColor: '#AEC3B0',
     borderWidth: 2,
     borderRadius: 5,
-    marginBottom: 10
+    marginBottom: 10,
   },
   image: {
     height: 90,
@@ -164,16 +149,11 @@ const styles = StyleSheet.create({
   },
   deleteContainer: {
     position: 'absolute',
-    bottom: 0,
-    right: 10
-  },
-  editContainer: {
-    position: 'absolute',
-    top: 0,
-    right: 10
+    top: 10,
+    right: 10,
   },
   infoContainer: {
     flex: 1,
-    paddingRight: 50
-  }
+    paddingRight: 50,
+  },
 });
