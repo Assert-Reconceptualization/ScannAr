@@ -1,6 +1,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -19,6 +19,24 @@ const server = serverConfig().url;
 export default function ProductCard(props) {
   const context = useContext(BusinessContext);
   const [editing, setEditing] = useState(false);
+  const [productTag, setProductTag] = useState('');
+
+  useEffect(() => {
+    fetch(`${server}/productTags?idProduct=${product.id}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((parsed) => {
+        if (parsed[0]) {
+          setProductTag(parsed[0].tags[0].name);
+        }
+      })
+      .catch(() => setProductTag(''));
+  }, []);
 
   const handleDelete = () => {
     // delete request to API
@@ -68,7 +86,7 @@ export default function ProductCard(props) {
   const {
     container,
     image,
-    productDescription,
+    productTagText,
     productPrice,
     productTitle,
     deleteContainer,
@@ -79,7 +97,6 @@ export default function ProductCard(props) {
   const {
     name,
     imageUrl,
-    description,
     price,
   } = product;
 
@@ -97,8 +114,8 @@ export default function ProductCard(props) {
           <Text style={productTitle} numberOfLines={1} adjustsFontSizeToFit>
             {name}
           </Text>
-          <Text style={productDescription} numberOfLines={1} ellipsizeMode="tail">
-            {description}
+          <Text style={productTagText} numberOfLines={1} ellipsizeMode="tail">
+            {productTag}
           </Text>
           <Text style={productPrice}>{`$${price}.00`}</Text>
         </View>
@@ -131,7 +148,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     marginRight: 10,
   },
-  productDescription: {
+  productTagText: {
     fontSize: 12,
     color: '#99AC9B',
     marginBottom: 6,
