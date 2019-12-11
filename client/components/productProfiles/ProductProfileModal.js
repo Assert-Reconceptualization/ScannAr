@@ -9,6 +9,9 @@ import {
 import ProductProfileNavBar from '../NavBar/ProductProfileNavBar';
 import CustomerContext from '../../applicationState/customerContext';
 
+// import icons
+const trash = require('../../assets/icons/trash.png');
+
 const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const [isSaved, setSaved] = useState(false);
   const [saveUpdated, setSaveUpdated] = useState(false);
@@ -133,7 +136,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         style={removeButton}
         onPress={handleDeleteAlert}
       >
-        <Text>Remove</Text>
+        <Image source={trash} style={{ height: 25, width: 25 }} />
       </TouchableOpacity>
     );
   };
