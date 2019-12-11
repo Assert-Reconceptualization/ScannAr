@@ -6,11 +6,14 @@ import {
 
 const CustomerHeader = () => {
   // eslint-disable-next-line no-use-before-define
-  const { titleContainer, text } = styles;
+  const { titleContainer, text, header2, header } = styles;
 
   return (
     <View style={titleContainer}>
-      <Text style={text}>ScannAR</Text>
+      <View style={{ flexDirection: 'row' }}>
+        <Text style={header}>Scann</Text>
+        <Text style={header2}>AR</Text>
+      </View>
     </View>
   );
 };
@@ -28,6 +31,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     marginBottom: 2,
+  },
+  header: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  header2: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#85A4AF',
   },
 });
 
