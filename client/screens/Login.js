@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     minHeight: 50,
     borderRadius: 5,
-    backgroundColor: '#01161D',
+    backgroundColor: '#01161E',
   },
   button2: {
     flex: 1,
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     minHeight: 50,
     marginTop: 3,
     borderRadius: 5,
-    backgroundColor: '#01161D',
+    backgroundColor: '#01161E',
   },
   customerTitle: {
     fontSize: 15,
