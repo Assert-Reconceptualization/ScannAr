@@ -77,6 +77,24 @@ const CustomerListItem = ({
     );
   };
 
+  // Get Business Name for product
+  const getBusinessName = () => {
+    fetch(`${serverUrl}/users?id=${product.idBusiness}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((parsed) => {
+        const businessInfo = parsed.data[0];
+        setBusinessPhone(businessInfo.phone);
+        setBusinessName(businessInfo.name);
+      });
+    // .catch(() => console.log('Something happened'));
+  };
+
   return (
     <TouchableOpacity
       onPress={() => setModalProp(item)}
