@@ -4,11 +4,11 @@
 import React, { useState, useContext } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
+import { Ionicons } from '@expo/vector-icons';
 import {
   Modal,
   View,
   Text,
-  Button,
   StyleSheet,
   Image,
   TextInput,
@@ -156,6 +156,10 @@ export default function EditProductModal(props) {
     titleText,
     changeImageButton,
     changeButtonText,
+    submitButtonContainer,
+    cancelButtonContainer,
+    buttonText,
+    buttonContainer,
   } = styles;
 
   const imageText = spinner ? (
@@ -205,8 +209,26 @@ export default function EditProductModal(props) {
             multiline
             onChangeText={text => setDescription(text)}
           />
-          <Button title="Submit" onPress={handleSubmit} />
-          <Button title="cancel" color="red" onPress={handleCancel} />
+          <View style={buttonContainer}>
+            <View style={submitButtonContainer}>
+              <TouchableOpacity
+                onPress={handleSubmit}
+              >
+                <Text style={buttonText}>Submit</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={cancelButtonContainer}>
+              <TouchableOpacity
+                onPress={handleCancel}
+              >
+                <Ionicons
+                  name="ios-backspace"
+                  size={30}
+                  color="#AEC3B0"
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
         </ScrollView>
       </ImageBackground>
     </Modal>
@@ -220,15 +242,15 @@ const styles = StyleSheet.create({
     paddingTop: 70,
   },
   image: {
-    width: 197,
-    height: 197,
+    width: 247,
+    height: 247,
     borderRadius: 5,
   },
   photoContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 200,
-    height: 200,
+    width: 250,
+    height: 250,
     borderRadius: 5,
     borderWidth: 3,
     marginTop: 20,
@@ -249,7 +271,7 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   changeButtonText: {
-    color: '#AEC3B0',
+    color: '#EFF6E0',
     fontSize: 15,
   },
   textInput: {
@@ -275,5 +297,28 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingLeft: 5,
     color: '#AEC3B0',
+  },
+  buttonContainer: {
+    width: 200,
+    marginTop: 20,
+    borderWidth: 2,
+    borderColor: '#AEC3B0',
+    borderRadius: 5,
+    flexDirection: 'row',
+  },
+  buttonText: {
+    color: '#EFF6E0',
+    fontSize: 25,
+  },
+  submitButtonContainer: {
+    padding: 5,
+    flex: 1.3,
+    backgroundColor: '#1E241F',
+    alignItems: 'center',
+  },
+  cancelButtonContainer: {
+    padding: 5,
+    flex: 0.7,
+    alignItems: 'center',
   },
 });
