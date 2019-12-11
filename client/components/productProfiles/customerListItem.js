@@ -33,7 +33,7 @@ const CustomerListItem = ({
   } = styles;
   const context = useContext(CustomerContext);
   const { setCurrentSavedList, serverUrl, currentUser } = context;
-  const [businessName, setBusinessName] = useState('Loading...');
+  const [businessName, setBusinessName] = useState('');
   const [businessPhone, setBusinessPhone] = useState(null);
 
   // Retrieves all current user's saved products
@@ -94,8 +94,8 @@ const CustomerListItem = ({
         setBusinessPhone(businessInfo.phone);
         setBusinessName(businessInfo.name);
       });
-    // .catch(() => console.log('Something happened'));
   };
+
   useEffect(() => {
     getBusinessName();
   }, []);
