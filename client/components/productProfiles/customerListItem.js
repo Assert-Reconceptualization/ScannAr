@@ -7,9 +7,12 @@ import {
   Image,
   TouchableOpacity,
   Alert,
+  Image,
 } from 'react-native';
 
 import CustomerContext from '../../applicationState/customerContext';
+
+const trash = require('../../assets/icons/trash.png');
 
 const CustomerListItem = ({
   name,
