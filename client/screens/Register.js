@@ -52,7 +52,7 @@ const Register = ({
         value={nameFirst}
         autoCompleteType="name"
         placeholder="John"
-        placeholderTextColor="#d3d3d3"
+        placeholderTextColor="rgba(130, 130, 130, 0.7);"
       />
       <Text style={textStyle}>
         Last Name
@@ -63,7 +63,7 @@ const Register = ({
         value={nameLast}
         autoCompleteType="name"
         placeholder="Doe"
-        placeholderTextColor="#d3d3d3"
+        placeholderTextColor="rgba(130, 130, 130, 0.7);"
       />
       <Text style={textStyle}>
         Email
@@ -74,7 +74,7 @@ const Register = ({
         value={email}
         autoCompleteType="email"
         placeholder="email@example.com"
-        placeholderTextColor="#d3d3d3"
+        placeholderTextColor="rgba(130, 130, 130, 0.7);"
       />
       <Text style={textStyle}>
         Password
@@ -85,7 +85,7 @@ const Register = ({
         value={password}
         secureTextEntry
         placeholder="password123"
-        placeholderTextColor="#d3d3d3"
+        placeholderTextColor="rgba(130, 130, 130, 0.7);"
       />
       <TouchableOpacity
         style={button3}
@@ -119,11 +119,13 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 5,
     color: 'white',
+    backgroundColor: '#082C39',
+    marginBottom: 7,
   },
   inputFields: {
     marginTop: 5,
     width: '80%',
-    backgroundColor: '#082C39',
+    // backgroundColor: '#082C39',
   },
   textStyle: {
     padding: 1,
