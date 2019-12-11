@@ -12,7 +12,6 @@ import {
   TouchableWithoutFeedback,
   ActivityIndicator,
   ImageBackground,
-  Image,
 } from 'react-native';
 
 // import components
@@ -193,7 +192,7 @@ const Login = ({ navigator }) => {
                 onChangeText={(text) => setEmail(text)}
                 value={email}
                 autoCompleteType="email"
-                placeholder="email@example.com"
+                placeholder=" email@example.com"
                 placeholderTextColor="rgba(130, 130, 130, 0.7);"
               />
               <Text style={textStyle}>
@@ -204,7 +203,7 @@ const Login = ({ navigator }) => {
                 onChangeText={(text) => setPassword(text)}
                 value={password}
                 secureTextEntry
-                placeholder="password123"
+                placeholder=" password123"
                 placeholderTextColor="rgba(130, 130, 130, 0.7);"
               />
               <TouchableOpacity
