@@ -13,10 +13,6 @@ export default function SortModal(props) {
   const {
     container,
     buttonText,
-    highContainer,
-    lowContainer,
-    newContainer,
-    oldContainer,
   } = styles;
 
   const { sort, active } = props;
@@ -51,10 +47,10 @@ export default function SortModal(props) {
   return (
     <View style={container}>
       <TouchableOpacity style={{ backgroundColor: high, flex: 1, alignItems: 'center' }} onPress={() => sort('priceAscending')}>
-        <Text style={[buttonText, { color: highText }]}>High</Text>
+        <Text style={[buttonText, { color: highText }]}>Low</Text>
       </TouchableOpacity>
       <TouchableOpacity style={{ backgroundColor: low, flex: 1, alignItems: 'center' }} onPress={() => sort('priceDescending')}>
-        <Text style={[buttonText, { color: lowText }]}>Low</Text>
+        <Text style={[buttonText, { color: lowText }]}>High</Text>
       </TouchableOpacity>
       <TouchableOpacity style={{ backgroundColor: newest, flex: 1, alignItems: 'center' }} onPress={() => sort('mostRecent')}>
         <Text style={[buttonText, { color: newestText }]}>New</Text>
