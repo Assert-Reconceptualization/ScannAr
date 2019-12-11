@@ -24,7 +24,7 @@ const CustomerListItem = ({
     productTitle,
     listItemContainer,
     image,
-    productDescription,
+    business,
     productPrice,
     productMenu,
     informationContainer,
@@ -118,7 +118,7 @@ const CustomerListItem = ({
               {name}
             </Text>
           </View>
-          <Text style={productDescription}>{businessName}</Text>
+          <Text style={business}>{businessName}</Text>
           <Text style={productPrice}>{`$${price}.00`}</Text>
         </View>
         <View style={productMenu}>
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     top: 5,
     right: 10,
   },
-  productDescription: {
+  business: {
     fontSize: 12,
     color: '#547D8C',
     marginBottom: 6,

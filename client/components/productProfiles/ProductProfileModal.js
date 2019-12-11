@@ -11,6 +11,7 @@ import CustomerContext from '../../applicationState/customerContext';
 
 // import icons
 const trash = require('../../assets/icons/trash.png');
+const add = require('../../assets/icons/cart.png');
 
 const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const [isSaved, setSaved] = useState(false);
@@ -126,7 +127,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
           style={saveButton}
           onPress={handleSaveProduct}
         >
-          <Text style={{ color: '#082A36' }}>Save</Text>
+          <Image source={add} style={{ height: 28, width: 28 }} />
         </TouchableOpacity>
       );
     }
@@ -136,7 +137,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         style={removeButton}
         onPress={handleDeleteAlert}
       >
-        <Image source={trash} style={{ height: 25, width: 25 }} />
+        <Image source={trash} style={{ height: 28, width: 28 }} />
       </TouchableOpacity>
     );
   };
@@ -273,15 +274,13 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   saveButton: {
-    alignItems: 'center',
-    backgroundColor: '#B3C6CD',
+    alignItems: 'flex-end',
     width: 100,
     padding: 10,
     borderRadius: 5,
   },
   removeButton: {
-    alignItems: 'center',
-    backgroundColor: '#eb4242',
+    alignItems: 'flex-end',
     width: 100,
     padding: 10,
     borderRadius: 5,
