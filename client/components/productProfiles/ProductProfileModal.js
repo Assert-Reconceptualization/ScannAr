@@ -20,12 +20,14 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const [businessPhone, setBusinessPhone] = useState(null);
   const [productTags, setProductTags] = useState('');
   const context = useContext(CustomerContext);
+
   const {
     serverUrl,
     currentSavedList,
     currentUser,
     setCurrentSavedList,
   } = context;
+
   const {
     listItemContainer,
     image,
