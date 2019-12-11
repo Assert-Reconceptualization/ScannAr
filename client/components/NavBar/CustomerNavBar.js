@@ -6,8 +6,12 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
+  Image,
 } from 'react-native';
 import CustomerContext from '../../applicationState/customerContext';
+
+// import icons
+const camera = require('../../assets/icons/camera.png');
 
 const CustomerNavBar = ({ navigator }) => {
   // eslint-disable-next-line no-use-before-define
@@ -52,7 +56,8 @@ const CustomerNavBar = ({ navigator }) => {
   return (
     <View style={bar}>
       <TouchableOpacity onPress={() => handlePress()}>
-        <Text style={buttonText}>AR</Text>
+        {/* <Text style={buttonText}>AR</Text> */}
+        <Image source={camera} style={{ height: 28, width: 28 }} />
       </TouchableOpacity>
       <TouchableOpacity onPress={handleLogout}>
         <Text style={buttonText}>Logout</Text>
