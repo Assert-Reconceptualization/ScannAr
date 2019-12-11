@@ -142,7 +142,7 @@ const Login = ({ navigator }) => {
     }
   };
 
-  let errorMessage = error ? (<Text style={{ color: 'red' }}> Please try again</Text>) : null;
+  const errorMessage = error ? (<Text style={{ color: 'red' }}> Please try again</Text>) : null;
 
   const {
     screen,
