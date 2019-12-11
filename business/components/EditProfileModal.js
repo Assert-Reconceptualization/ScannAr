@@ -74,6 +74,7 @@ export default function EditProfileModal(props) {
     buttonCancel,
     buttonRegister,
     buttonContainer,
+    titleText,
   } = styles;
 
   const {
@@ -90,7 +91,7 @@ export default function EditProfileModal(props) {
           contentContainerStyle={container}
           keyboardDismissMode="on-drag"
         >
-          <Text>Update Business Information</Text>
+          <Text style={titleText}>Update Business Information</Text>
           <TextInput
             placeholder="Name"
             value={newName}
@@ -119,7 +120,7 @@ export default function EditProfileModal(props) {
           />
           <SafeAreaView style={buttonContainer}>
             <TouchableOpacity onPress={handleSubmit}>
-              <Text style={buttonRegister}>Register</Text>
+              <Text style={buttonRegister}>Save</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={handleCancel}>
               <Text style={buttonCancel}>cancel</Text>
@@ -135,26 +136,35 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 70,
+  },
+  titleText: {
+    fontSize: 30,
+    color: '#AEC3B0',
+    marginBottom: 20,
   },
   textInput: {
     width: '70%',
+    backgroundColor: '#1E241F',
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: '#AEC3B0',
     borderRadius: 5,
     fontSize: 25,
     marginBottom: 20,
     paddingLeft: 5,
+    color: '#AEC3B0',
   },
   descriptionInput: {
     width: '70%',
     borderWidth: 2,
-    height: 200,
-    borderColor: 'black',
+    height: 150,
+    backgroundColor: '#1E241F',
+    borderColor: '#AEC3B0',
     borderRadius: 5,
     fontSize: 25,
     marginBottom: 15,
     paddingLeft: 5,
+    color: '#AEC3B0',
   },
   buttonCancel: {
     fontSize: 35,
