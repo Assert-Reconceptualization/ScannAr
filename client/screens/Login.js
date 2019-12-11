@@ -285,6 +285,8 @@ const styles = StyleSheet.create({
     minWidth: 275,
     borderRadius: 5,
     color: 'white',
+    marginBottom: 7,
+    backgroundColor: '#082C39',
   },
 });
 
