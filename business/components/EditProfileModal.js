@@ -9,10 +9,13 @@ import {
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
 
 import BusinessContext from '../applicationState/BusinessContext';
 import serverConfig from '../serverConfig';
+
+const backgroundImagePath = require('../assets/images/business-bg.png');
 
 const server = serverConfig().url;
 
@@ -79,46 +82,51 @@ export default function EditProfileModal(props) {
 
   return (
     <Modal visible={visible} animationType="fade">
-      <ScrollView
-        contentContainerStyle={container}
-        keyboardDismissMode="on-drag"
+      <ImageBackground
+        source={backgroundImagePath}
+        style={{ width: '100%', height: '100%', backgroundColor: '#3B423C' }}
       >
-        <Text>Update Business Information</Text>
-        <TextInput
-          placeholder="Name"
-          value={newName}
-          style={textInput}
-          onChangeText={(text) => setNewName(text)}
-          maxLength={20}
-        />
-        <TextInput
-          placeholder="Email"
-          value={newEmail}
-          style={textInput}
-          onChangeText={(text) => setNewEmail(text)}
-        />
-        <TextInput
-          placeholder="Phone"
-          value={newPhone}
-          style={textInput}
-          onChangeText={(text) => setNewPhone(text)}
-        />
-        <TextInput
-          placeholder="Description"
-          value={newDescription}
-          style={descriptionInput}
-          multiline
-          onChangeText={(text) => setNewDescription(text)}
-        />
-        <SafeAreaView style={buttonContainer}>
-          <TouchableOpacity onPress={handleSubmit}>
-            <Text style={buttonRegister}>Save</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleCancel}>
-            <Text style={buttonCancel}>Cancel</Text>
-          </TouchableOpacity>
-        </SafeAreaView>
-      </ScrollView>
+        <ScrollView
+          contentContainerStyle={container}
+          keyboardDismissMode="on-drag"
+        >
+          <Text>Update Business Information</Text>
+          <TextInput
+            placeholder="Name"
+            value={newName}
+            style={textInput}
+            onChangeText={(text) => setNewName(text)}
+            maxLength={20}
+          />
+          <TextInput
+            placeholder="Email"
+            value={newEmail}
+            style={textInput}
+            onChangeText={(text) => setNewEmail(text)}
+          />
+          <TextInput
+            placeholder="Phone"
+            value={newPhone}
+            style={textInput}
+            onChangeText={(text) => setNewPhone(text)}
+          />
+          <TextInput
+            placeholder="Description"
+            value={newDescription}
+            style={descriptionInput}
+            multiline
+            onChangeText={(text) => setNewDescription(text)}
+          />
+          <SafeAreaView style={buttonContainer}>
+            <TouchableOpacity onPress={handleSubmit}>
+              <Text style={buttonRegister}>Register</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleCancel}>
+              <Text style={buttonCancel}>cancel</Text>
+            </TouchableOpacity>
+          </SafeAreaView>
+        </ScrollView>
+      </ImageBackground>
     </Modal>
   );
 }

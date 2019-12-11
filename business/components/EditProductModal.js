@@ -15,11 +15,14 @@ import {
   ActivityIndicator,
   Alert,
   ScrollView,
-  SafeAreaView,
-} from "react-native";
+  ImageBackground,
+  TouchableOpacity,
+} from 'react-native';
 
 import BusinessContext from '../applicationState/BusinessContext';
 import serverConfig from '../serverConfig';
+
+const backgroundImagePath = require('../assets/images/business-bg.png');
 
 const server = serverConfig().url;
 
@@ -144,51 +147,68 @@ export default function EditProductModal(props) {
     );
   };
 
-  const imageText = spinner ? (
-    <ActivityIndicator size="small" color="black" />
-  ) : (
-    <Button title="Change Photo" onPress={cameraAlert} />
-  );
-
   const {
     container,
     photoContainer,
     image,
     textInput,
     descriptionInput,
+    titleText,
+    changeImageButton,
+    changeButtonText,
   } = styles;
+
+  const imageText = spinner ? (
+    <ActivityIndicator size="small" color="black" />
+  ) : (
+    <TouchableOpacity
+      onPress={cameraAlert}
+      style={changeImageButton}
+    >
+      <Text style={changeButtonText}>change photo</Text>
+    </TouchableOpacity>
+  );
 
   return (
     <Modal visible={visible} animationType="fade">
-      <ScrollView contentContainerStyle={container}>
-        <Text>Update Product information</Text>
-        <View style={photoContainer}>
-          <Image style={image} source={{ uri: imageUrl }} />
-        </View>
-        {imageText}
-        <TextInput
-          placeholder="Name"
-          value={name}
-          style={textInput}
-          onChangeText={text => setName(text)}
-          maxLength={20}
-        />
-        <TextInput
-          style={textInput}
-          keyboardType="decimal-pad"
-          value={price.toString()}
-          onChangeText={text => setPrice(text)}
-        />
-        <TextInput
-          placeholder="Description"
-          value={description}
-          style={descriptionInput}
-          multiline
-          onChangeText={text => setDescription(text)}
-        />
-        <Button title="Submit" onPress={handleSubmit} />
-        <Button title="cancel" color="red" onPress={handleCancel} />
-      </ScrollView>
+      <ImageBackground
+        source={backgroundImagePath}
+        style={{ width: '100%', height: '100%', backgroundColor: '#3B423C' }}
+      >
+        <ScrollView contentContainerStyle={container}>
+          <Text style={titleText}>Update product information</Text>
+          <View style={photoContainer}>
+            <Image style={image} source={{ uri: imageUrl }} />
+          </View>
+          {imageText}
+          <TextInput
+            placeholder="Name"
+            placeholderTextColor="#AEC3B0"
+            value={name}
+            style={textInput}
+            onChangeText={text => setName(text)}
+            maxLength={20}
+          />
+          <TextInput
+            style={textInput}
+            placeholder="Price"
+            placeholderTextColor="#AEC3B0"
+            keyboardType="decimal-pad"
+            value={price.toString()}
+            onChangeText={text => setPrice(text)}
+          />
+          <TextInput
+            placeholder="Description"
+            placeholderTextColor="#AEC3B0"
+            value={description}
+            style={descriptionInput}
+            multiline
+            onChangeText={text => setDescription(text)}
+          />
+          <Button title="Submit" onPress={handleSubmit} />
+          <Button title="cancel" color="red" onPress={handleCancel} />
+        </ScrollView>
+      </ImageBackground>
     </Modal>
   );
 }
@@ -197,40 +217,63 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 70,
   },
   image: {
-    width: 114,
-    height: 114,
+    width: 197,
+    height: 197,
     borderRadius: 5,
   },
   photoContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 116,
-    height: 116,
+    width: 200,
+    height: 200,
     borderRadius: 5,
     borderWidth: 3,
-    marginBottom: 20,
     marginTop: 20,
+    borderColor: '#AEC3B0',
+    backgroundColor: '#1E241F',
+  },
+  titleText: {
+    fontSize: 30,
+    color: '#AEC3B0',
+  },
+  changeImageButton: {
+    backgroundColor: '#1E241F',
+    marginTop: 10,
+    marginBottom: 10,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#AEC3B0',
+    padding: 4,
+  },
+  changeButtonText: {
+    color: '#AEC3B0',
+    fontSize: 15,
   },
   textInput: {
     width: '70%',
-    borderWidth: 2,
-    borderColor: 'black',
+    backgroundColor: '#1E241F',
+    marginTop: 10,
     borderRadius: 5,
+    borderWidth: 2,
+    borderColor: '#AEC3B0',
     fontSize: 25,
-    marginBottom: 20,
     paddingLeft: 5,
+    color: '#AEC3B0',
   },
   descriptionInput: {
     width: '70%',
     borderWidth: 2,
-    height: 200,
-    borderColor: 'black',
+    height: 150,
+    backgroundColor: '#1E241F',
+    borderColor: '#AEC3B0',
     borderRadius: 5,
     fontSize: 25,
-    marginBottom: 20,
+    marginTop: 10,
+    marginBottom: 10,
     paddingLeft: 5,
+    color: '#AEC3B0',
   },
 });
