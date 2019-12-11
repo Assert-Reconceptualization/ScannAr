@@ -1,15 +1,19 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import {
-  View, Text, StyleSheet,
+  View, Text, StyleSheet, Image,
 } from 'react-native';
+
+// import icons
+const back = require('../../assets/icons/back.png');
 
 const CustomerHeader = () => {
   // eslint-disable-next-line no-use-before-define
-  const { titleContainer, header2, header } = styles;
+  const { titleContainer, header2, header, backButton } = styles;
 
   return (
     <View style={titleContainer}>
+      <Image source={back} style={backButton} />
       <View style={{ flexDirection: 'row' }}>
         <Text style={header}>Scann</Text>
         <Text style={header2}>AR</Text>
@@ -41,6 +45,13 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     color: '#85A4AF',
+  },
+  backButton: {
+    height: 28,
+    width: 28,
+    position: 'absolute',
+    left: 20,
+    top: 25,
   },
 });
 
