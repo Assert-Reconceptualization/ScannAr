@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#01161D',
     borderColor: '#86A4AF',
     borderWidth: 2,
-    marginTop: 10,
+    marginTop: 15,
     width: 150,
   },
 });

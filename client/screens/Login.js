@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     minHeight: 40,
     width: 150,
-    marginTop: 30,
+    marginTop: 15,
     borderRadius: 5,
     backgroundColor: '#01161E',
     borderColor: '#86A4AF',
