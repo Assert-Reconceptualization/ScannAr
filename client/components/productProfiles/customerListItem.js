@@ -34,7 +34,6 @@ const CustomerListItem = ({
   const context = useContext(CustomerContext);
   const { setCurrentSavedList, serverUrl, currentUser } = context;
   const [businessName, setBusinessName] = useState('');
-  const [businessPhone, setBusinessPhone] = useState(null);
 
   // Retrieves all current user's saved products
   const getSavedProducts = () => (
@@ -91,7 +90,6 @@ const CustomerListItem = ({
       .then((response) => response.json())
       .then((parsed) => {
         const businessInfo = parsed.data[0];
-        setBusinessPhone(businessInfo.phone);
         setBusinessName(businessInfo.name);
       });
   };
