@@ -12,6 +12,7 @@ import {
   TouchableWithoutFeedback,
   ActivityIndicator,
   ImageBackground,
+  Image,
 } from 'react-native';
 
 // import components
@@ -153,6 +154,7 @@ const Login = ({ navigator }) => {
     button2,
     textStyle,
     inputField,
+    header2,
   // eslint-disable-next-line no-use-before-define
   } = styles;
 
@@ -163,7 +165,11 @@ const Login = ({ navigator }) => {
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={screen}>
-          <Text style={header}>ScannAR</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={header}>Scann</Text>
+            <Text style={header2}>AR</Text>
+          </View>
+          {/* <Image source={require('../assets/consumer-logo.png')}/> */}
           {errorMessage}
           {register ? (
             <Register
@@ -272,6 +278,11 @@ const styles = StyleSheet.create({
     fontSize: 55,
     fontWeight: 'bold',
     color: 'white',
+  },
+  header2: {
+    fontSize: 55,
+    fontWeight: 'bold',
+    color: 'gray',
   },
   textStyle: {
     padding: 1,
