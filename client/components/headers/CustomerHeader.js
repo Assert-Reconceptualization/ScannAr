@@ -6,7 +6,7 @@ import {
 
 const CustomerHeader = () => {
   // eslint-disable-next-line no-use-before-define
-  const { titleContainer, text, header2, header } = styles;
+  const { titleContainer, header2, header } = styles;
 
   return (
     <View style={titleContainer}>
