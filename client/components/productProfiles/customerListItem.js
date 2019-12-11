@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -96,6 +96,9 @@ const CustomerListItem = ({
       });
     // .catch(() => console.log('Something happened'));
   };
+  useEffect(() => {
+    getBusinessName();
+  }, []);
 
   return (
     <TouchableOpacity
