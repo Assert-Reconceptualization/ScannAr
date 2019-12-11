@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ImageBackground,
+  View,
 } from 'react-native';
 
 import BusinessContext from '../applicationState/BusinessContext';
@@ -75,6 +76,8 @@ export default function EditProfileModal(props) {
     buttonRegister,
     buttonContainer,
     titleText,
+    inputHeader,
+    titleContainer,
   } = styles;
 
   const {
@@ -88,44 +91,51 @@ export default function EditProfileModal(props) {
         style={{ width: '100%', height: '100%', backgroundColor: '#3B423C' }}
       >
         <ScrollView
-          contentContainerStyle={container}
           keyboardDismissMode="on-drag"
         >
-          <Text style={titleText}>Update Business Information</Text>
-          <TextInput
-            placeholder="Name"
-            value={newName}
-            style={textInput}
-            onChangeText={(text) => setNewName(text)}
-            maxLength={20}
-          />
-          <TextInput
-            placeholder="Email"
-            value={newEmail}
-            style={textInput}
-            onChangeText={(text) => setNewEmail(text)}
-          />
-          <TextInput
-            placeholder="Phone"
-            value={newPhone}
-            style={textInput}
-            onChangeText={(text) => setNewPhone(text)}
-          />
-          <TextInput
-            placeholder="Description"
-            value={newDescription}
-            style={descriptionInput}
-            multiline
-            onChangeText={(text) => setNewDescription(text)}
-          />
-          <SafeAreaView style={buttonContainer}>
-            <TouchableOpacity onPress={handleSubmit}>
-              <Text style={buttonRegister}>Save</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleCancel}>
-              <Text style={buttonCancel}>cancel</Text>
-            </TouchableOpacity>
-          </SafeAreaView>
+          <View style={titleContainer}>
+            <Text style={titleText}>Update Business Information</Text>
+          </View>
+          <View style={container}>
+            <Text style={inputHeader}>Business Name</Text>
+            <TextInput
+              placeholder="Name"
+              value={newName}
+              style={textInput}
+              onChangeText={(text) => setNewName(text)}
+              maxLength={20}
+            />
+            <Text style={inputHeader}>Email</Text>
+            <TextInput
+              placeholder="Email"
+              value={newEmail}
+              style={textInput}
+              onChangeText={(text) => setNewEmail(text)}
+            />
+            <Text style={inputHeader}>Phone Number</Text>
+            <TextInput
+              placeholder="Phone"
+              value={newPhone}
+              style={textInput}
+              onChangeText={(text) => setNewPhone(text)}
+            />
+            <Text style={inputHeader}>Description</Text>
+            <TextInput
+              placeholder="Description"
+              value={newDescription}
+              style={descriptionInput}
+              multiline
+              onChangeText={(text) => setNewDescription(text)}
+            />
+            <SafeAreaView style={buttonContainer}>
+              <TouchableOpacity onPress={handleSubmit}>
+                <Text style={buttonRegister}>Save</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleCancel}>
+                <Text style={buttonCancel}>cancel</Text>
+              </TouchableOpacity>
+            </SafeAreaView>
+          </View>
         </ScrollView>
       </ImageBackground>
     </Modal>
@@ -133,15 +143,30 @@ export default function EditProfileModal(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  titleContainer: {
     flex: 1,
-    alignItems: 'center',
     paddingTop: 70,
+    paddingBottom: 0,
+    padding: '5%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  container: {
+    flex: 5,
+    alignItems: 'center',
+    width: '100%',
   },
   titleText: {
     fontSize: 30,
     color: '#AEC3B0',
-    marginBottom: 20,
+    marginBottom: 9,
+  },
+  inputHeader: {
+    width: '70%',
+    paddingLeft: 2,
+    fontSize: 20,
+    alignItems: 'center',
+    color: '#EFF6E0',
   },
   textInput: {
     width: '70%',
@@ -150,6 +175,7 @@ const styles = StyleSheet.create({
     borderColor: '#AEC3B0',
     borderRadius: 5,
     fontSize: 25,
+    justifyContent: 'center',
     marginBottom: 20,
     paddingLeft: 5,
     color: '#AEC3B0',
@@ -163,6 +189,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     fontSize: 25,
     marginBottom: 15,
+    justifyContent: 'center',
     paddingLeft: 5,
     color: '#AEC3B0',
   },
