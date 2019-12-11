@@ -39,6 +39,10 @@ export default function EditProductModal(props) {
 
   const handleCancel = () => {
     props.closeModal(false);
+    setImageUrl(product.imageUrl);
+    setName(product.name);
+    setPrice(product.price);
+    setDescription(product.description);
   };
 
   const handleSubmit = () => {
@@ -190,7 +194,7 @@ export default function EditProductModal(props) {
             placeholderTextColor="#AEC3B0"
             value={name}
             style={textInput}
-            onChangeText={text => setName(text)}
+            onChangeText={(text) => setName(text)}
             maxLength={20}
           />
           <TextInput
@@ -199,7 +203,7 @@ export default function EditProductModal(props) {
             placeholderTextColor="#AEC3B0"
             keyboardType="decimal-pad"
             value={price.toString()}
-            onChangeText={text => setPrice(text)}
+            onChangeText={(text) => setPrice(text)}
           />
           <TextInput
             placeholder="Description"
@@ -207,7 +211,7 @@ export default function EditProductModal(props) {
             value={description}
             style={descriptionInput}
             multiline
-            onChangeText={text => setDescription(text)}
+            onChangeText={(text) => setDescription(text)}
           />
           <View style={buttonContainer}>
             <View style={submitButtonContainer}>
