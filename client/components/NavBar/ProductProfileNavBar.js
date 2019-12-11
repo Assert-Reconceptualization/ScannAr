@@ -4,13 +4,14 @@ import {
   View, StyleSheet, TouchableOpacity, Image,
 } from 'react-native';
 
+// import image
 const back = require('../../assets/icons/back.png');
 
 const ProductProfileNavBar = ({ setVisibility }) => {
-  const { container } = styles;
+  const { container, backButton, backButtonTouchable } = styles;
   return (
     <View style={container}>
-      <TouchableOpacity onPress={() => setVisibility(false)}>
+      <TouchableOpacity style={backButtonTouchable} onPress={() => setVisibility(false)}>
         <Image source={back} style={backButton} />
       </TouchableOpacity>
     </View>
@@ -25,13 +26,14 @@ const styles = StyleSheet.create({
     opacity: 50,
     backgroundColor: '#124559',
   },
-  buttonText: {
-    textAlign: 'left',
-    padding: 10,
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 30,
-    marginBottom: 5,
+  backButton: {
+    height: 28,
+    width: 28,
+  },
+  backButtonTouchable: {
+    position: 'absolute',
+    left: 20,
+    top: 20,
   },
 });
 
