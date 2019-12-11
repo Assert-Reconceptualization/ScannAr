@@ -145,13 +145,14 @@ const styles = StyleSheet.create({
     color: '#B3C6CD',
   },
   listItemContainer: {
-    height: 100,
+    height: 116,
     marginBottom: 10,
     borderRadius: 5,
     borderColor: '#B3C6CD',
     borderWidth: 3,
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: '#072633',
   },
   informationContainer: {
     flex: 1,

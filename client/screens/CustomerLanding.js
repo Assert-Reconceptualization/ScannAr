@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Picker,
   TouchableOpacity,
+  ImageBackground,
 } from 'react-native';
 
 // import components
@@ -16,6 +17,8 @@ import CustomerHeader from '../components/headers/CustomerHeader';
 import CustomerList from '../components/productLists/CustomerList';
 import ProductProfileModal from '../components/productProfiles/ProductProfileModal';
 import CustomerContext from '../applicationState/customerContext';
+
+const bgImage = require('../assets/consumer-bg.png');
 
 const CustomerLanding = ({ navigator }) => {
   const {
@@ -110,23 +113,28 @@ const CustomerLanding = ({ navigator }) => {
   );
 
   return (
-    <View style={screen}>
-      <ProductProfileModal visible={visible} setVisibility={setVisibility} product={product} />
-      <CustomerHeader navigator={navigator} />
-      <Text style={productsTitle}>Saved Products</Text>
-      <View style={sortButton}>
-        <TouchableOpacity onPress={() => setSortVisibility(true)}>
-          <Text style={sortButtonText}>.</Text>
-          <Text style={sortButtonText}>.</Text>
-          <Text style={sortButtonText}>.</Text>
-        </TouchableOpacity>
+    <ImageBackground
+      source={bgImage}
+      style={{ height: '100%', width: '100%', backgroundColor: '#082C39' }}
+    >
+      <View style={screen}>
+        <ProductProfileModal visible={visible} setVisibility={setVisibility} product={product} />
+        <CustomerHeader navigator={navigator} />
+        <Text style={productsTitle}>Saved Products</Text>
+        <View style={sortButton}>
+          <TouchableOpacity onPress={() => setSortVisibility(true)}>
+            <Text style={sortButtonText}>.</Text>
+            <Text style={sortButtonText}>.</Text>
+            <Text style={sortButtonText}>.</Text>
+          </TouchableOpacity>
+        </View>
+        {sortVisibility ? picker() : null }
+        <View style={customerList}>
+          <CustomerList setModalProp={setModalProp} setVisibility={setVisibility} />
+        </View>
+        <CustomerNavBar navigator={navigator} />
       </View>
-      {sortVisibility ? picker() : null }
-      <View style={customerList}>
-        <CustomerList setModalProp={setModalProp} setVisibility={setVisibility} />
-      </View>
-      <CustomerNavBar navigator={navigator} />
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -138,7 +146,7 @@ const styles = StyleSheet.create({
   },
   screen: {
     flex: 1,
-    backgroundColor: '#082A36',
+    // backgroundColor: '#082A36',
   },
   customerList: {
     flex: 1,

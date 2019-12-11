@@ -11,11 +11,15 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   ActivityIndicator,
+  ImageBackground,
+  Image,
 } from 'react-native';
 
 // import components
 import Register from './Register';
 import CustomerContext from '../applicationState/customerContext';
+
+const bgImage = require('../assets/consumer-bg.png');
 
 // ScannAR navigator
 const Login = ({ navigator }) => {
@@ -139,67 +143,73 @@ const Login = ({ navigator }) => {
     }
   };
 
-  let errorMessage = error ? (<Text style={{ color: 'red' }}> Please try again</Text>) : null;
+  const errorMessage = error ? (<Text style={{ color: 'red' }}> Please try again</Text>) : null;
 
   const {
     screen,
     header,
-    buttonContainer,
     button1,
     customerTitle,
     button2,
     textStyle,
     inputField,
+    header2,
   // eslint-disable-next-line no-use-before-define
   } = styles;
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={screen}>
-        <Text style={header}>ScannAR</Text>
-        {errorMessage}
-        {register ? (
-          <Register
-            handleRegister={handleRegister}
-            setNameFirst={setNameFirst}
-            setNameLast={setNameLast}
-            setEmail={setEmail}
-            setPassword={setPassword}
-            nameFirst={nameFirst}
-            nameLast={nameLast}
-            password={password}
-            email={email}
-            setRegister={setRegister}
-          />
-        ) : (
-          <View style={{ flex: 1, marginTop: 20 }}>
-            <Text style={textStyle}>
-              Email
-            </Text>
-            <TextInput
-              style={inputField}
-              onChangeText={(text) => setEmail(text)}
-              value={email}
-              autoCompleteType="email"
-              placeholder="email@example.com"
-              placeholderTextColor="#d3d3d3"
+    <ImageBackground
+      source={bgImage}
+      style={{ height: '100%', width: '100%', backgroundColor: '#082C39' }}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={screen}>
+          <View style={{ flexDirection: 'row' }}>
+            <Text style={header}>Scann</Text>
+            <Text style={header2}>AR</Text>
+          </View>
+          {/* <Image source={require('../assets/consumer-logo.png')}/> */}
+          {errorMessage}
+          {register ? (
+            <Register
+              handleRegister={handleRegister}
+              setNameFirst={setNameFirst}
+              setNameLast={setNameLast}
+              setEmail={setEmail}
+              setPassword={setPassword}
+              nameFirst={nameFirst}
+              nameLast={nameLast}
+              password={password}
+              email={email}
+              setRegister={setRegister}
             />
-            <Text style={textStyle}>
-              Password
-            </Text>
-            <TextInput
-              style={inputField}
-              onChangeText={(text) => setPassword(text)}
-              value={password}
-              secureTextEntry
-              placeholder="password123"
-              placeholderTextColor="#d3d3d3"
-            />
-            <View style={buttonContainer}>
+          ) : (
+            <View style={{ flex: 1, marginTop: 20 }}>
+              <Text style={textStyle}>
+                Email
+              </Text>
+              <TextInput
+                style={inputField}
+                onChangeText={(text) => setEmail(text)}
+                value={email}
+                autoCompleteType="email"
+                placeholder="email@example.com"
+                placeholderTextColor="rgba(130, 130, 130, 0.7);"
+              />
+              <Text style={textStyle}>
+                Password
+              </Text>
+              <TextInput
+                style={inputField}
+                onChangeText={(text) => setPassword(text)}
+                value={password}
+                secureTextEntry
+                placeholder="password123"
+                placeholderTextColor="rgba(130, 130, 130, 0.7);"
+              />
               <TouchableOpacity
                 style={button1}
                 onPress={handleLogin}
-                // onPress={navigator.push('CustomerLanding')}
               >
                 {throttle ? (
                   <ActivityIndicator size="small" color="white" />
@@ -214,47 +224,41 @@ const Login = ({ navigator }) => {
                 <Text style={customerTitle}>Register</Text>
               </TouchableOpacity>
             </View>
-          </View>
-        )}
-      </View>
-    </TouchableWithoutFeedback>
+          )}
+        </View>
+      </TouchableWithoutFeedback>
+    </ImageBackground>
   );
 };
 
 // styles
 const styles = StyleSheet.create({
-  buttonContainer: {
-    padding: 2,
-    flexDirection: 'column',
-    width: '100%',
-    height: '25%',
-    backgroundColor: '#86A4AF',
-    borderRadius: 5,
-    minWidth: 300,
-    marginTop: 10,
-  },
   screen: {
     flex: 1,
     alignItems: 'center',
     paddingTop: '30%',
-    backgroundColor: '#082C39',
   },
   button1: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: 50,
     borderRadius: 5,
-    backgroundColor: '#01161D',
+    backgroundColor: '#01161E',
+    marginTop: '15%',
+    borderColor: '#86A4AF',
+    borderWidth: 2,
   },
   button2: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: 50,
-    marginTop: 3,
+    alignSelf: 'center',
+    minHeight: 40,
+    width: 150,
+    marginTop: 15,
     borderRadius: 5,
-    backgroundColor: '#01161D',
+    backgroundColor: '#01161E',
+    borderColor: '#86A4AF',
+    borderWidth: 2,
   },
   customerTitle: {
     fontSize: 15,
@@ -264,6 +268,11 @@ const styles = StyleSheet.create({
     fontSize: 55,
     fontWeight: 'bold',
     color: 'white',
+  },
+  header2: {
+    fontSize: 55,
+    fontWeight: 'bold',
+    color: '#85A4AF',
   },
   textStyle: {
     padding: 1,
@@ -276,6 +285,8 @@ const styles = StyleSheet.create({
     minWidth: 275,
     borderRadius: 5,
     color: 'white',
+    marginBottom: 7,
+    backgroundColor: '#082C39',
   },
 });
 

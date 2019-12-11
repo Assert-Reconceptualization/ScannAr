@@ -39,6 +39,7 @@ const Register = ({
     textStyle,
     customerTitle,
     button3,
+    button2,
   } = styles;
 
   return (
@@ -52,7 +53,7 @@ const Register = ({
         value={nameFirst}
         autoCompleteType="name"
         placeholder="John"
-        placeholderTextColor="#d3d3d3"
+        placeholderTextColor="rgba(130, 130, 130, 0.7);"
       />
       <Text style={textStyle}>
         Last Name
@@ -63,7 +64,7 @@ const Register = ({
         value={nameLast}
         autoCompleteType="name"
         placeholder="Doe"
-        placeholderTextColor="#d3d3d3"
+        placeholderTextColor="rgba(130, 130, 130, 0.7);"
       />
       <Text style={textStyle}>
         Email
@@ -74,7 +75,7 @@ const Register = ({
         value={email}
         autoCompleteType="email"
         placeholder="email@example.com"
-        placeholderTextColor="#d3d3d3"
+        placeholderTextColor="rgba(130, 130, 130, 0.7);"
       />
       <Text style={textStyle}>
         Password
@@ -85,7 +86,7 @@ const Register = ({
         value={password}
         secureTextEntry
         placeholder="password123"
-        placeholderTextColor="#d3d3d3"
+        placeholderTextColor="rgba(130, 130, 130, 0.7);"
       />
       <TouchableOpacity
         style={button3}
@@ -94,11 +95,11 @@ const Register = ({
         {addingUser ? (
           <ActivityIndicator size="small" color="white" />
         ) : (
-          <Text style={customerTitle}>Register</Text>
+          <Text style={customerTitle}>Submit</Text>
         )}
       </TouchableOpacity>
       <TouchableOpacity
-        style={button3}
+        style={button2}
         onPress={() => setRegister(false)}
       >
         <Text style={customerTitle}>Back</Text>
@@ -119,11 +120,12 @@ const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 5,
     color: 'white',
+    backgroundColor: '#082C39',
+    marginBottom: 7,
   },
   inputFields: {
     marginTop: 5,
     width: '80%',
-    backgroundColor: '#082C39',
   },
   textStyle: {
     padding: 1,
@@ -139,6 +141,19 @@ const styles = StyleSheet.create({
     borderColor: '#86A4AF',
     borderWidth: 2,
     marginTop: 10,
+  },
+  button2: {
+    flex: 1,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: 40,
+    borderRadius: 5,
+    backgroundColor: '#01161D',
+    borderColor: '#86A4AF',
+    borderWidth: 2,
+    marginTop: 15,
+    width: 150,
   },
 });
 
