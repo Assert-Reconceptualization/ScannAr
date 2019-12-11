@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   },
   productDescription: {
     fontSize: 12,
-    color: '#B3C6CD',
+    color: '#547D8C',
     marginBottom: 6,
   },
   productPrice: {
