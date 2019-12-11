@@ -11,11 +11,14 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   ActivityIndicator,
+  ImageBackground,
 } from 'react-native';
 
 // import components
 import Register from './Register';
 import CustomerContext from '../applicationState/customerContext';
+
+const bgImage = require('../assets/consumer-bg.png');
 
 // ScannAR navigator
 const Login = ({ navigator }) => {
@@ -154,70 +157,75 @@ const Login = ({ navigator }) => {
   } = styles;
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <View style={screen}>
-        <Text style={header}>ScannAR</Text>
-        {errorMessage}
-        {register ? (
-          <Register
-            handleRegister={handleRegister}
-            setNameFirst={setNameFirst}
-            setNameLast={setNameLast}
-            setEmail={setEmail}
-            setPassword={setPassword}
-            nameFirst={nameFirst}
-            nameLast={nameLast}
-            password={password}
-            email={email}
-            setRegister={setRegister}
-          />
-        ) : (
-          <View style={{ flex: 1, marginTop: 20 }}>
-            <Text style={textStyle}>
-              Email
-            </Text>
-            <TextInput
-              style={inputField}
-              onChangeText={(text) => setEmail(text)}
-              value={email}
-              autoCompleteType="email"
-              placeholder="email@example.com"
-              placeholderTextColor="rgba(130, 130, 130, 0.7);"
+    <ImageBackground
+      source={bgImage}
+      style={{ height: '100%', width: '100%', backgroundColor: '#082C39' }}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={screen}>
+          <Text style={header}>ScannAR</Text>
+          {errorMessage}
+          {register ? (
+            <Register
+              handleRegister={handleRegister}
+              setNameFirst={setNameFirst}
+              setNameLast={setNameLast}
+              setEmail={setEmail}
+              setPassword={setPassword}
+              nameFirst={nameFirst}
+              nameLast={nameLast}
+              password={password}
+              email={email}
+              setRegister={setRegister}
             />
-            <Text style={textStyle}>
-              Password
-            </Text>
-            <TextInput
-              style={inputField}
-              onChangeText={(text) => setPassword(text)}
-              value={password}
-              secureTextEntry
-              placeholder="password123"
-              placeholderTextColor="rgba(130, 130, 130, 0.7);"
-            />
-            <View style={buttonContainer}>
-              <TouchableOpacity
-                style={button1}
-                onPress={handleLogin}
-                // onPress={navigator.push('CustomerLanding')}
-              >
-                {throttle ? (
-                  <ActivityIndicator size="small" color="white" />
-                ) : (
-                  <Text style={customerTitle}>Login</Text>
-                )}
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={button2}
-                onPress={handleRegisterView}
-              >
-                <Text style={customerTitle}>Register</Text>
-              </TouchableOpacity>
+          ) : (
+            <View style={{ flex: 1, marginTop: 20 }}>
+              <Text style={textStyle}>
+                Email
+              </Text>
+              <TextInput
+                style={inputField}
+                onChangeText={(text) => setEmail(text)}
+                value={email}
+                autoCompleteType="email"
+                placeholder="email@example.com"
+                placeholderTextColor="rgba(130, 130, 130, 0.7);"
+              />
+              <Text style={textStyle}>
+                Password
+              </Text>
+              <TextInput
+                style={inputField}
+                onChangeText={(text) => setPassword(text)}
+                value={password}
+                secureTextEntry
+                placeholder="password123"
+                placeholderTextColor="rgba(130, 130, 130, 0.7);"
+              />
+              <View style={buttonContainer}>
+                <TouchableOpacity
+                  style={button1}
+                  onPress={handleLogin}
+                  // onPress={navigator.push('CustomerLanding')}
+                >
+                  {throttle ? (
+                    <ActivityIndicator size="small" color="white" />
+                  ) : (
+                    <Text style={customerTitle}>Login</Text>
+                  )}
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={button2}
+                  onPress={handleRegisterView}
+                >
+                  <Text style={customerTitle}>Register</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
-        )}
-      </View>
-    </TouchableWithoutFeedback>
+          )}
+        </View>
+      </TouchableWithoutFeedback>
+    </ImageBackground>
   );
 };
 
@@ -237,7 +245,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingTop: '30%',
-    backgroundColor: '#082C39',
+    // backgroundColor: '#082C39',
   },
   button1: {
     flex: 1,
