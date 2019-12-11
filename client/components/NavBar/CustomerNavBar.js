@@ -2,11 +2,11 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useContext } from 'react';
 import {
-  Text,
   View,
   StyleSheet,
   TouchableOpacity,
   Image,
+  ActionSheetIOS,
 } from 'react-native';
 import CustomerContext from '../../applicationState/customerContext';
 
@@ -50,13 +50,22 @@ const CustomerNavBar = ({ navigator }) => {
     }
   };
 
-  // const handleLogout = () => {
-  //   setCurrentUser({});
-  //   navigator.pop();
-  // };
-
   const handleSettings = () => {
-    
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        title: 'Settings',
+        options: ['Cancel', 'Logout'],
+        destructiveButtonIndex: 1,
+        cancelButtonIndex: 0,
+        color: 'white',
+      },
+      (buttonIndex) => {
+        if (buttonIndex === 1) { // upon logout
+          setCurrentUser({}); // clear user
+          navigator.pop(); // pop back to login
+        }
+      },
+    );
   };
 
   return (
