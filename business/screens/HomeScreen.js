@@ -130,7 +130,7 @@ export default function HomeScreen(props) {
           <View style={filterTitleContainer}>
             <Text style={filterTitle}>Filter</Text>
           </View>
-          <SortBar sort={filterFunctions} />
+          <SortBar sort={filterFunctions} active={sortingBy} />
         </View>
       )}
       {currentInventory.length ? (
