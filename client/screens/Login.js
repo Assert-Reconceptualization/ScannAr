@@ -148,7 +148,6 @@ const Login = ({ navigator }) => {
   const {
     screen,
     header,
-    buttonContainer,
     button1,
     customerTitle,
     button2,
@@ -208,25 +207,22 @@ const Login = ({ navigator }) => {
                 placeholder="password123"
                 placeholderTextColor="rgba(130, 130, 130, 0.7);"
               />
-              <View style={buttonContainer}>
-                <TouchableOpacity
-                  style={button1}
-                  onPress={handleLogin}
-                  // onPress={navigator.push('CustomerLanding')}
-                >
-                  {throttle ? (
-                    <ActivityIndicator size="small" color="white" />
-                  ) : (
-                    <Text style={customerTitle}>Login</Text>
-                  )}
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={button2}
-                  onPress={handleRegisterView}
-                >
-                  <Text style={customerTitle}>Register</Text>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity
+                style={button1}
+                onPress={handleLogin}
+              >
+                {throttle ? (
+                  <ActivityIndicator size="small" color="white" />
+                ) : (
+                  <Text style={customerTitle}>Login</Text>
+                )}
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={button2}
+                onPress={handleRegisterView}
+              >
+                <Text style={customerTitle}>Register</Text>
+              </TouchableOpacity>
             </View>
           )}
         </View>
@@ -237,36 +233,24 @@ const Login = ({ navigator }) => {
 
 // styles
 const styles = StyleSheet.create({
-  buttonContainer: {
-    padding: 2,
-    flexDirection: 'column',
-    width: '100%',
-    height: '25%',
-    backgroundColor: '#86A4AF',
-    borderRadius: 5,
-    minWidth: 300,
-    marginTop: 10,
-  },
   screen: {
     flex: 1,
     alignItems: 'center',
     paddingTop: '30%',
-    // backgroundColor: '#082C39',
   },
   button1: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: 50,
     borderRadius: 5,
     backgroundColor: '#01161E',
+    marginTop: '15%',
   },
   button2: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     minHeight: 50,
-    marginTop: 3,
+    marginTop: 30,
     borderRadius: 5,
     backgroundColor: '#01161E',
   },
