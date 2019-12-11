@@ -13,6 +13,7 @@ import CustomerContext from '../../applicationState/customerContext';
 // import icons
 const camera = require('../../assets/icons/camera.png');
 const logout = require('../../assets/icons/logout.png');
+const gear = require('../../assets/icons/gear.png');
 
 const CustomerNavBar = ({ navigator }) => {
   // eslint-disable-next-line no-use-before-define
@@ -49,9 +50,13 @@ const CustomerNavBar = ({ navigator }) => {
     }
   };
 
-  const handleLogout = () => {
-    setCurrentUser({});
-    navigator.pop();
+  // const handleLogout = () => {
+  //   setCurrentUser({});
+  //   navigator.pop();
+  // };
+
+  const handleSettings = () => {
+    
   };
 
   return (
@@ -59,8 +64,8 @@ const CustomerNavBar = ({ navigator }) => {
       <TouchableOpacity onPress={() => handlePress()}>
         <Image source={camera} style={{ height: 28, width: 28 }} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleLogout}>
-        <Image source={logout} style={{ height: 28, width: 28 }} />
+      <TouchableOpacity onPress={handleSettings}>
+        <Image source={gear} style={{ height: 28, width: 28 }} />
       </TouchableOpacity>
     </View>
   );

@@ -1,19 +1,30 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useContext } from 'react';
 import {
-  View, Text, StyleSheet, Image,
+  View, Text, StyleSheet, Image, TouchableOpacity,
 } from 'react-native';
+
+import CustomerContext from '../../applicationState/customerContext';
 
 // import icons
 const back = require('../../assets/icons/back.png');
 
-const CustomerHeader = () => {
+const CustomerHeader = ({ navigator }) => {
   // eslint-disable-next-line no-use-before-define
-  const { titleContainer, header2, header, backButton } = styles;
+  const { titleContainer, header2, header, backButton, backButtonTouchable } = styles;
+  const context = useContext(CustomerContext);
+  const { setCurrentUser } = context;
+
+  const handleLogout = () => {
+    setCurrentUser({});
+    navigator.pop();
+  };
 
   return (
     <View style={titleContainer}>
-      <Image source={back} style={backButton} />
+      <TouchableOpacity style={backButtonTouchable} onPress={handleLogout}>
+        <Image source={back} style={backButton} />
+      </TouchableOpacity>
       <View style={{ flexDirection: 'row' }}>
         <Text style={header}>Scann</Text>
         <Text style={header2}>AR</Text>
@@ -49,6 +60,8 @@ const styles = StyleSheet.create({
   backButton: {
     height: 28,
     width: 28,
+  },
+  backButtonTouchable: {
     position: 'absolute',
     left: 20,
     top: 25,
