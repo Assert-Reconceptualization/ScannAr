@@ -12,11 +12,12 @@ import CustomerContext from '../../applicationState/customerContext';
 
 // import icons
 const camera = require('../../assets/icons/camera.png');
+const logout = require('../../assets/icons/logout.png');
 
 const CustomerNavBar = ({ navigator }) => {
   // eslint-disable-next-line no-use-before-define
   const context = useContext(CustomerContext);
-  const { bar, buttonText } = styles;
+  const { bar } = styles;
   const [throttle, setThrottle] = useState(false);
   const { serverUrl, setAllMarkers, setCurrentUser } = context;
 
@@ -56,11 +57,10 @@ const CustomerNavBar = ({ navigator }) => {
   return (
     <View style={bar}>
       <TouchableOpacity onPress={() => handlePress()}>
-        {/* <Text style={buttonText}>AR</Text> */}
         <Image source={camera} style={{ height: 28, width: 28 }} />
       </TouchableOpacity>
       <TouchableOpacity onPress={handleLogout}>
-        <Text style={buttonText}>Logout</Text>
+        <Image source={logout} style={{ height: 28, width: 28 }} />
       </TouchableOpacity>
     </View>
   );
@@ -68,7 +68,7 @@ const CustomerNavBar = ({ navigator }) => {
 
 const styles = StyleSheet.create({
   bar: {
-    // flex:1,
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-around',
     height: '8%',
