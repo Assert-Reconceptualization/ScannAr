@@ -7,7 +7,6 @@ import {
   Image,
   TouchableOpacity,
   Alert,
-  Image,
 } from 'react-native';
 
 import CustomerContext from '../../applicationState/customerContext';
@@ -30,8 +29,6 @@ const CustomerListItem = ({
     productPrice,
     productMenu,
     informationContainer,
-    deleteButton,
-    deleteButtonView,
     // eslint-disable-next-line no-use-before-define
   } = styles;
   const context = useContext(CustomerContext);
@@ -106,18 +103,10 @@ const CustomerListItem = ({
         </View>
         <View style={productMenu}>
           <TouchableOpacity
-            onPress={() => setModalProp(item)}
-            style={{ width: 30, alignItems: 'flex-end' }} // touch area
-          >
-            <Text style={productTitle}>...</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={deleteButtonView}>
-          <TouchableOpacity
             onPress={handleAlert}
             style={{ width: 30, alignItems: 'flex-end' }} // touch area
           >
-            <Text style={deleteButton}>x</Text>
+            <Image source={trash} style={{ height: 25, width: 25 }} />
           </TouchableOpacity>
         </View>
       </View>
@@ -134,7 +123,7 @@ const styles = StyleSheet.create({
   },
   productMenu: {
     position: 'absolute',
-    top: 0,
+    top: 5,
     right: 10,
   },
   productDescription: {
@@ -167,15 +156,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginLeft: 10,
     marginRight: 10,
-  },
-  deleteButton: {
-    fontSize: 24,
-    color: 'red',
-  },
-  deleteButtonView: {
-    position: 'absolute',
-    bottom: 5,
-    right: 10,
   },
 });
 
