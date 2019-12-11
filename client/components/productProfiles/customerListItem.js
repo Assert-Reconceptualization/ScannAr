@@ -16,7 +16,6 @@ const trash = require('../../assets/icons/trash.png');
 const CustomerListItem = ({
   name,
   uri,
-  description,
   price,
   setModalProp,
   item,
