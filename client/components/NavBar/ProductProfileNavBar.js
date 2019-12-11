@@ -1,15 +1,17 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import {
-  Text, View, StyleSheet, TouchableOpacity,
+  View, StyleSheet, TouchableOpacity, Image,
 } from 'react-native';
 
+const back = require('../../assets/icons/back.png');
+
 const ProductProfileNavBar = ({ setVisibility }) => {
-  const { container, buttonText } = styles;
+  const { container } = styles;
   return (
     <View style={container}>
       <TouchableOpacity onPress={() => setVisibility(false)}>
-        <Text style={buttonText}>{'<'}</Text>
+        <Image source={back} style={backButton} />
       </TouchableOpacity>
     </View>
   );
