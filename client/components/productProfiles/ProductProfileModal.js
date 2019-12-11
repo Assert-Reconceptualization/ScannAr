@@ -50,8 +50,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
         if (parsed[0]) {
           setProductTags(parsed[0].tags[0].name);
         }
-      });
-    // .catch(() => console.log('Something happened'));
+      })
+      .catch(() => setProductTags(''));
   };
 
   // Retrieves and updates business name based on product

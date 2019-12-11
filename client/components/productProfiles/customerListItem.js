@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View,
   Text,
@@ -33,6 +33,8 @@ const CustomerListItem = ({
   } = styles;
   const context = useContext(CustomerContext);
   const { setCurrentSavedList, serverUrl, currentUser } = context;
+  const [businessName, setBusinessName] = useState('Loading...');
+  const [businessPhone, setBusinessPhone] = useState(null);
 
   // Retrieves all current user's saved products
   const getSavedProducts = () => (
@@ -79,7 +81,7 @@ const CustomerListItem = ({
 
   // Get Business Name for product
   const getBusinessName = () => {
-    fetch(`${serverUrl}/users?id=${product.idBusiness}`, {
+    fetch(`${serverUrl}/users?id=${item.idBusiness}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -116,7 +118,7 @@ const CustomerListItem = ({
               {name}
             </Text>
           </View>
-          <Text style={productDescription}>{description}</Text>
+          <Text style={productDescription}>{businessName}</Text>
           <Text style={productPrice}>{`$${price}.00`}</Text>
         </View>
         <View style={productMenu}>
