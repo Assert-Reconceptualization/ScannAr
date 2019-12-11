@@ -12,7 +12,6 @@ import CustomerContext from '../../applicationState/customerContext';
 
 // import icons
 const camera = require('../../assets/icons/camera.png');
-const logout = require('../../assets/icons/logout.png');
 const gear = require('../../assets/icons/gear.png');
 
 const CustomerNavBar = ({ navigator }) => {
