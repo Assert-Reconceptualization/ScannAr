@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -11,10 +11,11 @@ import {
 
 import CustomerContext from '../../applicationState/customerContext';
 
+const trash = require('../../assets/icons/trash.png');
+
 const CustomerListItem = ({
   name,
   uri,
-  description,
   price,
   setModalProp,
   item,
@@ -23,16 +24,15 @@ const CustomerListItem = ({
     productTitle,
     listItemContainer,
     image,
-    productDescription,
+    business,
     productPrice,
     productMenu,
     informationContainer,
-    deleteButton,
-    deleteButtonView,
     // eslint-disable-next-line no-use-before-define
   } = styles;
   const context = useContext(CustomerContext);
   const { setCurrentSavedList, serverUrl, currentUser } = context;
+  const [businessName, setBusinessName] = useState('');
 
   // Retrieves all current user's saved products
   const getSavedProducts = () => (
@@ -77,6 +77,26 @@ const CustomerListItem = ({
     );
   };
 
+  // Get Business Name for product
+  const getBusinessName = () => {
+    fetch(`${serverUrl}/users?id=${item.idBusiness}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((parsed) => {
+        const businessInfo = parsed.data[0];
+        setBusinessName(businessInfo.name);
+      });
+  };
+
+  useEffect(() => {
+    getBusinessName();
+  }, []);
+
   return (
     <TouchableOpacity
       onPress={() => setModalProp(item)}
@@ -98,23 +118,15 @@ const CustomerListItem = ({
               {name}
             </Text>
           </View>
-          <Text style={productDescription}>{description}</Text>
+          <Text style={business}>{businessName}</Text>
           <Text style={productPrice}>{`$${price}.00`}</Text>
         </View>
         <View style={productMenu}>
           <TouchableOpacity
-            onPress={() => setModalProp(item)}
-            style={{ width: 30, alignItems: 'flex-end' }} // touch area
-          >
-            <Text style={productTitle}>...</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={deleteButtonView}>
-          <TouchableOpacity
             onPress={handleAlert}
             style={{ width: 30, alignItems: 'flex-end' }} // touch area
           >
-            <Text style={deleteButton}>x</Text>
+            <Image source={trash} style={{ height: 25, width: 25 }} />
           </TouchableOpacity>
         </View>
       </View>
@@ -131,12 +143,12 @@ const styles = StyleSheet.create({
   },
   productMenu: {
     position: 'absolute',
-    top: 0,
+    top: 5,
     right: 10,
   },
-  productDescription: {
+  business: {
     fontSize: 12,
-    color: '#B3C6CD',
+    color: '#547D8C',
     marginBottom: 6,
   },
   productPrice: {
@@ -148,7 +160,7 @@ const styles = StyleSheet.create({
     height: 116,
     marginBottom: 10,
     borderRadius: 5,
-    borderColor: '#B3C6CD',
+    borderColor: '#547D8C',
     borderWidth: 3,
     flexDirection: 'row',
     alignItems: 'center',
@@ -164,15 +176,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     marginLeft: 10,
     marginRight: 10,
-  },
-  deleteButton: {
-    fontSize: 24,
-    color: 'red',
-  },
-  deleteButtonView: {
-    position: 'absolute',
-    bottom: 5,
-    right: 10,
   },
 });
 

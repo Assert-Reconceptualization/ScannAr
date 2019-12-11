@@ -1,15 +1,18 @@
+/* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
 import React from 'react';
 import {
-  Text, View, StyleSheet, TouchableOpacity,
+  View, StyleSheet, TouchableOpacity, Image,
 } from 'react-native';
 
+const back = require('../../assets/icons/back.png');
+
 const ARNavBar = ({ navigator }) => {
-  const { container, buttonText } = styles;
+  const { container, backButton, backButtonTouchable } = styles;
   return (
     <View style={container}>
-      <TouchableOpacity onPress={() => navigator.pop()}>
-        <Text style={buttonText}>{'<'}</Text>
+      <TouchableOpacity style={backButtonTouchable} onPress={() => navigator.pop()}>
+        <Image source={back} style={backButton} />
       </TouchableOpacity>
     </View>
   );
@@ -23,13 +26,14 @@ const styles = StyleSheet.create({
     opacity: 50,
     backgroundColor: '#124559',
   },
-  buttonText: {
-    textAlign: 'left',
-    padding: 10,
-    color: 'white',
-    fontWeight: 'bold',
-    fontSize: 30,
-    marginBottom: 5,
+  backButton: {
+    height: 28,
+    width: 28,
+  },
+  backButtonTouchable: {
+    position: 'absolute',
+    left: 20,
+    top: 20,
   },
 });
 

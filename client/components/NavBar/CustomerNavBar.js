@@ -2,17 +2,22 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useContext } from 'react';
 import {
-  Text,
   View,
   StyleSheet,
   TouchableOpacity,
+  Image,
+  ActionSheetIOS,
 } from 'react-native';
 import CustomerContext from '../../applicationState/customerContext';
+
+// import icons
+const camera = require('../../assets/icons/camera.png');
+const gear = require('../../assets/icons/gear.png');
 
 const CustomerNavBar = ({ navigator }) => {
   // eslint-disable-next-line no-use-before-define
   const context = useContext(CustomerContext);
-  const { bar, buttonText } = styles;
+  const { bar } = styles;
   const [throttle, setThrottle] = useState(false);
   const { serverUrl, setAllMarkers, setCurrentUser } = context;
 
@@ -44,18 +49,31 @@ const CustomerNavBar = ({ navigator }) => {
     }
   };
 
-  const handleLogout = () => {
-    setCurrentUser({});
-    navigator.pop();
+  const handleSettings = () => {
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        title: 'Settings',
+        options: ['Cancel', 'Logout'],
+        destructiveButtonIndex: 1,
+        cancelButtonIndex: 0,
+        color: 'white',
+      },
+      (buttonIndex) => {
+        if (buttonIndex === 1) { // upon logout
+          setCurrentUser({}); // clear user
+          navigator.pop(); // pop back to login
+        }
+      },
+    );
   };
 
   return (
     <View style={bar}>
       <TouchableOpacity onPress={() => handlePress()}>
-        <Text style={buttonText}>AR</Text>
+        <Image source={camera} style={{ height: 28, width: 28 }} />
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleLogout}>
-        <Text style={buttonText}>Logout</Text>
+      <TouchableOpacity onPress={handleSettings}>
+        <Image source={gear} style={{ height: 28, width: 28 }} />
       </TouchableOpacity>
     </View>
   );
@@ -63,7 +81,7 @@ const CustomerNavBar = ({ navigator }) => {
 
 const styles = StyleSheet.create({
   bar: {
-    // flex:1,
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-around',
     height: '8%',
