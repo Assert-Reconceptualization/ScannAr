@@ -80,7 +80,7 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
                 height={0.3}
                 width={0.3}
                 source={forward}
-                style={{ top: 0.7 }}
+                style={{ top: 0.5, left: 2 }}
                 onTouch={() => { setVisibility(); setProduct(item); }}
               />
             </ViroFlexView>
@@ -114,12 +114,13 @@ const styles = StyleSheet.create({
   itemText: {
     fontFamily: "lucida grande', tahoma, verdana, arial, sans-serif", 
     color: 'white',
+    paddingTop: 0.5,
   },
   price: {
     fontFamily: "lucida grande', tahoma, verdana, arial, sans-serif",
     color: 'white',
     marginLeft: 1,
-    marginTop: 0.5,
+    paddingTop: 0.5,
   },
   clickText: {
     fontFamily: "lucida grande', tahoma, verdana, arial, sans-serif", 
