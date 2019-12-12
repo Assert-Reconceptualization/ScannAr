@@ -14,7 +14,7 @@ import {
   ImageBackground,
   Image,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import RegisterModal from '../components/RegisterModal';
 import SignUp from '../components/buttons/SignUp';
 import BusinessContext from '../applicationState/BusinessContext';
@@ -150,7 +150,7 @@ export default function SignInScreen(props) {
             style={cancelButtonContainer}
             onPress={cancelSigningIn}
           >
-            <Ionicons name="ios-rewind" size={30} color="#AEC3B0" />
+            <FontAwesome name="chevron-left" size={30} color="#AEC3B0" />
           </TouchableOpacity>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={loginModal}>
@@ -174,7 +174,7 @@ export default function SignInScreen(props) {
                 style={registerButtonContainer}
               >
                 <Text style={buttonSignIn}>Sign in  </Text>
-                <Ionicons name="ios-redo" size={30} color="#AEC3B0" />
+                <FontAwesome name="sign-in" size={30} color="#AEC3B0" />
               </TouchableOpacity>
             </View>
           </TouchableWithoutFeedback>
