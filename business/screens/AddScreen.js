@@ -300,8 +300,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: 248,
-    height: 248,
+    width: 247,
+    height: 247,
     borderRadius: 5,
   },
   photoContainer: {
