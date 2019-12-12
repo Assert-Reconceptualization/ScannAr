@@ -52,7 +52,7 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
         >
           <ViroFlexView
             rotation={[-90, 0, 0]}
-            scale={[1.25, 1.25, 1.25]}
+            scale={[1.25, 1, 1]}
             height={2}
             width={3}
             style={{ flexDirection: 'row', backgroundColor: 'rgba(52, 52, 52, 0.8)' }}
