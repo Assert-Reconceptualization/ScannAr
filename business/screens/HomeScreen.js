@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: '5%',
     marginRight: '5%',
-    marginBottom: 10,
+    marginBottom: 20,
   },
   filterTitleContainer: {
     flexDirection: 'row',
