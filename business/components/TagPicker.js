@@ -13,6 +13,7 @@ export default function TagPicker(props) {
     <View style={pickerContainer}>
       <Picker
         style={picker}
+        itemStyle={{ height: 100 }}
         selectedValue={currentTag}
         onValueChange={(pickedTag) => setCurrentTag(pickedTag)}
       >
@@ -22,7 +23,7 @@ export default function TagPicker(props) {
             key={tag.id}
             label={tag.name}
             value={tag.name}
-            color="#EFF6E0"
+            color="white"
           />
         ))}
       </Picker>
@@ -33,13 +34,7 @@ export default function TagPicker(props) {
 const styles = StyleSheet.create({
   picker: {
     width: 175,
+    height: 100,
     backgroundColor: 'transparent',
-  },
-  pickerContainer: {
-    marginTop: 20,
-    borderWidth: 2,
-    borderRadius: 5,
-    borderColor: '#AEC3B0',
-    backgroundColor: '#1E241F',
   },
 });
