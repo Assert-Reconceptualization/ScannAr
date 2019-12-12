@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
   ImageBackground,
+  View,
 } from 'react-native';
 
 import BusinessContext from '../applicationState/BusinessContext';
@@ -74,6 +75,10 @@ export default function EditProfileModal(props) {
     buttonCancel,
     buttonRegister,
     buttonContainer,
+    titleText,
+    inputHeader,
+    inputContainer,
+    modalContainer,
   } = styles;
 
   const {
@@ -82,79 +87,114 @@ export default function EditProfileModal(props) {
 
   return (
     <Modal visible={visible} animationType="fade">
-      <ImageBackground
-        source={backgroundImagePath}
-        style={{ width: '100%', height: '100%', backgroundColor: '#3B423C' }}
-      >
-        <ScrollView
-          contentContainerStyle={container}
-          keyboardDismissMode="on-drag"
+      <View style={modalContainer}>
+        <ImageBackground
+          source={backgroundImagePath}
+          style={{ width: '100%', height: '100%', backgroundColor: '#3B423C' }}
         >
-          <Text>Update Business Information</Text>
-          <TextInput
-            placeholder="Name"
-            value={newName}
-            style={textInput}
-            onChangeText={(text) => setNewName(text)}
-            maxLength={20}
-          />
-          <TextInput
-            placeholder="Email"
-            value={newEmail}
-            style={textInput}
-            onChangeText={(text) => setNewEmail(text)}
-          />
-          <TextInput
-            placeholder="Phone"
-            value={newPhone}
-            style={textInput}
-            onChangeText={(text) => setNewPhone(text)}
-          />
-          <TextInput
-            placeholder="Description"
-            value={newDescription}
-            style={descriptionInput}
-            multiline
-            onChangeText={(text) => setNewDescription(text)}
-          />
-          <SafeAreaView style={buttonContainer}>
-            <TouchableOpacity onPress={handleSubmit}>
-              <Text style={buttonRegister}>Register</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleCancel}>
-              <Text style={buttonCancel}>cancel</Text>
-            </TouchableOpacity>
-          </SafeAreaView>
-        </ScrollView>
-      </ImageBackground>
+          <ScrollView
+            keyboardDismissMode="on-drag"
+            contentContainerStyle={inputContainer}
+          >
+            <View style={container}>
+              <Text style={titleText}>Update Business Information</Text>
+              <Text style={inputHeader}>Business Name</Text>
+              <TextInput
+                placeholder="Name"
+                value={newName}
+                style={textInput}
+                onChangeText={(text) => setNewName(text)}
+                maxLength={20}
+              />
+              <Text style={inputHeader}>Email</Text>
+              <TextInput
+                placeholder="Email"
+                value={newEmail}
+                style={textInput}
+                onChangeText={(text) => setNewEmail(text)}
+              />
+              <Text style={inputHeader}>Phone Number</Text>
+              <TextInput
+                placeholder="Phone"
+                value={newPhone}
+                style={textInput}
+                onChangeText={(text) => setNewPhone(text)}
+              />
+              <Text style={inputHeader}>Description</Text>
+              <TextInput
+                placeholder="Description"
+                value={newDescription}
+                style={descriptionInput}
+                multiline
+                onChangeText={(text) => setNewDescription(text)}
+              />
+              <SafeAreaView style={buttonContainer}>
+                <TouchableOpacity onPress={handleSubmit}>
+                  <Text style={buttonRegister}>Save</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleCancel}>
+                  <Text style={buttonCancel}>cancel</Text>
+                </TouchableOpacity>
+              </SafeAreaView>
+            </View>
+          </ScrollView>
+        </ImageBackground>
+      </View>
     </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  inputContainer: {
+    flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  container: {
+    flex: 1,
+    paddingBottom: 50,
+    alignItems: 'center',
+    width: '100%',
+  },
+  titleText: {
+    fontSize: 30,
+    paddingTop: 70,
+    color: '#AEC3B0',
+    paddingBottom: 70,
+    justifyContent: 'center',
+    marginTop: 5,
+  },
+  inputHeader: {
+    width: '70%',
+    paddingLeft: 2,
+    fontSize: 20,
+    alignItems: 'center',
+    color: '#EFF6E0',
+  },
   textInput: {
     width: '70%',
+    backgroundColor: '#1E241F',
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: '#AEC3B0',
     borderRadius: 5,
-    fontSize: 25,
+    fontSize: 18,
+    justifyContent: 'center',
     marginBottom: 20,
     paddingLeft: 5,
+    color: '#AEC3B0',
   },
   descriptionInput: {
     width: '70%',
     borderWidth: 2,
-    height: 200,
-    borderColor: 'black',
+    height: 150,
+    backgroundColor: '#1E241F',
+    borderColor: '#AEC3B0',
     borderRadius: 5,
     fontSize: 25,
     marginBottom: 15,
+    justifyContent: 'center',
     paddingLeft: 5,
+    color: '#AEC3B0',
   },
   buttonCancel: {
     fontSize: 35,
