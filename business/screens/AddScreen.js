@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-use-before-define */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   Button,
   StyleSheet,
@@ -95,7 +95,6 @@ export default function AddScreen(props) {
   const saveProductTags = (productId, tagName) => {
     // grab tag id
     const { id } = context.tags.filter((tag) => tag.name === tagName)[0];
-    console.log(productId, id);
     fetch(`${server}/productTags?idProduct=${productId}&idTag=${id}`, {
       method: 'POST',
       headers: {

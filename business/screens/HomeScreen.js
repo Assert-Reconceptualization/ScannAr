@@ -31,6 +31,7 @@ export default function HomeScreen(props) {
   const [sorting, setSorting] = useState(false);
   const [filterColor, setFilterColor] = useState('#AEC3B0');
   const [sortingBy, setSortingBy] = useState('mostRecent'); // add default to sort
+  const { currentInventory, setCurrentInventory } = context;
   // grab user data from database
   useEffect(() => {
     // grab products
@@ -47,7 +48,7 @@ export default function HomeScreen(props) {
         if (products.data) {
           // ensure default sort is most recent - oldest
           const setInventory = async () => {
-            await context.setCurrentInventory(products.data);
+            await setCurrentInventory(products.data);
           };
           setInventory();
           return products.data;
@@ -60,9 +61,14 @@ export default function HomeScreen(props) {
       });
   }, []);
 
-  const handleModalVisibility = () => {
-    setCreating(true);
+  const reSort = () => {
+    filterFunctions(sortingBy);
   };
+
+  // make sure inventory is correctly filtered
+  useEffect(() => {
+    reSort();
+  }, [currentInventory]);
 
   const filterFunctions = (filterBy, inventory) => {
     // grab current inventory
@@ -70,24 +76,24 @@ export default function HomeScreen(props) {
     let sortedInventory;
     if (!inventory) {
       // eslint-disable-next-line no-param-reassign
-      inventory = context.currentInventory;
+      inventory = currentInventory;
     }
     switch (filterBy) {
       case 'priceAscending':
         sortedInventory = inventory.sort((a, b) => a.price - b.price);
-        context.setCurrentInventory(sortedInventory);
+        setCurrentInventory(sortedInventory);
         break;
       case 'priceDescending':
         sortedInventory = inventory.sort((a, b) => b.price - a.price);
-        context.setCurrentInventory(sortedInventory);
+        setCurrentInventory(sortedInventory);
         break;
       case 'oldestFirst':
         sortedInventory = inventory.sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
-        context.setCurrentInventory(sortedInventory);
+        setCurrentInventory(sortedInventory);
         break;
       case 'mostRecent':
         sortedInventory = inventory.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
-        context.setCurrentInventory(sortedInventory);
+        setCurrentInventory(sortedInventory);
         break;
       default: break;
     }
@@ -116,7 +122,6 @@ export default function HomeScreen(props) {
     filterTitle,
   } = styles;
 
-  const { currentInventory } = context;
   return (
     <View style={container}>
       <View style={titleContainer}>
