@@ -7,16 +7,15 @@ import {
   Text,
   TouchableOpacity,
   View,
-  TouchableWithoutFeedback,
   Alert,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import ProductCard from '../components/productCard';
 import BusinessContext from '../applicationState/BusinessContext';
 import NoProductMessage from '../components/NoProductMessage';
 import NewProductModal from '../components/NewProductModal';
 import HomeScreenHeader from '../components/HomeScreenHeader';
-import SortModal from '../components/SortModal';
+import SortBar from '../components/SortBar';
 import serverConfig from '../serverConfig';
 
 const server = serverConfig().url;
@@ -30,6 +29,7 @@ export default function HomeScreen(props) {
   const [creating, setCreating] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [sorting, setSorting] = useState(false);
+  const [filterColor, setFilterColor] = useState('#AEC3B0');
   const [sortingBy, setSortingBy] = useState('mostRecent'); // add default to sort
   // grab user data from database
   useEffect(() => {
@@ -65,8 +65,6 @@ export default function HomeScreen(props) {
   };
 
   const filterFunctions = (filterBy, inventory) => {
-    // hide filter functions
-    hideSortModal();
     // grab current inventory
     setSortingBy(filterBy);
     let sortedInventory;
@@ -78,22 +76,18 @@ export default function HomeScreen(props) {
       case 'priceAscending':
         sortedInventory = inventory.sort((a, b) => a.price - b.price);
         context.setCurrentInventory(sortedInventory);
-        // force re-render component
         break;
       case 'priceDescending':
         sortedInventory = inventory.sort((a, b) => b.price - a.price);
         context.setCurrentInventory(sortedInventory);
-        // force re-render component
         break;
       case 'oldestFirst':
         sortedInventory = inventory.sort((a, b) => new Date(a.updatedAt) - new Date(b.updatedAt));
         context.setCurrentInventory(sortedInventory);
-        // force re-render component
         break;
       case 'mostRecent':
         sortedInventory = inventory.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
         context.setCurrentInventory(sortedInventory);
-        // force re-render component
         break;
       default: break;
     }
@@ -102,11 +96,13 @@ export default function HomeScreen(props) {
   };
 
   const toggleSortModal = () => {
-    setSorting(true);
-  };
-
-  const hideSortModal = () => {
-    setSorting(false);
+    if (sorting) {
+      setFilterColor('#AEC3B0');
+      setSorting(false);
+    } else {
+      setFilterColor('#EFF6E0');
+      setSorting(true);
+    }
   };
 
   const {
@@ -115,51 +111,45 @@ export default function HomeScreen(props) {
     inventoryContainer,
     titleText,
     noInventoryContainer,
-    businessInfoContainer,
-    businessName,
-    addButton,
     sortingContainer,
+    filterTitleContainer,
+    filterTitle,
   } = styles;
 
-  const { currentBusiness, currentInventory } = context;
+  const { currentInventory } = context;
   return (
-    <TouchableWithoutFeedback onPress={hideSortModal}>
-      <View style={container}>
-        {sorting && (
-          <View style={sortingContainer}>
-            <SortModal sort={filterFunctions} />
-          </View>
-        )}
-        <View style={businessInfoContainer}>
-          <Text style={businessName}>{currentBusiness.name}</Text>
-        </View>
-        <View style={titleContainer}>
-          <Text style={titleText}>Our Products</Text>
-          <TouchableOpacity onPress={toggleSortModal}>
-            <Ionicons name="ios-options" size={40} color="#AEC3B0" />
-          </TouchableOpacity>
-        </View>
-        {currentInventory.length ? (
-          <View style={inventoryContainer}>
-            <ScrollView>
-              <View onStartShouldSetResponder={() => true}>
-                {currentInventory.map((product) => (
-                  <ProductCard navigation={navigation} key={product.id} product={product} />
-                ))}
-              </View>
-            </ScrollView>
-          </View>
-        ) : (
-          <View style={noInventoryContainer}>
-            <NoProductMessage />
-          </View>
-        )}
-        {/* <TouchableOpacity style={addButton} onPress={handleModalVisibility}>
-          <Ionicons name="ios-add-circle" size={70} color="#AEC3B0" />
-        </TouchableOpacity> */}
-        <NewProductModal navigation={navigation} visible={creating} setCreating={setCreating} />
+    <View style={container}>
+      <View style={titleContainer}>
+        <Text style={titleText}>Our Products</Text>
+        <TouchableOpacity onPress={toggleSortModal}>
+          <FontAwesome name="ellipsis-h" size={40} color={filterColor} />
+        </TouchableOpacity>
       </View>
-    </TouchableWithoutFeedback>
+      {sorting && (
+        <View style={sortingContainer}>
+          <View style={filterTitleContainer}>
+            <Text style={filterTitle}>Filter</Text>
+          </View>
+          <SortBar sort={filterFunctions} active={sortingBy} />
+        </View>
+      )}
+      {currentInventory.length ? (
+        <View style={inventoryContainer}>
+          <ScrollView>
+            <View onStartShouldSetResponder={() => true}>
+              {currentInventory.map((product) => (
+                <ProductCard navigation={navigation} key={product.id} product={product} />
+              ))}
+            </View>
+          </ScrollView>
+        </View>
+      ) : (
+        <View style={noInventoryContainer}>
+          <NoProductMessage />
+        </View>
+      )}
+      <NewProductModal navigation={navigation} visible={creating} setCreating={setCreating} />
+    </View>
   );
 }
 
@@ -178,11 +168,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#39403A',
   },
-  businessInfoContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
   titleContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -197,10 +182,6 @@ const styles = StyleSheet.create({
   noInventoryContainer: {
     flex: 7,
   },
-  businessName: {
-    color: '#EFF6E0',
-    fontSize: 20,
-  },
   titleText: {
     fontSize: 30,
     fontWeight: 'bold',
@@ -212,9 +193,20 @@ const styles = StyleSheet.create({
     right: '10%',
   },
   sortingContainer: {
-    position: 'absolute',
-    top: 40,
-    right: 0,
-    zIndex: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginLeft: '5%',
+    marginRight: '5%',
+    marginBottom: 20,
+  },
+  filterTitleContainer: {
+    flexDirection: 'row',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  filterTitle: {
+    fontSize: 20,
+    color: '#C4D2C5',
   },
 });

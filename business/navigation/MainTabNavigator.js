@@ -1,6 +1,10 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import { Platform } from 'react-native';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { Platform, View } from 'react-native';
+import {
+  createStackNavigator,
+  createBottomTabNavigator,
+} from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
@@ -20,13 +24,8 @@ const HomeStack = createStackNavigator(
 );
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Inventory',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name="ios-list"
-    />
-  ),
+  tabBarLabel: <View />,
+  tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="list-ul" />,
 };
 
 HomeStack.path = '';
@@ -35,13 +34,13 @@ const AddStack = createStackNavigator(
   {
     Add: AddScreen,
   },
-  config
+  config,
 );
 
 AddStack.navigationOptions = {
-  tabBarLabel: 'Add',
+  tabBarLabel: <View />,
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name="ios-add-circle" />
+    <TabBarIcon focused={focused} name="plus-circle" />
   ),
 };
 
@@ -51,13 +50,13 @@ const SettingsStack = createStackNavigator(
   {
     Settings: SettingsScreen,
   },
-  config
+  config,
 );
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Profile',
+  tabBarLabel: <View />,
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name='ios-person' />
+    <TabBarIcon focused={focused} name="user" />
   ),
 };
 
@@ -72,12 +71,11 @@ const tabNavigator = createBottomTabNavigator(
   {
     tabBarOptions: {
       style: {
-        backgroundColor: '#505950'
-      }
-    }
-  }
+        backgroundColor: '#505950',
+      },
+    },
+  },
 );
-
 
 tabNavigator.path = '';
 
