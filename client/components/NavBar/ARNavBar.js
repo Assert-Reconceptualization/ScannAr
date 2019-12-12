@@ -5,7 +5,7 @@ import {
   View, StyleSheet, TouchableOpacity, Image,
 } from 'react-native';
 
-const back = require('../../assets/icons/back.png');
+const back = require('../../assets/icons/chevron-left.png');
 
 const ARNavBar = ({ navigator }) => {
   const { container, backButton, backButtonTouchable } = styles;

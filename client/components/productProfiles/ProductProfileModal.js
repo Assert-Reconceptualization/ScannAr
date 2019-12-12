@@ -276,16 +276,22 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   saveButton: {
-    alignItems: 'flex-end',
     width: 100,
-    padding: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
     borderRadius: 5,
+    position: 'absolute',
+    top: 5,
+    marginLeft: '90%',
   },
   removeButton: {
-    alignItems: 'flex-end',
     width: 100,
-    padding: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
     borderRadius: 5,
+    position: 'absolute',
+    top: 5,
+    marginLeft: '90%',
   },
 });
 

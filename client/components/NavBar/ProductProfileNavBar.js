@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 
 // import image
-const back = require('../../assets/icons/back.png');
+const back = require('../../assets/icons/chevron-left.png');
 
 const ProductProfileNavBar = ({ setVisibility }) => {
   const { container, backButton, backButtonTouchable } = styles;
