@@ -12,6 +12,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   ImageBackground,
+  Image,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import RegisterModal from '../components/RegisterModal';
@@ -20,6 +21,7 @@ import BusinessContext from '../applicationState/BusinessContext';
 import serverConfig from '../serverConfig';
 
 const backgroundImagePath = require('../assets/images/business-bg.png');
+const logoImagePath = require('../assets/images/business-logo.png');
 
 const server = serverConfig().url;
 
@@ -85,8 +87,7 @@ export default function SignInScreen(props) {
       .then((response) => response.json())
       .then((tags) => {
         context.setTags(tags.data);
-      })
-      .catch(() => console.log("couldn't fetch tags"));
+      });
   };
 
   const {
@@ -94,12 +95,8 @@ export default function SignInScreen(props) {
     titleContainer,
     subTitleContainer,
     buttonContainer,
-    titleLeftText,
-    titleRightText,
-    subTitle,
     loginModal,
     textInput,
-    titleIconContainer,
     newContainer,
     cancelButtonContainer,
     smallText,
@@ -125,17 +122,9 @@ export default function SignInScreen(props) {
           cancelRegistration={cancelRegistration}
         />
         <View style={titleContainer}>
-          <Text style={titleLeftText}>Scann</Text>
-          <Text style={titleRightText}>AR</Text>
-          <View style={titleIconContainer}>
-            <Ionicons name="ios-briefcase" size={30} color="#AEC3B0"/>
-          </View>
+          <Image source={logoImagePath} />
         </View>
-        <View style={subTitleContainer}>
-          <Text style={subTitle}>
-            Business
-          </Text>
-        </View>
+        <View style={subTitleContainer} />
         <View style={buttonContainer}>
           <TouchableOpacity
             onPress={isSigningIn}
@@ -202,7 +191,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#3B423C',
   },
   titleContainer: {
-    flex: 1,
+    flex: 2,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-end',
@@ -213,20 +202,6 @@ const styles = StyleSheet.create({
   subTitleContainer: {
     flex: 2,
     alignItems: 'center',
-  },
-  titleLeftText: {
-    color: '#EFF6E0',
-    fontSize: 40,
-    fontWeight: 'bold',
-  },
-  titleRightText: {
-    color: '#AEC3B0',
-    fontSize: 40,
-    fontWeight: 'bold',
-  },
-  subTitle: {
-    color: '#AEC3B0',
-    fontSize: 40,
   },
   smallText: {
     color: '#EFF6E0',
