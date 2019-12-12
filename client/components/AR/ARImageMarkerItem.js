@@ -15,7 +15,7 @@ import {
 
 } from 'react-viro';
 
-const back = require('../../assets/icons/back.png');
+const forward = require('../../assets/icons/mail-forward.png');
 
 /**
  * This will dynamically create image markers for AR screen tracked items
@@ -34,7 +34,7 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
 
   const {
     itemText,
-    clickText,
+    price,
   } = styles;
 
   return (
@@ -53,10 +53,9 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
           <ViroFlexView
             rotation={[-90, 0, 0]}
             scale={[1, 1, 1]}
-            height={1}
-            width={1}
+            height={2}
+            width={3}
             style={{ flexDirection: 'row', backgroundColor: 'rgba(52, 52, 52, 0.8)' }}
-
           >
             <ViroFlexView
               width={0.4}
@@ -64,7 +63,9 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
               style={{ flexDirection: 'column', justifyContent: 'center' }}
             >
               <ViroImage
-                style={{ flex: 0.4 }}
+                style={{ top: 0.5 }}
+                height={1}
+                width={1}
                 source={{ uri: item.imageUrl }}
               />
             </ViroFlexView>
@@ -73,13 +74,13 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
               height={1}
               style={{ flexDirection: 'column', padding: 0.03 }}
             >
-              <ViroText text={item.name} flex={1} style={itemText} fontSize={10} />
-              <ViroText text={`$${item.price}.00`} flex={1} style={itemText} fontSize={10} />
-              {/* <ViroText text="click for more info" flex={0.7} style={clickText} fontSize={8} /> */}
+              <ViroText text={item.name} height={2} width={3} style={itemText} fontSize={30} />
+              <ViroText text={`$${item.price}.00`} height={2} width={3} style={price} fontSize={30} />
               <ViroImage
-                height={0.5}
-                width={0.5}
-                source={back}
+                height={0.3}
+                width={0.3}
+                source={forward}
+                style={{ top: 0.7 }}
                 onTouch={() => { setVisibility(); setProduct(item); }}
               />
             </ViroFlexView>
@@ -112,14 +113,16 @@ ViroAnimations.registerAnimations({
 const styles = StyleSheet.create({
   itemText: {
     fontFamily: "lucida grande', tahoma, verdana, arial, sans-serif", 
-    // fontSize: 11,
-    fontWeight: '900',
     color: 'white',
+  },
+  price: {
+    fontFamily: "lucida grande', tahoma, verdana, arial, sans-serif",
+    color: 'white',
+    marginLeft: 1,
+    marginTop: 0.5,
   },
   clickText: {
     fontFamily: "lucida grande', tahoma, verdana, arial, sans-serif", 
-    // fontSize: 9,
-    fontWeight: '900',
     color: 'white',
   },
 });
