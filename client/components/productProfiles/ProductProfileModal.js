@@ -12,6 +12,8 @@ import CustomerContext from '../../applicationState/customerContext';
 // import icons
 const trash = require('../../assets/icons/trash.png');
 const add = require('../../assets/icons/cart.png');
+const phone = require('../../assets/icons/phone.png');
+const email = require('../../assets/icons/email.png');
 
 const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const [isSaved, setSaved] = useState(false);
