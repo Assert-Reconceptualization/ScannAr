@@ -224,7 +224,7 @@ export default function AddScreen(props) {
               <Text style={inputLabelText}>Product Name</Text>
               <TextInput
                 placeholder="Name"
-                placeholderTextColor="#EFF6E0"
+                placeholderTextColor="#AEC3B0"
                 style={textInput}
                 value={name}
                 onChangeText={(text) => setName(text)}
@@ -233,7 +233,7 @@ export default function AddScreen(props) {
               <Text style={inputLabelText}>Price</Text>
               <TextInput
                 placeholder="Price"
-                placeholderTextColor="#EFF6E0"
+                placeholderTextColor="#AEC3B0"
                 value={price}
                 style={textInput}
                 keyboardType="decimal-pad"
@@ -242,13 +242,14 @@ export default function AddScreen(props) {
               <Text style={inputLabelText}>Product Description</Text>
               <TextInput
                 placeholder="Description"
-                placeholderTextColor="#EFF6E0"
+                placeholderTextColor="#AEC3B0"
                 style={descriptionInput}
                 value={description}
                 multiline
                 onChangeText={(text) => setDescription(text)}
               />
             </View>
+            <Text style={inputLabelText}>Add tag</Text>
             <View style={tagContainer}>
               <TagPicker
                 currentTag={currentTag}
@@ -321,7 +322,6 @@ const styles = StyleSheet.create({
   tagContainer: {
     width: '70%',
     alignItems: 'center',
-    marginTop: 10,
     borderWidth: 2,
     borderRadius: 5,
     borderColor: '#AEC3B0',
@@ -354,6 +354,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     paddingLeft: 5,
     color: '#EFF6E0',
+    marginBottom: 10,
   },
   buttonContainer: {
     marginTop: 10,
