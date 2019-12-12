@@ -77,7 +77,6 @@ export default function EditProfileModal(props) {
     buttonContainer,
     titleText,
     inputHeader,
-    titleContainer,
     inputContainer,
     modalContainer,
   } = styles;
@@ -93,14 +92,12 @@ export default function EditProfileModal(props) {
           source={backgroundImagePath}
           style={{ width: '100%', height: '100%', backgroundColor: '#3B423C' }}
         >
-          <View style={titleContainer}>
-            <Text style={titleText}>Update Business Information</Text>
-          </View>
           <ScrollView
             keyboardDismissMode="on-drag"
             contentContainerStyle={inputContainer}
           >
             <View style={container}>
+              <Text style={titleText}>Update Business Information</Text>
               <Text style={inputHeader}>Business Name</Text>
               <TextInput
                 placeholder="Name"
@@ -153,24 +150,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  titleContainer: {
-    flexShrink: 1,
-    paddingTop: 70,
-    marginBottom: -20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   container: {
     flex: 1,
-    paddingTop: 70,
     paddingBottom: 50,
     alignItems: 'center',
     width: '100%',
-    justifyContent: 'center',
   },
   titleText: {
     fontSize: 30,
+    paddingTop: 70,
     color: '#AEC3B0',
+    paddingBottom: 70,
     justifyContent: 'center',
     marginTop: 5,
   },
