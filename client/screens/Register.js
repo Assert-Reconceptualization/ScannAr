@@ -2,11 +2,11 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import {
-  Text, 
-  View, 
-  StyleSheet, 
-  TextInput, 
-  TouchableOpacity, 
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
 
@@ -22,7 +22,7 @@ const Register = ({
   password,
   setRegister,
 }) => {
-  const [addingUser, setAddingUser ] = useState(false);
+  const [addingUser, setAddingUser] = useState(false);
 
   const register = () => {
     setAddingUser(true);
