@@ -112,7 +112,7 @@ ViroAnimations.registerAnimations({
 
 const styles = StyleSheet.create({
   itemText: {
-    fontFamily: "lucida grande', tahoma, verdana, arial, sans-serif", 
+    fontFamily: "lucida grande', tahoma, verdana, arial, sans-serif",
     color: 'white',
     paddingTop: 0.5,
   },
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     paddingTop: 0.5,
   },
   clickText: {
-    fontFamily: "lucida grande', tahoma, verdana, arial, sans-serif", 
+    fontFamily: "lucida grande', tahoma, verdana, arial, sans-serif",
     color: 'white',
   },
 });
