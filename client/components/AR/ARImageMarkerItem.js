@@ -15,6 +15,8 @@ import {
 
 } from 'react-viro';
 
+const back = require('../../assets/icons/back.png');
+
 /**
  * This will dynamically create image markers for AR screen tracked items
  * @param {string} object
@@ -73,7 +75,13 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
             >
               <ViroText text={item.name} flex={1} style={itemText} fontSize={10} />
               <ViroText text={`$${item.price}.00`} flex={1} style={itemText} fontSize={10} />
-              <ViroText text="click for more info" flex={0.7} style={clickText} fontSize={8} />
+              {/* <ViroText text="click for more info" flex={0.7} style={clickText} fontSize={8} /> */}
+              <ViroImage
+                height={0.5}
+                width={0.5}
+                source={back}
+                onTouch={() => { setVisibility(); setProduct(item); }}
+              />
             </ViroFlexView>
           </ViroFlexView>
         </ViroNode>
