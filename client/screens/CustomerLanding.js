@@ -120,7 +120,7 @@ const CustomerLanding = ({ navigator }) => {
       <View style={screen}>
         <ProductProfileModal visible={visible} setVisibility={setVisibility} product={product} />
         <CustomerHeader navigator={navigator} />
-        <Text style={productsTitle}>Saved Products</Text>
+        <Text style={productsTitle}>Your Saved List</Text>
         <View style={sortButton}>
           <TouchableOpacity onPress={() => setSortVisibility(true)}>
             <Text style={sortButtonText}>.</Text>
