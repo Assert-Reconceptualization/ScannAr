@@ -49,6 +49,7 @@ const ARImageMarkerItem = ({ item, setProduct, setVisibility }) => {
             name: 'animateImage',
             run: true,
           }}
+          // transformBehaviors={['billboard']}
         >
           <ViroFlexView
             rotation={[-90, 0, 0]}
