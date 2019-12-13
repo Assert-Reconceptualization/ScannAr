@@ -62,6 +62,7 @@ export default function SettingsScreen(props) {
     phoneContainer,
     imageContainer,
     defaultImage,
+    descriptionText,
   } = styles;
 
   return (
@@ -85,7 +86,7 @@ export default function SettingsScreen(props) {
       </View>
       <View style={contentContainer}>
         <Text style={subTitle}>Description:</Text>
-        <Text style={text}>{description}</Text>
+        <Text style={descriptionText}>{description}</Text>
         <View style={emailContainer}>
           <Text style={subTitle}>Email address:</Text>
           <Text style={text}>{email}</Text>
@@ -134,12 +135,17 @@ const styles = StyleSheet.create({
   subTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    fontStyle: 'italic',
     color: '#EFF6E0',
     marginRight: 30,
+    marginBottom: 10,
   },
   text: {
     fontSize: 22,
+    color: '#99AC9B',
+    marginBottom: 20,
+  },
+  descriptionText: {
+    fontSize: 20,
     color: '#99AC9B',
     marginBottom: 20,
   },
