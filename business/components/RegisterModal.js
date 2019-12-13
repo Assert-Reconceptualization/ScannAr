@@ -103,7 +103,7 @@ export default function RegisterModal(props) {
             onChangeText={(text) => setBusinessName(text)}
             value={businessName}
             placeholder="Business Name"
-            placeholderTextColor="#AEC3B0"
+            placeholderTextColor="#99AC9B"
             autoCapitalize="sentences"
           />
           <Text style={inputHeader}>Email</Text>
@@ -112,7 +112,7 @@ export default function RegisterModal(props) {
             onChangeText={(text) => setBusinessEmail(text)}
             value={businessEmail}
             placeholder="Email"
-            placeholderTextColor="#AEC3B0"
+            placeholderTextColor="#99AC9B"
             keyboardType="email-address"
           />
           <Text style={inputHeader}>Password</Text>
@@ -121,7 +121,7 @@ export default function RegisterModal(props) {
             onChangeText={(text) => setBusinessPassword(text)}
             value={businessPassword}
             placeholder="Password"
-            placeholderTextColor="#AEC3B0"
+            placeholderTextColor="#99AC9B"
             secureTextEntry
           />
           <Text style={inputHeader}>Phone Number</Text>
@@ -130,14 +130,14 @@ export default function RegisterModal(props) {
             onChangeText={(num) => setBusinessNumber(num)}
             value={businessNumber}
             placeholder="Phone Number"
-            placeholderTextColor="#AEC3B0"
+            placeholderTextColor="#99AC9B"
             keyboardType="phone-pad"
           />
           <Text style={inputHeader}>Description</Text>
           <TextInput
             style={descriptionInput}
             multiline
-            placeholderTextColor="#AEC3B0"
+            placeholderTextColor="#99AC9B"
             onChangeText={(text) => setBusinessDescription(text)}
             value={businessDescription}
             placeholder="Description"
