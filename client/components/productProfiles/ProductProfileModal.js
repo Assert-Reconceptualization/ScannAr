@@ -21,6 +21,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const [businessName, setBusinessName] = useState('Loading...');
   const [businessPhone, setBusinessPhone] = useState(null);
   const [productTags, setProductTags] = useState('');
+  const [businessEmail, setBusinessEmail] = useState('');
   const context = useContext(CustomerContext);
 
   const {
@@ -75,6 +76,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       .then((parsed) => {
         const businessInfo = parsed.data[0];
         setBusinessPhone(businessInfo.phone);
+        setBusinessEmail(businessInfo.email);
         setBusinessName(businessInfo.name);
       });
     // .catch(() => console.log('Something happened'));
@@ -209,11 +211,27 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
           <View style={nameAndPrice}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={productDescription}>By: </Text>
-              <Text style={businessNameStyle} onPress={() => { Linking.openURL(`tel:${businessPhone}`); }}>{businessName}</Text>
+              <Text style={businessNameStyle}>{businessName}</Text>
             </View>
             <Text style={productPrice}>{`$${product.price}.00`}</Text>
           </View>
-          <Text style={tagsStyle}>{productTags || 'No tags available'}</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity
+              style={{ marginLeft: 20 }}
+              onPress={() => Linking.openURL(`tel:${businessPhone}`)}
+            >
+              <Image source={phone} style={{ height: 26, width: 26 }} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ marginLeft: 20 }}
+              onPress={() => Linking.openURL(`mailto:${businessEmail}`)}
+            >
+              <Image source={email} style={{ height: 28, width: 28 }} />
+            </TouchableOpacity>
+          </View>
+          <Text style={tagsStyle}>
+            {productTags || 'No tags available'}
+          </Text>
           <View style={description}>
             <Text style={productDescription}>{product.description}</Text>
           </View>
@@ -274,7 +292,8 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   tagsStyle: {
-    marginLeft: 5,
+    marginLeft: 10,
+    paddingTop: 10,
     color: 'white',
   },
   saveButton: {
