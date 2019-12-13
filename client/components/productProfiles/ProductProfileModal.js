@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useContext, useState } from 'react';
 import {
-  View, Modal, Text, Image, StyleSheet, Alert, TouchableOpacity, Linking,
+  View, Modal, Text, Image, StyleSheet, Alert, TouchableOpacity, Linking, TouchableWithoutFeedback,
 } from 'react-native';
 
 // import components
@@ -43,6 +43,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     tagsStyle,
     saveButton,
     removeButton,
+    tagBackground,
+    tagTouchable,
   } = styles;
 
   // retrieve and update tags for products
@@ -207,6 +209,13 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
           source={{ uri: (product.imageUrl) }}
           style={image}
         />
+        <View style={tagBackground}>
+          <TouchableOpacity style={tagTouchable}>
+            <Text adjustsFontSizeToFit style={tagsStyle}>
+              {productTags || 'No tags available'}
+            </Text>
+          </TouchableOpacity>
+        </View>
         <View>
           <View style={nameAndPrice}>
             <View style={{ flexDirection: 'row' }}>
@@ -229,9 +238,6 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
               <Image source={email} style={{ height: 28, width: 28 }} />
             </TouchableOpacity>
           </View>
-          <Text style={tagsStyle}>
-            {productTags || 'No tags available'}
-          </Text>
           <View style={description}>
             <Text style={productDescription}>{product.description}</Text>
           </View>
@@ -260,10 +266,9 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   businessNameStyle: {
-    fontSize: 15,
+    fontSize: 20,
     color: '#B3C6CD',
     marginBottom: 6,
-    textDecorationLine: 'underline',
   },
   productPrice: {
     fontSize: 30,
@@ -292,9 +297,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   tagsStyle: {
-    marginLeft: 10,
-    paddingTop: 10,
     color: 'white',
+    textAlign: 'center',
+  },
+  tagBackground: {
+    marginLeft: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 5,
+    borderRadius: 5,
   },
   saveButton: {
     width: 100,
@@ -313,6 +324,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 5,
     marginLeft: '90%',
+  },
+  tagTouchable: {
+    backgroundColor: 'red',
+    padding: 5,
+    maxWidth: 50,
+    maxHeight: 35,
+    borderRadius: 5,
   },
 });
 
