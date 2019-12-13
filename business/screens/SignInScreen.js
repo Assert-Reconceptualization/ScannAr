@@ -101,8 +101,10 @@ export default function SignInScreen(props) {
     cancelButtonContainer,
     smallText,
     buttonSignIn,
-    registerButtonContainer,
+    signinButtonContainer,
     registerContainer,
+    loginInputs,
+    loginText,
   } = styles;
 
   const {
@@ -154,24 +156,28 @@ export default function SignInScreen(props) {
           </TouchableOpacity>
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={loginModal}>
-              <TextInput
-                style={textInput}
-                onChangeText={(text) => setEmail(text)}
-                value={email}
-                placeholder="Email"
-                placeholderTextColor="#99AC9B"
-              />
-              <TextInput
-                style={textInput}
-                onChangeText={(text) => setPassword(text)}
-                value={password}
-                placeholder="Password"
-                placeholderTextColor="#99AC9B"
-                secureTextEntry
-              />
+              <View style={loginInputs}>
+                <Text style={loginText}>Email</Text>
+                <TextInput
+                  style={textInput}
+                  onChangeText={(text) => setEmail(text)}
+                  value={email}
+                  placeholder="Email"
+                  placeholderTextColor="#99AC9B"
+                />
+                <Text style={loginText}>Password</Text>
+                <TextInput
+                  style={textInput}
+                  onChangeText={(text) => setPassword(text)}
+                  value={password}
+                  placeholder="Password"
+                  placeholderTextColor="#99AC9B"
+                  secureTextEntry
+                />
+              </View>
               <TouchableOpacity
                 onPress={() => { handleSignIn(email, password); }}
-                style={registerButtonContainer}
+                style={signinButtonContainer}
               >
                 <Text style={buttonSignIn}>Sign in  </Text>
                 <FontAwesome name="sign-in" size={30} color="#AEC3B0" />
@@ -213,12 +219,11 @@ const styles = StyleSheet.create({
   },
   loginModal: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#3B423C',
   },
   textInput: {
-    width: '70%',
     borderWidth: 2,
     borderColor: '#AEC3B0',
     borderRadius: 5,
@@ -241,13 +246,16 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: '#AEC3B0',
   },
-  registerButtonContainer: {
+  signinButtonContainer: {
     backgroundColor: '#1E241F',
     borderRadius: 5,
     borderWidth: 3,
     borderColor: '#AEC3B0',
     padding: 10,
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 150,
   },
   registerContainer: {
     backgroundColor: '#1E241F',
@@ -257,5 +265,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: 100,
     alignItems: 'center',
+  },
+  loginInputs: {
+    width: '70%',
+  },
+  loginText: {
+    width: '70%',
+    paddingLeft: 5,
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#EFF6E0',
   },
 });
