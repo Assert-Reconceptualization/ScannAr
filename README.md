@@ -43,7 +43,8 @@ ScannAR Customer:
 ### Prerequisites
 - Xcode for running iPhone simulator
 - Android Studio for running Andriod simulator
-- Viro Media application (for customer application only)
+- [Viro Media](https://viromedia.com/) application (for customer application only)
+- [Expo Client](https://expo.io/) application
 - Firebase project account
 - PostgreSQL
 - Node.js
