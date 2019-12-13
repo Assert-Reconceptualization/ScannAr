@@ -87,7 +87,7 @@ export default function SettingsScreen(props) {
         <Text style={subTitle}>Description:</Text>
         <Text style={text}>{description}</Text>
         <View style={emailContainer}>
-          <Text style={subTitle}>Email address</Text>
+          <Text style={subTitle}>Email address:</Text>
           <Text style={text}>{email}</Text>
         </View>
         <View style={phoneContainer}>
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     marginRight: 30,
   },
   text: {
-    fontSize: 15,
+    fontSize: 22,
     color: '#99AC9B',
     marginBottom: 20,
   },
