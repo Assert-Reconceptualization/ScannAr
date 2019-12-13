@@ -221,7 +221,7 @@ export default function EditProductModal(props) {
               style={cancelButtonContainer}
               onPress={handleCancel}
             >
-              <FontAwesome name="refresh" size={25} color="#EFF6E0" />
+              <FontAwesome name="remove" size={40} color="#EFF6E0" />
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -313,11 +313,7 @@ const styles = StyleSheet.create({
   },
   cancelButtonContainer: {
     justifyContent: 'center',
-    backgroundColor: '#1E241F',
     alignItems: 'center',
-    borderColor: '#AEC3B0',
-    borderRadius: 5,
-    borderWidth: 2,
     width: 60,
     marginLeft: 20,
   },
