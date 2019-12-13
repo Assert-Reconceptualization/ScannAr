@@ -1,6 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/prop-types */
 import React, { useState, useContext } from 'react';
+import { FontAwesome } from '@expo/vector-icons';
 import {
   Modal,
   Text,
@@ -72,13 +73,14 @@ export default function EditProfileModal(props) {
     container,
     textInput,
     descriptionInput,
-    buttonCancel,
+    cancelButtonContainer,
     buttonRegister,
     buttonContainer,
     titleText,
     inputHeader,
     inputContainer,
     modalContainer,
+    submitButtonContainer,
   } = styles;
 
   const {
@@ -128,14 +130,14 @@ export default function EditProfileModal(props) {
                 multiline
                 onChangeText={(text) => setNewDescription(text)}
               />
-              <SafeAreaView style={buttonContainer}>
-                <TouchableOpacity onPress={handleSubmit}>
+              <View style={buttonContainer}>
+                <TouchableOpacity onPress={handleSubmit} style={submitButtonContainer}>
                   <Text style={buttonRegister}>Save</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={handleCancel}>
-                  <Text style={buttonCancel}>cancel</Text>
+                <TouchableOpacity onPress={handleCancel} style={cancelButtonContainer}>
+                  <FontAwesome name="remove" size={35} color="#EFF6E0" />
                 </TouchableOpacity>
-              </SafeAreaView>
+              </View>
             </View>
           </ScrollView>
         </ImageBackground>
@@ -183,6 +185,15 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     color: '#AEC3B0',
   },
+  submitButtonContainer: {
+    padding: 5,
+    width: 200,
+    backgroundColor: '#AEC3B0',
+    alignItems: 'center',
+    borderColor: '#AEC3B0',
+    borderRadius: 5,
+    borderWidth: 2,
+  },
   descriptionInput: {
     width: '70%',
     borderWidth: 2,
@@ -196,21 +207,19 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     color: '#AEC3B0',
   },
-  buttonCancel: {
-    fontSize: 35,
-    flexDirection: 'row',
-    color: 'white',
-    backgroundColor: '#ff2200',
-  },
   buttonRegister: {
-    fontSize: 35,
-    flexDirection: 'row',
-    color: 'white',
-    backgroundColor: '#339900',
+    color: '#1E241F',
+    fontSize: 25,
   },
   buttonContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  cancelButtonContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 60,
+    marginLeft: 20,
   },
 });
