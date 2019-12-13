@@ -1,13 +1,16 @@
-import { AppLoading } from "expo";
-import { Asset } from "expo-asset";
-import * as Font from "expo-font";
-import React, { useState, createContext } from "react";
-import { Platform, StatusBar, StyleSheet, View } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
+/* eslint-disable global-require */
+import { AppLoading } from 'expo';
+import { Asset } from 'expo-asset';
+import * as Font from 'expo-font';
+import React, { useState, createContext } from 'react';
+import {
+  Platform, StatusBar, StyleSheet, View,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
-import AppNavigator from "./navigation/AppNavigator";
-//import state wrapper
-import BusinessContext from "./applicationState/BusinessContext";
+import AppNavigator from './navigation/AppNavigator';
+// import state wrapper
+import BusinessContext from './applicationState/BusinessContext';
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -28,47 +31,46 @@ export default function App(props) {
         onFinish={() => handleFinishLoading(setLoadingComplete)}
       />
     );
-  } else {
-    return (
-      <View style={styles.container}>
-        {Platform.OS === "ios" && <StatusBar barStyle="default" />}
-        <BusinessContext.Provider
-          value={{
-            currentBusiness,
-            currentUser,
-            currentInventory,
-            setCurrentBusiness,
-            setCurrentUser,
-            setCurrentInventory,
-            appNavigator,
-            setAppNavigator,
-            accessToken,
-            setAccessToken,
-            tags,
-            setTags
-          }}
-        >
-          <AppNavigator />
-        </BusinessContext.Provider>
-      </View>
-    );
   }
+  return (
+    <View style={styles.container}>
+      {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
+      <BusinessContext.Provider
+        value={{
+          currentBusiness,
+          currentUser,
+          currentInventory,
+          setCurrentBusiness,
+          setCurrentUser,
+          setCurrentInventory,
+          appNavigator,
+          setAppNavigator,
+          accessToken,
+          setAccessToken,
+          tags,
+          setTags,
+        }}
+      >
+        <AppNavigator />
+      </BusinessContext.Provider>
+    </View>
+  );
 }
 
 async function loadResourcesAsync() {
   await Promise.all([
     Asset.loadAsync([
-      require("./assets/images/robot-dev.png"),
-      require("./assets/images/robot-prod.png"),
-      require("./assets/images/business-bg.png")
+      require('./assets/images/robot-dev.png'),
+      require('./assets/images/robot-prod.png'),
+      require('./assets/images/business-bg.png'),
     ]),
     Font.loadAsync({
       // This is the font that we are using for our tab bar
       ...Ionicons.font,
       // We include SpaceMono because we use it in HomeScreen.js. Feel free to
       // remove this if you are not using it in your app
-      "space-mono": require("./assets/fonts/SpaceMono-Regular.ttf")
-    })
+      'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
+    }),
   ]);
 }
 
@@ -85,6 +87,6 @@ function handleFinishLoading(setLoadingComplete) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
-  }
+    backgroundColor: '#fff',
+  },
 });

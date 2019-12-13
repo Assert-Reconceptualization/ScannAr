@@ -12,7 +12,7 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import serverConfig from '../serverConfig';
 
 
@@ -88,7 +88,7 @@ export default function RegisterModal(props) {
           style={cancelButtonContainer}
           onPress={handleCancel}
         >
-          <Ionicons name="ios-rewind" size={30} color="#AEC3B0" />
+          <FontAwesome name="chevron-left" size={30} color="#AEC3B0" />
         </TouchableOpacity>
         <ScrollView
           contentContainerStyle={inputContainer}
@@ -148,7 +148,7 @@ export default function RegisterModal(props) {
               style={registerButtonContainer}
             >
               <Text style={buttonRegister}>Register  </Text>
-              <Ionicons name="ios-redo" size={30} color="#AEC3B0" />
+              <FontAwesome name="sign-in" size={30} color="#AEC3B0" />
             </TouchableOpacity>
           </View>
         </ScrollView>
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#AEC3B0',
     borderRadius: 5,
-    fontSize: 18,
+    fontSize: 25,
     marginBottom: 20,
     paddingLeft: 5,
     backgroundColor: '#1E241F',
@@ -221,10 +221,10 @@ const styles = StyleSheet.create({
   descriptionInput: {
     width: '70%',
     borderWidth: 2,
-    height: 200,
+    height: 100,
     borderColor: '#AEC3B0',
     borderRadius: 5,
-    fontSize: 18,
+    fontSize: 25,
     marginBottom: 20,
     paddingLeft: 5,
     backgroundColor: '#1E241F',
