@@ -4,7 +4,7 @@
 import React, { useState, useContext } from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons';
 import {
   Modal,
   View,
@@ -214,24 +214,15 @@ export default function EditProductModal(props) {
             onChangeText={(text) => setDescription(text)}
           />
           <View style={buttonContainer}>
-            <View style={submitButtonContainer}>
-              <TouchableOpacity
-                onPress={handleSubmit}
-              >
-                <Text style={buttonText}>Submit</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={cancelButtonContainer}>
-              <TouchableOpacity
-                onPress={handleCancel}
-              >
-                <Ionicons
-                  name="ios-backspace"
-                  size={30}
-                  color="#AEC3B0"
-                />
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity onPress={handleSubmit} style={submitButtonContainer}>
+              <Text style={buttonText}>Save Changes</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={cancelButtonContainer}
+              onPress={handleCancel}
+            >
+              <FontAwesome name="refresh" size={25} color="#EFF6E0" />
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </ImageBackground>
@@ -303,26 +294,31 @@ const styles = StyleSheet.create({
     color: '#AEC3B0',
   },
   buttonContainer: {
-    width: 200,
-    marginTop: 20,
-    borderWidth: 2,
-    borderColor: '#AEC3B0',
-    borderRadius: 5,
+    marginTop: 10,
     flexDirection: 'row',
+    justifyContent: 'space-evenly',
   },
   buttonText: {
-    color: '#EFF6E0',
+    color: '#1E241F',
     fontSize: 25,
   },
   submitButtonContainer: {
     padding: 5,
-    flex: 1.3,
-    backgroundColor: '#1E241F',
+    width: 200,
+    backgroundColor: '#AEC3B0',
     alignItems: 'center',
+    borderColor: '#AEC3B0',
+    borderRadius: 5,
+    borderWidth: 2,
   },
   cancelButtonContainer: {
-    padding: 5,
-    flex: 0.7,
+    justifyContent: 'center',
+    backgroundColor: '#1E241F',
     alignItems: 'center',
+    borderColor: '#AEC3B0',
+    borderRadius: 5,
+    borderWidth: 2,
+    width: 60,
+    marginLeft: 20,
   },
 });
