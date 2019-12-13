@@ -103,6 +103,7 @@ export default function EditProfileModal(props) {
               <Text style={inputHeader}>Business Name</Text>
               <TextInput
                 placeholder="Name"
+                placeholderTextColor="#99AC9B"
                 value={newName}
                 style={textInput}
                 onChangeText={(text) => setNewName(text)}
@@ -111,6 +112,7 @@ export default function EditProfileModal(props) {
               <Text style={inputHeader}>Email</Text>
               <TextInput
                 placeholder="Email"
+                placeholderTextColor="#99AC9B"
                 value={newEmail}
                 style={textInput}
                 onChangeText={(text) => setNewEmail(text)}
@@ -118,6 +120,7 @@ export default function EditProfileModal(props) {
               <Text style={inputHeader}>Phone Number</Text>
               <TextInput
                 placeholder="Phone"
+                placeholderTextColor="#99AC9B"
                 value={newPhone}
                 style={textInput}
                 onChangeText={(text) => setNewPhone(text)}
@@ -125,6 +128,7 @@ export default function EditProfileModal(props) {
               <Text style={inputHeader}>Description</Text>
               <TextInput
                 placeholder="Description"
+                placeholderTextColor="#99AC9B"
                 value={newDescription}
                 style={descriptionInput}
                 multiline
@@ -135,7 +139,7 @@ export default function EditProfileModal(props) {
                   <Text style={buttonRegister}>Save</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={handleCancel} style={cancelButtonContainer}>
-                  <FontAwesome name="remove" size={35} color="#EFF6E0" />
+                  <FontAwesome name="remove" size={40} color="#EFF6E0" />
                 </TouchableOpacity>
               </View>
             </View>
