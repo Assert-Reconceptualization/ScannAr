@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import React, { useContext, useState } from 'react';
 import {
-  View, Modal, Text, Image, StyleSheet, Alert, TouchableOpacity, Linking,
+  View, Modal, Text, Image, StyleSheet, Alert, TouchableOpacity, Linking, TouchableWithoutFeedback,
 } from 'react-native';
 
 // import components
@@ -12,6 +12,8 @@ import CustomerContext from '../../applicationState/customerContext';
 // import icons
 const trash = require('../../assets/icons/trash.png');
 const add = require('../../assets/icons/cart.png');
+const phone = require('../../assets/icons/phone.png');
+const email = require('../../assets/icons/email.png');
 
 const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const [isSaved, setSaved] = useState(false);
@@ -19,6 +21,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
   const [businessName, setBusinessName] = useState('Loading...');
   const [businessPhone, setBusinessPhone] = useState(null);
   const [productTags, setProductTags] = useState('');
+  const [businessEmail, setBusinessEmail] = useState('');
   const context = useContext(CustomerContext);
 
   const {
@@ -40,6 +43,8 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
     tagsStyle,
     saveButton,
     removeButton,
+    tagBackground,
+    tagTouchable,
   } = styles;
 
   // retrieve and update tags for products
@@ -73,6 +78,7 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
       .then((parsed) => {
         const businessInfo = parsed.data[0];
         setBusinessPhone(businessInfo.phone);
+        setBusinessEmail(businessInfo.email);
         setBusinessName(businessInfo.name);
       });
     // .catch(() => console.log('Something happened'));
@@ -203,15 +209,35 @@ const ProductProfileModal = ({ visible, setVisibility, product }) => {
           source={{ uri: (product.imageUrl) }}
           style={image}
         />
+        <View style={tagBackground}>
+          <TouchableOpacity style={tagTouchable}>
+            <Text adjustsFontSizeToFit style={tagsStyle}>
+              {productTags || 'No tags available'}
+            </Text>
+          </TouchableOpacity>
+        </View>
         <View>
           <View style={nameAndPrice}>
             <View style={{ flexDirection: 'row' }}>
               <Text style={productDescription}>By: </Text>
-              <Text style={businessNameStyle} onPress={() => { Linking.openURL(`tel:${businessPhone}`); }}>{businessName}</Text>
+              <Text style={businessNameStyle}>{businessName}</Text>
             </View>
             <Text style={productPrice}>{`$${product.price}.00`}</Text>
           </View>
-          <Text style={tagsStyle}>{productTags || 'No tags available'}</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <TouchableOpacity
+              style={{ marginLeft: 20 }}
+              onPress={() => Linking.openURL(`tel:${businessPhone}`)}
+            >
+              <Image source={phone} style={{ height: 26, width: 26 }} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ marginLeft: 20 }}
+              onPress={() => Linking.openURL(`mailto:${businessEmail}`)}
+            >
+              <Image source={email} style={{ height: 28, width: 28 }} />
+            </TouchableOpacity>
+          </View>
           <View style={description}>
             <Text style={productDescription}>{product.description}</Text>
           </View>
@@ -240,10 +266,9 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   businessNameStyle: {
-    fontSize: 15,
+    fontSize: 20,
     color: '#B3C6CD',
     marginBottom: 6,
-    textDecorationLine: 'underline',
   },
   productPrice: {
     fontSize: 30,
@@ -272,8 +297,15 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   tagsStyle: {
-    marginLeft: 5,
     color: 'white',
+    textAlign: 'center',
+  },
+  tagBackground: {
+    marginLeft: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    padding: 5,
+    borderRadius: 5,
   },
   saveButton: {
     width: 100,
@@ -292,6 +324,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 5,
     marginLeft: '90%',
+  },
+  tagTouchable: {
+    backgroundColor: 'red',
+    padding: 5,
+    maxWidth: 50,
+    maxHeight: 35,
+    borderRadius: 5,
   },
 });
 

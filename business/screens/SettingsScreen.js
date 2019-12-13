@@ -1,27 +1,55 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-use-before-define */
 import React, { useContext, useState } from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   StyleSheet,
+  Image,
+  ActionSheetIOS,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import BusinessContext from '../applicationState/BusinessContext';
-import { Ionicons } from "@expo/vector-icons";
 import EditProfileModal from '../components/EditProfileModal';
+import HomeScreenHeader from '../components/HomeScreenHeader';
 
-export default function SettingsScreen() {
+const defaultImageUrl = require('../assets/images/business-default.jpg');
+
+export default function SettingsScreen(props) {
   const {
     name,
     email,
     phone,
-    description
+    description,
   } = useContext(BusinessContext).currentBusiness;
+
+  const { setAccessToken } = useContext(BusinessContext);
 
   const [editing, setEditing] = useState(false);
 
+  const showActionSheet = () => {
+    ActionSheetIOS.showActionSheetWithOptions(
+      {
+        options: ['Edit Profile', 'Logout', 'Cancel'],
+        tintColor: '#1E241F',
+        cancelButtonIndex: 2,
+      },
+      (buttonIndex) => {
+        if (buttonIndex === 1) { // upon logout
+          setAccessToken(null);
+          props.navigation.navigate({ routeName: 'Auth' });
+        }
+        if (buttonIndex === 0) {
+          showEditModal();
+        }
+      },
+    );
+  };
+
   const showEditModal = () => {
     setEditing(true);
-  }
+  };
 
   const {
     container,
@@ -32,6 +60,8 @@ export default function SettingsScreen() {
     text,
     emailContainer,
     phoneContainer,
+    imageContainer,
+    defaultImage,
   } = styles;
 
   return (
@@ -42,13 +72,16 @@ export default function SettingsScreen() {
       />
       <View style={titleContainer}>
         <Text style={titleText}>{name}</Text>
-        <TouchableOpacity onPress={showEditModal}>
+        <TouchableOpacity onPress={showActionSheet}>
           <Ionicons
             name="ios-settings"
             size={40}
             style={{ color: '#EFF6E0' }}
           />
         </TouchableOpacity>
+      </View>
+      <View style={imageContainer}>
+        <Image style={defaultImage} source={defaultImageUrl} />
       </View>
       <View style={contentContainer}>
         <Text style={subTitle}>Description:</Text>
@@ -67,52 +100,61 @@ export default function SettingsScreen() {
 }
 
 SettingsScreen.navigationOptions = {
-  title: 'Business Profile',
+  headerTitle: () => <HomeScreenHeader />,
   headerStyle: {
-    backgroundColor: "#505950"
+    backgroundColor: '#505950',
   },
-  headerTintColor: "white"
+  headerTintColor: 'white',
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: "5%",
-    backgroundColor: "#39403A"
+    padding: '5%',
+    backgroundColor: '#39403A',
   },
   titleContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   titleText: {
     fontSize: 30,
     fontWeight: 'bold',
-    color: '#EFF6E0'
+    color: '#EFF6E0',
+  },
+  defaultImage: {
+    height: 300,
+    width: 300,
+    borderRadius: 5,
   },
   contentContainer: {
-    paddingTop: "5%"
+    paddingTop: '5%',
   },
   subTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    fontStyle: "italic",
+    fontStyle: 'italic',
     color: '#EFF6E0',
-    marginRight: 30
+    marginRight: 30,
   },
   text: {
     fontSize: 15,
     color: '#99AC9B',
-    marginBottom: 20
+    marginBottom: 20,
   },
   emailContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     height: 50,
-    alignItems: 'baseline'
+    alignItems: 'baseline',
   },
   phoneContainer: {
-    flexDirection: "row",
+    flexDirection: 'row',
     height: 50,
-    alignItems: 'baseline'
-  }
+    alignItems: 'baseline',
+  },
+  imageContainer: {
+    alignItems: 'center',
+    marginTop: 10,
+  },
 });

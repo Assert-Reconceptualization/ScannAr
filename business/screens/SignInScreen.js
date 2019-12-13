@@ -159,14 +159,14 @@ export default function SignInScreen(props) {
                 onChangeText={(text) => setEmail(text)}
                 value={email}
                 placeholder="Email"
-                placeholderTextColor="#EFF6E0"
+                placeholderTextColor="#99AC9B"
               />
               <TextInput
                 style={textInput}
                 onChangeText={(text) => setPassword(text)}
                 value={password}
                 placeholder="Password"
-                placeholderTextColor="#EFF6E0"
+                placeholderTextColor="#99AC9B"
                 secureTextEntry
               />
               <TouchableOpacity

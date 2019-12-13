@@ -191,7 +191,7 @@ export default function EditProductModal(props) {
           {imageText}
           <TextInput
             placeholder="Name"
-            placeholderTextColor="#AEC3B0"
+            placeholderTextColor="#99AC9B"
             value={name}
             style={textInput}
             onChangeText={(text) => setName(text)}
@@ -200,14 +200,14 @@ export default function EditProductModal(props) {
           <TextInput
             style={textInput}
             placeholder="Price"
-            placeholderTextColor="#AEC3B0"
+            placeholderTextColor="#99AC9B"
             keyboardType="decimal-pad"
             value={price.toString()}
             onChangeText={(text) => setPrice(text)}
           />
           <TextInput
             placeholder="Description"
-            placeholderTextColor="#AEC3B0"
+            placeholderTextColor="#99AC9B"
             value={description}
             style={descriptionInput}
             multiline
