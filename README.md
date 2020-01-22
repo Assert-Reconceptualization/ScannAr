@@ -11,20 +11,20 @@
 
 ## Team
 
-- __Product Owner__: Abel
-  - __Scrum Master__: Jade
-  - __Development Team Members__: Avery
+- __Product Owner__: Jade
+- __Scrum Master__: Abel
+- __Development Team Members__: Avery
 
 ## Usage
 
 ScannAR Business:
-- An iOS mobile application to be downloaded from the app store.
+- A mobile application for iOS and Android.
 - Businesses create an account.
 - Products can be added to inventory and viewed by customers in AR.
 - Product updates are reflected on customer application in real time.
 
 ScannAR Customer:
-- An iOS mobile application to be downloaded from the app store. 
+- A mobile application for iOS and Android.
 - Customers create an account.
 - Provides ability to view business product information through augmented reality by pointing camera at products.
 - Products shown within AR can be pressed for more information, and can be saved for later viewing.
@@ -33,41 +33,55 @@ ScannAR Customer:
 
 ## Requirements
 
-- iPhone 6s or newer
-- Xcode for running iPhone simulator
-- Viro Media application
-- Firebase project account
-- PostgreSQL
-- Node.js
+ScannAR Business:
+- Any iOS or android device
 
+ScannAR Customer:
+- iPhone 6s or newer for viewing products in Augmented Reality
 
 ## Development
 
-Business:
-- `cd business`
-- `npm install`
-- Deploy cloud function on google. Download project configuration json file from firebase and include in `functions` directory
-    - run `firebase deploy`
-- To start application on simulator or through expo run `npm start`
-
-Client: 
-- `cd client`
-- `npm install`
-- Download [Viro Media Application](https://itunes.apple.com/us/app/viro-media/id1163100576?mt=8) via iOS app store
-- `npm start`
-- Use ngrok link in Viro Media testbed to open application
-
-Server:
-- `cd server`
-- `npm install`
-- `npm run dev`
-
+### Prerequisites
+- Xcode for running iPhone simulator
+- Android Studio for running Andriod simulator
+- [Viro Media](https://viromedia.com/) application (for customer application only)
+- [Expo Client](https://expo.io/) application
+- Firebase project account
+- PostgreSQL
+- Node.js
 
 ### Roadmap
 
 Fork & Clone Repo from:
 
 <https://github.com/Assert-Reconceptualization/ScannAr>
+
+### Getting Started
+
+#### ScannAR API
+- `cd server`
+- `cd feathers`
+- `npm install`
+- `npm start`
+
+#### Configuring database
+- Enter Postgresql repl `psql`
+- Create scannar database `CREATE DATABASE scannar`
+- Update Sequelize connection url, user, and password in `server/feathers/src/sequelize.js`
+
+#### ScannAR for Business
+- `cd business`
+- `npm install`
+- Deploy cloud function on google. Download project configuration json file from firebase and include in `functions` directory
+    - run `firebase deploy` from `functions` directory
+- To start application on simulator or through expo run `npm start` from root directory
+
+#### ScannAR for Customers 
+- `cd client`
+- `npm install`
+- Download [Viro Media Application](https://itunes.apple.com/us/app/viro-media/id1163100576?mt=8) via iOS app store
+- `npm start`
+- Use ngrok link in Viro Media testbed to open application
 
 ## Contributing
 
