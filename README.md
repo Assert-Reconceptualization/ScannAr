@@ -7,6 +7,7 @@
 3. [Requirements](#requirements)
 4. [Development](#development)
 5. [Contributing](#contributing)
+6. [Screenshots](#screenshots)
 
 ## Team
 
@@ -89,3 +90,21 @@ Fork & Clone Repo from:
 3. Code and commit your changes.
 4. Push to the branch: `git push origin USERNAME/new-feature`
 5. Create a pull request for your branch
+
+## Screenshots
+
+<h3>Business</h3>
+    <div>
+        <image src="./screenshots/business-login.png" alt="business-login" width="150">
+        <image src="./screenshots/business-inventory-no-products.png" alt="inventory-empty" width="150">
+        <image src="./screenshots/business-inventory.png" alt="inventory" width="150">
+        <image src="./screenshots/business-create-product.png" alt="login" width="150">
+    <div>
+
+<h3>Customer</h3>
+    <div>
+        <image src="./screenshots/customer-login.png" alt="customer-login" width="150">
+        <image src="./screenshots/customer-saved-items.png" alt="saved-items" width="150">
+        <image src="./screenshots/customer-ar.png" alt="AR" width="150">
+        <image src="./screenshots/customer-product-info.png" alt="login" width="150">
+    </div>
